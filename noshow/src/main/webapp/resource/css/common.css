@@ -1,0 +1,17 @@
+html,body{
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+@font-face{
+	font-family: 'HoonWhitecatR';
+	src :url(/noshow/resource/font/HoonWhitecatR.ttf);
+}
+*{
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	margin: 0 auto;		
+	padding : 0;
+	color: #000;
+}	

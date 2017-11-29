@@ -47,19 +47,19 @@
 
 	<!-- INSERT -->
 	<!-- member 추가 -->
-	<insert id="insertMember" parameterType="com.noshow.vo.Member">
+	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER(<include refid="member-column-sql"/>) 
 		VALUES (#{memberId},#{memberPassword},#{memberName},#{memberGender},#{memberTel},#{memberBirthday},#{memberEmail})
 	</insert>
 	
 	<!-- 권한 추가 -->
-	<insert id="insertAuthority" parameterType="com.noshow.vo.Authority">
+	<insert id="insertAuthority" parameterType="Authority">
 		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
 	</insert>
 	
 	
 	<!-- UPDATE -->
-	<update id="updateMemberById" parameterType="com.noshow.vo.Member">
+	<update id="updateMemberById" parameterType="Member">
 		UPDATE member
 		<set>
 			<if test="memberPassword != null"> member_Password = #{memberPassword}, </if>

@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.menuMapper">
 
-	<resultMap type="com.noshow.vo.Classification" id="Classification-resultmap">
+	<resultMap type="Classification" id="Classification-resultmap">
 		<id column="classification_num" property="classificationNum" />
 		<result column="business_id" property="businessId" />
 		<result column="classification_name" property="classificationName" />
 	</resultMap>
 
-	<resultMap type="com.noshow.vo.Menu" id="menu-resultmap">
+	<resultMap type="Menu" id="menu-resultmap">
 		<id column="menu_num" property="menuNum" />
 		<result column="menu_name" property="menuName" />
 		<result column="menu_comment" property="menuComment" />
@@ -19,14 +19,14 @@
 	</resultMap>
 
 	<!-- insertClassification -->
-	<insert id="insertClassification" parameterType="com.noshow.vo.Classification">
+	<insert id="insertClassification" parameterType="Classification">
 		insert into classification(classification_num, business_id,
 		classification_name)
 		values(#{classificationNum}, #{businessId}, #{classificationName})
 	</insert>
 
 	<!-- updateClassificationNum -->
-	<update id="updateClassification" parameterType="com.noshow.vo.Classification">
+	<update id="updateClassification" parameterType="Classification">
 		update classification
 		set business_id = #{businessId},
 		classification_name =
@@ -48,7 +48,7 @@
 	</select>
 
 	<!-- 메뉴 등록 -->
-	<insert id="insertMenu" parameterType="com.noshow.vo.Menu">
+	<insert id="insertMenu" parameterType="Menu">
 		insert into menu(menu_num, menu_name, menu_comment, menu_price,
 		menu_picture, classification_num, business_id)
 		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture},

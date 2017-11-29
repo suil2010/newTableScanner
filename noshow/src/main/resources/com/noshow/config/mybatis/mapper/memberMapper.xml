@@ -19,7 +19,7 @@
 	</sql>
 	
 	<!-- resultMap 등록 -->
-	<resultMap type="com.noshow.vo.Member" id="member-resultmap">
+	<resultMap type="Member" id="member-resultmap">
 		<id column="member_id" property="memberId"/>
 		<result column="member_password" property="memberPassword"/>
 		<result column="member_name" property="memberName"/>

@@ -12,6 +12,7 @@
 	<!-- mapper 등록 -->
 	<mappers>
 		<mapper resource="com/noshow/config/mybatis/mapper/memberMapper.xml"/>
+		<mapper resource="com/noshow/config/mybatis/mapper/ownerMemberMapper.xml"/>
 	</mappers>
 	
 </configuration>

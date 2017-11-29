@@ -13,8 +13,7 @@
 	<mvc:view-controller path="/index.do" view-name="index.tiles" />
 	<mvc:view-controller path="/login_form.do" view-name="login_form.tiles"/>
 	<mvc:view-controller path="/join_member_form.do" view-name="join_member_form.tiles"/>
-
-
+	<mvc:view-controller path="/member/mypage.do" view-name="/member/mypage.tiles"/>
 
 
 	<!-- Tiles 설정 -->

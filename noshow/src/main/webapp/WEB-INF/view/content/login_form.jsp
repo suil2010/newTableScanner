@@ -10,12 +10,12 @@
 <style type="text/css">
 		.login_form{
 			width: 400px;
-			height: 30px;
+			height: 40px;
 			margin-top: 5px;
 		}
 		.login_form_submit{
 			width: 400px;
-			height: 40px;
+			height: 45px;
 			margin-left: 20px;
 			margin-right: 20px;
 			background: #39BAE8;
@@ -37,19 +37,7 @@
 		.join_div > span {
 			font-size: 17px;
 		}
-		.join_button {
-			float: right;
-			height: 50px;
-			width: 100px;
-			background: #39BAE8;
-			color: #fff;
-			margin-top: 25px;
-			font-weight: bold;
-			font-size: 16px;
-			outline: 0;
-			border: 0;
-			cursor: pointer;
-		}
+
 		.Search{
 			width: 400px;
 		}
@@ -63,7 +51,7 @@
 	</style>
 </head>
 <body>
-
+<h1>로그인</h1>
 <form action="${initParam.rootPath}/login.do" method="post" class="login">
 	<sec:csrfInput/>
 	<input type="text" name="memberId" autofocus="autofocus" placeholder="ID를 입력해주세요." class="login_form">

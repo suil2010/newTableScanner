@@ -6,7 +6,7 @@
 	</settings>
 	
 	<typeAliases>
-		<package name="noshow.vo"/>
+		<package name="com.noshow.vo"/>
 	</typeAliases>
 
 	<!-- mapper 등록 -->

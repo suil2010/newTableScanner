@@ -27,7 +27,7 @@ public class MemberServiceImpl implements MemberService{
 		dao.insertAuthority(new Authority(member.getMemberId(), role));
 /*		if(role.equals("ROLE_ADMIN")) {
 			dao.insertAuthority(new Authority(member.getMemberId(), "ROLE_MEMBER"));
-		}*/
+		} 관리자의 경우 member권한도 부여*/
 	}
 
 	@Override

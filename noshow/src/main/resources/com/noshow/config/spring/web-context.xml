@@ -13,6 +13,8 @@
 	<mvc:view-controller path="/index.do" view-name="index.tiles" />
 	<mvc:view-controller path="/login_form.do" view-name="login_form.tiles"/>
 	<mvc:view-controller path="/join_member_form.do" view-name="join_member_form.tiles"/>
+	<mvc:view-controller path="/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
+	<mvc:view-controller path="/ownerTable.do" view-name="owner/ownerTable.tiles"/>
 
 
 

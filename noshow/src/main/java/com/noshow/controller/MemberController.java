@@ -19,8 +19,8 @@ public class MemberController {
 	
 	@RequestMapping("/join_member")
 	public ModelAndView inserMember(@ModelAttribute Member member) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		member.setMemberPassword(encoder.encode(member.getMemberPassword()));
+/*		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		member.setMemberPassword(encoder.encode(member.getMemberPassword()));*/
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("redirect:/join_success.do", "memberId", member.getMemberId());
 	}

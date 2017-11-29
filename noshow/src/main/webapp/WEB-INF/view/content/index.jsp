@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body> 
 <h1> 메인 페이지 입니다.</h1>
 </body>
 </html>

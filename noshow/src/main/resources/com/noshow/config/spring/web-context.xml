@@ -15,6 +15,7 @@
 	<mvc:view-controller path="/join_member_form.do" view-name="join_member_form.tiles"/>
 	<mvc:view-controller path="/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
 	<mvc:view-controller path="/ownerTable.do" view-name="owner/ownerTable.tiles"/>
+	<mvc:view-controller path="/member/mypage.do" view-name="member/mypage.tiles"/>
 
 
 

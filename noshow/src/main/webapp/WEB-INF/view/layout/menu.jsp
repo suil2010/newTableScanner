@@ -2,13 +2,22 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <ul class="nav nav-stacked">
+
 <%--인증 안된(로그인 안한) 사용자 메뉴 : 인증되면 안보여야 하는 메뉴 --%>
 <sec:authorize access="!isAuthenticated()">
 	<li><a href="${initParam.rootPath }/login_form.do">로그인</a></li>
 	<li><a href="${initParam.rootPath }/join_member_form.do">회원가입</a></li>
 </sec:authorize>
 
+<%--인증된(로그인한) 사용자 메뉴 : 인증 안된상태에서 안보여야 하는 메뉴 --%>
+<sec:authorize access="isAuthenticated()">
+	<li><a id="logout" style="cursor: pointer;">로그아웃</a></li>
+</sec:authorize>
 
+<%-- 사용자 메뉴 /member 으로 시작--%>
+<sec:authorize access="hasRole('ROLE_MEMBER')">
+	<li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보 조회</a></li>
+</sec:authorize>
 </ul>
 
 

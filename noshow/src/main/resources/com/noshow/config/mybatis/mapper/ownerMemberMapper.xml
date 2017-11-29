@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.ownerMemberMapper">
+
+   <sql id="restaurant-column-sql">
+   		 rt_business_id,
+   		 rt_num,
+         rt_name,
+         rt_tel,
+         rt_field,
+         rt_holiday,
+         to_date(rt_open, 'YY/MM/dd hh24:mi:ss'),
+         to_date(rt_close, 'YY/MM/dd hh24:mi:ss'),
+         rt_term,
+         rt_img,
+         rt_save_img,
+         rt_address,
+         rt_capacity,
+         rt_deposit
+   </sql>
+	
+   <!-- 식당조회 -->
+   <sql id="select-restaurant">
+   SELECT  <include refid="restaurant-column-sql"/>
+   FROM restaurant
+   </sql>
+   
+   <!-- 사업자번호로 식당조회 --> 
+   <select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
+   	SELECT *
+	FROM restaurant
+	WHERE business_id = #{value}
+   </select>
+   
+   <!--  resultMap : restaurant 테이블 select -->
+   <resultMap type="restaurant" id="restaurant-resultmap">
+      <id column="business_id" property="businessId"/>
+      <result column="rt_num" property="rtNum"/>
+      <result column="rt_name" property="rtName"/>
+      <result column="rt_tel" property="rtTel"/>
+      <result column="rt_field" property="rtField"/>
+      <result column="rt_holiday" property="rtHoliday"/>
+      <result column="rt_open" property="rtOpen"/>
+      <result column="rt_close" property="rtClose"/>
+      <result column="rt_term" property="rtTerm"/>
+      <result column="rt_img" property="rtImg"/>
+      <result column="rt_save_img" property="rtSaveImg"/>
+      <result column="rt_address" property="rtAddress"/>
+      <result column="rt_capacity" property="rtCapacity"/>
+      <result column="rt_deposit" property="rtDeposit"/>
+   </resultMap>
+
+    <sql id="select-restaurant-join-member-sql">
+  		SELECT <include refid="restaurant-column-sql"/>
+         	   m.member_id,
+    		   m.member_password,
+    		   m.member_name,
+    		   m.member_gender,
+    		   m.member_tel,
+    		   m.member_birthday,
+    		   m.member_email
+    		   
+    	FROM  	restaurant rt, member m
+    	WHERE	rt.business_id = m.member_id
+    </sql>
+    
+   <!-- resultMap : Member테이블 & Restaurant테이블 join select -->
+   <resultMap type="restaurant" id="member-join-restaurant-resultmap" extends="restaurant-resultmap">
+   		<association property="member" javaType="member">
+   			<id column="member_id" property="memberId"/>
+			<result column="member_password" property="memberPassword"/>
+			<result column="member_name" property="memberName"/>
+			<result column="member_gender" property="memberGender"/>
+			<result column="member_tel" property="memberTel"/>
+			<result column="member_birthday" property="memberBirthday"/>
+			<result column="member_email" property="memberEmail"/>
+   		</association>
+   </resultMap>
+    
+    
+    <sql id="select-restaurant-join-table-sql">
+    	SELECT <include refid="restaurant-column-sql"/>
+    		   t.table_seq,
+    		   t.table_num,
+    		   t.table_seats,
+    		   t.x_location,
+    		   t.y_location
+    		   
+    	FROM  	restaurant rt, table t
+    	WHERE	rt.business_id = t.business_id
+    </sql>
+
+    
+    
+   <!-- sql문 -->
+   
+   <!-- INSERT -->
+   <insert id="insertRestaurant" parameterType="Restaurant">
+      INSERT INTO restaurant(business_id, rt_num, rt_name, rt_tel, rt_field, rt_holiday, rt_open, rt_close, rt_term, rt_img, rt_save_img, rt_address, rt_capacity, rt_deposit)
+      VALUES (#{businessId}, #{rtNum} , #{rtName} , #{rtTel} , #{rtField}, #{rtHoliday} , #{rtOpen}, #{rtClose}, #{rtTerm}, #{rtImg}, #{rtSaveImg}, #{rtAddress}, #{rtCapacity}, #{rtDeposit})
+   </insert>
+   	
+   	<!-- UPDATE -->
+	<update id="updateRestaurant" parameterType="Restaurant">
+      UPDATE   restaurant
+      SET   rt_num=#{rtNum},
+            rt_name=#{rtName},
+            rt_tel=#{rtTel},
+            rt_field=#{rtField},
+            rt_holiday=#{rtHoliday},
+            rt_open=#{rtOpen},
+            rt_close=#{rtClose},
+            rt_term=#{rtTerm},
+            rt_img=#{rtImg},
+            rt_save_img=#{rtSaveImg},
+            rt_address=#{rtAddress},
+            rt_capacity=#{rtCapacity},
+            rt_deposit=#{rtDeposit}
+     WHERE   business_id = #{businessId}
+   </update>
+   
+   <!-- DELETE -->
+   <delete id="deleteRestaurant" parameterType="string">
+      DELETE FROM restaurant WHERE business_id=#{businessId}
+   </delete>
+</mapper>

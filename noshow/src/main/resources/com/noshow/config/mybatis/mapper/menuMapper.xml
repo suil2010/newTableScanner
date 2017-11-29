@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.menuMapper">
+
+	<resultMap type="Classification" id="Classification-resultmap">
+		<id column="classification_num" property="classificationNum" />
+		<result column="business_id" property="businessId" />
+		<result column="classification_name" property="classificationName" />
+	</resultMap>
+
+	<resultMap type="Menu" id="menu-resultmap">
+		<id column="menu_num" property="menuNum" />
+		<result column="menu_name" property="menuName" />
+		<result column="menu_comment" property="menuComment" />
+		<result column="menu_price" property="menuPrice" />
+		<result column="menu_picture" property="menuPicture" />
+		<result column="classification_num" property="classificationNum" />
+		<result column="business_id" property="businessId" />
+	</resultMap>
+
+	<!-- insertClassification -->
+	<insert id="insertClassification" parameterType="Classification">
+		insert into classification(classification_num, business_id,
+		classification_name)
+		values(#{classificationNum}, #{businessId}, #{classificationName})
+	</insert>
+
+	<!-- updateClassificationNum -->
+	<update id="updateClassification" parameterType="Classification">
+		update classification
+		set business_id = #{businessId},
+		classification_name =
+		#{classificationName}
+		where classification_num = #{classificationNum}
+	</update>
+
+	<!-- 대분류 메뉴 삭제! -->
+	<delete id="deleteClassification" parameterType="int">
+		delete from Classification
+		where Classification_num = #{classificationName}
+	</delete>
+
+	<!-- BybusinessId로 대분류 메뉴들 조회 -->
+	<select id="selectClassificationBybusinessId" resultMap="Classification-resultmap">
+		select *
+		from classification
+		where business_id = #{value}
+	</select>
+
+	<!-- 메뉴 등록 -->
+	<insert id="insertMenu" parameterType="Menu">
+		insert into menu(menu_num, menu_name, menu_comment, menu_price,
+		menu_picture, classification_num, business_id)
+		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture},
+		#{classificationNum}, #{businessId})
+	</insert>
+
+	<!-- 메뉴 수정 -->
+	<update id="updateMenu" parameterType="com.noshow.vo.Menu">
+		update menu
+		set menu_name = #{menuName},
+		menu_comment = #{menuComment},
+		menu_price = #{menuPrice},
+		menu_picture = #{menuPicture},
+		classification_num = #{classificationNum},
+		business_id = #{businessId}
+		where menu_num = #{menuNum}
+	</update>
+
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteMenu" parameterType="int">
+		delete from Menu
+		where menu_num = #{menuNum}
+	</delete>
+
+	<!-- BybusinessId로 메뉴들 조회 -->
+	<select id="selectMenuBybusinessId" resultMap="menu-resultmap">
+		select *
+		from Menu
+		where business_id = #{businessId}
+	</select>
+
+</mapper>

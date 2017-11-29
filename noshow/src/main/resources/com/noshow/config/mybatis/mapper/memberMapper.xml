@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.memberMapper">
+
+	<sql id ="member-column-sql">
+		MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_GENDER, MEMBER_TEL, MEMBER_BIRTHDAY, MEMBER_EMAIL
+	</sql>
+
+	<!--  사용자 조회 기본 sql -->
+	<sql id="member-select-sql">
+		select <include refid="member-column-sql"/>
+		from member
+	</sql>
+	
+	<!-- 권한 테이블 조회 sql -->
+	<sql id = "authority-select-sql">
+		select member_id, authority
+		from authority
+	</sql>
+	
+	<!-- resultMap 등록 -->
+	<resultMap type="com.noshow.vo.Member" id="member-resultmap">
+		<id column="member_id" property="memberId"/>
+		<result column="member_password" property="memberPassword"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_gender" property="memberGender"/>
+		<result column="member_tel" property="memberTel"/>
+		<result column="member_birthday" property="memberBirthday"/>
+		<result column="member_email" property="memberEmail"/>
+	</resultMap>
+	<resultMap type="com.noshow.vo.Authority" id="authority-resultmap">
+		<id column="member_id" property="memberId"/>
+		<result column="authority" property="authority"/>
+	</resultMap>
+
+	<!-- 사용자 id로 회원 정보 조회 -->
+	<select id = "selectMemberByMemberId" parameterType="string" resultMap="member-resultmap">
+		<include refid="member-select-sql"/>
+		where member_id = #{value}
+	</select>
+
+	<!-- 사용자 id로 사용자의 권한 조회 -->
+	<select id="selectAuthorityByMemberId" parameterType="string" resultMap="authority-resultmap">
+		<include refid="authority-select-sql"/>	
+		where member_id = #{value}
+	</select>
+
+	<!-- INSERT -->
+	<!-- member 추가 -->
+	<insert id="insertMember" parameterType="com.noshow.vo.Member">
+		INSERT INTO MEMBER(<include refid="member-column-sql"/>) 
+		VALUES (#{memberId},#{memberPassword},#{memberName},#{memberGender},#{memberTel},#{memberBirthday},#{memberEmail})
+	</insert>
+	
+	<!-- 권한 추가 -->
+	<insert id="insertAuthority" parameterType="com.noshow.vo.Authority">
+		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
+	</insert>
+	
+	
+	<!-- UPDATE -->
+	<update id="updateMemberById" parameterType="com.noshow.vo.Member">
+		UPDATE member
+		<set>
+			<if test="memberPassword != null"> member_Password = #{memberPassword}, </if>
+			<if test="memberPassword != null"> member_tel = #{memberTel}, </if>
+			<if test="memberPassword != null"> member_birthday = #{memberBirthday}, </if>
+			<if test="memberPassword != null"> member_email = #{memberEmail}} </if>
+		</set>
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<!-- DELETE -->
+	<delete id="deleteMemberById" parameterType="string">
+		delete from member where member_Id = #{value}
+	</delete>
+	
+
+</mapper>

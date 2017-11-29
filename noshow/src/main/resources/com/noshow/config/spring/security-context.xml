@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Spring Security 관련 설정 파일 -->
+	<context:component-scan base-package="com.noshow.security"/>
+
+	<!--
+		Password 암호화 처리 bean 
+		입력받은 password를 자동으로 암호화시켜서 저장한다.
+		단, 복원은 안됨!! 
+		-> 비밀번호 찾기? 비밀번호를 새로만들어알려줘서 사용자가 비밀번호를 변경하도록한다.
+	-->
+	<beans:bean name="passwordEncoder" 
+					class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	<!-- 
+		admin/** : ROLE_ADMIN
+		member/** : ROLE_MEMBER
+		owner/** :	ROLE_OWNER	
+	 -->
+
+	<http>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>
+		<intercept-url pattern="/owner/**" access="hasRole('ROLE_OWNER')"/>
+		<intercept-url pattern="/**" access="permitAll"/>
+		<form-login
+						login-page="/login_form.do"
+						login-processing-url="/login.do"
+						username-parameter="memberId"
+						password-parameter="memberPassword"
+						authentication-failure-handler-ref="loginFailHandler"
+						default-target-url="/index.do"/>
+		<logout logout-url="/logout.do" logout-success-url="/index.do"/>
+		
+
+	</http>
+	<!-- 인증(로그인) 처리를 담당할 bean 등록 => AuthenticationProvider -->
+	<authentication-manager>
+		<authentication-provider ref="userAuthenticationProvider"/>
+	</authentication-manager>
+</beans:beans>
+

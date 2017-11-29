@@ -12,6 +12,7 @@ public interface MemberDao {
 		 * @param user
 		 * @return
 		 */
+	
 		int insertMember(Member member);
 		
 		/**

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noshow.config.mybatis.mapper.reservationMapper">
+ 
+	<sql id="select-reservation">
+		SELECT	res_num,
+				res_date,
+				res_people,
+				res_start_time,
+				res_end_time,
+				res_paid_time,
+				res_pay_statement,
+				res_price,
+				member_id,
+				business_id
+		FROM	reservation
+	</sql>
+	 
+	<resultMap type="reservation" id="reservation-resultmap">
+		<id column="res_num" property="resNum"/>
+		<result column="res_date" property="resDate"/>
+		<result column="res_people" property="resPeople"/>
+		<result column="res_start_time" property="resStartTime"/>
+		<result column="res_end_time" property="resEndTime"/>
+		<result column="res_paid_time" property="resPaidTime"/>
+		<result column="res_pay_statement" property="resPayStatement"/>
+		<result column="res_price" property="resPrice"/>
+		<result column="member_id" property="memberId"/>
+		<result column="business_id" property="businessId"/>
+	</resultMap>
+	
+	<!-- INSERT -->
+	<insert id="insertReservation" parameterType="reservation">
+		INSERT INTO RESERVATION VALUES 
+		(	#{resNum},
+			to_date(#{resDate}, 'yyyy/mm/dd'),
+			#{resPeople},
+			to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss'),
+			to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss'),
+			SYSDATE,
+			#{resPayStatement},
+			#{resPrice},
+			#{memberId},
+			#{businessId}
+		)
+	</insert>
+	
+	<!-- 
+		UPDATE 
+		 - 예약날짜, 예약시간, 인원만 변경할 수 있도록 한다.
+	-->
+	<update id="updateReservationByResNum" parameterType="reservation">
+		UPDATE	reservation
+		SET		res_date = #{resDate},
+				res_people = #{resPeople},
+				res_start_time = #{resStartTime},
+				res_end_time = #{resEndTime},
+				res_price = #{resPrice}
+		WHERE	res_num = #{resNum}
+	</update>
+	
+	<!-- DELETE -->
+	<delete id="deleteReservationByResNum" parameterType="_int">
+		DELETE
+		FROM	reservation
+		WHERE	res_num = #{value}
+	</delete>
+	
+	<!-- SELECT -->
+	<!-- ##### 회원 ID 로 전체 예약 조회 ##### -->
+	<select id="selectReservationByMemberId" parameterType="string" resultMap="reservation-resultmap">
+		<include refid="select-reservation"/>
+		WHERE	member_id = #{value}
+	</select>
+	
+	<!-- ##### 점주 ID 로 예약 조회 ##### -->
+	<select id="selectReservationByBusinessId" parameterType="string" resultMap="reservation-resultmap">
+		<include refid="select-reservation"/>
+		WHERE	business_id = #{value}
+	</select>
+	
+	<!-- TEST 회원ID, 점주ID, 예약날짜+시간 으로 예약번호 조회 -->
+	<select id="selectResNumByReservationInfo" parameterType="map" resultType="_int">
+		SELECT	res_num
+		FROM	reservation
+		WHERE	member_id = #{memberId}
+		AND		business_id = #{businessId}
+		AND		res_start_time = to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

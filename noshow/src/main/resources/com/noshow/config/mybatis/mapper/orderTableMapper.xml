@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noshow.config.mybatis.mapper.orderTableMapper">
+
+	<sql id="select-orderTable">
+		SELECT	table_seq,
+				res_num
+		FROM	order_table
+	</sql>
+	
+	<resultMap type="orderTable" id="orderTable-resultmap">
+		<id column="table_Seq" property="tableSeq"/>
+		<result column="res_Num" property="resNum"/>
+	</resultMap>
+	
+	<!-- INSERT -->
+	<insert id="insertOrderTable" parameterType="orderTable">
+		INSERT INTO order_table VALUES
+		(#{tableSeq}, #{resNum})
+	</insert>
+	
+	<!-- UPDATE -->
+	<update id="updateOrderTableByResNum" parameterType="map">
+		UPDATE	order_table
+		SET		table_seq = #{afterTable.tableSeq}
+		WHERE	res_num = #{beforeTable.resNum}
+		AND		table_seq = #{beforeTable.tableSeq}
+	</update>
+	
+	<!-- DELETE -->
+	<delete id="deleteOrderTableByResNum" parameterType="_int">
+		DELETE
+		FROM	order_table
+		WHERE	res_num = #{value}
+	</delete>
+	
+	<!-- SELECT -->
+	<select id="selectOrderTableByResNum" parameterType="_int" resultMap="orderTable-resultmap">
+		<include refid="select-orderTable"/>
+		WHERE	res_num = #{value}
+	</select>
+
+</mapper>

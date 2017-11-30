@@ -26,7 +26,7 @@
 		width: 100%;
 		height: 40px;
 		float: left;   
-		}
+		} 
 		.memberGender >label , .memberGender >input{  
 			float: left; 
 		}

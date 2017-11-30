@@ -7,5 +7,6 @@
 </head>
 <body>
 <h1> 메인 페이지 입니다 .</h1>
+<a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a>
 </body>
 </html>

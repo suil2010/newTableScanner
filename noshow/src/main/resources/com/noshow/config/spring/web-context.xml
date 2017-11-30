@@ -17,8 +17,7 @@
 	<mvc:view-controller path="/ownerTable.do" view-name="owner/ownerTable.tiles"/>
 	<mvc:view-controller path="/member/mypage.do" view-name="member/mypage.tiles"/>
 	<mvc:view-controller path="/reservation_form.do" view-name="reservation/reservation_form.tiles"/>
-
-
+	<mvc:view-controller path="/owner/join_menu_form.do" view-name="owner/join_menu_form.tiles"/>
 
 
 	<!-- Tiles 설정 -->

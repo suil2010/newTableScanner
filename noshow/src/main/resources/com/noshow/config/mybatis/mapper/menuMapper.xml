@@ -50,9 +50,9 @@
 	<!-- 메뉴 등록 -->
 	<insert id="insertMenu" parameterType="Menu">
 		insert into menu(menu_num, menu_name, menu_comment, menu_price,
-		menu_picture, classification_num, business_id)
-		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture},
-		#{classificationNum}, #{businessId})
+		menu_picture<!-- , classification_num, business_id -->)
+		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}<!-- ,
+		#{classificationNum}, #{businessId} -->)
 	</insert>
 
 	<!-- 메뉴 수정 -->
@@ -72,6 +72,16 @@
 		delete from Menu
 		where menu_num = #{menuNum}
 	</delete>
+
+
+<!-- 여기서 부터 다시 하자! -->
+	<!-- 메뉴 num으로 메뉴 조회 -->
+	<select id = "selectMenuByMenuNum" parameterType="int" resultMap="menu-resultmap">
+		select *
+		from Menu
+		where menu_num = #{menuNum}
+	</select>
+
 
 	<!-- BybusinessId로 메뉴들 조회 -->
 	<select id="selectMenuBybusinessId" resultMap="menu-resultmap">

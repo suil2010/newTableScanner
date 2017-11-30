@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+예약 성공
 </body>
 </html>

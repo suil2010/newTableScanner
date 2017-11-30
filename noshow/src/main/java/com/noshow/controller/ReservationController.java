@@ -5,24 +5,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.noshow.service.ReservationService;
 import com.noshow.vo.Member;
-import com.noshow.vo.Reservation;
 
 @Controller
 public class ReservationController {
-	
+
 	@Autowired
 	private ReservationService service;
 	
-	@RequestMapping("addReservation")
+	@RequestMapping("/addReservation")
 	public String addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, int tableSeq) {
 		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
+		
 		Member member = (Member)authentication.getPrincipal();
 		
 		String memberId = member.getMemberId();
@@ -30,7 +30,7 @@ public class ReservationController {
 		int result = service.addReservation(resNum, resDate, resPeople, resStartTime, resPayStatement, memberId, businessId, tableSeq);
 		if (result == 2) {
 			System.out.println("예약 성공");
-			return "/view/content/reservation/reservationSuccess.jsp";
+			return "reservation/reservation_success.tiles";
 		} else if (result == 1) {
 			System.out.println("무언가 하나는 안들어감....?!");
 			return "/index.jsp";
@@ -39,5 +39,6 @@ public class ReservationController {
 			return "/index.jsp";
 		}
 	}
+	
 	
 }

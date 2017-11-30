@@ -56,7 +56,7 @@ public interface MenuDao {
 	 * @param menu
 	 * @return
 	 */
-	int deleteMenu(int MenuNum);
+	int deleteMenu(int menuNum);
 	
 	/**
 	 * business id로 가지고 있는 메류조회
@@ -64,4 +64,6 @@ public interface MenuDao {
 	 * @return
 	 */
 	List<Menu> selectMenuBybusinessId(String businessId);
+	
+	Menu selectMenuByMenuNum(int menuNum);
 }

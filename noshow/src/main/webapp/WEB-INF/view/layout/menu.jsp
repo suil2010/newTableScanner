@@ -18,8 +18,12 @@
 <sec:authorize access="hasRole('ROLE_MEMBER')">
 	<li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보 조회</a></li>
 </sec:authorize>
-</ul>
 
+<%-- 사용자 메뉴 /owner 으로 시작--%>
+<sec:authorize access="hasRole('ROLE_OWNER')">
+	<li><a href="${initParam.rootPath }/owner/join_menu_form.do">메뉴추가하기</a></li>
+</sec:authorize>
+</ul>
 
 
 <!-- 

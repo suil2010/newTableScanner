@@ -76,8 +76,8 @@ header>a>span {
 	
 	<div class="content">
 		<script type="text/javascript">
-			$(function() {
-				$("#droppable > div").draggable({
+		$(document).ready(function() {
+			$("#droppable > div").draggable({
 					containment : "#droppable",
 					scroll : false,
 

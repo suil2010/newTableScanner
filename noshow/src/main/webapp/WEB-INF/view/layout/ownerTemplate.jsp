@@ -4,33 +4,15 @@
 <html>
 <head>
 <title>TableScanner</title>
-<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>    
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-ui.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
 <link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/css/common.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c"></script>
 
 <script type="text/javascript">
-	$(function() {
-		$(".tab > a > div").on("mouseover", function() {
-			$(this).css("border-right", "3px solid red");
-		});
-		$(".tab > a > div").on("mouseout", function() {
-			$(this).css("border-right", "1px solid #E0E0E0");
-		});
-		$(".ownersubmit").on("mouseover", function() {
-			$(this).css({
-				"background" : "#fff",
-				"color" : "#000",
-				"border" : "2px solid #0B9BA9"
-			});
-		});
-		$(".ownersubmit").on("mouseout", function() {
-			$(this).css({
-				"background" : "#0B9BA9",
-				"color" : "#fff",
-				"border" : "0"
-			});
-		});
+	$(document).ready(function() {
+		
 		$("header > a > span").on("mouseover", function() {
 			$(this).css({
 				"border-bottom" : "1px solid red"

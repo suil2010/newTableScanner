@@ -50,9 +50,9 @@
 	<!-- 메뉴 등록 -->
 	<insert id="insertMenu" parameterType="Menu">
 		insert into menu(menu_num, menu_name, menu_comment, menu_price,
-		menu_picture<!-- , classification_num, business_id -->)
-		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}<!-- ,
-		#{classificationNum}, #{businessId} -->)
+		menu_picture<!-- , classification_num -->, business_id)
+		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
+		<!-- , #{classificationNum} -->, #{businessId})
 	</insert>
 
 	<!-- 메뉴 수정 -->

@@ -13,17 +13,36 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$("header > a > span").on("mouseover", function() {
+		$(".tab > a > div").on("mouseover", function() {
+			$(this).css("border-right", "3px solid red");
+		});
+		$(".tab > a > div").on("mouseout", function() {
+			$(this).css("border-right", "1px solid #E0E0E0");
+		});
+		$(".ownersubmit").on("mouseover", function() {
+			$(this).css({
+				"background" : "#fff",
+				"color" : "#000",
+				"border" : "2px solid #0B9BA9"
+			});
+		});
+		$(".ownersubmit").on("mouseout", function() {
+			$(this).css({
+				"background" : "#0B9BA9",
+				"color" : "#fff",
+				"border" : "0"
+			});
+		});
+		$("header > a > span").on("mouseover", function(){
 			$(this).css({
 				"border-bottom" : "1px solid red"
 			});
 		});
-		$("header > a > span").on("mouseout", function() {
+		$("header > a > span").on("mouseout", function(){
 			$(this).css({
 				"border-bottom" : "0"
 			});
 		});
-
 	});
 </script>
 
@@ -34,7 +53,7 @@ header {
 	min-width: 1080px;
 	width: 100%;
 	height: 60px;
-	border-bottom: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;    
 }
 
 header>a>span {

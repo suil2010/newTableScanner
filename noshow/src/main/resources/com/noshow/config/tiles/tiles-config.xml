@@ -28,4 +28,7 @@
 		<put-attribute name="content" value="/WEB-INF/view/content/owner/{1}.jsp" />
 	</definition>
 	
+
+	
+	
 </tiles-definitions>

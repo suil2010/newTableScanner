@@ -16,9 +16,8 @@
 	<mvc:view-controller path="/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
 	<mvc:view-controller path="/ownerTable.do" view-name="owner/ownerTable.tiles"/>
 	<mvc:view-controller path="/member/mypage.do" view-name="member/mypage.tiles"/>
+	<mvc:view-controller path="/reservation_form.do" view-name="reservation/reservation_form.tiles"/>
 	<mvc:view-controller path="/owner/join_menu_form.do" view-name="owner/join_menu_form.tiles"/>
-
-
 
 
 	<!-- Tiles 설정 -->
@@ -35,4 +34,7 @@
 
 	<bean name="tilesViewResolver"
 		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
+	
+	<bean name="internalViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 </beans>

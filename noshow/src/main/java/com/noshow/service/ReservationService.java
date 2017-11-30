@@ -10,7 +10,7 @@ import com.noshow.vo.Reservation;
 public interface ReservationService {
 
 	/* ##### ReservationService ##### */
-	int addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq);
+	Reservation addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq);
 
 	int updateReservation(Reservation reservation, Map<String, OrderTable> orderTableMap);
 
@@ -30,4 +30,6 @@ public interface ReservationService {
 	int deleteOrderTable(int resNum);
 
 	List<OrderTable> selectOrderTableByResNum(int resNum);
+	
+	String selectRestaurantNameByBusinessId(String businessId);
 }

@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private OrderTableDao orderTableDao;
 	
 	@Override
-	public int addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq) {
+	public Reservation addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq) {
 
 		// 사업주가 설정한 1인당 예약금을 예약 인원에 맞게 초기화
 		int resPrice = calTotalPrice(businessId, resPeople);
@@ -51,7 +51,14 @@ public class ReservationServiceImpl implements ReservationService {
 		/* 예약테이블 추가를 위한 부분 */
 		resNum = selectResNumByReservationInfo(memberId, businessId, resStartTime);
 		result = result + addOrderTable(tableSeq, resNum);
-		return result;
+		if (result ==2) {
+			System.out.println("insert 성공");
+			return reservation;
+		} else {
+			System.out.println("insert 실패!!");
+			return reservation;
+		}
+		
 	}
 
 	@Override
@@ -151,6 +158,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<OrderTable> selectOrderTableByResNum(int resNum) {
 		return orderTableDao.selectOrderTableByResNum(resNum);
+	}
+
+	@Override
+	public String selectRestaurantNameByBusinessId(String businessId) {
+		return	restaurantDao.selectRestaurantByBusinessId(businessId).getRtName();
 	}
 
 	

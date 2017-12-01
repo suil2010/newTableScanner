@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updateUserProfile(Member member) {
+	public void updateMemberProfile(Member member) {
 		member.setMemberPassword(passwordEncoder.encode(member.getMemberPassword()));
 		dao.updateMemberByMemberId(member);
 		System.out.println(member);

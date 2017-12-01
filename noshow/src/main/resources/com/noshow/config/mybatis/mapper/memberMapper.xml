@@ -62,10 +62,12 @@
 	<update id="updateMemberById" parameterType="Member">
 		UPDATE member
 		<set>
-			<if test="memberPassword != null"> member_Password = #{memberPassword}, </if>
-			<if test="memberPassword != null"> member_tel = #{memberTel}, </if>
-			<if test="memberPassword != null"> member_birthday = #{memberBirthday}, </if>
-			<if test="memberPassword != null"> member_email = #{memberEmail}} </if>
+			<if test="memberPassword != null"> member_password = #{memberPassword}, </if>
+			<if test="memberName != null"> member_name = #{memberName},</if> 
+			<if test="memberTel != null"> member_tel = #{memberTel}, </if>
+			<if test="memberGender != null"> member_gender = #{memberGender}, </if>
+			<if test="memberBirthday != null"> member_birthday = #{memberBirthday}, </if>
+			<if test="memberEmail != null"> member_email = #{memberEmail} </if>
 		</set>
 		WHERE member_id = #{memberId}
 	</update>

@@ -9,4 +9,6 @@
 성별 : ${requestScope.member.memberGender }	<br>
 전화번호 : ${requestScope.member.memberTel }	<br>
 이메일 : ${requestScope.member.memberEmail } <br>
+
+
 </div>

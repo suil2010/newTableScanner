@@ -43,7 +43,6 @@ public class MemberServiceImpl implements MemberService{
 	public void updateMemberProfile(Member member) {
 		member.setMemberPassword(passwordEncoder.encode(member.getMemberPassword()));
 		dao.updateMemberByMemberId(member);
-		System.out.println(member);
 	}
 	
 

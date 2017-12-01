@@ -24,7 +24,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	}
 	
 	@Override
-	public int updateRestaurant(Restaurant rt) {
+	public int updateRestaurant(Restaurant rt, String role) {
 		return dao.updateRestaurant(rt);
 	}
 	
@@ -36,6 +36,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
 		return dao.selectRestaurantByBusinessId(businessId);
+	}
+	
+	@Override
+	public List<Restaurant> selectAllRestaurant() {
+		return dao.selectAllRestaurant();
 	}
 
 	@Override
@@ -52,6 +57,8 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public int deleteTable(String id) {
 		return dao.deleteTable(id);
 	}
+
+	
 
 	
 

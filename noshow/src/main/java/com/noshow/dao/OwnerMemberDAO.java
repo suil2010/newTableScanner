@@ -16,9 +16,13 @@ public interface OwnerMemberDAO {
 	//Restaurant DB삭제
 	int deleteRestaurant(String businessId);
 	
+	
 	//Restaurant 조회
 	Restaurant selectRestaurantByBusinessId(String businessId);
 	
+	//Restaurant 전체조회
+	List<Restaurant> selectAllRestaurant();
+
 	int insertTable(Table table);
 
 	List<Table> selectTable(String id);

@@ -16,7 +16,6 @@ import com.noshow.vo.Reservation;
 
 @Controller
 public class ReservationController {
-	
 
 	
 	@Autowired
@@ -59,6 +58,5 @@ public class ReservationController {
 		return mov;
 		
 	}
-	
 	
 }

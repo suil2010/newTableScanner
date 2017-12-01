@@ -10,7 +10,7 @@
 <body>
 	<h1>예약이 성공적으로 완료되었습니다!</h1>
 	<div class="container">
-		<h2>예약 정보</h2>
+		<h2>예약 3/3 - 예약 정보</h2>
 		<table border="1" class="table table-bordered">
 			<thead>
 				<tr>

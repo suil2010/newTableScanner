@@ -42,19 +42,15 @@ public class OwnerMemberController {
 	         rtImage.transferTo(upRtImg);
 	         rt.setRtPicture(pictureName);
 	      }
-	      System.out.println("이지수");
 	      service.insertRestaurant(rt, "ROLE_OWNER");
-	      return new ModelAndView("member/mypage.tiles", "businessId", rt.getBusinessId());
-/*	      return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());*/
+	      return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());
 	   }
 	   
-	/*   
 	   @RequestMapping("/regist_success")
-	   public ModelAndView updateRt(@ModelAttribute Restaurant rt) {
-	      System.out.println("aaa");
-	      service.updateRestaurant(rt, "ROLE_OWNER");
-	      return new ModelAndView("redirect:/regist_success.tiles", "businessId", rt.getBusinessId());
-	   }*/
+	   public ModelAndView restaurantSuccess(@RequestParam String businessId) {
+		   Restaurant rt = service.selectRestaurantByBusinessId(businessId);
+		   return new ModelAndView("member/regist_success.tiles", "rt", rt);
+	   }
 
 	@RequestMapping("/insertTable")
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {

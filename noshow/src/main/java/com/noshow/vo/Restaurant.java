@@ -16,8 +16,11 @@ public class Restaurant implements Serializable{
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date rtOpen; /* 오픈시간 */
+	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date rtClose; /* close 시간 */
+	
+	
 	private int rtTerm;  /* 테이블 이용시간 */
 	private MultipartFile rtImg; /* 음식점 사진 파일 이름*/
 	private String rtPicture; /* 저장 이름 */

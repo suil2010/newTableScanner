@@ -137,7 +137,7 @@ header>a>span {
 			<div class="tab2">
 				<span>음식점 메뉴수정</span>
 			</div>
-		</a> <a href="ownerTable.do">
+		</a> <a href="${initParam.rootPath }/selectTable.do">
 			<div class="tab3">
 				<span>음식점 테이블수정</span>
 			</div>

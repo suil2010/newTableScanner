@@ -48,5 +48,5 @@
 	<authentication-manager>
 		<authentication-provider ref="userAuthenticationProvider"/>
 	</authentication-manager>
-</beans:beans>
+</beans:beans> 
 

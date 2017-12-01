@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <style type="text/css">
 header {
 	min-width: 1080px;
@@ -115,17 +116,35 @@ header>a>span {
 					});
 
 				});
+				   $(".form_submit").on("click",function(){
+
+		   				$(".draggable").each(function(index ,item){
+		   					var divposition = $(this).position();
+		   					var divvalue = $(this).eq(0).text();
+		   					var String1 ="<input type=hidden name=tableXY value="+ divposition.left + ">";
+		   					var String2 ="<input type=hidden name=tableXY value="+ divposition.top + ">";
+		   					var String3 ="<input type=hidden name=tableXY value="+ divvalue + "> <br>";
+		   					$(".tableform").append(String1); 
+		   					$(".tableform").append(String2);
+		   					$(".tableform").append(String3);
+
+		   				});
+
+		 		   });
 			});
 		</script>
 
 		<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;"></div>
 		인원수 <input type="number" name="people" class="people">
+		${requestScope.Table}     
 		<button id="tablecreate">생성</button>
-
-		<form class="tableform">
-
-			<input type="button" value="완료" class="hidden">
-		</form>
-
+ 	 	<sec:authorize access="hasRole('ROLE_MEMBER')">
+			<form class="tableform" method="post" action="${initParam.rootPath}/insertTable.do" >
+	
+				<input type="submit" value="완료" class="form_submit">
+				<sec:csrfInput/>	
+			</form>
+			
+		</sec:authorize>
 
 	</div>

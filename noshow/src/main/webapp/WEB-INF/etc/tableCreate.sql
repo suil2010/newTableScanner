@@ -388,3 +388,5 @@ ALTER TABLE ANSWER
          QUESTION_NUM
       );
       
+/*시퀀스*/
+      create sequence tabel_list_seq;

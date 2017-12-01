@@ -38,4 +38,6 @@ public interface OwnerMemberService {
 	int insertTable(Table table);
 	
 	List<Table> selectTable(String id);
+	
+	int deleteTable(String id);
 }

@@ -150,4 +150,7 @@
 		table_
 		WHERE business_id = #{value}
 	</select>
+	<delete id="deleteTable" parameterType="string">
+		delete from table_ where business_id = #{value}
+	</delete>
 </mapper>

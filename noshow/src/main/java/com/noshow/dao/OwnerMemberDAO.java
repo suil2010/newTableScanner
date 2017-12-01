@@ -23,4 +23,6 @@ public interface OwnerMemberDAO {
 
 	List<Table> selectTable(String id);
 	
+	int deleteTable(String id);
+	
 }

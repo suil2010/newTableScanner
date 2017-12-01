@@ -20,7 +20,7 @@ public interface OwnerMemberService {
 	/**
 	 * 식당정보 수정
 	 */
-	int updateRestaurant(Restaurant rt);
+	int updateRestaurant(Restaurant rt, String role);
 	
 	/**
 	 * 식당정보 삭제
@@ -31,6 +31,12 @@ public interface OwnerMemberService {
 	 * 사업자 ID로 식당정보 조회처리 메소드
 	 */
 	Restaurant selectRestaurantByBusinessId(String businessId);
+	
+	/**
+	    * 모든 식당을 조회하는 메소드
+	    */
+	   
+	List<Restaurant> selectAllRestaurant();
 	
 	/**
 	 * 테이블정보 등록

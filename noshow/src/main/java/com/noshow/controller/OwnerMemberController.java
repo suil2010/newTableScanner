@@ -1,18 +1,26 @@
 package com.noshow.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.OwnerMemberService;
 import com.noshow.vo.Member;
+import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
 
 @Controller
@@ -22,6 +30,30 @@ public class OwnerMemberController {
 	@Autowired
 	private OwnerMemberService service;
 	
+	@RequestMapping("/join_rt")
+	   public ModelAndView joinRt(Restaurant rt, HttpServletRequest request) throws IllegalStateException, IOException {
+	      //식당이미지 업로드
+	      MultipartFile rtImage = rt.getRtImg();
+	      if(rtImage != null && !rtImage.isEmpty()){
+	         //이미지를 저장할 디렉토리
+	         String dir = request.getServletContext().getRealPath("/rtPicture");
+	         String pictureName = UUID.randomUUID().toString();
+	         File upRtImg = new File(dir, pictureName);
+	         rtImage.transferTo(upRtImg);
+	         rt.setRtPicture(pictureName);
+	      }
+	      System.out.println("이지수");
+	      service.insertRestaurant(rt, "ROLE_OWNER");
+	      return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());
+	   }
+	   
+	   
+	   @RequestMapping("/regist_success")
+	   public ModelAndView updateRt(@ModelAttribute Restaurant rt) {
+	      System.out.println("aaa");
+	      service.updateRestaurant(rt, "ROLE_OWNER");
+	      return new ModelAndView("redirect:/regist_success.tiles", "businessId", rt.getBusinessId());
+	   }
 
 	@RequestMapping("/insertTable")
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {

@@ -30,7 +30,7 @@
 		<intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>
 		<intercept-url pattern="/owner/**" access="hasRole('ROLE_OWNER')"/>
 		<!-- 
-		<intercept-url pattern="/owner**" access="hasRole('ROLE_OWNER')"/>
+		<intercept-url pattern="owner" access="hasRole('ROLE_OWNER')"/>
 		 -->
 		<intercept-url pattern="/**" access="permitAll"/>
 		<form-login

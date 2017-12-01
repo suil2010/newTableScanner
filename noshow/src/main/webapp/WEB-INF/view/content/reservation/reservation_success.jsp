@@ -20,6 +20,7 @@
 					<td>예약 날짜</td>
 					<td>예약 시간</td>
 					<td>예약 인원</td>
+					<td>예약 테이블</td>
 					<td>결제 시각</td>
 					<td>결제 수단</td>
 					<td>예약 금액</td>
@@ -33,6 +34,11 @@
 					<td>${requestScope.reservation.resDate }</td>
 					<td>${requestScope.reservation.resStartTime }</td>
 					<td>${requestScope.reservation.resPeople }</td>
+					<td>
+					<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
+						${tables }<br>
+					</c:forEach>
+					</td>
 					<td>${requestScope.reservation.resPaidTime }</td>
 					<td>${requestScope.reservation.resPayStatement }</td>
 					<td>${requestScope.reservation.resPrice }</td>

@@ -10,7 +10,7 @@ import com.noshow.vo.Reservation;
 public interface ReservationService {
 
 	/* ##### ReservationService ##### */
-	Reservation addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq);
+	Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq);
 
 	int updateReservation(Reservation reservation, Map<String, OrderTable> orderTableMap);
 
@@ -20,10 +20,10 @@ public interface ReservationService {
 
 	List<Reservation> selectReservationByBusinessId(String businessId);
 	
-	int selectResNumByReservationInfo(String memberId, String businessId, String resStartTime);
+	Reservation selectReservationByReservationInfo(String memberId, String businessId, String resStartTime);
 
 	/* ##### OrderTableService ##### */
-	int addOrderTable(int tableSeq, int resNum);
+	int addOrderTable(List<Integer> tableSeq, int resNum);
 
 	int updateOrderTable(Map<String, OrderTable> orderTableMap);
 

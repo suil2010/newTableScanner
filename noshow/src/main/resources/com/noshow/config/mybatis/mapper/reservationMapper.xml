@@ -31,6 +31,9 @@
 	
 	<!-- INSERT -->
 	<insert id="insertReservation" parameterType="reservation">
+	<selectKey keyProperty="resNum" order="BEFORE" resultType="_int">
+		SELECT resNum_seq.NEXTVAL FROM dual
+	</selectKey>
 		INSERT INTO RESERVATION VALUES 
 		(	#{resNum},
 			to_date(#{resDate}, 'yyyy/mm/dd'),
@@ -80,9 +83,8 @@
 	</select>
 	
 	<!-- TEST 회원ID, 점주ID, 예약날짜+시간 으로 예약번호 조회 -->
-	<select id="selectResNumByReservationInfo" parameterType="map" resultType="_int">
-		SELECT	res_num
-		FROM	reservation
+	<select id="selectReservationByReservationInfo" parameterType="map" resultMap="reservation-resultmap">
+		<include refid="select-reservation"/>
 		WHERE	member_id = #{memberId}
 		AND		business_id = #{businessId}
 		AND		res_start_time = to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')

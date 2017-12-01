@@ -21,6 +21,7 @@
    <li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보 조회</a></li>
    <li><a href="${initParam.rootPath }/member/update.do">사용자 정보 수정</a></li>
    <li><a href="${initParam.rootPath }/restaurant_list.do">음식점 예약</a></li>
+   <li><a href="${initParam.rootPath }/member/regist_rt_form.do">음식점 등록</a></li>
 </sec:authorize>
 
 <%-- 사용자 메뉴 /owner 으로 시작--%>

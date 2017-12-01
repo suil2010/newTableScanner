@@ -48,8 +48,6 @@
       <result column="rt_deposit" property="rtDeposit"/>
    </resultMap>
 
-    
-    
    <!-- sql문 -->
    
    <!-- INSERT -->

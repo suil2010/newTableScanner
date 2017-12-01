@@ -6,8 +6,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1> 메인 페이지 입니다 .</h1>
-<a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a>
-
+<div class="jumbotron">
+  <h1>Main Page</h1>
+  <a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a>
+  
+  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+</div>
 </body>
 </html>

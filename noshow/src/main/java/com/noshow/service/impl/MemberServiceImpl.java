@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.noshow.dao.AuthorityDao;
 import com.noshow.dao.MemberDao;
 import com.noshow.service.MemberService;
 import com.noshow.vo.Authority;
@@ -17,6 +18,9 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDao dao;
 	
 	@Autowired
+	private AuthorityDao Authoritydao;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
@@ -24,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
 	public void addMember(Member member, String role) {
 		member.setMemberPassword(passwordEncoder.encode(member.getMemberPassword()));
 		dao.insertMember(member);
-		dao.insertAuthority(new Authority(member.getMemberId(), role));
+		Authoritydao.insertAuthority(new Authority(member.getMemberId(), role));
 /*		if(role.equals("ROLE_ADMIN")) {
 			dao.insertAuthority(new Authority(member.getMemberId(), "ROLE_MEMBER"));
 		} 관리자의 경우 member권한도 부여*/

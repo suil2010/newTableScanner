@@ -41,7 +41,7 @@ public class MemberController {
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("redirect:/join_success.do", "memberId", member.getMemberId());
 	}
-	
+
 	@RequestMapping("/join_success")
 	public ModelAndView joinSuccess(@RequestParam String memberId) {
 		Member member = service.getUserByMemberId(memberId);

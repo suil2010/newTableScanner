@@ -12,12 +12,6 @@
 		from member
 	</sql>
 	
-	<!-- 권한 테이블 조회 sql -->
-	<sql id = "authority-select-sql">
-		select member_id, authority
-		from authority
-	</sql>
-	
 	<!-- resultMap 등록 -->
 	<resultMap type="Member" id="member-resultmap">
 		<id column="member_id" property="memberId"/>
@@ -28,10 +22,7 @@
 		<result column="member_birthday" property="memberBirthday"/>
 		<result column="member_email" property="memberEmail"/>
 	</resultMap>
-	<resultMap type="com.noshow.vo.Authority" id="authority-resultmap">
-		<id column="member_id" property="memberId"/>
-		<result column="authority" property="authority"/>
-	</resultMap>
+
 
 	<!-- 사용자 id로 회원 정보 조회 -->
 	<select id = "selectMemberByMemberId" parameterType="string" resultMap="member-resultmap">
@@ -39,24 +30,11 @@
 		where member_id = #{value}
 	</select>
 
-	<!-- 사용자 id로 사용자의 권한 조회 -->
-	<select id="selectAuthorityByMemberId" parameterType="string" resultMap="authority-resultmap">
-		<include refid="authority-select-sql"/>	
-		where member_id = #{value}
-	</select>
-
 	<!-- INSERT -->
-	<!-- member 추가 -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER(<include refid="member-column-sql"/>) 
 		VALUES (#{memberId},#{memberPassword},#{memberName},#{memberGender},#{memberTel},#{memberBirthday},#{memberEmail})
 	</insert>
-	
-	<!-- 권한 추가 -->
-	<insert id="insertAuthority" parameterType="Authority">
-		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
-	</insert>
-	
 	
 	<!-- UPDATE -->
 	<update id="updateMemberById" parameterType="Member">

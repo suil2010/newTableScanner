@@ -34,9 +34,13 @@ public class OwnerMemberController {
 
 	@RequestMapping("/join_rt")
 	public ModelAndView joinRt(Restaurant rt, HttpServletRequest request) throws IllegalStateException, IOException {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
 
+/* 2017.12.01 19.04 윤동웅 권한 업데이트후 바뀌어야하는데 안바뀜. 내일볼테니 주석 지우지 마셈.. 
+ * 주석없는 상태에서는 로그아웃한 후에 다시 로그인하면 권한 바뀌어서 실행됩니다
+ * 그거 번거로워서 로그아웃안하고 바꾸려고 설정하다가 상태가 너무 똥망이라 내일 수정함.
+ * 		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+*/
 		// 식당이미지 업로드
 		MultipartFile rtImage = rt.getRtImg();
 		if (rtImage != null && !rtImage.isEmpty()) {
@@ -48,14 +52,14 @@ public class OwnerMemberController {
 			rt.setRtPicture(pictureName);
 		}
 		service.insertRestaurant(rt, "ROLE_OWNER");
-
-		List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-
+		
+/*		List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+		System.out.println(authorities);
 		UsernamePasswordAuthenticationToken newAutentication = 
 				new UsernamePasswordAuthenticationToken(rt, null, authorities);
 
 		context.setAuthentication(newAutentication);
-		
+		*/
 		return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());
 	}
 

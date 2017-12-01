@@ -8,7 +8,7 @@
 	<!-- main tiles -->
 	<definition name="mainTemplate" template="/WEB-INF/view/layout/mainTemplate.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/layout/header.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/view/layout/menu.jsp"></put-attribute>
+		<put-attribute name="menu" value="/WEB-INF/view/layout/menu.jsp"/>
 	</definition>
 
 	<definition name="*.tiles" extends="mainTemplate">

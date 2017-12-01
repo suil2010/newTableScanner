@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
+import com.noshow.vo.Restaurant;
 
 public interface ReservationService {
 
@@ -31,5 +32,8 @@ public interface ReservationService {
 
 	List<OrderTable> selectOrderTableByResNum(int resNum);
 	
-	String selectRestaurantNameByBusinessId(String businessId);
+	Restaurant selectRestaurantByBusinessId(String businessId);
+
+	List<Reservation> selectJoinReservationByMemId(String memberId);
+	
 }

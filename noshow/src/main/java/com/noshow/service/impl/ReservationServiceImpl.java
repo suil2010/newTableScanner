@@ -45,6 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
 		resStartTime = calStartTime(resDate, resStartTime);
 		String resEndTime = calResEndTime(businessId, resStartTime);
 		Date resPaidTime = new Date();
+		
 
 		int result = dao.insertReservation(new Reservation(resNum, resDate, resPeople, resStartTime, resEndTime, resPaidTime,
 				resPayStatement, resPrice, memberId, businessId));
@@ -55,6 +56,8 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		/* 예약테이블 추가를 위한 부분 */
 		result = result + addOrderTable(tableSeq, resNum);
+		
+		// 검증
 		if (result ==2) {
 			System.out.println("insert 성공");
 			return reservation;
@@ -189,8 +192,13 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public String selectRestaurantNameByBusinessId(String businessId) {
-		return	restaurantDao.selectRestaurantByBusinessId(businessId).getRtName();
+	public Restaurant selectRestaurantByBusinessId(String businessId) {
+		return	restaurantDao.selectRestaurantByBusinessId(businessId);
+	}
+
+	@Override
+	public List<Reservation> selectJoinReservationByMemId(String memberId) {
+		return dao.selectJoinReservationByMemId(memberId);
 	}
 
 }

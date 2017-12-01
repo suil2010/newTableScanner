@@ -1,5 +1,6 @@
 package com.noshow.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.noshow.service.ReservationService;
 import com.noshow.vo.Member;
 import com.noshow.vo.Reservation;
+import com.noshow.vo.Restaurant;
 
 @Controller
 public class ReservationController {
@@ -58,13 +60,14 @@ public class ReservationController {
 	public ModelAndView reservationSuccess(HttpServletRequest request) {
 		Reservation reservation = (Reservation)request.getAttribute("reservation");
 		String businessId = reservation.getBusinessId();
-		System.out.println("reservationSuccess - businessId : " + businessId);
-		String restaurantName = service.selectRestaurantNameByBusinessId(businessId);
-		System.out.println("reservationSuccess - restaurantName : " + restaurantName);
+		System.out.println("reservationSuccess - businessId : " + businessId);	// log
+		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
+		System.out.println("reservationSuccess - restaurantName : " + restaurantName); //log
+		
 		List<Integer> tableList = (List<Integer>) request.getAttribute("tableList");
 		// 검증
 		for(int table : tableList) {
-			System.out.println("reservationSuccessController- table: " + table);
+			System.out.println("reservationSuccessController- table: " + table);//log
 		}
 		
 		ModelAndView mav = new ModelAndView();
@@ -74,7 +77,40 @@ public class ReservationController {
 		mav.addObject("tableList", tableList);
 
 		return mav;
+	}
+	
+	@RequestMapping("/myReservation")
+	public ModelAndView myReservation() {
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		
+		String memberId = member.getMemberId();
+		List<Reservation> reservationList = service.selectJoinReservationByMemId(memberId);
+	
+		return new ModelAndView("member/mypage_reservation.tiles", "reservationList", reservationList);
 		
 	}
+
+// ########################사용 안함
+//	/* 식당 이름 */
+//	@RequestMapping("/resRestaurantName")
+//	public ModelAndView resRestaurantName(HttpServletRequest request) {
+//		List<Reservation> reservationList = (List<Reservation>) request.getAttribute("reservationList");
+//		
+//		List<Restaurant> restaurantList = new ArrayList<>();
+//		for(Reservation res : reservationList) {
+//			restaurantList.add(service.selectRestaurantByBusinessId(res.getBusinessId()));
+//		}
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("member/mypage_reservation.tiles");
+//		mav.addObject("reservationList", reservationList);
+//		mav.addObject("restaurantList", restaurantList);
+//	
+//		return mav;
+//	}
 	
 }

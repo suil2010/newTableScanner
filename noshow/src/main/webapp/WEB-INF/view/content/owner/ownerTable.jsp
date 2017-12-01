@@ -136,7 +136,7 @@ header>a>span {
 
 		<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;"></div>
 		인원수 <input type="number" name="people" class="people">
-		${requestScope.Table}     B
+		${requestScope.Table}     
 		<button id="tablecreate">생성</button>
  	 	<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<form class="tableform" method="post" action="${initParam.rootPath}/insertTable.do" >

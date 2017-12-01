@@ -11,6 +11,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+<style type="text/css">
+#droppable>div {
+	margin: 0;
+	width: 100px;
+	height: 100px;
+	background: rgba(0, 0, 0, 0.1);
+	position: absolute;
+}
+</style>
 <script>
 	function formCheck() {
 		// 결제방식이 선택되었는지 체크
@@ -83,6 +92,19 @@
 			<input type="submit" class="btn btn-info" value="예약하기">
 			<sec:csrfInput />
 		</form>
+		
+		<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
+		<c:forEach items="${requestScope.table}" var="item">
+					<div class ="draggable" style="top: ${item.yLocation}px; left: ${item.xLocation}px;" >
+						<span>${item.tableNum }번 테이블</span> <p>
+						<span>${item.tablePeople}명</span>
+						    
+					</div>
+			
+		</c:forEach>
+		</div>
+		
+		
 	</div>
 
 </body>

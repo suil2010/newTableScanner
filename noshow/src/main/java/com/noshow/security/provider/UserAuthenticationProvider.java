@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.noshow.dao.AuthorityDao;
 import com.noshow.dao.MemberDao;
 import com.noshow.vo.Authority;
 import com.noshow.vo.Member;
@@ -28,6 +29,9 @@ import com.noshow.vo.Member;
 public class UserAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	private MemberDao dao;
+	
+	@Autowired
+	private AuthorityDao Authoritydao;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -47,7 +51,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		}
 		//인증 성공
 		//권한 조회
-		List<Authority> list = dao.selectAuthorityByMemberId(id);
+		List<Authority> list = Authoritydao.selectAuthorityByMemberId(id);
 		
 		//SimpleGrantedAuthority - 권한정보를 문자열로 저장.
 		List<SimpleGrantedAuthority> authList = new ArrayList<>();

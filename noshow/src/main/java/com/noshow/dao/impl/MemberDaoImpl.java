@@ -26,18 +26,8 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int insertAuthority(Authority authority) {
-		return session.insert(makeSqlId("insertAuthority"), authority);
-	}
-
-	@Override
 	public Member selectMemberByMemberId(String memberId) {
 		return session.selectOne(makeSqlId("selectMemberByMemberId"), memberId);
-	}
-
-	@Override
-	public List<Authority> selectAuthorityByMemberId(String memberId) {
-		return session.selectList(makeSqlId("selectAuthorityByMemberId"), memberId);
 	}
 
 	@Override

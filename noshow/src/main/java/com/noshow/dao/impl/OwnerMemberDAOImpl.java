@@ -49,5 +49,10 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	public List<Table> selectTable(String id) {
 		return session.selectList(makeSqlId("selectTable"),id);
 	}
+
+	@Override
+	public int deleteTable(String id) {
+		return session.delete(makeSqlId("deleteTable"),id);
+	}
 	
 }

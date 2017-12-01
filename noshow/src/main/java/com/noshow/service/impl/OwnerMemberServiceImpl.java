@@ -48,6 +48,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 		return dao.selectTable(id);
 	}
 
+	@Override
+	public int deleteTable(String id) {
+		return dao.deleteTable(id);
+	}
+
 	
 
 

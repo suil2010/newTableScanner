@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style type="text/css">
 header {
 	min-width: 1080px;
@@ -70,6 +71,7 @@ header>a>span {
 	width: 100px;
 	height: 100px;
 	background: rgba(0, 0, 0, 0.1);
+	position: absolute;
 }
 </style>
 </head>
@@ -134,10 +136,17 @@ header>a>span {
 			});
 		</script>
 
-		<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;"></div>
+		<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
+		<c:forEach items="${requestScope.Table}" var="item">
+					<div class ="draggable" style="top: ${item.yLocation}px; left: ${item.xLocation}px;" >
+						<span>${item.tablePeople}</span>   
+					</div>
+			
+		</c:forEach>
+		</div>
 		인원수 <input type="number" name="people" class="people">
-		${requestScope.Table}     
-		<button id="tablecreate">생성</button>
+	
+		<button id="tablecreate" >생성</button>
  	 	<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<form class="tableform" method="post" action="${initParam.rootPath}/insertTable.do" >
 	

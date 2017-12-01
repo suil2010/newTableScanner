@@ -1,8 +1,22 @@
 package com.noshow.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +31,9 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@RequestMapping("/join_member")
 	public ModelAndView inserMember(@ModelAttribute Member member) {
 /*		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -24,10 +41,32 @@ public class MemberController {
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("redirect:/join_success.do", "memberId", member.getMemberId());
 	}
-	
+
 	@RequestMapping("/join_success")
 	public ModelAndView joinSuccess(@RequestParam String memberId) {
 		Member member = service.getUserByMemberId(memberId);
 		return new ModelAndView("member/join_success.tiles", "member", member);
+	}
+	
+	@RequestMapping("/update_Member")
+	public String updateMember(@ModelAttribute Member member, @RequestParam String oldMemberPassword, HttpServletRequest request, ModelMap model) throws IllegalStateException, IOException {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+
+		if(!passwordEncoder.matches(oldMemberPassword, ((Member)authentication.getPrincipal()).getMemberPassword())) {
+			model.addAttribute("errorMessage", "패스워드를 확인하세요.");
+			return "member/update_member_form.tiles";
+		}
+		service.updateMemberProfile(member);
+		
+		List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+
+		UsernamePasswordAuthenticationToken newAutentication = 
+				new UsernamePasswordAuthenticationToken(member, null, authorities);
+
+		context.setAuthentication(newAutentication);
+		
+		return "member/mypage.tiles";
 	}
 }

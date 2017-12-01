@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
@@ -14,14 +15,14 @@
 	function formCheck() {
 		// 결제방식이 선택되었는지 체크
 		var payment = document.getElementsByName('resPayStatement');
-		var selCheck = document.resForm;
-		var sel_type = null;
+		var selCheck = document.resForm.tableSeq;
 		for (var i = 0; i < payment.length; i++) {
 			if (payment[i].checked == true) {
-
-				if (selCheck.businessId.value == 'none') {
-					alert('음식점을 선택해주세요!!');
-					selCheck.businessId.focus();
+				
+				// 결제방식 선택 후, 테이블이 선택되었는지 체크
+				if (selCheck.value == 'none') {
+					alert('테이블을 선택해주세요!!');
+					selCheck.focus();
 					return false;
 				} else {
 					return true;
@@ -33,8 +34,10 @@
 		}
 	}
 </script>
+
 </head>
 <body>
+	<c:set scope="page" var="current" value="<%=new Date(System.currentTimeMillis()) %>" />
 	<h1>음식점 예약하기</h1>
 	<div class="container">
 		<form method="post" name="resForm"
@@ -51,11 +54,11 @@
 					placeholder="예약번호는 나중에 안받지~" min="1" required>
 			</div>
 			<div class="form-group">
-				<label for="date">예약 희망 날짜</label> <input type="date" name="resDate"
+				<label for="date">예약 희망 날짜</label> <input type="date" name="resDate" min="${current }" max="2019-12-31"
 					placeholder="예약희망 날짜를 입력하세용" required>
 			</div>
 			<div class="form-group">
-				<label for="resStartTime">예약 희망 시간</label> <input type="datetime"
+				<label for="resStartTime">예약 희망 시간</label> <input type="time"
 					name="resStartTime" placeholder="몇시에 오실건가요?" required>
 			</div>
 			<div class="form-group">

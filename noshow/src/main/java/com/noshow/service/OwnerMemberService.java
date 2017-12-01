@@ -20,7 +20,7 @@ public interface OwnerMemberService {
 	/**
 	 * 식당정보 수정
 	 */
-	int updateRestaurant(Restaurant rt);
+	int updateRestaurant(Restaurant rt, String role);
 	
 	/**
 	 * 식당정보 삭제

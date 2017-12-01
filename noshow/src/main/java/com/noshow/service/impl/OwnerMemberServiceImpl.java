@@ -37,6 +37,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
 		return dao.selectRestaurantByBusinessId(businessId);
 	}
+	
+	@Override
+	public List<Restaurant> selectAllRestaurant() {
+		return dao.selectAllRestaurant();
+	}
 
 	@Override
 	public int insertTable(Table table) {
@@ -52,6 +57,8 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public int deleteTable(String id) {
 		return dao.deleteTable(id);
 	}
+
+	
 
 	
 

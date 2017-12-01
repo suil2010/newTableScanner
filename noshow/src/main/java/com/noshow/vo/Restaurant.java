@@ -3,6 +3,8 @@ package com.noshow.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Restaurant implements Serializable{
 	private String businessId;
 	private int rtNum; /* 사업자 번호 */
@@ -13,8 +15,8 @@ public class Restaurant implements Serializable{
 	private Date rtOpen; /* 오픈시간 */
 	private Date rtClose; /* close 시간 */
 	private int rtTerm;  /* 테이블 이용시간 */
-	private String rtImg; /* 음식점 사진 파일 이름*/
-	private String rtSaveImg; /* 저장 이름 */
+	private MultipartFile rtImg; /* 음식점 사진 파일 이름*/
+	private String rtPicture; /* 저장 이름 */
 	private String rtAddress; /* 음식점 위치*/
 	private int rtCapacity; /* 수용가능인원 */
 	private int rtDeposit; /* 1인 금액 */
@@ -25,8 +27,9 @@ public class Restaurant implements Serializable{
 	public Restaurant() {}
 
 	public Restaurant(String businessId, int rtNum, String rtName, String rtTel, String rtField, String rtHoliday,
-			Date rtOpen, Date rtClose, int rtTerm, String rtImg, String rtSaveImg, String rtAddress, int rtCapacity,
-			int rtDeposit) {
+			Date rtOpen, Date rtClose, int rtTerm, MultipartFile rtImg, String rtPicture, String rtAddress,
+			int rtCapacity, int rtDeposit, Member member, Table table) {
+		super();
 		this.businessId = businessId;
 		this.rtNum = rtNum;
 		this.rtName = rtName;
@@ -37,11 +40,12 @@ public class Restaurant implements Serializable{
 		this.rtClose = rtClose;
 		this.rtTerm = rtTerm;
 		this.rtImg = rtImg;
-		this.rtSaveImg = rtSaveImg;
+		this.rtPicture = rtPicture;
 		this.rtAddress = rtAddress;
 		this.rtCapacity = rtCapacity;
 		this.rtDeposit = rtDeposit;
-		
+		this.member = member;
+		this.table = table;
 	}
 
 	public String getBusinessId() {
@@ -116,20 +120,20 @@ public class Restaurant implements Serializable{
 		this.rtTerm = rtTerm;
 	}
 
-	public String getRtImg() {
+	public MultipartFile getRtImg() {
 		return rtImg;
 	}
 
-	public void setRtImg(String rtImg) {
+	public void setRtImg(MultipartFile rtImg) {
 		this.rtImg = rtImg;
 	}
 
-	public String getRtSaveImg() {
-		return rtSaveImg;
+	public String getRtPicture() {
+		return rtPicture;
 	}
 
-	public void setRtSaveImg(String rtSaveImg) {
-		this.rtSaveImg = rtSaveImg;
+	public void setRtPicture(String rtPicture) {
+		this.rtPicture = rtPicture;
 	}
 
 	public String getRtAddress() {
@@ -176,7 +180,7 @@ public class Restaurant implements Serializable{
 	public String toString() {
 		return "Restaurant [businessId=" + businessId + ", rtNum=" + rtNum + ", rtName=" + rtName + ", rtTel=" + rtTel
 				+ ", rtField=" + rtField + ", rtHoliday=" + rtHoliday + ", rtOpen=" + rtOpen + ", rtClose=" + rtClose
-				+ ", rtTerm=" + rtTerm + ", rtImg=" + rtImg + ", rtSaveImg=" + rtSaveImg + ", rtAddress=" + rtAddress
+				+ ", rtTerm=" + rtTerm + ", rtImg=" + rtImg + ", rtPicture=" + rtPicture + ", rtAddress=" + rtAddress
 				+ ", rtCapacity=" + rtCapacity + ", rtDeposit=" + rtDeposit + ", member=" + member + ", table=" + table
 				+ "]";
 	}
@@ -197,7 +201,7 @@ public class Restaurant implements Serializable{
 		result = prime * result + ((rtName == null) ? 0 : rtName.hashCode());
 		result = prime * result + rtNum;
 		result = prime * result + ((rtOpen == null) ? 0 : rtOpen.hashCode());
-		result = prime * result + ((rtSaveImg == null) ? 0 : rtSaveImg.hashCode());
+		result = prime * result + ((rtPicture == null) ? 0 : rtPicture.hashCode());
 		result = prime * result + ((rtTel == null) ? 0 : rtTel.hashCode());
 		result = prime * result + rtTerm;
 		result = prime * result + ((table == null) ? 0 : table.hashCode());
@@ -264,10 +268,10 @@ public class Restaurant implements Serializable{
 				return false;
 		} else if (!rtOpen.equals(other.rtOpen))
 			return false;
-		if (rtSaveImg == null) {
-			if (other.rtSaveImg != null)
+		if (rtPicture == null) {
+			if (other.rtPicture != null)
 				return false;
-		} else if (!rtSaveImg.equals(other.rtSaveImg))
+		} else if (!rtPicture.equals(other.rtPicture))
 			return false;
 		if (rtTel == null) {
 			if (other.rtTel != null)

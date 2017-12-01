@@ -41,6 +41,11 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 	
 	@Override
+	public List<Restaurant> selectAllRestaurant() {
+		return session.selectList(makeSqlId("selectAllRestaurant"));
+	}
+	
+	@Override
 	public int insertTable(Table table) {
 		return session.insert(makeSqlId("insertTable"), table);
 	}
@@ -54,5 +59,7 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	public int deleteTable(String id) {
 		return session.delete(makeSqlId("deleteTable"),id);
 	}
+
+	
 	
 }

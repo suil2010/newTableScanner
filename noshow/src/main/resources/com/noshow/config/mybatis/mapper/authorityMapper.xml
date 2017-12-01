@@ -24,4 +24,11 @@
 		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
 	</insert>
 	
+	<update id="updateAuthority" parameterType="Authority">
+		UPDATE AUTHORITY
+		<set>
+			AUTHORITY = #{authority}
+		</set>
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>

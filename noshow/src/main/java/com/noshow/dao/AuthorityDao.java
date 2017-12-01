@@ -18,4 +18,7 @@ public interface AuthorityDao {
 	 * @return
 	 */
 	List<Authority> selectAuthorityByMemberId(String memberId);
+
+	int updateAuthority(Authority authority);
+
 }

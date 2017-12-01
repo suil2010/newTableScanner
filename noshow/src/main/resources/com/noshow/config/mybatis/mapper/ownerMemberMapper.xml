@@ -1,107 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.ownerMemberMapper">
-
 	<sql id="restaurant-column-sql">
-         rt_business_id,
-         rt_num,
-         rt_name,
-         rt_tel,
-         rt_field,
-         rt_holiday,
-         to_date(rt_open, 'YY/MM/dd hh24:mi:ss'),
-         to_date(rt_close, 'YY/MM/dd hh24:mi:ss'),
-         rt_term,
-         rt_picture,
-         rt_address,
-         rt_capacity,
-         rt_deposit
-   </sql>
-   
-   <!-- 식당조회 -->
-   <sql id="select-restaurant">
-   SELECT  <include refid="restaurant-column-sql"/>
-   FROM restaurant
-   </sql>
-   
-   <!-- 사업자번호로 식당조회 --> 
-   <select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
-   SELECT *
-   FROM restaurant
-   WHERE business_id = #{value}
-   </select>
-   
-   <!--  resultMap : restaurant 테이블 select -->
-   <resultMap type="Restaurant" id="restaurant-resultmap">
-      <id column="business_id" property="businessId"/>
-      <result column="rt_num" property="rtNum"/>
-      <result column="rt_name" property="rtName"/>
-      <result column="rt_tel" property="rtTel"/>
-      <result column="rt_field" property="rtField"/>
-      <result column="rt_holiday" property="rtHoliday"/>
-      <result column="rt_open" property="rtOpen"/>
-      <result column="rt_close" property="rtClose"/>
-      <result column="rt_term" property="rtTerm"/>
-      <result column="rt_picture" property="rtPicture"/>
-      <result column="rt_address" property="rtAddress"/>
-      <result column="rt_capacity" property="rtCapacity"/>
-      <result column="rt_deposit" property="rtDeposit"/>
-   </resultMap>
-
-   <!-- sql문 -->
-   
-   <!-- INSERT -->
-   <insert id="insertRestaurant" parameterType="Restaurant">
-      INSERT INTO restaurant(business_id, rt_num, rt_name, rt_tel, rt_field, rt_holiday, rt_open, rt_close, rt_term, rt_picture, rt_address, rt_capacity, rt_deposit)
-      VALUES (#{businessId}, #{rtNum} , #{rtName} , #{rtTel} , #{rtField}, #{rtHoliday} , #{rtOpen}, #{rtClose}, #{rtTerm}, #{rtPicture}, #{rtAddress}, #{rtCapacity}, #{rtDeposit})
-   </insert>
-
-   <!-- UPDATE -->
-   <update id="updateRestaurant" parameterType="Restaurant">
-      UPDATE   restaurant
-      SET   rt_num=#{rtNum},
-            rt_name=#{rtName},
-            rt_tel=#{rtTel},
-            rt_field=#{rtField},
-            rt_holiday=#{rtHoliday},
-            rt_open=#{rtOpen},
-            rt_close=#{rtClose},
-            rt_term=#{rtTerm},
-            rt_picture=#{rtPicture},
-            rt_address=#{rtAddress},
-            rt_capacity=#{rtCapacity},
-            rt_deposit=#{rtDeposit}
-     WHERE   business_id = #{businessId}
-   </update>
-   
-   <!-- DELETE -->
-   <delete id="deleteRestaurant" parameterType="string">
-      DELETE FROM restaurant WHERE business_id=#{businessId}
-   </delete>
-
-
-
-	<!-- Table -->
-	<insert id="insertTable" parameterType="Table">
-		INSERT INTO table_
-		VALUES ( tabel_list_seq.nextval , #{tableNum} , #{tablePeople} , #{xLocation} , #{yLocation}, #{businessId})
-	</insert>
-	
-	<resultMap type="table" id="table-resultmap">
-		<id column="table_seq" property="tableSeq" />
-		<result column="table_num" property="tableNum" />
-		<result column="table_people" property="tablePeople" />
-		<result column="x_location" property="xLocation" />
-		<result column="y_location" property="yLocation" />
-		<result column="business_Id" property="businessId" />
+		BUSINESS_ID, RT_NUM, RT_NAME, RT_TEL, RT_FIELD, RT_HOLIDAY, RT_OPEN, RT_CLOSE,
+		RT_TERM, RT_PICTURE, RT_ADDRESS,
+		RT_CAPACITY, RT_DEPOSIT
+	</sql>
+	<resultMap type="Restaurant" id="restaurant-resultmap">
+		<id column="BUSINESS_ID" property="businessId" />
+		<result column="RT_NUM" property="rtNum" />
+		<result column="RT_NAME" property="rtName" />
+		<result column="RT_TEL" property="rtTel" />
+		<result column="RT_FIELD" property="rtField" />
+		<result column="RT_HOLIDAY" property="rtHoliday" />
+		<result column="RT_OPEN" property="rtOpen" />
+		<result column="RT_CLOSE" property="rtClose" />
+		<result column="RT_TERM" property="rtTerm" />
+		<result column="RT_PICTURE" property="rtPicture" />
+		<result column="RT_ADDRESS" property="rtAddress" />
+		<result column="RT_CAPACITY" property="rtCapacity" />
+		<result column="RT_DEPOSIT" property="rtDeposit" />
 	</resultMap>
 	
-	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
-		select * from
-		table_
+	<insert id="insertRestaurant" parameterType="Restaurant">
+		INSERT INTO restaurant(<include refid="restaurant-column-sql" />)
+		VALUES (#{businessId}, #{rtNum} , #{rtName} , #{rtTel} , #{rtField},
+		#{rtHoliday} , #{rtOpen}, #{rtClose}, #{rtTerm}, #{rtPicture},
+		#{rtAddress}, #{rtCapacity}, #{rtDeposit})
+	</insert>
+
+	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
+		SELECT
+		<include refid="restaurant-column-sql" />
+		FROM restaurant
 		WHERE business_id = #{value}
 	</select>
-	<delete id="deleteTable" parameterType="string">
-		delete from table_ where business_id = #{value}
-	</delete>
+
+	<!-- 식당조회 <sql id="select-restaurant"> SELECT <include refid="restaurant-column-sql"/> 
+		FROM restaurant </sql> 사업자번호로 식당조회 <select id="selectRestaurantByBusinessId" 
+		resultMap="restaurant-resultmap"> SELECT * FROM restaurant WHERE business_id 
+		= #{value} </select> resultMap : restaurant 테이블 select <resultMap type="Restaurant" 
+		id="restaurant-resultmap"> <id column="business_id" property="businessId"/> 
+		<result column="rt_num" property="rtNum"/> <result column="rt_name" property="rtName"/> 
+		<result column="rt_tel" property="rtTel"/> <result column="rt_field" property="rtField"/> 
+		<result column="rt_holiday" property="rtHoliday"/> <result column="rt_open" 
+		property="rtOpen"/> <result column="rt_close" property="rtClose"/> <result 
+		column="rt_term" property="rtTerm"/> <result column="rt_Img" property="rtImg"/> 
+		<result column="rt_address" property="rtAddress"/> <result column="rt_capacity" 
+		property="rtCapacity"/> <result column="rt_deposit" property="rtDeposit"/> 
+		</resultMap> sql문 INSERT <insert id="insertRestaurant" parameterType="Restaurant"> 
+		INSERT INTO restaurant(business_id, rt_num, rt_name, rt_tel, rt_field, rt_holiday, 
+		rt_open, rt_close, rt_term, rt_Img, rt_address, rt_capacity, rt_deposit) 
+		VALUES (#{businessId}, #{rtNum} , #{rtName} , #{rtTel} , #{rtField}, #{rtHoliday} 
+		, #{rtOpen}, #{rtClose}, #{rtTerm}, #{rtImg}, #{rtAddress}, #{rtCapacity}, 
+		#{rtDeposit}) </insert> UPDATE <update id="updateRestaurant" parameterType="Restaurant"> 
+		UPDATE restaurant SET rt_num=#{rtNum}, rt_name=#{rtName}, rt_tel=#{rtTel}, 
+		rt_field=#{rtField}, rt_holiday=#{rtHoliday}, rt_open=#{rtOpen}, rt_close=#{rtClose}, 
+		rt_term=#{rtTerm}, rt_Img=#{rtImg}, rt_address=#{rtAddress}, rt_capacity=#{rtCapacity}, 
+		rt_deposit=#{rtDeposit} WHERE business_id = #{businessId} </update> DELETE 
+		<delete id="deleteRestaurant" parameterType="string"> DELETE FROM restaurant 
+		WHERE business_id=#{businessId} </delete> Table <insert id="insertTable" 
+		parameterType="Table"> INSERT INTO table_ VALUES ( tabel_list_seq.nextval 
+		, #{tableNum} , #{tablePeople} , #{xLocation} , #{yLocation}, #{businessId}) 
+		</insert> <resultMap type="table" id="table-resultmap"> <id column="table_seq" 
+		property="tableSeq" /> <result column="table_num" property="tableNum" /> 
+		<result column="table_people" property="tablePeople" /> <result column="x_location" 
+		property="xLocation" /> <result column="y_location" property="yLocation" 
+		/> <result column="business_Id" property="businessId" /> </resultMap> <select 
+		id="selectTable" parameterType="string" resultMap="table-resultmap"> select 
+		* from table_ WHERE business_id = #{value} </select> <delete id="deleteTable" 
+		parameterType="string"> delete from table_ where business_id = #{value} </delete> -->
 </mapper>

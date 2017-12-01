@@ -48,7 +48,7 @@ CREATE TABLE RESTAURANT (
    RT_CLOSE DATE, /* CLOSE시간 */
    RT_TERM NUMBER, /* 테이블 이용시간 */
    RT_IMG VARCHAR2(500), /* 사진이름 */
-   RT_SAVE_IMG VARCHAR2(500), /* 저장이름 */
+   RT_PICTURE VARCHAR2(500), /* 저장이름 */
    RT_ADDRESS VARCHAR2(300), /* 음식점위치 */
    RT_CAPACITY NUMBER, /* 수용가능인원 */
    RT_DEPOSIT NUMBER, /* 1인 금액 */

@@ -16,7 +16,16 @@
 		<label>피자</label> <input type="radio" name="rtField" class="radio" value="pizza">
 		<label>족발</label> <input type="radio" name="rtField" class="radio" value="koreanMeat">
 	</div>
-휴무일 :	<input type="date" name="rtHoliday" placeholder="휴무일을 입력하세요(바꿀것)"><br>
+휴무일 :	
+<div class="rtHoliday">
+		<label>월</label> <input type="radio" name="rtHoliday" class="radio" value="mon">
+		<label>화</label> <input type="radio" name="rtHoliday" class="radio" value="tue">
+		<label>수</label> <input type="radio" name="rtHoliday" class="radio" value="wed">
+		<label>목</label> <input type="radio" name="rtHoliday" class="radio" value="thu">
+		<label>금</label> <input type="radio" name="rtHoliday" class="radio" value="fri">
+		<label>토</label> <input type="radio" name="rtHoliday" class="radio" value="sat">
+		<label>일</label> <input type="radio" name="rtHoliday" class="radio" value="sun">
+	</div>
 오픈시간 :	<input type="date" name="rtOpen" placeholder="오픈시간을 입력하세요"><br>
 마감시간 :	<input type="date" name="rtClose" placeholder="마감시간을 입력하세요"><br>
 테이블 이용시간 :	<input type="number" name="rtTerm" placeholder="테이블 이용시간을 입력하세요"><br>

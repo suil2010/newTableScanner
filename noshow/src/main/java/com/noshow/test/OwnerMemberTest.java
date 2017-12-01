@@ -14,13 +14,13 @@ public class OwnerMemberTest {
       
       OwnerMemberService service = (OwnerMemberService)ctx.getBean("ownerMemberServiceImpl");
       
-     Restaurant rt = new Restaurant("id-1", 1111, "꼬미네", "031111222", "치킨집", "WED", 
+     /*Restaurant rt = new Restaurant("id-1", 1111, "꼬미네", "031111222", "치킨집", "WED", 
     		  new Date(20170511), new Date(20170311), 3, "ggomi.jpg", "ggomi2.jpg", "경기도 수원시", 100, 50000);
-      System.out.println(rt);
+      System.out.println(rt);*/
 
       
-      int i = service.insertRestaurant(rt, "role");
-      System.out.println("식당정보 등록" +i);
+     /* int i = service.insertRestaurant(rt, "role");
+      System.out.println("식당정보 등록" +i);*/
       
       
       /*int u = service.updateRestaurant(new Restaurant("id-1", 2222, "박꼬미네", "031-1222-111", "치킨집", "THU", new Date(20170511), new Date(20170311), 

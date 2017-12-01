@@ -24,7 +24,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	}
 	
 	@Override
-	public int updateRestaurant(Restaurant rt) {
+	public int updateRestaurant(Restaurant rt, String role) {
 		return dao.updateRestaurant(rt);
 	}
 	

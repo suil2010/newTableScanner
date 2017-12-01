@@ -1,5 +1,7 @@
 package com.noshow.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class MenuServiceImpl implements MenuService{
 	@Override
 	public Menu getMenuByMenuNum(int menuNum) {
 		return dao.selectMenuByMenuNum(menuNum);
+	}
+
+	@Override
+	public List<Menu> getMenuBybusinessId(String businessId) {
+		return dao.selectMenuBybusinessId(businessId);
 	}
 	
 }

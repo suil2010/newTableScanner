@@ -59,7 +59,7 @@ public interface MenuDao {
 	int deleteMenu(int menuNum);
 	
 	/**
-	 * business id로 가지고 있는 메류조회
+	 * business id로 가지고 있는 메뉴조회
 	 * @param businessId
 	 * @return
 	 */

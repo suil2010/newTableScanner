@@ -17,6 +17,9 @@ DROP TABLE ANSWER CASCADE CONSTRAINTS; /* 답변 */
 
 select * from restaurant;
 delete from restaurant;
+UPDATE AUTHORITY set AUTHORITY = 'ROLE_MEMBER' WHERE member_id = 'dkssud123';
+select * from AUTHORITY;
+
 
 /* 권한 */
 CREATE TABLE AUTHORITY (

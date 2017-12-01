@@ -29,4 +29,9 @@ public class AuthorityDaoImpl implements AuthorityDao{
 		return session.selectList(makeSqlId("selectAuthorityByMemberId"), memberId);
 	}
 
+	@Override
+	public int updateAuthority(Authority authority) {
+		return session.update(makeSqlId("updateAuthority"), authority);
+	}
+
 }

@@ -61,7 +61,7 @@ public class MemberController {
 		service.updateMemberProfile(member);
 		
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-
+		System.out.println(authorities);
 		UsernamePasswordAuthenticationToken newAutentication = 
 				new UsernamePasswordAuthenticationToken(member, null, authorities);
 

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.menuMapper">
-
+	<sql id ="menu-column-sql">
+		menu_num, menu_name, menu_comment, menu_price, menu_picture, business_id
+	</sql>
+	
 	<resultMap type="Classification" id="Classification-resultmap">
 		<id column="classification_num" property="classificationNum" />
 		<result column="business_id" property="businessId" />
@@ -77,7 +80,7 @@
 <!-- 여기서 부터 다시 하자! -->
 	<!-- 메뉴 num으로 메뉴 조회 -->
 	<select id = "selectMenuByMenuNum" parameterType="int" resultMap="menu-resultmap">
-		select *
+		select <include refid="menu-column-sql"/>
 		from Menu
 		where menu_num = #{menuNum}
 	</select>
@@ -85,7 +88,7 @@
 
 	<!-- BybusinessId로 메뉴들 조회 -->
 	<select id="selectMenuBybusinessId" resultMap="menu-resultmap">
-		select *
+		select <include refid="menu-column-sql"/>
 		from Menu
 		where business_id = #{businessId}
 	</select>

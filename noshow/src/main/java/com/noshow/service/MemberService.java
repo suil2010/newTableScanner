@@ -23,7 +23,8 @@ public interface MemberService {
 		 * 사용자 정보 수정 처리
 		 * @param member
 		 */
-		void updateUserProfile(Member member);
+
+		void updateMemberProfile(Member member);
 		
 
 }

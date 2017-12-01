@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.authorityMapper">
+
+	<resultMap type="com.noshow.vo.Authority" id="authority-resultmap">
+		<id column="member_id" property="memberId"/>
+		<result column="authority" property="authority"/>
+	</resultMap>
+
+	<!-- 권한 테이블 조회 sql -->
+	<sql id = "authority-select-sql">
+		select member_id, authority
+		from authority
+	</sql>
+	
+		<!-- 사용자 id로 사용자의 권한 조회 -->
+	<select id="selectAuthorityByMemberId" parameterType="string" resultMap="authority-resultmap">
+		<include refid="authority-select-sql"/>	
+		where member_id = #{value}
+	</select>
+	
+		<!-- 권한 추가 -->
+	<insert id="insertAuthority" parameterType="Authority">
+		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
+	</insert>
+	
+</mapper>

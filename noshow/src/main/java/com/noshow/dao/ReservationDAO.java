@@ -48,6 +48,6 @@ public interface ReservationDAO {
 	 * @param resInfoMap
 	 * @return
 	 */
-	int selectResNumByReservationInfo(Map<String, String> resInfoMap);
+	Reservation selectReservationByReservationInfo(Map<String, String> resInfoMap);
 
 }

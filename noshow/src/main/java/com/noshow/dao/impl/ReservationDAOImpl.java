@@ -22,7 +22,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 	
 	@Override
 	public int insertReservation(Reservation reservation) {
-		System.out.println(reservation);
+		System.out.println("resDAOImpl-insertReservation : "+reservation);
 		return session.insert(makeSqlId("insertReservation"), reservation);
 	}
 
@@ -47,8 +47,8 @@ public class ReservationDAOImpl implements ReservationDAO{
 	}
 
 	@Override
-	public int selectResNumByReservationInfo(Map<String, String> resInfoMap) {
-		return session.selectOne(makeSqlId("selectResNumByReservationInfo"), resInfoMap);
+	public Reservation selectReservationByReservationInfo(Map<String, String> resInfoMap) {
+		return session.selectOne(makeSqlId("selectReservationByReservationInfo"), resInfoMap);
 	}
 	
 }

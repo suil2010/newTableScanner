@@ -97,7 +97,7 @@
 		<c:forEach items="${requestScope.table}" var="item">
 					<div class ="draggable" style="top: ${item.yLocation}px; left: ${item.xLocation}px;" >
 						<span>${item.tableNum }번 테이블</span> <p>
-						<span>${item.tablePeople}명</span>
+						<span>${item.tablePeople}명</span> 
 						    
 					</div>
 			

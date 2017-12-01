@@ -65,7 +65,7 @@
 		menu_comment = #{menuComment},
 		menu_price = #{menuPrice},
 		menu_picture = #{menuPicture},
-		classification_num = #{classificationNum},
+<!-- 		classification_num = #{classificationNum}, -->
 		business_id = #{businessId}
 		where menu_num = #{menuNum}
 	</update>

@@ -42,13 +42,13 @@ public class OwnerMemberController {
 		Authentication authentication = context.getAuthentication();
 */
 		// 식당이미지 업로드
-		MultipartFile rtImage = rt.getRtImg();
-		if (rtImage != null && !rtImage.isEmpty()) {
+		MultipartFile rtImg = rt.getRtImg();
+		if (rtImg != null && !rtImg.isEmpty()) {
 			// 이미지를 저장할 디렉토리
 			String dir = request.getServletContext().getRealPath("/rtPicture");
 			String pictureName = UUID.randomUUID().toString();
 			File upRtImg = new File(dir, pictureName);
-			rtImage.transferTo(upRtImg);
+			rtImg.transferTo(upRtImg);
 			rt.setRtPicture(pictureName);
 		}
 		service.insertRestaurant(rt, "ROLE_OWNER");

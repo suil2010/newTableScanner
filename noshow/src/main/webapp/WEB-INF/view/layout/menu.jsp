@@ -18,14 +18,13 @@
 <%-- 사용자 메뉴 /member 으로 시작--%>
 <sec:authorize access="hasRole('ROLE_MEMBER')">
    <li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보 조회</a></li>
+   <li><a href="${initParam.rootPath }/reservation_form.do">음식점 예약</a></li>
 </sec:authorize>
 
 <%-- 사용자 메뉴 /owner 으로 시작--%>
 <sec:authorize access="hasRole('ROLE_OWNER')">
    <li><a href="${initParam.rootPath }/owner/join_menu_form.do">메뉴추가하기</a></li>
 </sec:authorize>
-</ul>
-
 
 <!-- 
    로그아웃전송폼

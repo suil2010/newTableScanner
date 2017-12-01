@@ -60,4 +60,9 @@ public class MenuDaoImpl implements MenuDao{
 		return session.selectList(makeSqlId("selectMenuBybusinessId"), businessId);
 	}
 
+	@Override
+	public Menu selectMenuByMenuNum(int menuNum) {
+		return session.selectOne(makeSqlId("selectMenuByMenuNum"), menuNum);
+	}
+
 }

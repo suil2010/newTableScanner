@@ -1,5 +1,10 @@
 package com.noshow.service;
 
-public class MenuService {
+import com.noshow.vo.Menu;
 
+public interface MenuService {
+
+	void addMenu(Menu menu);
+	
+	Menu getMenuByMenuNum(int menuNum);
 }

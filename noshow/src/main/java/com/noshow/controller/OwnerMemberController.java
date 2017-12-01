@@ -36,6 +36,6 @@ public class OwnerMemberController {
 		String id = "qwer";
 		List<Table> tableList = service.selectTable(id);
 		System.out.println(tableList);   
-		return new ModelAndView("redirect:/ownerTable.do", "Table", tableList);
+		return new ModelAndView("owner/ownerTable.tiles", "Table", tableList);
 	}
 }

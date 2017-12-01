@@ -140,7 +140,7 @@ public class ReservationServiceImpl implements ReservationService {
 			e.printStackTrace();
 		}
 		return resStartTime;
-
+ 
 	}
 
 	/**

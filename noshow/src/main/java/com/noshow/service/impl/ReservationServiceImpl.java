@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.noshow.dao.OrderTableDao;
 import com.noshow.dao.OwnerMemberDAO;
@@ -35,12 +36,15 @@ public class ReservationServiceImpl implements ReservationService {
 	private OrderTableDao orderTableDao;
 	
 	@Override
+	@Transactional
 	public Reservation addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq) {
 
 		// 사업주가 설정한 1인당 예약금을 예약 인원에 맞게 초기화
 		int resPrice = calTotalPrice(businessId, resPeople);
+		resStartTime = calStartTime(resDate, resStartTime);
 		String resEndTime = calResEndTime(businessId, resStartTime);
 		Date resPaidTime = new Date();
+		
 		
 		Reservation reservation = new Reservation(resNum, resDate, resPeople, resStartTime, resEndTime, resPaidTime,
 				resPayStatement, resPrice, memberId, businessId);
@@ -62,11 +66,13 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	@Transactional
 	public int updateReservation(Reservation reservation, Map<String, OrderTable> orderTableMap) {
 		return dao.updateReservationByResNum(reservation);
 	}
 
 	@Override
+	@Transactional
 	public int deleteReservation(int resNum) {
 		return dao.deleteReservationByResNum(resNum);
 	}
@@ -92,6 +98,19 @@ public class ReservationServiceImpl implements ReservationService {
 		return dao.selectResNumByReservationInfo(resInfoMap);
 	}
 
+	
+	/**
+	 * 사용자에게 시간만 받아서 처리하기 위한 메소드
+	 * @param resDate
+	 * @param resStartTime
+	 * @return
+	 */
+	private String calStartTime(String resDate, String resStartTime) {
+		resStartTime = resDate + " " +resStartTime + ":00";
+		return resStartTime;
+	}
+	
+	
 	/**
 	 * 매개변수로 받은 사업주 ID로 rt_term (Table이용시간) 를 받고, resStartTime (예약시작시간) 에 re_term 을
 	 * 더하여 resEndTime(예약종료시간)을 리턴
@@ -102,9 +121,9 @@ public class ReservationServiceImpl implements ReservationService {
 	 */
 	private String calResEndTime(String businessId, String resStartTime) {
 		
-		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-
+		System.out.println("resServiceImp.calResEndTime - resStartTime : "+resStartTime);
 		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
 		int rt_term = restaurant.getRtTerm();
 
@@ -114,8 +133,7 @@ public class ReservationServiceImpl implements ReservationService {
 			cal.setTime(formatDate);
 			cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
-			System.out.println(resEndTime);
-
+			System.out.println("resServiceImp.calResEndTime - resEndTime : "+resEndTime);
 			return resEndTime;
 		} catch (ParseException e) {
 			System.out.println("Date 변환 실패");
@@ -164,7 +182,5 @@ public class ReservationServiceImpl implements ReservationService {
 	public String selectRestaurantNameByBusinessId(String businessId) {
 		return	restaurantDao.selectRestaurantByBusinessId(businessId).getRtName();
 	}
-
-	
 
 }

@@ -1,5 +1,7 @@
 package com.noshow.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.noshow.dao.OwnerMemberDAO;
 import com.noshow.service.OwnerMemberService;
 import com.noshow.vo.Restaurant;
+import com.noshow.vo.Table;
 
 @Service
 public class OwnerMemberServiceImpl implements OwnerMemberService{
@@ -34,5 +37,18 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
 		return dao.selectRestaurantByBusinessId(businessId);
 	}
+
+	@Override
+	public int insertTable(Table table) {
+		return dao.insertTable(table);
+	}
+
+	@Override
+	public List<Table> selectTable(String id) {
+		return dao.selectTable(id);
+	}
+
+	
+
 
 }

@@ -22,7 +22,7 @@
 			<div class="col-sm-10">
 				<input type="text" class="form-control" placeholder="oldPassword" name="oldMemberPassword" id="oldMemberPassword" required="required">
 			</div>
-		</div> 
+		</div>  
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberPassword">새로운 비밀번호</label>

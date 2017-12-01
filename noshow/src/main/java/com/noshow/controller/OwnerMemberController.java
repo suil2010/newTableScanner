@@ -44,16 +44,17 @@ public class OwnerMemberController {
 	      }
 	      System.out.println("이지수");
 	      service.insertRestaurant(rt, "ROLE_OWNER");
-	      return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());
+	      return new ModelAndView("member/mypage.tiles", "businessId", rt.getBusinessId());
+/*	      return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());*/
 	   }
 	   
-	   
+	/*   
 	   @RequestMapping("/regist_success")
 	   public ModelAndView updateRt(@ModelAttribute Restaurant rt) {
 	      System.out.println("aaa");
 	      service.updateRestaurant(rt, "ROLE_OWNER");
 	      return new ModelAndView("redirect:/regist_success.tiles", "businessId", rt.getBusinessId());
-	   }
+	   }*/
 
 	@RequestMapping("/insertTable")
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {

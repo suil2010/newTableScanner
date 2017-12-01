@@ -15,6 +15,8 @@ DROP TABLE RECOMMEND CASCADE CONSTRAINTS; /* 추천 */
 DROP TABLE QUESTION CASCADE CONSTRAINTS; /* 문의 */
 DROP TABLE ANSWER CASCADE CONSTRAINTS; /* 답변 */
 
+select * from restaurant;
+delete from restaurant;
 
 /* 권한 */
 CREATE TABLE AUTHORITY (
@@ -46,7 +48,6 @@ CREATE TABLE RESTAURANT (
    RT_OPEN DATE, /* OPEN 시간 */
    RT_CLOSE DATE, /* CLOSE시간 */
    RT_TERM NUMBER, /* 테이블 이용시간 */
-   RT_IMG VARCHAR2(500), /* 사진이름 */
    RT_PICTURE VARCHAR2(500), /* 저장이름 */
    RT_ADDRESS VARCHAR2(300), /* 음식점위치 */
    RT_CAPACITY NUMBER, /* 수용가능인원 */

@@ -10,5 +10,11 @@
 사업자 id : ${requestScope.menu.businessId }
 </div>
 
+<form  method="post" action="${initParam.rootPath}/menu_businessId.do" enctype="multipart/form-data">
+<input type="hidden" name="businessId" value="<sec:authentication property='principal.memberId'/>">
+<sec:csrfInput/>
+<input type="submit" value="나의 음식점 메뉴 보기">
+
+</form>
  
 	  

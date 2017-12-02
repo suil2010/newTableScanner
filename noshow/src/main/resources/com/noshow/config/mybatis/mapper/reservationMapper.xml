@@ -35,8 +35,7 @@
 		o.rt_open,
 		o.rt_close,
 		o.rt_term,
-		o.rt_img,
-		o.rt_save_img,
+		o.rt_picture,
 		o.rt_address,
 		o.rt_capacity,
 		o.rt_deposit,
@@ -68,8 +67,7 @@
 		<result column="rt_open" property="rtOpen" />
 		<result column="rt_close" property="rtClose" />
 		<result column="rt_term" property="rtTerm" />
-<!-- 		<result column="rt_img" property="rtImg" /> -->
-		<result column="rt_save_img" property="rtPicture" />
+		<result column="rt_picture" property="rtPicture" />
 		<result column="rt_address" property="rtAddress" />
 		<result column="rt_capacity" property="rtCapacity" />
 		<result column="rt_deposit" property="rtDeposit" />

@@ -76,9 +76,12 @@ public class OwnerMemberController {
 	}*/
 	
 	@RequestMapping("/all_restaurant")
-	public List<Restaurant> selectAllRestaurant() {
+	public ModelAndView selectAllRestaurant() {
 		List<Restaurant> restaurantList = service.selectAllRestaurant();
-		return restaurantList;
+		for(Restaurant r : restaurantList) {
+			System.out.println(r);
+		}
+		return new ModelAndView("reservation/restaurant_list.tiles", "restaurantList", restaurantList);
 	}
 	
 	

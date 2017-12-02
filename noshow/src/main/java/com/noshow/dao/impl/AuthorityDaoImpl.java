@@ -34,4 +34,9 @@ public class AuthorityDaoImpl implements AuthorityDao{
 		return session.update(makeSqlId("updateAuthority"), authority);
 	}
 
+	@Override
+	public int deleteAuthority(String memberId) {
+		return session.delete(makeSqlId("deleteAuthority"), memberId);
+	}
+
 }

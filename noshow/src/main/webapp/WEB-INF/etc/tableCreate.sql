@@ -15,11 +15,6 @@ DROP TABLE RECOMMEND CASCADE CONSTRAINTS; /* 추천 */
 DROP TABLE QUESTION CASCADE CONSTRAINTS; /* 문의 */
 DROP TABLE ANSWER CASCADE CONSTRAINTS; /* 답변 */
 
-select * from restaurant;
-delete from restaurant;
-UPDATE AUTHORITY set AUTHORITY = 'ROLE_MEMBER' WHERE member_id = 'dkssud123';
-select * from AUTHORITY;
-
 
 /* 권한 */
 CREATE TABLE AUTHORITY (
@@ -37,6 +32,7 @@ CREATE TABLE MEMBER (
    MEMBER_TEL VARCHAR2(20) NOT NULL, /* 전화번호 */
    MEMBER_BIRTHDAY date NOT NULL, /* 생년월일 */
    MEMBER_EMAIL VARCHAR2(100) NOT NULL, /* 이메일 */
+   drop_check NUMBER default 0, /* 탈퇴유무 1이면 탈퇴*/
    CONSTRAINT PK_MEMBER PRIMARY KEY (MEMBER_ID)
 );
 

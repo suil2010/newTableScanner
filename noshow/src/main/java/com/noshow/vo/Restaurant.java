@@ -26,6 +26,7 @@ public class Restaurant implements Serializable{
 	private String rtPicture; /* 저장 이름 */
 	private String rtAddress; /* 음식점 위치*/
 	private int rtCapacity; /* 수용가능인원 */
+	
 	private int rtDeposit; /* 1인 금액 */
 	
 	private Member member; /* 점주 회원 아이디 */

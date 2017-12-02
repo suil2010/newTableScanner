@@ -30,6 +30,13 @@
 		where member_id = #{value}
 	</select>
 
+	<!-- 탈퇴 유무 조회! -->
+	<select id="selectDropCheckByMemberId" parameterType="string" resultType="int">
+		select drop_check
+		from member
+		where member_id = #{value}
+	</select>
+
 	<!-- INSERT -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER(<include refid="member-column-sql"/>) 
@@ -48,6 +55,12 @@
 			<if test="memberEmail != null"> member_email = #{memberEmail} </if>
 		</set>
 		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="updateDropCheckByMemberId" parameterType="string">
+		update member
+		<set> drop_check = 1 </set>
+		where member_id = #{member_id}
 	</update>
 	
 	<!-- DELETE -->

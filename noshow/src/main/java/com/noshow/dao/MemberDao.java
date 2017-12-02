@@ -29,4 +29,8 @@ public interface MemberDao {
 		 * @return
 		 */
 		int updateMemberByMemberId(Member member);
+		
+		int selectDropCheckByMemberId(String memberId);
+		
+		int updateDropCheckByMemberId(String memberId);
 }

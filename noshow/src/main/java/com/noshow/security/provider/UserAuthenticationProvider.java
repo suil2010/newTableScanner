@@ -41,6 +41,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 		
 		//ID 체크
 		String id = authentication.getName();//사용자가 입력한 ID
+		
+		if(dao.selectDropCheckByMemberId(id) == 1) {
+			throw new UsernameNotFoundException("탈퇴한 ID입니다.");
+		}
+		
 		Member member = dao.selectMemberByMemberId(id);
 		if(member == null){ //없는 id => 로그인실패
 			throw new UsernameNotFoundException("ID를 확인하세요");

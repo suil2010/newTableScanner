@@ -4,11 +4,11 @@
 <html>
 <head>
 <title>TableScanner</title>
-<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script> 
 <script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-ui.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
-<link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/css/common.css">
+<link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/css/common.css">        
 <script type="text/javascript" src="${initParam.rootPath }/resource/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">
@@ -54,7 +54,6 @@
 
 <style type="text/css">
 header {
-	min-width: 1080px;
 	width: 100%;
 	height: 60px;
 	border-bottom: 1px solid #E0E0E0;
@@ -64,7 +63,7 @@ header>a>span {
 	float: left;
 	font-size: 20px;
 	margin-left: 40px;
-	line-height: 60px;
+	line-height: 58px;
 	font-family: NanumGothic;
 }
 
@@ -94,27 +93,10 @@ header>a>span {
 	font-family: HoonWhitecatR;
 }
 
-.content {
-}
 
-.owner {
-	width: 500px;
-	margin-top: 40px;
-}
 
-.owner>label {
-	width: 100%;
-	float: left;
-	height: 40px;
-	line-height: 40px;
-	text-align: left;
-}
 
-.owner>input {
-	width: 100%;
-	float: right;
-	height: calc(40px - 4px);
-}
+
 </style>
 
 
@@ -131,8 +113,8 @@ header>a>span {
 		</a>
 
 	</header>
-	<div class="container" style="width: 100%; padding: 0; margin: 0;"> 
-		<div class="col-sm-2 tab" style="height: 100%; float: left;">
+    
+		<div class="col-sm-2 col-xs-12 tab">
 			<a href="ownerInfo.do">
 				<div class="tab1">
 					<span>음식점 정보수정</span>
@@ -150,11 +132,11 @@ header>a>span {
 					<span>음식점 정보삭제</span>
 				</div>
 			</a>
-
 		</div>
-		<section class="col-sm-10" style="height: 100%; float: left;">
+		
+		<section class="col-sm-10 col-xs-12" style="height: 100%;">
 			<tiles:insertAttribute name="content" />
 		</section>
-	</div>
+	
 </body>
 </html>

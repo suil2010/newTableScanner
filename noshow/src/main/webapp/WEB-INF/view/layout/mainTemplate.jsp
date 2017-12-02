@@ -36,11 +36,22 @@
 </style>
 </head>
 <body>
-     
+     <header style="height: 70px; padding-bottom: 10px; border-bottom: 1px solid #E0E0E0;" >   
+     	<div class="col-sm-3 col-xs-10" style="line-height: 55px;">      
+     		<a href="${initParam.rootPath }/index.do" style="font-size : 32px; color : #000; ">TabelScanner</a>
+     	</div>
+     	<div class="col-sm-9 hidden-xs" style="height: 100%;">
+     		 
+     	</div>
+     	<div class="visible-xs-block" style="height: 100%;">
+     	<button type="button" class="btn btn-default" aria-label="Right Align" style="height: 50px; margin-top: 5px; width: 45px;">  
+     		<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>	
+     	</button>
+
+			
+     	</div>
+     </header>
 	<div class="container">  
-		<div class="page-header text-center">
-			<a href="${initParam.rootPath }/index.do" style="font-size : 32px; color : #000; ">TabelScanner</a>    
-		</div>
 		<%--메인 body --%>
 		<div class="row whole">
 			<%-- 메뉴 --%>

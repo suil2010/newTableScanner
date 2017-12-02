@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function() {
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -44,26 +45,90 @@
 		});
 	});
 </script>
-<div class="content">
-	<form class="owner">
-		<label>사업자번호 :</label> <input type="text" name="businessNum" placeholder="'-' 빼고 입력해주세요. "> <label>음식점명 :</label> <input type="text"
-			name="businessName"
-		> <label>음식점 전화번호 :</label> <input type="text" name="businessTel" placeholder="'-' 빼고 입력해주세요. "> <label>업종 :</label> <input type="text"
-			name="businessField"
-		> <label>휴무일 : </label><input type="text" name="businessHoliday"> <label>OPEN : </label><input type="text" name="businessOpen"> <label>CLOSE
-			:</label> <input type="text" name="businessClose"> <label>수용가능 인원 : </label><input type="text" name="businessCapaity"> <label>1인당
-			예약금 : </label><input type="text" name="businessdeposit"> <label>위치 : </label><input type="text" name="businessdAddress" class="Address"
-			style="width: 70%; float: left;"
-		>
-		<div class="Search"
-			style="width: 27%; height: 40px; background: rgb(11, 155, 169); float: left; font-size: 20px; line-height: 40px; color: #fff; margin-left: 10px;"
-		>검색</div>
-		<!-- test -->
-		<div id="map" style="width: 504px; height: 400px; top: 20px;"></div>
+<div class="container" style="max-width: 800px; padding-top: 50px;">  
+	<form class="form-horizontal" method="post">
+		<sec:csrfInput/>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessNum">사업자번호 :</label>
+			<div class="col-sm-9">
+				<input type="text" name="businessNum" placeholder="'-' 빼고 입력해주세요. " id="businessNum" class="form-control">
+			</div>
+		</div>
 
-		<!-- test -->
-		<input type="submit" value="등록" class="ownersubmit"
-			style="width: 200px; margin-top: 30px; height: 50px; outline: 0; border: 0; background: #0B9BA9; font-size: 22px; cursor: pointer; font-weight: bold; border-radius: 5px; color: #Fff"
-		>
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessName">음식점명 :</label>
+			<div class="col-sm-9">
+				<input type="text" name="businessName" id="businessName" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessTel">음식점 전화번호 :</label>
+			<div class="col-sm-9">
+				<input type="text" name="businessTel" placeholder="'-' 빼고 입력해주세요. " id="businessTel" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
+			<div class="col-sm-9">
+				<input type="text" name="businessField" id="businessField" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
+			<div class="col-sm-9">
+				<input type="text" name="businessHoliday" id="businessHoliday" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
+			<div class="col-sm-9">
+				<input type="text" name="businessOpen" id="businessOpen" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
+			<div class="col-sm-9">
+				<input type="text" name="businessClose" id="businessClose" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessCapaity">수용가능 인원 : </label>
+			<div class="col-sm-9">
+				<input type="text" name="businessCapaity" id="businessCapaity" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="businessdeposit">1인당 예약금 : </label>
+			<div class="col-sm-9">
+				<input type="text" name="businessdeposit" id="businessdeposit" class="form-control">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">위치 : </label>
+			<div class="col-sm-6">
+				<input type="text" name="businessdAddress" class="Address form-control">
+			</div>
+			<button type="button" class="btn btn-default col-sm-2 Search" >검색</button> 
+		</div>
+ 
+		<div id="map" class="col-sm-12" style="height: 400px;"></div>          
+
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input type="submit" value="등록" class="ownersubmit">
+			</div>
+		</div>
+
+
 	</form>
 </div>
+
+

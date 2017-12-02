@@ -14,6 +14,7 @@
 	<mvc:view-controller path="/login_form.do" view-name="login_form.tiles"/>
 	<mvc:view-controller path="/join_member_form.do" view-name="join_member_form.tiles"/>
 	<mvc:view-controller path="/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
+	<mvc:view-controller path="/main.do" view-name="main_content.tiles"/>
 	<mvc:view-controller path="/ownerTable.do" view-name="owner/ownerTable.tiles"/>
 	<mvc:view-controller path="/member/mypage.do" view-name="member/mypage.tiles"/>
 	<mvc:view-controller path="/restaurant_list.do" view-name="reservation/restaurant_list.tiles"/>

@@ -10,7 +10,6 @@
   <h1>Main Page</h1>
   <a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a>
   
-  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
 </div>
 </body>
 </html>

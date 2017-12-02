@@ -67,16 +67,17 @@ public class OwnerMemberController {
 		String id = member.getMemberId();
 		service.deleteTable(id);
 		System.out.println("Table - delete 완료");
-		
 		System.out.println("Table - insert 시작");
-		System.out.println(tableXY.length);
+		int n = 1;
 		for(int i = 0; i < tableXY.length; i++) {
 			if(i % 3 == 0) {
+		
 				String xLocation = tableXY[i];
 				String yLocation = tableXY[i+1];
 				int people = Integer.parseInt(tableXY[i+2]);
-				Table table = new Table(3,1,people,xLocation,yLocation,id);
+				Table table = new Table(3,n,people,xLocation,yLocation,id);
 				service.insertTable(table);
+				n++;
 			}
 		}
 		

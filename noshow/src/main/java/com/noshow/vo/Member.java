@@ -15,6 +15,7 @@ public class Member implements Serializable{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date memberBirthday; /* 생년월일 */
 	private String memberEmail; /* 이메일 */
+	private int dropCheck; /* 탈퇴 유무*/
 	
 	// 생성자
 	public Member() {}
@@ -86,17 +87,26 @@ public class Member implements Serializable{
 		this.memberEmail = memberEmail;
 	}
 
+	public int getDropCheck() {
+		return dropCheck;
+	}
+
+	public void setDropCheck(int dropCheck) {
+		this.dropCheck = dropCheck;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPassword=" + memberPassword + ", memberName=" + memberName
 				+ ", memberGender=" + memberGender + ", memberTel=" + memberTel + ", memberBirthday=" + memberBirthday
-				+ ", memberEmail=" + memberEmail + "]";
+				+ ", memberEmail=" + memberEmail + ", dropCheck=" + dropCheck + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + dropCheck;
 		result = prime * result + ((memberBirthday == null) ? 0 : memberBirthday.hashCode());
 		result = prime * result + ((memberEmail == null) ? 0 : memberEmail.hashCode());
 		result = prime * result + ((memberGender == null) ? 0 : memberGender.hashCode());
@@ -116,6 +126,8 @@ public class Member implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Member other = (Member) obj;
+		if (dropCheck != other.dropCheck)
+			return false;
 		if (memberBirthday == null) {
 			if (other.memberBirthday != null)
 				return false;
@@ -153,7 +165,5 @@ public class Member implements Serializable{
 			return false;
 		return true;
 	}
-	
 
-	
 }

@@ -26,5 +26,6 @@ public interface MemberService {
 
 		void updateMemberProfile(Member member);
 		
+		void removeMember(String memberId);
 
 }

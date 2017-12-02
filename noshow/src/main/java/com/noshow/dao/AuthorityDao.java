@@ -20,5 +20,7 @@ public interface AuthorityDao {
 	List<Authority> selectAuthorityByMemberId(String memberId);
 
 	int updateAuthority(Authority authority);
+	
+	int deleteAuthority(String memberId);
 
 }

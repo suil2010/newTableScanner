@@ -44,6 +44,13 @@ public class MemberServiceImpl implements MemberService{
 		member.setMemberPassword(passwordEncoder.encode(member.getMemberPassword()));
 		dao.updateMemberByMemberId(member);
 	}
+
+	@Override
+	@Transactional
+	public void removeMember(String memberId) {
+		dao.updateDropCheckByMemberId(memberId);
+		Authoritydao.deleteAuthority(memberId);
+	}
 	
 
 	

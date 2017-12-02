@@ -31,4 +31,9 @@
 		</set>
 		WHERE member_id = #{memberId}
 	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteAuthority" parameterType="String">
+		delete from authority where member_id = #{memberId}
+	</delete>
 </mapper>

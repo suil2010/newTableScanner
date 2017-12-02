@@ -48,6 +48,11 @@
 			<sec:authentication property="principal.memberTel" />
 		</div>
 	</div>
-    
-
+	
+	<form action="${initParam.rootPath }/remove_Member.do" method="post">
+		<button type="submit">회원 탈퇴하기!</button>
+	<sec:csrfInput/>
+	</form>
 </div>
+
+

@@ -33,10 +33,15 @@ public interface OwnerMemberService {
 	Restaurant selectRestaurantByBusinessId(String businessId);
 	
 	/**
-	    * 모든 식당을 조회하는 메소드
-	    */
+	 * 모든 식당을 조회하는 메소드
+	 */
 	   
 	List<Restaurant> selectAllRestaurant();
+	
+	/**
+	 * 이름으로 식당 조회
+	 */
+	int selectRestaurantByRtName(String rtName);
 	
 	/**
 	 * 테이블정보 등록

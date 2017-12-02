@@ -35,6 +35,11 @@
 		FROM restaurant
 		WHERE business_id = #{value}
 	</select>
+	
+	<select id="selectAllRestaurant" resultMap="restaurant-resultmap">
+		<include refid="restaurant-column-sql"/>
+		FROM restaurant
+	</select>
 
 	<!-- 식당조회 <sql id="select-restaurant"> SELECT <include refid="restaurant-column-sql"/> 
 		FROM restaurant </sql> 사업자번호로 식당조회 <select id="selectRestaurantByBusinessId" 
@@ -59,15 +64,26 @@
 		rt_term=#{rtTerm}, rt_Img=#{rtImg}, rt_address=#{rtAddress}, rt_capacity=#{rtCapacity}, 
 		rt_deposit=#{rtDeposit} WHERE business_id = #{businessId} </update> DELETE 
 		<delete id="deleteRestaurant" parameterType="string"> DELETE FROM restaurant 
-		WHERE business_id=#{businessId} </delete> Table <insert id="insertTable" 
-		parameterType="Table"> INSERT INTO table_ VALUES ( tabel_list_seq.nextval 
-		, #{tableNum} , #{tablePeople} , #{xLocation} , #{yLocation}, #{businessId}) 
-		</insert> <resultMap type="table" id="table-resultmap"> <id column="table_seq" 
-		property="tableSeq" /> <result column="table_num" property="tableNum" /> 
-		<result column="table_people" property="tablePeople" /> <result column="x_location" 
-		property="xLocation" /> <result column="y_location" property="yLocation" 
-		/> <result column="business_Id" property="businessId" /> </resultMap> <select 
-		id="selectTable" parameterType="string" resultMap="table-resultmap"> select 
-		* from table_ WHERE business_id = #{value} </select> <delete id="deleteTable" 
-		parameterType="string"> delete from table_ where business_id = #{value} </delete> -->
+		WHERE business_id=#{businessId} </delete> -->
+	
+	<!-- Table -->
+	<insert id="insertTable" parameterType="Table"> INSERT INTO table_
+		VALUES ( tabel_list_seq.nextval
+		, #{tableNum} , #{tablePeople} , #{xLocation} , #{yLocation},
+		#{businessId})
+	</insert>
+	<resultMap type="table" id="table-resultmap">
+		<id column="table_seq" property="tableSeq" />
+		<result column="table_num" property="tableNum" />
+		<result column="table_people" property="tablePeople" />
+		<result column="x_location" property="xLocation" />
+		<result column="y_location" property="yLocation" />
+		<result column="business_Id" property="businessId" />
+	</resultMap>
+	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
+		select
+		* from table_ WHERE business_id = #{value}
+	</select>
+	<delete id="deleteTable" parameterType="string"> delete from table_ where
+		business_id = #{value} </delete>
 </mapper>

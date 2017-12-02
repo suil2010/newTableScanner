@@ -68,6 +68,20 @@ public class OwnerMemberController {
 		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
 		return new ModelAndView("owner/regist_success.tiles", "rt", rt);
 	}
+	
+	/*@RequestMapping("/regist_update")
+	public ModelAndView updateRestaurant(@RequestParam String role) {
+		
+		
+	}*/
+	
+	@RequestMapping("/all_restaurant")
+	public List<Restaurant> selectAllRestaurant() {
+		List<Restaurant> restaurantList = service.selectAllRestaurant();
+		return restaurantList;
+	}
+	
+	
 
 	@RequestMapping("/insertTable")
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {

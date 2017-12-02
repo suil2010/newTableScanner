@@ -2,6 +2,9 @@ package com.noshow.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.core.annotation.Order;
 
 import com.noshow.vo.Member;
 import com.noshow.vo.OrderTable;
@@ -18,12 +21,27 @@ public class Reservation implements Serializable{
 	private int resPrice; /* 예약금액 */
 	private String memberId; /* 회원아이디 */
 	private String businessId; /* 점주 회원아이디 */
-//	private Member memberId; /* 회원아이디 */
-//	private Restaurant businessId; /* 점주회원 아이디 */
 
 	private Member member;
-	private OrderTable orderTable;
+	private List<OrderTable> orderTable;
+	private Restaurant restaurant;
 	
+	public List<OrderTable> getOrderTable() {
+		return orderTable;
+	}
+
+	public void setOrderTable(List<OrderTable> orderTable) {
+		this.orderTable = orderTable;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
 	public Member getMember() {
 		return member;
 	}
@@ -47,6 +65,22 @@ public class Reservation implements Serializable{
 		this.resPrice = resPrice;
 		this.memberId = memberId;
 		this.businessId = businessId;
+	}
+	
+	public Reservation(int resNum, String resDate, int resPeople, String resStartTime, String resEndTime, Date resPaidTime, String resPayStatement,
+			int resPrice, String memberId, String businessId, Restaurant restaurant, List<OrderTable> orderTable) {
+		this.resNum = resNum;
+		this.resDate = resDate;
+		this.resPeople = resPeople;
+		this.resStartTime = resStartTime;
+		this.resEndTime = resEndTime;
+		this.resPaidTime = resPaidTime;
+		this.resPayStatement = resPayStatement;
+		this.resPrice = resPrice;
+		this.memberId = memberId;
+		this.businessId = businessId;
+		this.restaurant = restaurant;
+		this.orderTable = orderTable;
 	}
 
 	public int getResNum() {

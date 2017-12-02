@@ -5,9 +5,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.noshow.dao.AuthorityDao;
 import com.noshow.dao.OwnerMemberDAO;
 import com.noshow.service.OwnerMemberService;
+import com.noshow.vo.Authority;
 import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
 
@@ -17,10 +20,14 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
    @Resource
    private OwnerMemberDAO dao;
    
+   @Resource
+   private AuthorityDao authoritydao;
    
 	@Override
-	public int insertRestaurant(Restaurant rt, String role) {
-		return dao.insertRestaurant(rt);
+	@Transactional
+	public void insertRestaurant(Restaurant rt, String role) {
+		dao.insertRestaurant(rt);
+		authoritydao.updateAuthority(new Authority(rt.getBusinessId(), role));
 	}
 	
 	@Override
@@ -42,6 +49,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public List<Restaurant> selectAllRestaurant() {
 		return dao.selectAllRestaurant();
 	}
+	
+	@Override
+	public int selectRestaurantByRtName(String rtName) {
+		return dao.selectRestaurantByRtName(rtName);
+	}
 
 	@Override
 	public int insertTable(Table table) {
@@ -57,6 +69,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public int deleteTable(String id) {
 		return dao.deleteTable(id);
 	}
+
 
 	
 

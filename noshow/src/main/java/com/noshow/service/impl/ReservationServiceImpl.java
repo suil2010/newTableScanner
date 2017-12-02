@@ -37,24 +37,27 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	@Transactional
-	public Reservation addReservation(int resNum, String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, int tableSeq) {
+	public Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq) {
 
 		// 사업주가 설정한 1인당 예약금을 예약 인원에 맞게 초기화
+		int resNum = 0;
 		int resPrice = calTotalPrice(businessId, resPeople);
 		resStartTime = calStartTime(resDate, resStartTime);
 		String resEndTime = calResEndTime(businessId, resStartTime);
 		Date resPaidTime = new Date();
 		
-		
-		Reservation reservation = new Reservation(resNum, resDate, resPeople, resStartTime, resEndTime, resPaidTime,
-				resPayStatement, resPrice, memberId, businessId);
 
-		int result = dao.insertReservation(reservation);
+		int result = dao.insertReservation(new Reservation(resNum, resDate, resPeople, resStartTime, resEndTime, resPaidTime,
+				resPayStatement, resPrice, memberId, businessId));
 		System.out.println(result);
 		
+		Reservation reservation = selectReservationByReservationInfo(memberId, businessId, resStartTime);
+		resNum = reservation.getResNum();
+		
 		/* 예약테이블 추가를 위한 부분 */
-		resNum = selectResNumByReservationInfo(memberId, businessId, resStartTime);
 		result = result + addOrderTable(tableSeq, resNum);
+		
+		// 검증
 		if (result ==2) {
 			System.out.println("insert 성공");
 			return reservation;
@@ -88,14 +91,14 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	@Override
-	public int selectResNumByReservationInfo(String memberId, String businessId, String resStartTime) {
+	public Reservation selectReservationByReservationInfo(String memberId, String businessId, String resStartTime) {
 		
 		Map<String, String> resInfoMap = new HashMap<>();
 		resInfoMap.put("memberId", memberId);
 		resInfoMap.put("businessId", businessId);
 		resInfoMap.put("resStartTime", resStartTime);
 		
-		return dao.selectResNumByReservationInfo(resInfoMap);
+		return dao.selectReservationByReservationInfo(resInfoMap);
 	}
 
 	
@@ -158,9 +161,19 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	/* OrderTableService */
 	@Override
-	public int addOrderTable(int tableSeq, int resNum) {
-		OrderTable orderTable = new OrderTable(tableSeq, resNum);
-		return orderTableDao.insertOrderTable(orderTable);
+	public int addOrderTable(List<Integer> tableSeq, int resNum) {
+		int result = 0;
+		System.out.println("ResServiceImpl-addOrderTable-resNum : " + resNum);
+		for(int tableNum : tableSeq) {
+			OrderTable orderTable = new OrderTable(tableNum, resNum);
+			result = orderTableDao.insertOrderTable(orderTable);
+			if (result == 1) {
+				System.out.println("예약 번호 : "+resNum+" - 테이블 번호 : "+tableNum+"insert 성공");
+			} else {
+				System.out.println("예약 번호 : "+resNum+" - 테이블 번호 : "+tableNum+"insert 실패!!");
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -179,8 +192,13 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public String selectRestaurantNameByBusinessId(String businessId) {
-		return	restaurantDao.selectRestaurantByBusinessId(businessId).getRtName();
+	public Restaurant selectRestaurantByBusinessId(String businessId) {
+		return	restaurantDao.selectRestaurantByBusinessId(businessId);
+	}
+
+	@Override
+	public List<Reservation> selectJoinReservationByMemId(String memberId) {
+		return dao.selectJoinReservationByMemId(memberId);
 	}
 
 }

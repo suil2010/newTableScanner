@@ -5,7 +5,7 @@ html,body{
 }
 @font-face{
 	font-family: 'HoonWhitecatR';
-	src :url(/noshow/resource/font/HoonWhitecatR.ttf);
+	src :url(/noshow/resource/fonts/HoonWhitecatR.ttf);
 }
 *{
 	text-align: center;

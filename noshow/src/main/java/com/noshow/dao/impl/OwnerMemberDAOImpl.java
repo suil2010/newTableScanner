@@ -46,6 +46,11 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 	
 	@Override
+	public int selectRestaurantByRtName(String rtName) {
+		return session.selectOne(makeSqlId("selectRestaurantByRtName"), rtName);
+	}
+	
+	@Override
 	public int insertTable(Table table) {
 		return session.insert(makeSqlId("insertTable"), table);
 	}

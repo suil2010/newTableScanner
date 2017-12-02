@@ -15,7 +15,7 @@ public interface OwnerMemberService {
 	 * rt : 등록할 식당정보
 	 * role : 사용자 권한 / 관리자 - ROLE_ADMIN, 회원 - ROLE_MEMBER, 사업자회원 - ROLE_BUSINESS
 	 */
-	int insertRestaurant(Restaurant rt, String role);
+	void insertRestaurant(Restaurant rt, String role);
 	
 	/**
 	 * 식당정보 수정
@@ -33,10 +33,15 @@ public interface OwnerMemberService {
 	Restaurant selectRestaurantByBusinessId(String businessId);
 	
 	/**
-	    * 모든 식당을 조회하는 메소드
-	    */
+	 * 모든 식당을 조회하는 메소드
+	 */
 	   
 	List<Restaurant> selectAllRestaurant();
+	
+	/**
+	 * 이름으로 식당 조회
+	 */
+	int selectRestaurantByRtName(String rtName);
 	
 	/**
 	 * 테이블정보 등록

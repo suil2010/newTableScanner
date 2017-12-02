@@ -9,10 +9,11 @@
 	<definition name="ownerTemplate" template="/WEB-INF/view/layout/ownerTemplate.jsp">
 
 	</definition>
-	<definition name="owner/*.tiles" extends="ownerTemplate">
+<!--	2017.12.01/pm6:41분 owner 정보추가하면 권한 바뀌는지 테스트 하기 위해 주석처리함 -->
+ 	<definition name="owner/*.tiles" extends="ownerTemplate">
 		<put-attribute name="content" value="/WEB-INF/view/content/owner/{1}.jsp" />
 	</definition>
-
+  
 	<!-- main tiles -->
 	<definition name="mainTemplate" template="/WEB-INF/view/layout/mainTemplate.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/layout/header.jsp" />

@@ -1,93 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noshow.config.mybatis.mapper.reservationMapper">
- 
+
 	<sql id="select-reservation">
-		SELECT	res_num,
-				res_date,
-				res_people,
-				res_start_time,
-				res_end_time,
-				res_paid_time,
-				res_pay_statement,
-				res_price,
-				member_id,
-				business_id
-		FROM	reservation
+		SELECT res_num,
+		res_date,
+		res_people,
+		res_start_time,
+		res_end_time,
+		res_paid_time,
+		res_pay_statement,
+		res_price,
+		member_id,
+		business_id
+		FROM reservation
 	</sql>
-	 
+
+	<sql id="select-reservation-join-restaurant">
+		SELECT r.res_num,
+		r.res_date,
+		r.res_people,
+		r.res_start_time,
+		r.res_end_time,
+		r.res_paid_time,
+		r.res_pay_statement,
+		r.res_price,
+		r.member_id,
+		r.business_id,
+		o.rt_num,
+		o.rt_name,
+		o.rt_tel,
+		o.rt_field,
+		o.rt_holiday,
+		o.rt_open,
+		o.rt_close,
+		o.rt_term,
+		o.rt_img,
+		o.rt_save_img,
+		o.rt_address,
+		o.rt_capacity,
+		o.rt_deposit,
+		t.table_seq,
+		t.res_num
+	FROM	reservation r
+	</sql>
+
 	<resultMap type="reservation" id="reservation-resultmap">
-		<id column="res_num" property="resNum"/>
-		<result column="res_date" property="resDate"/>
-		<result column="res_people" property="resPeople"/>
-		<result column="res_start_time" property="resStartTime"/>
-		<result column="res_end_time" property="resEndTime"/>
-		<result column="res_paid_time" property="resPaidTime"/>
-		<result column="res_pay_statement" property="resPayStatement"/>
-		<result column="res_price" property="resPrice"/>
-		<result column="member_id" property="memberId"/>
-		<result column="business_id" property="businessId"/>
+		<id column="res_num" property="resNum" />
+		<result column="res_date" property="resDate" />
+		<result column="res_people" property="resPeople" />
+		<result column="res_start_time" property="resStartTime" />
+		<result column="res_end_time" property="resEndTime" />
+		<result column="res_paid_time" property="resPaidTime" />
+		<result column="res_pay_statement" property="resPayStatement" />
+		<result column="res_price" property="resPrice" />
+		<result column="member_id" property="memberId" />
+		<result column="business_id" property="businessId" />
 	</resultMap>
-	
+
+	<resultMap type="restaurant" id="restaurant-resultMap">
+		<result column="business_Id" property="businessId" />
+		<result column="rt_num" property="rtNum" />
+		<result column="rt_name" property="rtName"/>
+		<result column="rt_tel" property="rtTel" />
+		<result column="rt_field" property="rtField" />
+		<result column="rt_holiday" property="rtHoliday" />
+		<result column="rt_open" property="rtOpen" />
+		<result column="rt_close" property="rtClose" />
+		<result column="rt_term" property="rtTerm" />
+<!-- 		<result column="rt_img" property="rtImg" /> -->
+		<result column="rt_save_img" property="rtPicture" />
+		<result column="rt_address" property="rtAddress" />
+		<result column="rt_capacity" property="rtCapacity" />
+		<result column="rt_deposit" property="rtDeposit" />
+	</resultMap>
+
+	<resultMap type="orderTable" id="orderTable-resultmap">
+		<id column="table_Seq" property="tableSeq" />
+		<result column="res_Num" property="resNum" />
+	</resultMap>
+
+	<resultMap type="reservation" id="reservation-join-resultmap">
+		<id column="res_num" property="resNum" />
+		<result column="res_date" property="resDate" />
+		<result column="res_people" property="resPeople" />
+		<result column="res_start_time" property="resStartTime" />
+		<result column="res_end_time" property="resEndTime" />
+		<result column="res_paid_time" property="resPaidTime" />
+		<result column="res_pay_statement" property="resPayStatement" />
+		<result column="res_price" property="resPrice" />
+		<result column="member_id" property="memberId" />
+		<result column="business_id" property="businessId" />
+		<collection property="restaurant" resultMap="restaurant-resultMap" />
+		<collection property="orderTable" resultMap="orderTable-resultmap" />
+	</resultMap>
+
+
+
 	<!-- INSERT -->
 	<insert id="insertReservation" parameterType="reservation">
-		INSERT INTO RESERVATION VALUES 
-		(	#{resNum},
-			to_date(#{resDate}, 'yyyy/mm/dd'),
-			#{resPeople},
-			to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss'),
-			to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss'),
-			SYSDATE,
-			#{resPayStatement},
-			#{resPrice},
-			#{memberId},
-			#{businessId}
+		<selectKey keyProperty="resNum" order="BEFORE" resultType="_int">
+			SELECT resNum_seq.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO RESERVATION VALUES
+		( #{resNum},
+		to_date(#{resDate}, 'yyyy/mm/dd'),
+		#{resPeople},
+		to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss'),
+		to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss'),
+		SYSDATE,
+		#{resPayStatement},
+		#{resPrice},
+		#{memberId},
+		#{businessId}
 		)
 	</insert>
-	
-	<!-- 
-		UPDATE 
-		 - 예약날짜, 예약시간, 인원만 변경할 수 있도록 한다.
-	-->
+
+	<!-- UPDATE - 예약날짜, 예약시간, 인원만 변경할 수 있도록 한다. -->
 	<update id="updateReservationByResNum" parameterType="reservation">
-		UPDATE	reservation
-		SET		res_date = #{resDate},
-				res_people = #{resPeople},
-				res_start_time = #{resStartTime},
-				res_end_time = #{resEndTime},
-				res_price = #{resPrice}
-		WHERE	res_num = #{resNum}
+		UPDATE
+		reservation
+		SET res_date = #{resDate},
+		res_people = #{resPeople},
+		res_start_time = #{resStartTime},
+		res_end_time = #{resEndTime},
+		res_price = #{resPrice}
+		WHERE res_num = #{resNum}
 	</update>
-	
+
 	<!-- DELETE -->
 	<delete id="deleteReservationByResNum" parameterType="_int">
 		DELETE
-		FROM	reservation
-		WHERE	res_num = #{value}
+		FROM
+		reservation
+		WHERE res_num = #{value}
 	</delete>
-	
+
 	<!-- SELECT -->
 	<!-- ##### 회원 ID 로 전체 예약 조회 ##### -->
-	<select id="selectReservationByMemberId" parameterType="string" resultMap="reservation-resultmap">
-		<include refid="select-reservation"/>
-		WHERE	member_id = #{value}
+	<select id="selectReservationByMemberId" parameterType="string"
+		resultMap="reservation-resultmap">
+		<include refid="select-reservation" />
+		WHERE member_id = #{value}
 	</select>
-	
+
 	<!-- ##### 점주 ID 로 예약 조회 ##### -->
-	<select id="selectReservationByBusinessId" parameterType="string" resultMap="reservation-resultmap">
-		<include refid="select-reservation"/>
-		WHERE	business_id = #{value}
+	<select id="selectReservationByBusinessId" parameterType="string"
+		resultMap="reservation-resultmap">
+		<include refid="select-reservation" />
+		WHERE business_id = #{value}
 	</select>
-	
+
 	<!-- TEST 회원ID, 점주ID, 예약날짜+시간 으로 예약번호 조회 -->
-	<select id="selectResNumByReservationInfo" parameterType="map" resultType="_int">
-		SELECT	res_num
-		FROM	reservation
-		WHERE	member_id = #{memberId}
-		AND		business_id = #{businessId}
-		AND		res_start_time = to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
+	<select id="selectReservationByReservationInfo" parameterType="map"
+		resultMap="reservation-resultmap">
+		<include refid="select-reservation" />
+		WHERE member_id = #{memberId}
+		AND business_id = #{businessId}
+		AND
+		res_start_time = to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
 	</select>
-	
+
+
+	<!-- TEST_ join 객체까지 VO에 들어가는지? -->
+	<select id="selectJoinReservationByMemId" parameterType="String"
+		resultMap="reservation-join-resultmap">
+		<include refid="select-reservation-join-restaurant"/>
+		, restaurant o, order_table t
+		WHERE	r.business_id = o.business_id
+		AND		r.res_num = t.res_num
+		AND		r.member_id = #{value}
+		ORDER BY	r.res_num DESC
+	</select>
+
 </mapper>
 
 

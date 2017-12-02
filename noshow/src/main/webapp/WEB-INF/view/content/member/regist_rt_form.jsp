@@ -4,7 +4,7 @@
 <script>
 	$(document).ready(function() {
 		var options = { 
-				now: "12:35", //hh:mm 24 hour format only, defaults to current time 
+				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
 				twentyFour: false, //Display 24 hour format, defaults to false 
 				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
 				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 

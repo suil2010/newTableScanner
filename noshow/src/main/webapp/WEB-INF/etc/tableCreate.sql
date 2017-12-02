@@ -393,3 +393,4 @@ ALTER TABLE ANSWER
       
 /*시퀀스*/
       create sequence tabel_list_seq;
+      create sequence res_num_seq;

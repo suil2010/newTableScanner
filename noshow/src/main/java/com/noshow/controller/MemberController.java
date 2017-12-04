@@ -36,11 +36,12 @@ public class MemberController {
 /*		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		member.setMemberPassword(encoder.encode(member.getMemberPassword()));*/
 		service.addMember(member, "ROLE_MEMBER");
-		return new ModelAndView("redirect:/join_success.do", "memberId", member.getMemberId());
+		
+		return new ModelAndView("/sendMail.do", "member", member);
 	}
 
 	@RequestMapping("/join_success")
-	public ModelAndView joinSuccess(@RequestParam String memberId) {
+	public ModelAndView joinSuccess(String memberId) {
 		Member member = service.getUserByMemberId(memberId);
 		return new ModelAndView("member/join_success.tiles", "member", member);
 	}

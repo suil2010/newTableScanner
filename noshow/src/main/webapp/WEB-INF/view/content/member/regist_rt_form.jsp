@@ -7,7 +7,7 @@
 		//date
 		var options = { 
 				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
-				twentyFour: false, //Display 24 hour format, defaults to false 
+				twentyFour: true, //Display 24 hour format, defaults to false 
 				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
 				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
 				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
@@ -125,14 +125,14 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
 			<div class="col-sm-9">
-				<input type="text" name="businessOpen" id="businessOpen" class="form-control timepicker">
+				<input type="text" name="rtOpen" id="rtOpen" class="form-control timepicker">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessClose" id="businessClose" class="form-control timepicker">
+				<input type="text" name="rtClose" id="rtClose" class="form-control timepicker">
 			</div>
 		</div>
 

@@ -1,12 +1,10 @@
 package com.noshow.service.impl;
 
-import java.io.IOException;
 import java.util.Random;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -86,9 +84,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public void getFindByMemberId(Member member) throws Exception {
+	public void getFindByPassword(Member member) throws Exception {
 		if (dao.selectFindPasswordByMemberId(member) == 1) {
-			String newPassword = getRandomPassword(8);
+			String newPassword = getRandomPassword(10);
 			member.setMemberPassword(passwordEncoder.encode(newPassword));
 			dao.updatePasswordByMemberId(member);
 			member = dao.selectMemberByMemberId(member.getMemberId());

@@ -79,7 +79,7 @@ public class MemberController {
 	
 	@RequestMapping("/find_password")
 	public ModelAndView findByPassword(String memberId, String memberEmail) throws Exception {
-		service.getFindByMemberId(new Member(memberId, null, memberEmail));
+		service.getFindByPassword(new Member(memberId, null, memberEmail));
 		return new ModelAndView("/index.tiles");
 	}
 	

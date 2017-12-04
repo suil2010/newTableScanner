@@ -36,11 +36,22 @@
 			<label for="businessId">음식점</label> <select name="businessId"
 				class="form-control">
 				<option value="none">음식점을 선택하세요</option>
-				<c:forEach items="${requestScope.restaurantList }" var="restaurant">
-					<option value="${restaurant.businessId }">${restaurant.rtName }</option>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${requestScope.restaurantList == null }">
+						<option value="nothing">검색 조건에 맞는 음식점이 없습니다.</option>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${requestScope.restaurantList }" var="restaurant">
+							<option value="${restaurant.businessId }">${restaurant.rtName }</option>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+
 			</select>
 		</div>
+		<input type="hidden" name="resPeople" value="${requestScope.resPeople }"/>
+		<input type="hidden" name="resDate" value="${requestScope.resDate }"/>
+		<input type="hidden" name="resTime" value="${requestScope.resTime }"/>
 		<input type="submit" class="btn btn-info" value="예약 진행">
 		<sec:csrfInput />
 	</form>

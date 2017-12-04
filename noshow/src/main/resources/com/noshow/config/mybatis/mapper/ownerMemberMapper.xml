@@ -32,18 +32,7 @@
 		#{rtAddress}, #{rtCapacity}, #{rtDeposit})
 	</insert>
 
-	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql" />
-		FROM restaurant
-		WHERE business_id = #{value}
-	</select>
-	
-	<select id="selectAllRestaurant" resultMap="restaurant-resultmap">
-		SELECT 
-		<include refid="restaurant-column-sql"/>
-		FROM restaurant
-	</select>
+
 
 	<!-- 식당조회 <sql id="select-restaurant"> SELECT <include refid="restaurant-column-sql"/> 
 		FROM restaurant </sql> 사업자번호로 식당조회 <select id="selectRestaurantByBusinessId" 
@@ -90,4 +79,37 @@
 	</select>
 	<delete id="deleteTable" parameterType="string"> delete from table_ where
 		business_id = #{value} </delete>
+		
+		
+	<!-- ######### RESTAURANT SELECT ########## -->
+	
+	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
+		SELECT
+		<include refid="restaurant-column-sql" />
+		FROM restaurant
+		WHERE business_id = #{value}
+	</select>
+	
+	<select id="selectAllRestaurant" resultMap="restaurant-resultmap">
+		SELECT 
+		<include refid="restaurant-column-sql"/>
+		FROM restaurant
+	</select>
+	
+	<!-- TEST_ search 조건으로 식당 list 뽑을 수 있는지? -->
+	<select id="selectRestaurantBySearch" parameterType="map" resultMap="restaurant-resultmap">
+		SELECT 
+		<include refid="restaurant-column-sql"/>
+		FROM 
+			(SELECT <include refid="restaurant-column-sql"/>
+			 FROM	restaurant
+			 WHERE	rt_holiday != #{rtHoliday}
+			 AND	rt_address like '%'||#{resPlace}||'%'
+			)
+		WHERE	to_date(#{resTime},'hh24:mi')
+		BETWEEN	to_date(to_char(rt_open, 'hh24:mi'), 'hh24:mi') AND	to_date(to_char(rt_close, 'hh24:mi'), 'hh24:mi')
+	</select>
+	
+	
+	
 </mapper>

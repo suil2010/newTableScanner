@@ -3,6 +3,7 @@
 <script>
 	$(document).ready(function() {
 		//date
+
 		var options = {
 			now : "12:00", //hh:mm 24 hour format only, defaults to current time 
 			twentyFour : true, //Display 24 hour format, defaults to false 
@@ -31,12 +32,13 @@
 				showCurrentAtPos : 0,
 				minDate : new Date(),
 				maxDate : "+3m"
- 
+
 			});
 		});
 	});
 </script>
-<form class="navbar-form" role="search" method="post">
+
+<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
 	<div class="form-group col-sm-12">
 		<div class="input-group col-sm-1 col-xs-1">
 			<button type="button" class="btn" style="float: right; border: 1px solid #000; background: #fff;">
@@ -44,23 +46,23 @@
 			</button>
 		</div>
 		<div class="input-group col-sm-3 col-xs-12">
-			<input type="text" class="form-control " placeholder="위치" name="place">
+			<input type="text" class="form-control " placeholder="위치" name="resPlace">
 		</div>
 		<div class="input-group col-sm-2 col-xs-12">
-			<input type="text" class="form-control " id="datepicker" placeholder="날짜" name="date">
+			<input type="date" class="form-control "  placeholder="날짜" name="resDate">
 		</div>
 		<div class="input-group col-sm-2 col-xs-12">
-			<input type="text" class="form-control timepicker " placeholder="시간" name="time">
+			<input type="text" class="form-control timepicker " placeholder="시간" name="resTime">
 		</div>
 		<div class="input-group col-sm-2 col-xs-12">
-			<input type="number" class="form-control" placeholder="인원" name="people">
+			<input type="number" class="form-control" placeholder="인원" name="resPeople">
 		</div>
 		<div class="input-group col-sm-1">
 			<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
 				<span class="glyphicon glyphicon-search"></span>
 			</button>
-		</div>
 
+		</div>
 
 
 
@@ -69,3 +71,4 @@
 	<sec:csrfInput />
 
 </form>
+

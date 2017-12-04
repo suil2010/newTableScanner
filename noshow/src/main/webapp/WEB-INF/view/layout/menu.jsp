@@ -31,23 +31,6 @@
 		<li><a id="logout" style="cursor: pointer;">로그아웃</a></li>
 	</sec:authorize>
 
-
-	<%-- 사용자 메뉴 /member 으로 시작--%>
-	<sec:authorize access="hasRole('ROLE_MEMBER')">
-		<li><a href="${initParam.rootPath }/member/mypage.do">사용자 정보
-				조회</a></li>
-		<li><a href="${initParam.rootPath }/member/update.do">사용자 정보
-				수정</a></li>
-		<li><a href="${initParam.rootPath }/all_restaurant.do">음식점 예약</a></li>
-		<li><a href="${initParam.rootPath }/myReservation.do">사용자 예약
-				내역</a></li>
-		<li><a href="${initParam.rootPath }/member/regist_rt_form.do">음식점
-				등록</a></li>
-		<li><a href="${initParam.rootPath }/main_content.do">식당 검색바</a></li>
-		<li><a href="${initParam.rootPath }/sendMail.do">sendMail 검색바</a></li>
-		<li><a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a></li>
-	</sec:authorize>
-
 	<%-- 사용자 메뉴 /owner 으로 시작--%>
 	<sec:authorize access="hasRole('ROLE_OWNER')">
 		<li><a href="${initParam.rootPath }/owner/join_menu_form.do">메뉴추가하기</a></li>

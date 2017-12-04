@@ -54,4 +54,5 @@ public class MenuController {
 		System.out.println(menu);
 		return new ModelAndView("owner/menu_businessId.tiles","menu", menu);
 	}
+	
 } 

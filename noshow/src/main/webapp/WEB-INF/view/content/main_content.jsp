@@ -1,10 +1,12 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function() {
 		//date
 		var options = { 
 				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
-				twentyFour: false, //Display 24 hour format, defaults to false 
+				twentyFour: true, //Display 24 hour format, defaults to false 
 				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
 				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
 				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
@@ -24,14 +26,15 @@
 		 });
 	});
 </script>
-<form class="navbar-form" role="search" method="post">
+<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
 		<div class="form-group">
-		    <input type="text" class="form-control col-sm-3" placeholder="위치" name="place">
-		    <input type="text" class="form-control col-sm-3" id="datepicker" placeholder="날짜" name="date">
-		    <input type="text" class="form-control timepicker col-sm-2" placeholder="시간" name="time">
-		    <input type="number" class="form-control col-sm-2" placeholder="인원" name="people">
+		    <input type="text" class="form-control col-sm-3" placeholder="위치" name="resPlace">
+		    <input type="date" class="form-control col-sm-3"  placeholder="날짜" name="resDate">
+		    <input type="text" class="form-control timepicker col-sm-2" placeholder="시간" name="resTime">
+		    <input type="number" class="form-control col-sm-2" placeholder="인원" name="resPeople">
 
 		</div>
 
 		<button type="submit" class="btn btn-default col-sm-2" style="float: right;">검색</button>
+		<sec:csrfInput />
 </form>	

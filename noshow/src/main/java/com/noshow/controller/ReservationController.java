@@ -1,6 +1,5 @@
 package com.noshow.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +9,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.ReservationService;
 import com.noshow.vo.Member;
+import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
-import com.noshow.vo.Restaurant;
+import com.noshow.vo.Table;
 
 
 @Controller
@@ -27,7 +29,8 @@ public class ReservationController {
 	private ReservationService service;
 	
 	@RequestMapping("/addReservation")
-	public ModelAndView addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId,@RequestParam List<Integer> tableList) {
+	@Transactional
+	public ModelAndView addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
@@ -56,6 +59,7 @@ public class ReservationController {
 		}
 	} 
 	
+	
 	@RequestMapping("/reservationSuccess")
 	public ModelAndView reservationSuccess(HttpServletRequest request) {
 		Reservation reservation = (Reservation)request.getAttribute("reservation");
@@ -64,9 +68,9 @@ public class ReservationController {
 		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
 		System.out.println("reservationSuccess - restaurantName : " + restaurantName); //log
 		
-		List<Integer> tableList = (List<Integer>) request.getAttribute("tableList");
+		List<OrderTable> orderTableList = service.selectOrderTableByResNum(reservation.getResNum());
 		// 검증
-		for(int table : tableList) {
+		for(OrderTable table : orderTableList) {
 			System.out.println("reservationSuccessController- table: " + table);//log
 		}
 		
@@ -74,10 +78,39 @@ public class ReservationController {
 		mav.setViewName("reservation/reservation_success.tiles");
 		mav.addObject("reservation", reservation);
 		mav.addObject("restaurantName", restaurantName);
-		mav.addObject("tableList", tableList);
+		mav.addObject("orderTableList", orderTableList);
 
 		return mav;
 	}
+	
+	@RequestMapping("/tableSearchController")
+	public ModelAndView tableSearchController(HttpServletRequest request, String resDate, String resTime, int resPeople, String restaurantName, String businessId) {
+		
+		List<Table> tableList = service.selectUsableTable(resDate, resTime, businessId);
+		for(Table t : tableList) {
+			System.out.println("ReservationController.tableSearchCtr - "+t);
+		}
+		
+		List<Table> allTable = (List<Table>) request.getAttribute("allTable");
+		for(Table tables : allTable) {
+			System.out.println("ReservationController.tableSearchCtr - " + tables);
+		}
+		//log	
+		System.out.println("tableSearchController - "+resDate);
+		System.out.println("tableSearchController - " + businessId);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("reservation/reservation_form.tiles");
+		mav.addObject("resDate", resDate);
+		mav.addObject("resTime", resTime);
+		mav.addObject("resPeople", resPeople);
+		mav.addObject("allTable",allTable);
+		mav.addObject("tableList", tableList);
+		mav.addObject("restaurantName", restaurantName);
+		mav.addObject("businessId", businessId);
+		
+		return mav;
+	}
+
 	
 	@RequestMapping("/myReservation")
 	public ModelAndView myReservation() {

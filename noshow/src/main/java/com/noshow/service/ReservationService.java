@@ -7,6 +7,7 @@ import java.util.Map;
 import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
 import com.noshow.vo.Restaurant;
+import com.noshow.vo.Table;
 
 public interface ReservationService {
 
@@ -20,8 +21,7 @@ public interface ReservationService {
 	List<Reservation> selectReservationByMemberId(String memberId);
 
 	List<Reservation> selectReservationByBusinessId(String businessId);
-	
-	Reservation selectReservationByReservationInfo(String memberId, String businessId, String resStartTime);
+
 
 	/* ##### OrderTableService ##### */
 	int addOrderTable(List<Integer> tableSeq, int resNum);
@@ -36,4 +36,6 @@ public interface ReservationService {
 
 	List<Reservation> selectJoinReservationByMemId(String memberId);
 	
+	List<Table> selectUsableTable(String resDate, String resTime, String businessId);
+
 }

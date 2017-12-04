@@ -65,6 +65,7 @@
 		, #{tableNum} , #{tablePeople} , #{xLocation} , #{yLocation},
 		#{businessId})
 	</insert>
+	
 	<resultMap type="table" id="table-resultmap">
 		<id column="table_seq" property="tableSeq" />
 		<result column="table_num" property="tableNum" />
@@ -96,7 +97,28 @@
 		FROM restaurant
 	</select>
 	
-	<!-- TEST_ search 조건으로 식당 list 뽑을 수 있는지? -->
+	<!-- TEST_2017.12.04_현준 예약된 테이블 제외한 전체테이블 조회 -->
+	<select id="selectUsableTable" parameterType="map" resultMap="table-resultmap">
+	<![CDATA[
+		SELECT	*
+		FROM	table_ t
+		WHERE	t.business_id = #{businessId}
+		AND		t.table_seq NOT IN 
+				( 
+				SELECT 	t.table_seq
+				FROM	order_table t, reservation r
+				WHERE	r.business_id = #{businessId}
+				AND		r.res_num = t.res_num
+				AND		r.res_start_time <= to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss')
+				AND		r.res_end_time >= to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
+				)
+		ORDER BY t.table_seq
+	]]>
+
+	</select>
+	
+	
+	<!-- TEST_2017.12.04_현준 search 조건으로 식당 list 뽑을 수 있는지? -->
 	<select id="selectRestaurantBySearch" parameterType="map" resultMap="restaurant-resultmap">
 		SELECT 
 		<include refid="restaurant-column-sql"/>

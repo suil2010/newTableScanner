@@ -8,9 +8,33 @@
 		FROM	order_table
 	</sql>
 	
+	<sql id="select-orderTable-join-Table">
+		SELECT	o.table_seq,
+				o.res_num,
+				t.table_num,
+				t.x_location,
+				t.y_location,
+				t.business_id
+		FROM	order_table o, table_ t
+	</sql>
+	
+	<resultMap type="table" id="table_resultmap">
+		<result column="table_seq" property="tableSeq"/>
+		<result column="table_num" property="tableNum"/>
+		<result column="x_location" property="xLocation"/>
+		<result column="y_location" property="yLocation"/>
+		<result column="business_id" property="businessId"/>
+	</resultMap>
+	
 	<resultMap type="orderTable" id="orderTable-resultmap">
 		<id column="table_Seq" property="tableSeq"/>
 		<result column="res_Num" property="resNum"/>
+	</resultMap>
+	
+	<resultMap type="orderTable" id="orderTable-join-resultmap">
+		<id column="table_seq" property="tableSeq"/>
+		<result column="res_num" property="resNum"/>
+		<collection property="table" resultMap="table_resultmap"/>
 	</resultMap>
 	
 	<!-- INSERT -->
@@ -35,9 +59,10 @@
 	</delete>
 	
 	<!-- SELECT -->
-	<select id="selectOrderTableByResNum" parameterType="_int" resultMap="orderTable-resultmap">
-		<include refid="select-orderTable"/>
-		WHERE	res_num = #{value}
+	<select id="selectOrderTableByResNum" parameterType="_int" resultMap="orderTable-join-resultmap">
+		<include refid="select-orderTable-join-Table"/>
+		WHERE	o.table_seq = t.table_seq
+		AND		o.res_num = #{value}
 	</select>
 
 </mapper>

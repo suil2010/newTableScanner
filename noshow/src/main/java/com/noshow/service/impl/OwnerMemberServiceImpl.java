@@ -101,10 +101,13 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 		
 	}
 
-
-	
-
-	
-
-
 }
+
+
+
+
+
+
+
+
+

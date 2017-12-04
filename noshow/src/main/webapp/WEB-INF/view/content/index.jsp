@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script>
 	$(document).ready(function() {
 
@@ -8,24 +10,16 @@
 			$(this).tab('show')
 		});
 
-		//date
-		var options = {
-			now : "12:00", //hh:mm 24 hour format only, defaults to current time 
-			twentyFour : true, //Display 24 hour format, defaults to false 
-			upArrow : 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
-			downArrow : 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
-			close : 'wickedpicker__close', //The close class selector to use, for custom CSS 
-			hoverState : 'hover-state', //The hover state class to use, for custom CSS 
-			title : 'TabelScanner', //The Wickedpicker's title, 
-			showSeconds : false, //Whether or not to show seconds, 
-			secondsInterval : 1, //Change interval for seconds, defaults to 1  , 
-			minutesInterval : 1, //Change interval for minutes, defaults to 1 
-			beforeShow : null, //A function to be called before the Wickedpicker is shown 
-			show : null, //A function to be called when the Wickedpicker is shown 
-			clearable : false, //Make the picker's input clearable (has clickable "x")  
-		};
-		$('.timepicker').wickedpicker(options);
-
+	$('.timepicker').timepicker({
+		timeFormat: 'HH:mm',
+		interval: 30,
+		defaultTime:'12',
+		startTime:'07:00',
+		dynamic:false,
+		dropdown:true,
+		scrollbar:true
+	});	
+	
 		$(function() {
 			$("#datepicker").datepicker({
 				constrainInput : true,
@@ -36,7 +30,7 @@
 				numberOfMonths : 2,
 				showCurrentAtPos : 0,
 				minDate : new Date(),
-				maxDate : "+3m"
+				maxDate : "+3m",
 
 			});
 		});
@@ -65,7 +59,7 @@
 					<input type="date" class="form-control " placeholder="날짜" name="resDate">
 				</div>
 				<div class="input-group col-sm-2 col-xs-12">
-					<input type="text" class="form-control timepicker " placeholder="시간" name="resTime">
+					<input type="text" class="form-control timepicker" placeholder="시간" name="resTime">
 				</div>
 				<div class="input-group col-sm-2 col-xs-12">
 					<input type="number" class="form-control" placeholder="인원" name="resPeople">

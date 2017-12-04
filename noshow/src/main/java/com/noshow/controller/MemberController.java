@@ -73,9 +73,7 @@ public class MemberController {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		
-		Member member = (Member)authentication.getPrincipal();
-		
-		String memberId = member.getMemberId();
+		String memberId = ((Member)authentication.getPrincipal()).getMemberId();
 		
 		service.removeMember(memberId);
 		

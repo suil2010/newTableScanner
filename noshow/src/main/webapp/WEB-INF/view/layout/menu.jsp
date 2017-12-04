@@ -24,7 +24,6 @@
    <li><a href="${initParam.rootPath }/myReservation.do">사용자 예약 내역</a></li>
    <li><a href="${initParam.rootPath }/member/regist_rt_form.do">음식점 등록</a></li>
    <li><a href="${initParam.rootPath }/main_content.do">검색바</a></li>
-   <li><a href="${initParam.rootPath }/sendMail.do">검색바</a></li>
 
 </sec:authorize>
 

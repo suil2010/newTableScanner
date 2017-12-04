@@ -97,7 +97,8 @@ CREATE TABLE RESERVATION (
    RES_NUM NUMBER NOT NULL, /* 예약리스트번호 */
    RES_DATE DATE, /* 예약날짜 */
    RES_PEOPLE NUMBER, /* 인원 */
-   RES_TIME DATE, /* 예약원하는시간 */
+   RES_START_TIME DATE, /* 예약 원하는시간 */
+   RES_END_TIME DATE,	/* 예약 종료 시간 */
    RES_PAID_TIME DATE, /* 예약결제완료한시간 */
    RES_PAY_STATEMENT VARCHAR2(20), /* 결제유무 */
    RES_PRICE NUMBER, /* 예약금액 */
@@ -388,5 +389,9 @@ ALTER TABLE ANSWER
       );
       
 /*시퀀스*/
+      drop sequence table_list_seq;
+      drop sequence res_num_seq;
+      
+      
       create sequence tabel_list_seq;
       create sequence res_num_seq;

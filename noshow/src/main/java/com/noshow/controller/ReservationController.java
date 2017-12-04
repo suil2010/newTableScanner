@@ -19,9 +19,9 @@ import com.noshow.vo.Member;
 import com.noshow.vo.Reservation;
 import com.noshow.vo.Restaurant;
 
+
 @Controller
 public class ReservationController {
-
 	
 	@Autowired
 	private ReservationService service;
@@ -93,24 +93,5 @@ public class ReservationController {
 		return new ModelAndView("member/mypage_reservation.tiles", "reservationList", reservationList);
 		
 	}
-
-// ########################사용 안함
-//	/* 식당 이름 */
-//	@RequestMapping("/resRestaurantName")
-//	public ModelAndView resRestaurantName(HttpServletRequest request) {
-//		List<Reservation> reservationList = (List<Reservation>) request.getAttribute("reservationList");
-//		
-//		List<Restaurant> restaurantList = new ArrayList<>();
-//		for(Reservation res : reservationList) {
-//			restaurantList.add(service.selectRestaurantByBusinessId(res.getBusinessId()));
-//		}
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("member/mypage_reservation.tiles");
-//		mav.addObject("reservationList", reservationList);
-//		mav.addObject("restaurantList", restaurantList);
-//	
-//		return mav;
-//	}
 	
 }

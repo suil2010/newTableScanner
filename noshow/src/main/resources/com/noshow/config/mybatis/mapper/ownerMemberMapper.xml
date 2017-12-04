@@ -37,6 +37,7 @@
 	</select>
 	
 	<select id="selectAllRestaurant" resultMap="restaurant-resultmap">
+		SELECT 
 		<include refid="restaurant-column-sql"/>
 		FROM restaurant
 	</select>

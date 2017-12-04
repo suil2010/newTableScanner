@@ -1,40 +1,74 @@
 <%@ page contentType="text/html;charset=utf-8"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function() {
 		//date
-		var options = { 
-				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
-				twentyFour: true, //Display 24 hour format, defaults to false 
-				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
-				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
-				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
-				hoverState: 'hover-state', //The hover state class to use, for custom CSS 
-				title: 'TabelScanner', //The Wickedpicker's title, 
-				showSeconds: false, //Whether or not to show seconds, 
-				secondsInterval: 1, //Change interval for seconds, defaults to 1  , 
-				minutesInterval: 1, //Change interval for minutes, defaults to 1 
-				beforeShow: null, //A function to be called before the Wickedpicker is shown 
-				show: null, //A function to be called when the Wickedpicker is shown 
-				clearable: false, //Make the picker's input clearable (has clickable "x")  
-			}; 
+
+		var options = {
+			now : "12:00", //hh:mm 24 hour format only, defaults to current time 
+			twentyFour : true, //Display 24 hour format, defaults to false 
+			upArrow : 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
+			downArrow : 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
+			close : 'wickedpicker__close', //The close class selector to use, for custom CSS 
+			hoverState : 'hover-state', //The hover state class to use, for custom CSS 
+			title : 'TabelScanner', //The Wickedpicker's title, 
+			showSeconds : false, //Whether or not to show seconds, 
+			secondsInterval : 1, //Change interval for seconds, defaults to 1  , 
+			minutesInterval : 1, //Change interval for minutes, defaults to 1 
+			beforeShow : null, //A function to be called before the Wickedpicker is shown 
+			show : null, //A function to be called when the Wickedpicker is shown 
+			clearable : false, //Make the picker's input clearable (has clickable "x")  
+		};
 		$('.timepicker').wickedpicker(options);
-		
-		 $( function() {
-			    $( "#datepicker" ).datepicker();
-		 });
+
+		$(function() {
+			$("#datepicker").datepicker({
+				constrainInput : true,
+				currentText : "Now",
+				dayNames : ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+				monthNames : ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+				selectOtherMonths : true,
+				numberOfMonths : 2,
+				showCurrentAtPos : 0,
+				minDate : new Date(),
+				maxDate : "+3m"
+
+			});
+		});
 	});
 </script>
+
 <form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
-		<div class="form-group">
-		    <input type="text" class="form-control col-sm-3" placeholder="위치" name="resPlace">
-		    <input type="date" class="form-control col-sm-3"  placeholder="날짜" name="resDate">
-		    <input type="text" class="form-control timepicker col-sm-2" placeholder="시간" name="resTime">
-		    <input type="number" class="form-control col-sm-2" placeholder="인원" name="resPeople">
+	<div class="form-group col-sm-12">
+		<div class="input-group col-sm-1 col-xs-1">
+			<button type="button" class="btn" style="float: right; border: 1px solid #000; background: #fff;">
+				<span class="glyphicon glyphicon-map-marker"></span>
+			</button>
+		</div>
+		<div class="input-group col-sm-3 col-xs-12">
+			<input type="text" class="form-control " placeholder="위치" name="resPlace">
+		</div>
+		<div class="input-group col-sm-2 col-xs-12">
+			<input type="date" class="form-control "  placeholder="날짜" name="resDate">
+		</div>
+		<div class="input-group col-sm-2 col-xs-12">
+			<input type="text" class="form-control timepicker " placeholder="시간" name="resTime">
+		</div>
+		<div class="input-group col-sm-2 col-xs-12">
+			<input type="number" class="form-control" placeholder="인원" name="resPeople">
+		</div>
+		<div class="input-group col-sm-1">
+			<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
 
 		</div>
 
-		<button type="submit" class="btn btn-default col-sm-2" style="float: right;">검색</button>
-		<sec:csrfInput />
-</form>	
+
+
+
+	</div>
+	<sec:csrfInput />
+
+</form>
+

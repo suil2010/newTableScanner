@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/css/wickedpicker.min.css">
+<link rel="stylesheet" href="${initParam.rootPath }/resource/css/jquery-ui.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">   
 <script src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
@@ -70,7 +71,7 @@
 				<tiles:insertAttribute name="menu" />
 			</nav>
 			<!-- 내용 -->
-			<section class="col-sm-9 content" style="position: relative;">
+			<section class="col-sm-12 content" style="position: relative;"> 
 				<tiles:insertAttribute name="content" />
 			</section>
 		</div>

@@ -36,6 +36,14 @@
 		from member
 		where member_id = #{value}
 	</select>
+	
+		<!-- 사용자 id로 회원 정보 조회 -->
+	<select id = "selectFindPasswordByMemberId" parameterType="Member" resultType="int">
+		select count(*)
+		from member
+		where member_id = #{memberId} 
+				and member_email = #{memberEmail} 
+	</select>
 
 	<!-- INSERT -->
 	<insert id="insertMember" parameterType="Member">
@@ -63,6 +71,12 @@
 		where member_id = #{member_id}
 	</update>
 	
+	
+	<update id="updatePasswordByMemberId" parameterType="Member">
+		update member
+		<set> member_password = #{memberPassword} </set>
+		where member_id = #{memberId}
+	</update>
 	<!-- DELETE -->
 	<delete id="deleteMemberById" parameterType="string">
 		delete from member where member_Id = #{value}

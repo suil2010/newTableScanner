@@ -33,4 +33,8 @@ public interface MemberDao {
 		int selectDropCheckByMemberId(String memberId);
 		
 		int updateDropCheckByMemberId(String memberId);
+		
+		int selectFindPasswordByMemberId(Member member);
+		
+		int updatePasswordByMemberId(Member member);
 }

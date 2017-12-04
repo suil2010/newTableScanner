@@ -8,6 +8,7 @@
 
    <li><a href="${initParam.rootPath }/login_form.do">로그인</a></li>
    <li><a href="${initParam.rootPath }/join_member_form.do">회원가입</a></li>
+   <li><a href="${initParam.rootPath }/find_password_form.do">비밀번호찾기</a></li>
    
 </sec:authorize>
 

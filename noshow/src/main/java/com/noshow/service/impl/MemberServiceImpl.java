@@ -1,5 +1,8 @@
 package com.noshow.service.impl;
 
+import java.io.IOException;
+
+import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,7 +52,15 @@ public class MemberServiceImpl implements MemberService{
 		dao.updateDropCheckByMemberId(memberId);
 		Authoritydao.deleteAuthority(memberId);
 	}
-	
 
-	
+	@Override
+	@Transactional
+	public Member getFindByMemberId(Member member, String newPassword) throws Exception {
+		if(dao.selectFindPasswordByMemberId(member) == 1) { 
+			member.setMemberPassword(passwordEncoder.encode(newPassword));
+			dao.updatePasswordByMemberId(member);
+		return dao.selectMemberByMemberId(member.getMemberId());
+		}
+		throw new Exception("오류입니다.");
+	}
 }

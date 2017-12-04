@@ -1,5 +1,7 @@
 package com.noshow.service;
 
+import java.io.IOException;
+
 import com.noshow.vo.Member;
 
 public interface MemberService {
@@ -27,5 +29,9 @@ public interface MemberService {
 		void updateMemberProfile(Member member);
 		
 		void removeMember(String memberId);
+		
+
+		Member getFindByMemberId(Member member, String newPassword) throws Exception;
+
 
 }

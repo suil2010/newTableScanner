@@ -44,6 +44,17 @@ public class MemberDaoImpl implements MemberDao {
 	public int updateDropCheckByMemberId(String memberId) {
 		return session.update(makeSqlId("updateDropCheckByMemberId"), memberId);
 	}
+
+	@Override
+	public int selectFindPasswordByMemberId(Member member) {
+		return session.selectOne(makeSqlId("selectFindPasswordByMemberId"), member);
+	}
+
+	@Override
+	public int updatePasswordByMemberId(Member member) {
+		return session.update(makeSqlId("updatePasswordByMemberId"), member);
+		
+	}
 	
 	
 }

@@ -55,5 +55,10 @@
 		<input type="submit" class="btn btn-info" value="예약 진행">
 		<sec:csrfInput />
 	</form>
+	
+	
+	
+	
+	
 </body>
 </html>

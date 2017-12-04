@@ -25,6 +25,7 @@
 		<li><a href="${initParam.rootPath }/member/regist_rt_form.do">음식점 등록</a></li>
 		<li><a href="${initParam.rootPath }/main_content.do">식당 검색바</a></li>
 		<li><a href="${initParam.rootPath }/sendMail.do">sendMail 검색바</a></li>
+		  <li><a href="${initParam.rootPath }/ownerInfo.do">사업자페이지</a></li>
 	</sec:authorize>
 
 	<%-- 사용자 메뉴 /owner 으로 시작--%>

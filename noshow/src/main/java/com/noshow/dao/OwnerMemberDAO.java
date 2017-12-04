@@ -1,6 +1,7 @@
 package com.noshow.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
@@ -30,5 +31,8 @@ public interface OwnerMemberDAO {
 	List<Table> selectTable(String id);
 	
 	int deleteTable(String id);
+	
+	/* 2017.12.04 - 현준_검색 Test */
+	List<Restaurant> selectRestaurantBySearch(Map<String, Object> searchInfo);
 	
 }

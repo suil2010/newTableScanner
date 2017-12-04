@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/css/wickedpicker.min.css">
+<link rel="stylesheet" href="${initParam.rootPath }/resource/css/jquery-ui.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">   
 <script src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
@@ -37,11 +38,19 @@
 	}
 }
 </style>
+<script type="text/javascript">
+	$(function(){
+		$(".menubtn").on("click", function(){
+			$( ".side" ).toggle();
+		});
+	});
+</script>
 </head>
 <body>
      <header style="height: 70px; padding-bottom: 10px; border-bottom: 1px solid #E0E0E0;" >   
      	<div class="col-sm-3 col-xs-10" style="line-height: 55px;">      
      		<a href="${initParam.rootPath }/index.do" style="font-size : 32px; color : #000; ">TabelScanner</a>
+     		<button class="menubtn">메뉴더보기</button> 
      	</div>
      	<div class="col-sm-9 hidden-xs" style="height: 100%;">
      		 
@@ -56,13 +65,13 @@
      </header>
 	<div class="container">  
 		<%--메인 body --%>
-		<div class="row whole">
+		<div class="row whole" style="position: relative;">
 			<%-- 메뉴 --%>
-			<nav class="col-sm-3 side">
+			<nav class="col-sm-3 side" style="position: absolute; z-index: 10; display: none;">   
 				<tiles:insertAttribute name="menu" />
 			</nav>
 			<!-- 내용 -->
-			<section class="col-sm-9 content">
+			<section class="col-sm-12 content" style="position: relative;"> 
 				<tiles:insertAttribute name="content" />
 			</section>
 		</div>

@@ -5,15 +5,14 @@
 <head>
 <title>TableScanner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/css/common.css">        
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="${initParam.rootPath }/resource/css/common.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/css/wickedpicker.min.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">   
+<link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">
 <script src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script src="${initParam.rootPath }/resource/jquery/jquery-ui.min.js"></script>
 <script src="${initParam.rootPath }/resource/bootstrap/js/bootstrap.min.js"></script>
-<script src="${initParam.rootPath }/resource/jquery/wickedpicker.min.js"></script>    
+<script src="${initParam.rootPath }/resource/jquery/wickedpicker.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c"></script>
 
@@ -96,11 +95,6 @@ header>a>span {
 	font-size: 26px;
 	font-family: HoonWhitecatR;
 }
-
-
-
-
-
 </style>
 
 
@@ -108,39 +102,41 @@ header>a>span {
 <body>
 	<header>
 		<div class="logo">
-			<a href="index.do"> <span style="line-height: 60px; font-size: 32px;">TableScanner</span>
+			<a href="${initParam.rootPath }/index.do"> <span style="line-height: 60px; font-size: 32px;">TableScanner</span>
 			</a>
 		</div>
-		<a href="#"> <span>음식점 관리</span>
-		</a> <a href="#"> <span>예약 관리</span>
-		</a> <a href="#"> <span>매출 관리</span>
-		</a>
+		<a href="#"> <span>음식점 관리</span></a> 
+		<a href="#"> <span>예약 관리</span></a> 
+		<a href="#"> <span>매출 관리</span></a>
 
 	</header>
-    
-		<div class="col-sm-2 col-xs-12 tab">
-			<a href="ownerInfo.do">
-				<div class="tab1">
-					<span>음식점 정보수정</span>
-				</div>
-			</a> <a href="#">
-				<div class="tab2">
-					<span>음식점 메뉴수정</span>
-				</div>
-			</a> <a href="${initParam.rootPath }/selectTable.do">
-				<div class="tab3">
-					<span>음식점 테이블수정</span>
-				</div>
-			</a> <a href="#">
-				<div class="tab4">
-					<span>음식점 정보삭제</span>
-				</div>
-			</a>
-		</div>
-		
-		<section class="col-sm-10 col-xs-12" style="height: 100%;">
-			<tiles:insertAttribute name="content" />
-		</section>
-	
+
+	<div class="col-sm-2 col-xs-12 tab">
+		<a href="ownerInfo.do">
+			<div class="tab1">
+				<span>음식점 정보수정</span>
+			</div>
+		</a> 
+		<a href="#">
+			<div class="tab2">
+				<span>음식점 메뉴수정</span>
+			</div>
+		</a> 
+		<a href="${initParam.rootPath }/selectTable.do">
+			<div class="tab3">
+				<span>음식점 테이블수정</span>
+			</div>
+		</a> 
+		<a href="#">
+			<div class="tab4">
+				<span>음식점 정보삭제</span>
+			</div>
+		</a>
+	</div>
+
+	<section class="col-sm-10 col-xs-12" style="height: 100%;">
+		<tiles:insertAttribute name="content" />
+	</section>
+
 </body>
 </html>

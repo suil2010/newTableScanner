@@ -1,6 +1,7 @@
 package com.noshow.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
@@ -42,6 +43,13 @@ public interface OwnerMemberService {
 	 * 이름으로 식당 조회
 	 */
 	int selectRestaurantByRtName(String rtName);
+	
+	/**
+	 * 검색(예약)조건으로 음식점 조회
+	 * @param searchInfo
+	 * @return
+	 */
+	List<Restaurant> selectRestaurantBySearch(String resPlace, String resDate, String resTime, int resPeople);
 	
 	/**
 	 * 테이블정보 등록

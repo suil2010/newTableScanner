@@ -6,23 +6,20 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.noshow.dao.AuthorityDao;
 import com.noshow.service.OwnerMemberService;
 import com.noshow.vo.Member;
 import com.noshow.vo.Restaurant;
@@ -146,4 +143,55 @@ public class OwnerMemberController {
 		System.out.println("Table - select 성공");
 		return tableList;
 	}
+	
+	@RequestMapping("/restaurantList")
+	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
+		
+		List<Table> table = selectTable(businessId);
+		System.out.println(table);
+		System.out.println("resListController - resTime : " + resTime);
+		// 점주ID 로 해당 음식점의 테이블 얻어오기
+		List<Table> list = service.selectTable(businessId);
+		
+		String restrauntName = service.selectRestaurantByBusinessId(businessId).getRtName();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("resDate", resDate);
+		mav.addObject("resTime", resTime);
+		mav.setViewName("reservation/reservation_form.tiles");
+		mav.addObject("resPeople", resPeople);
+		mav.addObject("table",table);
+		mav.addObject("restaurantName", restrauntName);
+		mav.addObject("tableList", list);
+		mav.addObject("businessId", businessId);
+		
+		return mav;
+	}
+	
+	/* 예약정보를 받아서 처리하는 controller */
+	@RequestMapping("/searchRestaurant")
+	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
+		List<Restaurant> restaurantList = service.selectRestaurantBySearch(resPlace, resDate, resTime, resPeople);
+//		session.setAttribute("resDate", resDate);
+//		session.setAttribute("resPeople", resPeople);
+//		session.setAttribute("resTime", resTime);
+//		
+		System.out.println("searchResController - resDate : "+resDate);
+		System.out.println("searchResController - resTime : "+resTime);
+		//검증
+		if (restaurantList.isEmpty()) {
+			System.out.println("해당 조건에 맞는 음식점이 없습니다.");
+			return new ModelAndView("reservation/restaurant_list.tiles", "restaurantList", "null");
+		} else {
+			System.out.println("조건에 맞는 음식점 있다요~");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("reservation/restaurant_list.tiles");
+			mav.addObject("restaurantList", restaurantList);
+			mav.addObject("resPeople", resPeople);
+			mav.addObject("resDate", resDate);
+			mav.addObject("resTime", resTime);
+			return mav;
+		}
+	}
+	
+	
 }

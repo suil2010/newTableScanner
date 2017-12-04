@@ -111,13 +111,13 @@
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
 				<select name="rtHoliday">
-					<option value=1>월</option>
-					<option value=2>화</option>
-					<option value=3>수</option>
-					<option value=4>목</option>
-					<option value=5>금</option>
-					<option value=6>토</option>
-					<option value=7>일</option>
+					<option value=1>일</option>
+					<option value=2>월</option>
+					<option value=3>화</option>
+					<option value=4>수</option>
+					<option value=5>목</option>
+					<option value=6>금</option>
+					<option value=7>토</option>
 				</select>
 			</div>
 		</div>

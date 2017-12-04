@@ -175,7 +175,7 @@ public class OwnerMemberController {
 //		session.setAttribute("resDate", resDate);
 //		session.setAttribute("resPeople", resPeople);
 //		session.setAttribute("resTime", resTime);
-//		
+
 		System.out.println("searchResController - resDate : "+resDate);
 		System.out.println("searchResController - resTime : "+resTime);
 		//검증

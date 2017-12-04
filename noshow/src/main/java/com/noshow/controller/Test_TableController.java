@@ -19,7 +19,7 @@ public class Test_TableController {
 	@Autowired
 	private OwnerMemberController controller;
 	
-	@RequestMapping("/restaurantList")
+	@RequestMapping("/junk")
 	public ModelAndView restaurantList(String businessId) {
 		
 		List table = controller.selectTable(businessId);

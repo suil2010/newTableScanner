@@ -15,7 +15,6 @@ DROP TABLE RECOMMEND CASCADE CONSTRAINTS; /* 추천 */
 DROP TABLE QUESTION CASCADE CONSTRAINTS; /* 문의 */
 DROP TABLE ANSWER CASCADE CONSTRAINTS; /* 답변 */
 
-
 /* 권한 */
 CREATE TABLE AUTHORITY (
    MEMBER_ID VARCHAR2(20) NOT NULL, /* 회원아이디 */
@@ -391,7 +390,11 @@ ALTER TABLE ANSWER
 /*시퀀스*/
       drop sequence table_list_seq;
       drop sequence res_num_seq;
+      drop sequence tabel_list_seq;
       
-      
-      create sequence tabel_list_seq;
+      create sequence table_list_seq;
       create sequence res_num_seq;
+      create sequence tabel_list_seq;
+
+      select * from seq;
+      SELECT * FROM dual;

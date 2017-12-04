@@ -83,14 +83,12 @@
 	<div class="col-sm-12">
 		인원수 <input type="number" name="people" class="people">
 		<button id="tablecreate">생성</button>
-		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<form class="tableform" method="post" action="${initParam.rootPath}/insertTable.do">
 
 				<input type="submit" value="완료" class="form_submit">
 				<sec:csrfInput />
 			</form>
 
-		</sec:authorize>
 	</div>
 
 </div>

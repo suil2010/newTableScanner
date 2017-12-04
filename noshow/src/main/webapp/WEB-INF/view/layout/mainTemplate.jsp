@@ -14,7 +14,7 @@
 <script src="${initParam.rootPath }/resource/jquery/wickedpicker.min.js"></script>    
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c"></script>
-<title>TabelScanner</title>
+<title>TableScanner</title>
 <style type="text/css">
 
 .whole {

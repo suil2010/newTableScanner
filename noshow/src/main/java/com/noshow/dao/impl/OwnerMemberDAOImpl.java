@@ -1,6 +1,7 @@
 package com.noshow.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,11 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	@Override
 	public int deleteTable(String id) {
 		return session.delete(makeSqlId("deleteTable"),id);
+	}
+
+	@Override
+	public List<Restaurant> selectRestaurantBySearch(Map<String, Object> searchInfo) {
+		return session.selectList(makeSqlId("selectRestaurantBySearch"), searchInfo);
 	}
 
 	

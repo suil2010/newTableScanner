@@ -10,7 +10,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<script>
+	$(document).ready(function() {
+		//date
+		var options = { 
+				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
+				twentyFour: true, //Display 24 hour format, defaults to false 
+				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
+				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
+				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
+				hoverState: 'hover-state', //The hover state class to use, for custom CSS 
+				title: 'TabelScanner', //The Wickedpicker's title, 
+				showSeconds: false, //Whether or not to show seconds, 
+				secondsInterval: 1, //Change interval for seconds, defaults to 1  , 
+				minutesInterval: 1, //Change interval for minutes, defaults to 1 
+				beforeShow: null, //A function to be called before the Wickedpicker is shown 
+				show: null, //A function to be called when the Wickedpicker is shown 
+				clearable: false, //Make the picker's input clearable (has clickable "x")  
+			}; 
+		$('.timepicker').wickedpicker(options);
+		
+		 $( function() {
+			    $( "#datepicker" ).datepicker();
+		 });
+	});
+</script>
 <style type="text/css">
 #droppable>div {
 	margin: 0;
@@ -70,16 +94,18 @@
 					placeholder="예약번호는 나중에 안받지~" min="1" required>
 			</div> -->
 			<div class="form-group">
-				<label for="date">예약 희망 날짜</label> <input type="date" name="resDate" min="${current }" max="2019-12-31"
-					placeholder="예약희망 날짜를 입력하세용" required>
+				<label for="date">예약 희망 날짜</label> 
+				<input type="date" name="resDate" min="${current }" max="2019-12-31"
+					value="${requestScope.resDate }" required>
 			</div>
 			<div class="form-group">
-				<label for="resStartTime">예약 희망 시간</label> <input type="time"
-					name="resStartTime" placeholder="몇시에 오실건가요?" required>
+				<label for="resStartTime">예약 희망 시간</label> 
+				<input type="text" class="form-control timepicker col-sm-2"
+					name="resStartTime" value="${requestScope.resTime }" required>
 			</div>
 			<div class="form-group">
 				<label for="resPeople">인원</label> <input type="number"
-					name="resPeople" placeholder="몇명이오는지알려줭" min="1" required>
+					name="resPeople" value="${requestScope.resPeople }" min="1" required>
 			</div>
 			<div id="payment">
 				<label class="radio-inline"><input type="radio" name="resPayStatement" value="카드결제"> 카드결제 </label>

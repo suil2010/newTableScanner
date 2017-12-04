@@ -12,8 +12,8 @@
 마감시간 : ${requestScope.rt.rtClose } <br>
 테이블 이용시간 : ${requestScope.rt.rtTerm } <br>
 매장사진 : <img src="${initParam.rootPath }/rtPicture/${requestScope.rt.rtPicture}" width="350px"> <br>
-음식점 위치 : ${requestScope.rt.rtClose } <br>
-수용가능 인원 : ${requestScope.rt.rtClose } <br>
-1인당 취소금액 : ${requestScope.rt.rtClose } <br>
+음식점 위치 : ${requestScope.rt.rtAddress } <br>
+수용가능 인원 : ${requestScope.rt.rtCapacity } <br>
+1인당 취소금액 : ${requestScope.rt.rtDeposit } <br>
 <sec:csrfInput/>
 </div>

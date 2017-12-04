@@ -14,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +35,8 @@ public class OwnerMemberController {
 	private OwnerMemberService service;
 
 	@RequestMapping("/join_rt")
-	public ModelAndView joinRt(Restaurant rt, HttpServletRequest request) throws IllegalStateException, IOException {
+	@Transactional
+	public ModelAndView joinRt(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
 
 /* 2017.12.01 19.04 윤동웅 권한 업데이트후 바뀌어야하는데 안바뀜. 내일볼테니 주석 지우지 마셈.. 
  * 주석없는 상태에서는 로그아웃한 후에 다시 로그인하면 권한 바뀌어서 실행됩니다
@@ -41,6 +44,12 @@ public class OwnerMemberController {
  * 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 */
+		
+		/* 2017.12.04 11:40 현준 Test*/
+		System.out.println("OwnerMemberController - rt : "+rt);
+		System.out.println("rtOpen : " + rt.getRtOpen() +", rtClose : " +rt.getRtClose());
+		System.out.println("OwnerMemberController - r.count : "+r.getErrorCount());
+		System.out.println("OwnerMemberController - r : "+r);
 		// 식당이미지 업로드
 		MultipartFile rtImg = rt.getRtImg();
 		if (rtImg != null && !rtImg.isEmpty()) {

@@ -25,7 +25,10 @@
 	<insert id="insertRestaurant" parameterType="Restaurant">
 		INSERT INTO restaurant(<include refid="restaurant-column-sql" />)
 		VALUES (#{businessId}, #{rtNum} , #{rtName} , #{rtTel} , #{rtField},
-		#{rtHoliday} , #{rtOpen}, #{rtClose}, #{rtTerm}, #{rtPicture},
+		#{rtHoliday} ,
+		 to_date(#{rtOpen}, 'hh24:mi'), 
+		 to_date(#{rtClose},'hh24:mi'), 
+		 #{rtTerm}, #{rtPicture},
 		#{rtAddress}, #{rtCapacity}, #{rtDeposit})
 	</insert>
 

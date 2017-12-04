@@ -116,7 +116,7 @@
 			<div class="col-sm-6">
 				<input type="text" name="businessdAddress" class="Address form-control">
 			</div>
-			<button type="button" class="btn btn-default col-sm-2 Search" >검색</button> 
+			<button type="button" class="btn btn-default col-sm-2 Search">검색</button> 
 		</div>
  
 		<div id="map" class="col-sm-12" style="height: 400px;"></div>          

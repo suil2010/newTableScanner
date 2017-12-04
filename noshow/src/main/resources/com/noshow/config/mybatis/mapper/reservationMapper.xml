@@ -98,7 +98,7 @@
 	<!-- INSERT -->
 	<insert id="insertReservation" parameterType="reservation">
 		<selectKey keyProperty="resNum" order="BEFORE" resultType="_int">
-			SELECT resNum_seq.NEXTVAL FROM dual
+			SELECT res_Num_seq.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO RESERVATION VALUES
 		( #{resNum},

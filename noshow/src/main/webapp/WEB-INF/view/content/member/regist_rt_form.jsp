@@ -3,6 +3,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function() {
+		
+		//date
 		var options = { 
 				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
 				twentyFour: false, //Display 24 hour format, defaults to false 
@@ -19,6 +21,8 @@
 				clearable: false, //Make the picker's input clearable (has clickable "x")  
 			}; 
 		$('.timepicker').wickedpicker(options);
+		
+		// map
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -152,13 +156,6 @@
 			</div>
 		</div>
 
-
-
-
-
-
-
-
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtCapacity">수용가능 인원 : </label>
 			<div class="col-sm-9">
@@ -176,7 +173,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label">위치 : </label>
 			<div class="col-sm-6">
-				<input type="text" name="rtAddress" placeholder="매장 위치를 입력하세요"><br>
+				<input type="text" name="rtAddress" placeholder="매장 위치를 입력하세요" class="form-control Address"><br>
 			</div>
 			<button type="button" class="btn btn-default col-sm-2 Search">검색</button>
 		</div>

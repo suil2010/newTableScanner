@@ -18,8 +18,6 @@ public class MailController {
 	
 	@RequestMapping("/sendMail")
 	public ModelAndView sendMail(Member member) {
-		System.out.println(member);
-		System.out.println("요청옴");
 		String subject = "회원가입을 축하합니다."; 
 		String Text = member.getMemberName()+ "님의 회원가입을 진심으로 축하드립니다." + "하하";
 		

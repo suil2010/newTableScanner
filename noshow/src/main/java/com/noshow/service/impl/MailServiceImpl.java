@@ -33,10 +33,6 @@ public class MailServiceImpl implements MailService{
 		MimeMessage message = mailSender.createMimeMessage();
 		
 		try {
-			System.out.println("serviceimpl로 넘어옴");
-			System.out.println(subject);
-			System.out.println(Text);
-			System.out.println(member.getMemberEmail());
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
 			messageHelper.setSubject(subject);
 			messageHelper.setText(Text);

@@ -43,27 +43,32 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberBirthday">Birthday</label>
 			<div class="col-sm-10">
-				<input type="date" class="form-control" placeholder="Birthday" name="memberBirthday" id="memberBirthday">
+				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberTel">Tel</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="Tel" name="memberTel" id="memberTel">
+				<input type="text" class="form-control" value="<sec:authentication property='principal.memberTel'/>" name="memberTel" id="memberTel">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberEmail">Email</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="Email" name="memberEmail" id="memberEmail">
+				<input type="text" class="form-control" value="<sec:authentication property='principal.memberEmail'/>" name="memberEmail" id="memberEmail">
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Gender</label> <label class="radio-inline"> <input type="radio" name="memberGender" value="male">남자
-			</label> <label class="radio-inline"> <input type="radio" name="memberGender" value="female">여자
+			<label class="col-sm-2 control-label">Gender</label> 
+			<label class="radio-inline"> 
+					<input type="radio" name="memberGender" value="male">남자
+			</label> 
+			
+			<label class="radio-inline"> 
+					<input type="radio" name="memberGender" value="female">여자
 			</label>
 		</div>
 

@@ -30,6 +30,7 @@ public class Reservation implements Serializable{
 		return orderTable;
 	}
 
+	
 	public void setOrderTable(List<OrderTable> orderTable) {
 		this.orderTable = orderTable;
 	}

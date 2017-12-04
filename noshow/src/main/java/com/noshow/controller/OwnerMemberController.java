@@ -48,7 +48,7 @@ public class OwnerMemberController {
 			String dir = request.getServletContext().getRealPath("/rtPicture");
 			String pictureName = UUID.randomUUID().toString();
 			File upRtImg = new File(dir, pictureName);
-			rtImg.transferTo(upRtImg);
+			rtImg.transferTo(upRtImg); 
 			rt.setRtPicture(pictureName);
 		}
 		service.insertRestaurant(rt, "ROLE_OWNER");

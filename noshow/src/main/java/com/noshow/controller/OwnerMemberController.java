@@ -153,6 +153,7 @@ public class OwnerMemberController {
 		// 점주ID 로 해당 음식점의 테이블 얻어오기
 		List<Table> list = service.selectTable(businessId);
 		
+		
 		String restrauntName = service.selectRestaurantByBusinessId(businessId).getRtName();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("resDate", resDate);

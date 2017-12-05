@@ -198,10 +198,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		}
 		return restaurantList;
 	}
+	
 
 	@Override
-	public Map<String,String> selectSales(String id) {
+	public List<Map<Object,Object>> selectSales(String id) {
 		return dao.selectSales(id);
-
 	}
+
 }

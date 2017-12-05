@@ -60,6 +60,6 @@ public interface OwnerMemberService {
 	
 	int deleteTable(String id);
 
-	Map<String,String> selectSales(String id);
+	List<Map<Object,Object>> selectSales(String id);
 	
 }

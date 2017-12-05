@@ -2,6 +2,8 @@ package com.noshow.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.noshow.service.OwnerMemberService;
 import com.noshow.vo.Member;
 import com.noshow.vo.Restaurant;
@@ -169,10 +172,10 @@ public class OwnerMemberController {
 			System.out.println("restaurantList.allTable : " + t);
 		}
 		System.out.println("resListController - resTime : " + resTime);
-
+		
 		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
 		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurantName);
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/tableSearchController.do");
 		mav.addObject("allTable", allTable);
@@ -209,7 +212,7 @@ public class OwnerMemberController {
 	}
 	
 	@RequestMapping("/selectSales")
-	public ModelAndView selectSales() {
+	public ModelAndView selectSales() throws Exception{
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		
@@ -218,18 +221,33 @@ public class OwnerMemberController {
 		String businessId = member.getMemberId();
 		System.out.println("selectSales 호출");
 		System.out.println(businessId);
-		List<Map<Object,Object>> Sales = service.selectSales(businessId); 
+		List<Map<Object, Object>> sales = service.selectSales(businessId);
 		
 		
-		for(Map<Object, Object> sale : Sales) {
+		System.out.println(sales);
+		
+		String people = null;
+		String date = null;
+		int i = 0;
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (Map<Object, Object> sale : sales) {
+			HashMap<String, Object> m = new HashMap<>();
 			for (Object mapkey : sale.keySet()) {
-				System.out.println("key:" + mapkey + ",value:" + sale.get(mapkey));
+				if (mapkey.equals("SUM(RES_PEOPLE)")) {
+					m.put("people",  sale.get(mapkey));
+				} else if (mapkey.equals("RES_DATE")) {
+					date = sale.get(mapkey).toString();
+					date = date.substring(0,10); 
+					m.put("period", date);
+				}
 			}
+			list.add(m);
+			
 		}
 		//MAP의 KEY값을 이용하여 VALUE값 가져오기
-		
-		
-		return new ModelAndView("owner/restaurant_Sales.tiles", "Sales", Sales);
+		ObjectMapper mapper = new ObjectMapper();
+		String str = mapper.writeValueAsString(list);
+		return new ModelAndView("owner/restaurant_Sales.tiles", "sales", str);
 	}
 	
 }

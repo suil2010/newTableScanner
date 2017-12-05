@@ -24,14 +24,24 @@
 	<h1>TEST - 음식점 목록</h1>
 
 		<h2>예약 1/3</h2>
-		
-	<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantList.do"  id="submitform">
-	   <input type="hidden" name="businessId" class="businessId"/>
-		<input type="hidden" name="resPeople" class="resPeople"/> 
-		<input type="hidden" name="resDate" class="resDate"/> 
-		<input type="hidden" name="resTime" class="resTime"/>
-		<sec:csrfInput />
-	</form>
+	<c:choose>
+		<c:when test="${requestScope.resPeople == null}">
+			<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantListByName.do"  id="submitform">
+	  			<input type="hidden" name="businessId" class="businessId"/>
+				<sec:csrfInput />
+			</form>
+		</c:when>
+		<c:otherwise>
+			<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantList.do"  id="submitform">
+	  			<input type="hidden" name="businessId" class="businessId"/>
+				<input type="hidden" name="resPeople" class="resPeople"/> 
+				<input type="hidden" name="resDate" class="resDate"/> 
+				<input type="hidden" name="resTime" class="resTime"/>
+				<sec:csrfInput />
+			</form>
+		</c:otherwise>
+	</c:choose>
+	
 	
 	
 	<c:choose>

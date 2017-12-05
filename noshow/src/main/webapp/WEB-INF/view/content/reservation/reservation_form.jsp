@@ -136,15 +136,36 @@
 
 					<div class="form-group">
 						<label for="date">예약 희망 날짜</label> 
-						<input type="date" value="${requestScope.resDate }" class="form-control" name="resDate" min="${current }"max="2019-12-31" placeholder="예약희망 날짜를 입력하세용" required>
+						<c:choose>
+							<c:when test="${requestScope.resDate == null }">
+								<input type="date" class="form-control" name="resDate" min="${current }"max="2019-12-31" placeholder="예약희망 날짜를 입력하세용" required>
+							</c:when>
+							<c:otherwise>
+								<input type="date" value="${requestScope.resDate }" class="form-control" name="resDate" min="${current }"max="2019-12-31" placeholder="예약희망 날짜를 입력하세용" required>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="form-group">
-						<label for="resStartTime">예약 희망 시간 ${requestScope.resTime }</label>
-						<input type="text" class="form-control timepicker" name="resStartTime" value="${requestScope.resTime }" placeholder="몇시에 오실건가요?" required>
+						<label for="resStartTime">예약 희망 시간</label>
+						<c:choose>
+							<c:when test="${requestScope.resTime == null }">
+								<input type="text" class="form-control timepicker" name="resStartTime" placeholder="몇시에 오실건가요?" required>
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="form-control timepicker" name="resStartTime" value="${requestScope.resTime }" placeholder="몇시에 오실건가요?" required>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="form-group">
-						<label for="resPeople">인원</label> <input type="number" value="${requestScope.resPeople }" class="form-control" name="resPeople"
-							placeholder="몇명이오는지알려줭" min="1" required>
+						<label for="resPeople">인원</label>
+						<c:choose>
+							<c:when test="${requestScope.resPeople == null }">
+								<input type="number"  class="form-control" name="resPeople" placeholder="몇명이오는지알려줭" min="1" required>
+							</c:when>
+							<c:otherwise>
+								<input type="number" value="${requestScope.resPeople }" class="form-control" name="resPeople" placeholder="몇명이오는지알려줭" min="1" required>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div id="payment">
 						<label class="radio-inline"><input type="radio" name="resPayStatement" value="카드결제"> 카드결제 </label> <label class="radio-inline">
@@ -157,22 +178,39 @@
 						<br>
 						<h3>예약 가능한 테이블</h3>
 						<br>
-						<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
-							<c:if test="${cnt.index % 2 == 0 }">
-							<br>
-							</c:if>
-							<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
-							<input type="checkbox" name="tableList" value="${tables.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							</label>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${requestScope.tableList == null}">
+								예약을 진행하고싶으면 예약내용으로 검색하세요 일단...여긴 추가구현할게요..
+								<%-- <c:forEach items="${requestScope.allTable }" var="tables" varStatus="cnt">
+									<c:if test="${cnt.index % 2 == 0 }">
+										<br>
+									</c:if>
+									<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
+									<input type="checkbox" name="tableList" value="${tables.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</label>
+								</c:forEach> --%>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
+									<c:if test="${cnt.index % 2 == 0 }">
+										<br>
+									</c:if>
+									<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
+									<input type="checkbox" name="tableList" value="${tables.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									</label>
+								</c:forEach>
+								<div class="panel-footer">
+									<input type="submit" class="btn btn-info" value="예약하기">
+									<button type="reset" class="btn btn-default">초기화</button>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					
 					<sec:csrfInput />
 				</div>
-				<div class="panel-footer">
-					<input type="submit" class="btn btn-info" value="예약하기">
-					<button type="reset" class="btn btn-default">초기화</button>
-				</div>
+
 			</div>
 		</form>
 

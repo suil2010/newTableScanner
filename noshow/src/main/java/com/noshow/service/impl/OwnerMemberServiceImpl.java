@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -78,29 +79,124 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 
 	@Override
 	public List<Restaurant> selectRestaurantBySearch(String resPlace, String resDate, String resTime, int resPeople) {
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			/* 사용자의 검색조건에서 날짜를 요일로 바꾸는 부분 */
-			Date formResDate = dateFormat.parse(resDate);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(formResDate);
+	
+			int rtHoliday = dayFormatting(resDate);
 			
-			int rtHoliday = cal.get(Calendar.DAY_OF_WEEK);
 			Map<String, Object> searchInfo = new HashMap<>();
 			searchInfo.put("resPlace", resPlace);
 			searchInfo.put("rtHoliday", rtHoliday);
 			searchInfo.put("resTime", resTime);
 			searchInfo.put("resPeople", resPeople);
-			return dao.selectRestaurantBySearch(searchInfo);
+			List<Restaurant> restaurantList = setFieldMethod(dao.selectRestaurantBySearch(searchInfo));
+			restaurantList = setHoliDayMethod(restaurantList);
+			return timeFormatting(restaurantList);
+		
+	}
+
+	
+	/* 사용자가 검색시 입력한 날짜를 요일로 바꿔주는 메소드 분리 */
+	public int dayFormatting(String resDate) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date formResDate;
+		try {
+			formResDate = dateFormat.parse(resDate);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(formResDate);
+		
+			return cal.get(Calendar.DAY_OF_WEEK);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null; 
+		return 0;
+
+	}
+	
+	
+	/* 검색 결과 - 음식점리스트에 int로 들어오는 Field 값을 변환 */
+	public List<Restaurant> setFieldMethod(List<Restaurant> restaurant) {
+		for(Restaurant res : restaurant) {
+			switch (res.getRtField()) {
+			case "1":
+				res.setRtField("한식");
+				break;
+			case "2":
+				res.setRtField("중식");
+				break;
+			case "3":
+				res.setRtField("일식");
+				break;
+			case "4":
+				res.setRtField("분식");
+				break;
+			case "5":
+				res.setRtField("치킨");
+				break;
+			case "6":
+				res.setRtField("피자");
+				break;
+			case "7":
+				res.setRtField("족발");
+				break;
+			default:
+				return restaurant;
+			}
+		} return restaurant;
 		
 	}
+	
+	/* 검색 결과 - 음식점리스트에 int로 들어오는 holiday 값을 변환 */
+	public List<Restaurant> setHoliDayMethod(List<Restaurant> restaurantList) {
+		for(Restaurant restaurant : restaurantList) {
+			switch (restaurant.getRtHoliday()) {
+			case "1":
+				restaurant.setRtHoliday("일");
+				break;
+			case "2":
+				restaurant.setRtHoliday("월");
+				break;
+			case "3":
+				restaurant.setRtHoliday("화");
+				break;			
+				case "4":
+				restaurant.setRtHoliday("수");
+				break;			
+			case "5":
+				restaurant.setRtHoliday("목");
+				break;			
+			case "6":
+				restaurant.setRtHoliday("금");
+				break;
+			case "7":
+				restaurant.setRtHoliday("토");
+				break;
+			default:
+				break;
+			}
+		} return restaurantList;
+		
+	}
+	
+	/* 음식점 Open, Close 시간만 던져주기위한 메소드 분리 */
+	public List<Restaurant> timeFormatting(List<Restaurant> restaurantList) {
+		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat afterFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+		Date resOpen_Date, resClose_Date;
+		try {
+			for(Restaurant res : restaurantList) {
+				resOpen_Date = beforeFormat.parse(res.getRtOpen());
+				resClose_Date = beforeFormat.parse(res.getRtClose());
+				res.setRtOpen(afterFormat.format(resOpen_Date));
+				res.setRtClose(afterFormat.format(resClose_Date));
+			}
+			return restaurantList;
+		} catch (ParseException e) {
+			System.out.println("OwnerMemberServiceImpl.timeFormatting - 데이터 변환 실패ㅠㅠ");
+			e.printStackTrace();
+		}
+		return restaurantList;
 
+	}
 }
 
 

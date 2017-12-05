@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,10 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${requestScope.restaurantList }" var="restaurant">
-							<option value="${restaurant.businessId }">${restaurant.rtName }</option>
+							<option value="${restaurant.businessId}">
+							${restaurant.rtName } - 위치 : ${restaurant.rtAddress}, 업종 : ${restaurant.rtField} , 
+							휴무 : 매주 ${restaurant.rtHoliday }요일, 영업시간 : ${restaurant.rtOpen} ~ ${restaurant.rtClose} 
+							</option>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>

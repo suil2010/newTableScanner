@@ -154,14 +154,15 @@ public class OwnerMemberController {
 		}
 		System.out.println("resListController - resTime : " + resTime);
 
-		String restrauntName = service.selectRestaurantByBusinessId(businessId).getRtName();
+		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
+		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurantName);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/tableSearchController.do");
 		mav.addObject("allTable", allTable);
 		mav.addObject("resDate", resDate);
 		mav.addObject("resTime", resTime);
 		mav.addObject("resPeople", resPeople);
-		mav.addObject("restaurantName", restrauntName);
+		mav.addObject("restaurantName", restaurantName);
 		mav.addObject("businessId", businessId);
 		
 		return mav;

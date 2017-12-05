@@ -170,7 +170,7 @@
 	<!-- 이름으로 검색바 -->
 	<div role="tabpanel" class="tab-pane" id="S2">
 
-		<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
+		<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
 			<div class="form-group col-sm-12 text-center">
 				<div class="input-group col-sm-1 col-xs-1">
 					<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">

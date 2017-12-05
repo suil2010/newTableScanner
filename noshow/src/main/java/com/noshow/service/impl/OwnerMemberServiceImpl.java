@@ -205,4 +205,15 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		return dao.selectSales(id);
 	}
 
+	@Override
+	public List<Restaurant> selectRestaurantByNameSearch(String resPlace, String resName) {
+		Map<String, String> searchInfo = new HashMap<>();
+		searchInfo.put("resPlace", resPlace);
+		searchInfo.put("resName", resName);
+		List<Restaurant> restaurantList = setFieldMethod(dao.selectRestaurantByNameSearch(searchInfo));
+		restaurantList = setHoliDayMethod(restaurantList);
+		return timeFormatting(restaurantList);
+	
+	}
+
 }

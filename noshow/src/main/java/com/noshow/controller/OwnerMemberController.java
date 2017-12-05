@@ -188,6 +188,24 @@ public class OwnerMemberController {
 		return mav;
 	}
 	
+	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
+	@RequestMapping("/restaurantListByName")
+	public ModelAndView restaurantListByName(String businessId) {
+		List<Table> allTable = selectTable(businessId);
+		for (Table t : allTable) {
+			System.out.println("restaurantListByName.allTable : " + t);
+		}
+		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
+		System.out.println("OwnerMemberController.restaurantListByName - restaurantName : " + restaurantName);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("reservation/reservation_form.tiles");
+		mav.addObject("allTable", allTable);
+		mav.addObject("restaurantName", restaurantName);
+		mav.addObject("businessId", businessId);
+		
+		return mav;
+	}
+	
 	/* 예약정보를 받아서 처리하는 controller */
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
@@ -248,6 +266,23 @@ public class OwnerMemberController {
 		ObjectMapper mapper = new ObjectMapper();
 		String str = mapper.writeValueAsString(list);
 		return new ModelAndView("owner/restaurant_Sales.tiles", "sales", str);
+	}
+	
+	@RequestMapping("/searchRestaurantByName")
+	public ModelAndView searchRestaurantByName(String resPlace, String resName) {
+		System.out.println("OwnerMemberController.searchRestaurantByName - resPlace : "+resPlace );
+		System.out.println("OwnerMemberController.searchRestaurantByName - resName : "+resName );
+		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(resPlace, resName);
+		if (restaurantList == null) {
+			System.out.println("해당하는 음식점이 없습니다.");
+			List<String> list = new ArrayList<>();
+			list.add("검색조건에 해당하는 음식점이 없습니다.");
+			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", list);
+		} else {
+			System.out.println("검색조건에 맞는 음식점이 있다요오옹");
+			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
+		}
+		
 	}
 	
 }

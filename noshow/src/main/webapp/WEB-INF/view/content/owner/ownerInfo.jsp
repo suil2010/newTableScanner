@@ -46,7 +46,7 @@
 	});
 </script>
 <div class="container" style="max-width: 800px; padding-top: 50px;">  
-	<form class="form-horizontal" method="post">
+	<form class="form-horizontal">
 		<sec:csrfInput/>
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessNum">사업자번호 :</label>
@@ -72,14 +72,30 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessField" id="businessField" class="form-control">
+				<select name="rtField" required>
+					<option value=1>한식</option>
+					<option value=2>중식</option>
+					<option value=3>일식</option>
+					<option value=4>분식</option>
+					<option value=5>치킨</option>
+					<option value=6>피자</option>
+					<option value=7>족발</option>
+				</select>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
-				<input type="text" name="businessHoliday" id="businessHoliday" class="form-control">
+				<select name="rtHoliday" required>
+					<option value=1>일</option>
+					<option value=2>월</option>
+					<option value=3>화</option>
+					<option value=4>수</option>
+					<option value=5>목</option>
+					<option value=6>금</option>
+					<option value=7>토</option>
+				</select>
 			</div>
 		</div>
 
@@ -96,6 +112,27 @@
 				<input type="text" name="businessClose" id="businessClose" class="form-control">
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
+			<div class="col-sm-9">
+				<select name="businessTerm" id="businessTerm" >
+					<option value=1>1시간</option>
+					<option value=2>2시간</option>
+					<option value=3>3시간</option>
+					<option value=4>4시간</option>
+					<option value=5>5시간</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-3 control-label">매장 사진 :</label>
+			<div class="col-sm-9">
+				<input type="file" name="businessImg" placeholder="매장 사진을 등록하세요" >
+			</div>
+		</div>
+		
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessCapaity">수용가능 인원 : </label>
@@ -126,7 +163,6 @@
 				<input type="submit" value="등록" class="ownersubmit">
 			</div>
 		</div>
-
 
 	</form>
 </div>

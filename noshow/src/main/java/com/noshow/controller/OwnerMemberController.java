@@ -93,6 +93,7 @@ public class OwnerMemberController {
 	
 
 	@RequestMapping("/insertTable")
+	@Transactional
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {
 		// 수정이 필요함 3번에 한번씩 service를 호출하지않고 List로 전달하여 insert할수 있도록.
 		System.out.println("Table - delete 시작");
@@ -147,21 +148,20 @@ public class OwnerMemberController {
 	@RequestMapping("/restaurantList")
 	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
 		
-		List<Table> table = selectTable(businessId);
-		System.out.println(table);
+		List<Table> allTable = selectTable(businessId);
+		for(Table t : allTable) {
+			System.out.println("restaurantList.allTable : " + t);
+		}
 		System.out.println("resListController - resTime : " + resTime);
-		// 점주ID 로 해당 음식점의 테이블 얻어오기
-		List<Table> list = service.selectTable(businessId);
-		
+
 		String restrauntName = service.selectRestaurantByBusinessId(businessId).getRtName();
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/tableSearchController.do");
+		mav.addObject("allTable", allTable);
 		mav.addObject("resDate", resDate);
 		mav.addObject("resTime", resTime);
-		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("resPeople", resPeople);
-		mav.addObject("table",table);
 		mav.addObject("restaurantName", restrauntName);
-		mav.addObject("tableList", list);
 		mav.addObject("businessId", businessId);
 		
 		return mav;
@@ -171,10 +171,7 @@ public class OwnerMemberController {
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(resPlace, resDate, resTime, resPeople);
-//		session.setAttribute("resDate", resDate);
-//		session.setAttribute("resPeople", resPeople);
-//		session.setAttribute("resTime", resTime);
-//		
+
 		System.out.println("searchResController - resDate : "+resDate);
 		System.out.println("searchResController - resTime : "+resTime);
 		//검증

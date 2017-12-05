@@ -36,6 +36,14 @@
 		from member
 		where member_id = #{value}
 	</select>
+	
+		<!-- 사용자 id로 회원 정보 조회 -->
+	<select id = "selectFindPasswordByMemberId" parameterType="Member" resultType="int">
+		select count(*)
+		from member
+		where member_id = #{memberId} 
+				and member_email = #{memberEmail} 
+	</select>
 
 	<!-- INSERT -->
 	<insert id="insertMember" parameterType="Member">
@@ -57,10 +65,18 @@
 		WHERE member_id = #{memberId}
 	</update>
 	
+	<!-- 회원탈퇴시 로그인 안되게 dropcheck 컬럼 속성을 1로 변경 -->
 	<update id="updateDropCheckByMemberId" parameterType="string">
 		update member
 		<set> drop_check = 1 </set>
 		where member_id = #{member_id}
+	</update>
+	
+	<!-- 비밀번호 찾기시 임시비밀번호 설정 -->
+	<update id="updatePasswordByMemberId" parameterType="Member">
+		update member
+		<set> member_password = #{memberPassword} </set>
+		where member_id = #{memberId}
 	</update>
 	
 	<!-- DELETE -->

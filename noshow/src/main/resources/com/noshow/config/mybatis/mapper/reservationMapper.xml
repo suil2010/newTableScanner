@@ -27,21 +27,27 @@
 		r.res_price,
 		r.member_id,
 		r.business_id,
-		o.rt_num,
-		o.rt_name,
-		o.rt_tel,
-		o.rt_field,
-		o.rt_holiday,
-		o.rt_open,
-		o.rt_close,
-		o.rt_term,
-		o.rt_picture,
-		o.rt_address,
-		o.rt_capacity,
-		o.rt_deposit,
-		t.table_seq,
-		t.res_num
-	FROM	reservation r
+		m.rt_num,
+		m.rt_name,
+		m.rt_tel,
+		m.rt_field,
+		m.rt_holiday,
+		m.rt_open,
+		m.rt_close,
+		m.rt_term,
+		m.rt_picture,
+		m.rt_address,
+		m.rt_capacity,
+		m.rt_deposit,
+		o.table_seq,
+		o.res_num,
+		t.table_num,
+		t.table_people,
+		t.x_location,
+		t.y_location,
+		t.business_id
+		
+	FROM	reservation r, restaurant m, order_table o, table_ t
 	</sql>
 
 	<resultMap type="reservation" id="reservation-resultmap">
@@ -73,9 +79,18 @@
 		<result column="rt_deposit" property="rtDeposit" />
 	</resultMap>
 
+	<resultMap type="table" id="table_resultmap">
+		<result column="table_seq" property="tableSeq"/>
+		<result column="table_num" property="tableNum"/>
+		<result column="x_location" property="xLocation"/>
+		<result column="y_location" property="yLocation"/>
+		<result column="business_id" property="businessId"/>
+	</resultMap>
+	
 	<resultMap type="orderTable" id="orderTable-resultmap">
 		<id column="table_Seq" property="tableSeq" />
 		<result column="res_Num" property="resNum" />
+		<collection property="table" resultMap="table_resultmap"/>
 	</resultMap>
 
 	<resultMap type="reservation" id="reservation-join-resultmap">
@@ -97,11 +112,9 @@
 
 	<!-- INSERT -->
 	<insert id="insertReservation" parameterType="reservation">
-		<selectKey keyProperty="resNum" order="BEFORE" resultType="_int">
-			SELECT res_Num_seq.NEXTVAL FROM dual
-		</selectKey>
+		
 		INSERT INTO RESERVATION VALUES
-		( #{resNum},
+		( res_num_seq.NEXTVAL,
 		to_date(#{resDate}, 'yyyy/mm/dd'),
 		#{resPeople},
 		to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss'),
@@ -112,6 +125,9 @@
 		#{memberId},
 		#{businessId}
 		)
+		<selectKey keyProperty="resNum" order="AFTER" resultType="_int">
+			SELECT res_Num_seq.CURRVAL FROM dual
+		</selectKey>
 	</insert>
 
 	<!-- UPDATE - 예약날짜, 예약시간, 인원만 변경할 수 있도록 한다. -->
@@ -164,9 +180,9 @@
 	<select id="selectJoinReservationByMemId" parameterType="String"
 		resultMap="reservation-join-resultmap">
 		<include refid="select-reservation-join-restaurant"/>
-		, restaurant o, order_table t
-		WHERE	r.business_id = o.business_id
-		AND		r.res_num = t.res_num
+		WHERE	r.business_id = m.business_id
+		AND		r.res_num = o.res_num
+		AND		o.table_seq = t.table_seq
 		AND		r.member_id = #{value}
 		ORDER BY	r.res_num DESC
 	</select>

@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <style type="text/css">
 #droppable>div {
 	margin: 0;
@@ -13,9 +15,18 @@
 </style>
 <script>
 	$(document).ready(function() {
+		
+		$('.timepicker').timepicker({
+			timeFormat: 'HH:mm',
+			interval: 30,
+			startTime:'07:00',
+			dynamic:false,
+			dropdown:true,
+			scrollbar:true
+		});	
 		//date
 
-		var options = {
+		/* var options = {
 			now : "${requestScope.resTime}", //hh:mm 24 hour format only, defaults to current time 
 			twentyFour : true, //Display 24 hour format, defaults to false 
 			upArrow : 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
@@ -26,7 +37,7 @@
 			secondsInterval : 1, //Change interval for seconds, defaults to 1  , 
 			minutesInterval : 1, //Change interval for minutes, defaults to 1 
 		};
-		$('.timepicker').wickedpicker(options);
+		$('.timepicker').wickedpicker(options); */
 
 		$("#datepicker").datepicker({
 			constrainInput : true,
@@ -52,6 +63,7 @@
 				// 결제방식 선택 후, 테이블이 선택되었는지 체크
 				for (var j = 0; j < tableCheck.length; j++) {
 					if (tableCheck[j].checked) { // checkbox 체크되어있다면~
+						alert(tableCheck[j].value);
 						cnt++;
 					}
 				}
@@ -96,11 +108,11 @@
 				<div role="tabpanel" class="tab-pane" id="messages">3</div>
 				<div role="tabpanel" class="tab-pane" id="settings">
 					<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
-						<c:forEach items="${requestScope.table}" var="item">
-							<div class="draggable" style="top: ${item.yLocation}px; left: ${item.xLocation}px;">
-								<span>${item.tableNum }번 테이블</span>
+						<c:forEach items="${requestScope.allTable}" var="alltables">
+							<div class="draggable" style="top: ${alltables.yLocation}px; left: ${alltables.xLocation}px;">
+								<span>${alltables.tableNum }번 테이블</span>
 								<p>
-									<span>${item.tablePeople}명</span>
+									<span>${alltables.tablePeople}명</span>
 							</div>
 
 						</c:forEach>
@@ -128,12 +140,11 @@
 					</div>
 					<div class="form-group">
 						<label for="resStartTime">예약 희망 시간 ${requestScope.resTime }</label>
-						<input type="text" class="form-control timepicker time" name="resStartTime" value="${requestScope.resTime }" placeholder="몇시에 오실건가요?" required>
+						<input type="text" class="form-control timepicker" name="resStartTime" value="${requestScope.resTime }" placeholder="몇시에 오실건가요?" required>
 					</div>
 					<div class="form-group">
 						<label for="resPeople">인원</label> <input type="number" value="${requestScope.resPeople }" class="form-control" name="resPeople"
-							placeholder="몇명이오는지알려줭" min="1" required
-						>
+							placeholder="몇명이오는지알려줭" min="1" required>
 					</div>
 					<div id="payment">
 						<label class="radio-inline"><input type="radio" name="resPayStatement" value="카드결제"> 카드결제 </label> <label class="radio-inline">
@@ -144,13 +155,14 @@
 					<div class="form-group">
 
 						<br>
-						<h3>테이블을 선택하세요</h3>
+						<h3>예약 가능한 테이블</h3>
 						<br>
-						<c:forEach items="${requestScope.tableList }" var="table" varStatus="cnt">
+						<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
 							<c:if test="${cnt.index % 2 == 0 }">
-								<br>
+							<br>
 							</c:if>
-							<label>테이블 번호 : ${table.tableNum }, 최대인원 : ${table.tablePeople } <input type="checkbox" name="tableList" value="${table.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
+							<input type="checkbox" name="tableList" value="${tables.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</label>
 						</c:forEach>
 					</div>
@@ -159,7 +171,7 @@
 				</div>
 				<div class="panel-footer">
 					<input type="submit" class="btn btn-info" value="예약하기">
-					<button type="reset" class="btn btn-default"">초기화</button>
+					<button type="reset" class="btn btn-default">초기화</button>
 				</div>
 			</div>
 		</form>

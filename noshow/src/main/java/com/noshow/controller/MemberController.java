@@ -33,11 +33,8 @@ public class MemberController {
 	
 	@RequestMapping("/join_member")
 	public ModelAndView inserMember(@ModelAttribute Member member) {
-/*		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		member.setMemberPassword(encoder.encode(member.getMemberPassword()));*/
 		service.addMember(member, "ROLE_MEMBER");
-		
-		return new ModelAndView("/sendMail.do", "member", member);
+		return new ModelAndView("/join_success.do", "memberId", member.getMemberId());
 	}
 
 	@RequestMapping("/join_success")
@@ -73,13 +70,17 @@ public class MemberController {
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		
 		String memberId = ((Member)authentication.getPrincipal()).getMemberId();
-		
 		service.removeMember(memberId);
-		
 		context.setAuthentication(null); 
-	
 		return "redirect:/remove.do";
 	}
+	
+	
+	@RequestMapping("/find_password")
+	public ModelAndView findByPassword(String memberId, String memberEmail) throws Exception {
+		service.getFindByPassword(new Member(memberId, null, memberEmail));
+		return new ModelAndView("/index.tiles");
+	}
+	
 }

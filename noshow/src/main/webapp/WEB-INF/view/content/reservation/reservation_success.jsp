@@ -34,8 +34,8 @@
 					<td>${requestScope.reservation.resStartTime }</td>
 					<td>${requestScope.reservation.resPeople }</td>
 					<td>
-					<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
-						${tables }<br>
+					<c:forEach items="${requestScope.orderTableList }" var="tables" varStatus="cnt">
+						${tables.table.tableNum }<br>
 					</c:forEach>
 					</td>
 					<td><fmt:formatDate value="${requestScope.reservation.resPaidTime }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>	

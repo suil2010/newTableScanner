@@ -36,8 +36,8 @@
 					<td>${reservation.resPeople }</td>
 					<td>${reservation.resPrice }</td>
 					<td>
-					<c:forEach items="${reservation.orderTable }" var="table">
-						${table.tableSeq }
+					<c:forEach items="${reservation.orderTable }" var="tables">
+						${tables.table.tableNum }
 					</c:forEach>
 					</td>
 					<td>${reservation.resPayStatement }</td>

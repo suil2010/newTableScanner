@@ -75,11 +75,27 @@ public class OwnerMemberController {
 		return new ModelAndView("owner/regist_success.tiles", "rt", rt);
 	}
 	
-	/*@RequestMapping("/regist_update")
-	public ModelAndView updateRestaurant(@RequestParam String role) {
+	@RequestMapping("/regist_update")
+	public ModelAndView updateRestaurant(Restaurant restaurant, HttpServletRequest request) throws IllegalStateException, IOException {
 		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Restaurant rt = (Restaurant) authentication.getPrincipal();
+
+
+		/*List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+		System.out.println(authorities);
+		UsernamePasswordAuthenticationToken newAutentication = 
+				new UsernamePasswordAuthenticationToken((Restaurant)(authentication.getPrincipal()), null, authorities);
+
+		context.setAuthentication(newAutentication);*/
 		
-	}*/
+		service.updateRestaurant(rt, "ROLE_OWNER");
+		
+		return new ModelAndView("owner/regist_success.tiles");
+	}
+		
+
 	
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {

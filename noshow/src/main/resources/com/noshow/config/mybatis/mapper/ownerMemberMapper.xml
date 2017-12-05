@@ -31,6 +31,25 @@
 		 #{rtTerm}, #{rtPicture},
 		#{rtAddress}, #{rtCapacity}, #{rtDeposit})
 	</insert>
+	
+	<update id="updateRestaurant" parameterType="Restaurant">
+		update restaurant
+		<set>
+			<if test="rtNum != null"> rt_num = #{rtNum},</if>
+			<if test="rtName!= null"> rt_name = #{rtName},</if>
+			<if test="rtTel != null"> rt_tel = #{rtTel},</if>
+			<if test="rtField != null"> rt_field = #{rtField},</if>
+			<if test="rtHoliday != null"> rt_holiday = #{rtHoliday},</if>
+			<if test="rtOpen != null"> rt_open = #{rtOpen},</if>
+			<if test="rtClose != null"> rt_close = #{rtClose},</if>
+			<if test="rtTerm != null"> rt_term = #{rtTerm},</if>
+			<if test="rtPicture != null"> rt_picture = #{rtPicture},</if>
+			<if test="rtAddress != null"> rt_address = #{rtAddress},</if>
+			<if test="rtCapacity != null"> rt_capacity = #{rtCapacity},</if>
+			<if test="rtDeposit != null"> rt_deposit = #{rtDeposit}</if>
+		</set>
+		where busines_id = #{businessId}
+	</update>
 
 
 

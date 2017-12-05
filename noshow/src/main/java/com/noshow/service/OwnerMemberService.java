@@ -59,5 +59,7 @@ public interface OwnerMemberService {
 	List<Table> selectTable(String id);
 	
 	int deleteTable(String id);
+
+	Map<String,String> selectSales(String id);
 	
 }

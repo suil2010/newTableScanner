@@ -2,6 +2,7 @@ package com.noshow.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -230,6 +231,23 @@ public class OwnerMemberController {
 		
 		
 		return new ModelAndView("owner/restaurant_Sales.tiles", "Sales", Sales);
+	}
+	
+	@RequestMapping("/searchRestaurantByName")
+	public ModelAndView searchRestaurantByName(String resPlace, String resName) {
+		System.out.println("OwnerMemberController.searchRestaurantByName - resPlace : "+resPlace );
+		System.out.println("OwnerMemberController.searchRestaurantByName - resName : "+resName );
+		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(resPlace, resName);
+		if (restaurantList == null) {
+			System.out.println("해당하는 음식점이 없습니다.");
+			List<String> list = new ArrayList<>();
+			list.add("검색조건에 해당하는 음식점이 없습니다.");
+			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", list);
+		} else {
+			System.out.println("검색조건에 맞는 음식점이 있다요오옹");
+			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
+		}
+		
 	}
 	
 }

@@ -23,10 +23,8 @@
 <body>
 	<h1>TEST - 음식점 목록</h1>
 
-
 		<h2>예약 1/3</h2>
-	
-
+		
 	<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantList.do"  id="submitform">
 	   <input type="hidden" name="businessId" class="businessId"/>
 		<input type="hidden" name="resPeople" class="resPeople"/> 
@@ -34,6 +32,7 @@
 		<input type="hidden" name="resTime" class="resTime"/>
 		<sec:csrfInput />
 	</form>
+	
 	
 	<c:choose>
 		<c:when test="${requestScope.restaurantList == null }">
@@ -43,9 +42,11 @@
 			<c:forEach items="${requestScope.restaurantList }" var="restaurant">
 				<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
 					<div style="border: 1px solid #000; cursor: pointer; height: 100%;"> 
-						<span>${restaurant.rtName }</span><br>
-						위치 : ${restaurant.rtAddress}, 업종 : ${restaurant.rtField}<br>
-						휴무 : 매주 ${restaurant.rtHoliday }요일, 영업시간 : ${restaurant.rtOpen} ~ ${restaurant.rtClose} 
+						<span><b>${restaurant.rtName }</b></span><br>
+						위치 : ${restaurant.rtAddress}<br>
+						업종 : ${restaurant.rtField}<br>
+						휴무 : 매주 ${restaurant.rtHoliday }요일<br>
+						영업시간 : ${restaurant.rtOpen} ~ ${restaurant.rtClose} 
 						<input type="hidden" name="businessId" value="${restaurant.businessId }" /> 
 						<input type="hidden" name="resPeople" value="${requestScope.resPeople }"/> 
 						<input type="hidden" name="resDate" value="${requestScope.resDate }" /> 

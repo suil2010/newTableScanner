@@ -46,10 +46,21 @@ public interface OwnerMemberService {
 	
 	/**
 	 * 검색(예약)조건으로 음식점 조회
-	 * @param searchInfo
+	 * @param resPlace
+	 * @param resDate
+	 * @param resTime
+	 * @param resPeople
 	 * @return
 	 */
 	List<Restaurant> selectRestaurantBySearch(String resPlace, String resDate, String resTime, int resPeople);
+	
+	/**
+	 * 주소+식당이름으로 음식점 조회
+	 * @param resPlace
+	 * @param resName
+	 * @return
+	 */
+	List<Restaurant> selectRestaurantByNameSearch(String resPlace, String resName);
 	
 	/**
 	 * 테이블정보 등록

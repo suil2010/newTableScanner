@@ -8,7 +8,9 @@
 
 			$('#myTab a').click(function(e) {
 				e.preventDefault()
-				$(this).tab('show')
+				$(this).tab('show');     
+				$(this).parent().siblings().find("a").css({"background":"#00b2d6"});
+				$(this).css({"background":"#008ca8"});
 			});
 
 			$('.timepicker').timepicker({
@@ -20,7 +22,6 @@
 				dropdown : true,
 				scrollbar : true
 			});
-	 
 
 			$(function() {
 				$("#datepicker").datepicker({
@@ -120,7 +121,7 @@
 							alert('GPS를 지원하지 않습니다');
 						}
 
-					});
+					});  
 
 				});
 			//test
@@ -128,8 +129,8 @@
 		});
 </script>
 <ul class="nav nav-tabs" role="tablist" id="myTab">
-	<li role="presentation" class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab">조건검색</a></li>
-	<li role="presentation"><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab">이름검색</a></li>
+	<li class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6">조건검색</a></li>
+	<li><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6;" >이름검색</a></li>
 </ul>
 
 <div class="tab-content">
@@ -170,7 +171,7 @@
 	<div role="tabpanel" class="tab-pane" id="S2">
 
 		<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
-			<div class="form-group col-sm-12 text-center"> 
+			<div class="form-group col-sm-12 text-center">
 				<div class="input-group col-sm-1 col-xs-1">
 					<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">
 						<span class="glyphicon glyphicon-map-marker"></span>
@@ -229,7 +230,7 @@
 	white-space: nowrap;
 }
 </style>
-	<div class="map_wrap" style="display: none;"> 
+	<div class="map_wrap" style="display: none;">
 		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 		<div class="hAddr">
 			<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>

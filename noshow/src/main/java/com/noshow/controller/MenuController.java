@@ -26,7 +26,7 @@ public class MenuController {
 	private MenuService service;
 	
 	@RequestMapping("/join_menu")
-	public ModelAndView joinMenu(Menu menu, HttpServletRequest request) throws IllegalStateException, IOException{
+	public ModelAndView RegisterMenu(Menu menu, HttpServletRequest request) throws IllegalStateException, IOException{
 		// 메뉴 파일 업로드
 		MultipartFile menuImage = menu.getMenuImage();
 		if(menuImage != null && !menuImage.isEmpty()) {
@@ -43,7 +43,7 @@ public class MenuController {
 	}
 	
 	@RequestMapping("/join_menu_success")
-	public ModelAndView joinMenuSuccess(int menuNum) {
+	public ModelAndView RegisterSuccess(int menuNum) {
 		Menu menu = service.getMenuByMenuNum(menuNum);
 		return new ModelAndView("owner/menu_success.tiles", "menu", menu);
 	}	

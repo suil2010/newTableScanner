@@ -20,8 +20,8 @@
 
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-0 control-label"></label> 
-			<label class="col-sm-2 col-xs-12 control-label"><a href="#">아이디 찾기</a></label>
-			<label class="col-sm-2 col-xs-12 control-label"><a href="#">비밀번호찾기</a></label>
+			<label class="col-sm-2 col-xs-12 control-label"><a href="${initParam.rootPath }/find_id_form.do">아이디 찾기</a></label>
+			<label class="col-sm-2 col-xs-12 control-label"><a href="${initParam.rootPath }/find_password_form.do">비밀번호찾기</a></label>
 		</div>
 
 		<div class="form-group">

@@ -51,6 +51,14 @@ public interface MemberDao {
 		int selectFindPasswordByMemberId(Member member);
 		
 		/**
+		 * 사용자가 넘겨준 ID, Email로 일치하는 Id
+		 * @param memberId
+		 * @param memberEmail
+		 * @return
+		 */
+		String selectMemberIdByMemberNameAndMemberEmail(String memberName, String memberEmail);
+		
+		/**
 		 * 임시비밀번호로 변경처리
 		 * @param member
 		 * @return

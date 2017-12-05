@@ -67,6 +67,10 @@
 			});
 
 		});
+		
+		$(".removebtn").on("click",function(){
+			$(this).parent().remove();
+		});
 	});
 </script>
 <div class="container" style="max-width: 800px; padding-top: 50px; width: 100%; padding-left: 0;"> 
@@ -74,8 +78,9 @@
 		<div id="droppable" style="width: 100%; height: 100%; border: 1px solid #000; position: relative;">
 			<c:forEach items="${requestScope.Table}" var="item">
 				<div class="draggable" style="top: ${item.yLocation}px; left: ${item.xLocation}px;">
-					<span>${item.tablePeople}</span>
-				</div>
+					<span>${item.tablePeople}</span><p>
+					<button class="btn btn-default removebtn">삭제</button>
+				</div>  
 
 			</c:forEach>
 		</div>

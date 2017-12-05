@@ -69,33 +69,33 @@
 <div class="container" style="max-width: 800px; padding-top: 50px;">
 	<form class="form-horizontal" method="post" action="${initParam.rootPath}/join_rt.do" enctype="multipart/form-data">
 		<sec:csrfInput />
-		<input type="hidden" name="businessId" value="<sec:authentication property='principal.memberId'/>">
+		<input type="hidden" name="businessId" value="<sec:authentication property='principal.memberId'/>" required>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtNum">사업자번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtNum" placeholder="'-' 빼고 입력해주세요. " id="rtNum" class="form-control">
+				<input type="text" name="rtNum" placeholder="'-' 빼고 입력해주세요. " id="rtNum" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtName">음식점명 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtName" id="rtName" class="form-control">
+				<input type="text" name="rtName" id="rtName" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTel">음식점 전화번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtTel" placeholder="'-' 빼고 입력해주세요. " id="rtTel" class="form-control">
+				<input type="text" name="rtTel" placeholder="'-' 빼고 입력해주세요. " id="rtTel" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
 			<div class="col-sm-9">
-				<select name="rtField">
+				<select name="rtField" required>
 					<option value=1>한식</option>
 					<option value=2>중식</option>
 					<option value=3>일식</option>
@@ -110,7 +110,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
-				<select name="rtHoliday">
+				<select name="rtHoliday" required>
 					<option value=1>일</option>
 					<option value=2>월</option>
 					<option value=3>화</option>
@@ -125,21 +125,21 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
 			<div class="col-sm-9">
-				<input type="text" name="rtOpen" id="rtOpen" class="form-control timepicker">
+				<input type="text" name="rtOpen" id="rtOpen" class="form-control timepicker" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtClose" id="rtClose" class="form-control timepicker">
+				<input type="text" name="rtClose" id="rtClose" class="form-control timepicker" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
-				<select name="rtTerm" id="rtTerm">
+				<select name="rtTerm" id="rtTerm" required>
 					<option value=1>1시간</option>
 					<option value=2>2시간</option>
 					<option value=3>3시간</option>
@@ -152,28 +152,28 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label">매장 사진 :</label>
 			<div class="col-sm-9">
-				<input type="file" name="rtImg" placeholder="매장 사진을 등록하세요">
+				<input type="file" name="rtImg" placeholder="매장 사진을 등록하세요" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtCapacity">수용가능 인원 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtCapacity" placeholder="수용가능한 인원을 입력하세요" id="rtCapacity">
+				<input type="number" name="rtCapacity" placeholder="수용가능한 인원을 입력하세요" id="rtCapacity" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtDeposit">1인당 예약금 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtDeposit" placeholder="1인당 예약금을 입력하세요" id="rtDeposit">
+				<input type="number" name="rtDeposit" placeholder="1인당 예약금을 입력하세요" id="rtDeposit" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label">위치 : </label>
 			<div class="col-sm-6">
-				<input type="text" name="rtAddress" placeholder="매장 위치를 입력하세요" class="form-control Address"><br>
+				<input type="text" name="rtAddress" placeholder="매장 위치를 입력하세요" class="form-control Address" required><br>
 			</div>
 			<button type="button" class="btn btn-default col-sm-2 Search">검색</button>
 		</div>

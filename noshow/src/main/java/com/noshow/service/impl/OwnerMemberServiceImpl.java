@@ -22,14 +22,14 @@ import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
 
 @Service
-public class OwnerMemberServiceImpl implements OwnerMemberService{
-  
-   @Resource
-   private OwnerMemberDAO dao;
-   
-   @Resource
-   private AuthorityDao authoritydao;
-   
+public class OwnerMemberServiceImpl implements OwnerMemberService {
+	
+	@Resource
+	private OwnerMemberDAO dao;
+	
+	@Resource
+	private AuthorityDao authoritydao;
+	
 	@Override
 	@Transactional
 	public void insertRestaurant(Restaurant rt, String role) {
@@ -61,22 +61,22 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 	public int selectRestaurantByRtName(String rtName) {
 		return dao.selectRestaurantByRtName(rtName);
 	}
-
+	
 	@Override
 	public int insertTable(Table table) {
 		return dao.insertTable(table);
 	}
-
+	
 	@Override
 	public List<Table> selectTable(String id) {
 		return dao.selectTable(id);
 	}
-
+	
 	@Override
 	public int deleteTable(String id) {
 		return dao.deleteTable(id);
 	}
-
+	
 	@Override
 	public List<Restaurant> selectRestaurantBySearch(String resPlace, String resDate, String resTime, int resPeople) {
 	
@@ -108,6 +108,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return 0;
 
 	}
@@ -145,6 +146,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 		
 	}
 	
+
 	/* 검색 결과 - 음식점리스트에 int로 들어오는 holiday 값을 변환 */
 	public List<Restaurant> setHoliDayMethod(List<Restaurant> restaurantList) {
 		for(Restaurant restaurant : restaurantList) {
@@ -195,15 +197,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService{
 			e.printStackTrace();
 		}
 		return restaurantList;
+	}
+
+	@Override
+	public Map<String,String> selectSales(String id) {
+		return dao.selectSales(id);
 
 	}
 }
-
-
-
-
-
-
-
-
-

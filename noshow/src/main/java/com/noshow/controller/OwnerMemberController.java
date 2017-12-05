@@ -3,6 +3,7 @@ package com.noshow.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,26 +28,27 @@ import com.noshow.vo.Table;
 
 @Controller
 public class OwnerMemberController {
-
+	
 	@Autowired
 	private OwnerMemberService service;
-
+	
 	@RequestMapping("/join_rt")
 	@Transactional
 	public ModelAndView joinRt(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
-
-/* 2017.12.01 19.04 윤동웅 권한 업데이트후 바뀌어야하는데 안바뀜. 내일볼테니 주석 지우지 마셈.. 
- * 주석없는 상태에서는 로그아웃한 후에 다시 로그인하면 권한 바뀌어서 실행됩니다
- * 그거 번거로워서 로그아웃안하고 바꾸려고 설정하다가 상태가 너무 똥망이라 내일 수정함.
- * 		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-*/
 		
-		/* 2017.12.04 11:40 현준 Test*/
-		System.out.println("OwnerMemberController - rt : "+rt);
-		System.out.println("rtOpen : " + rt.getRtOpen() +", rtClose : " +rt.getRtClose());
-		System.out.println("OwnerMemberController - r.count : "+r.getErrorCount());
-		System.out.println("OwnerMemberController - r : "+r);
+		/*
+		 * 2017.12.01 19.04 윤동웅 권한 업데이트후 바뀌어야하는데 안바뀜. 내일볼테니 주석 지우지 마셈..
+		 * 주석없는 상태에서는 로그아웃한 후에 다시 로그인하면 권한 바뀌어서 실행됩니다
+		 * 그거 번거로워서 로그아웃안하고 바꾸려고 설정하다가 상태가 너무 똥망이라 내일 수정함.
+		 * SecurityContext context = SecurityContextHolder.getContext();
+		 * Authentication authentication = context.getAuthentication();
+		 */
+		
+		/* 2017.12.04 11:40 현준 Test */
+		System.out.println("OwnerMemberController - rt : " + rt);
+		System.out.println("rtOpen : " + rt.getRtOpen() + ", rtClose : " + rt.getRtClose());
+		System.out.println("OwnerMemberController - r.count : " + r.getErrorCount());
+		System.out.println("OwnerMemberController - r : " + r);
 		// 식당이미지 업로드
 		MultipartFile rtImg = rt.getRtImg();
 		if (rtImg != null && !rtImg.isEmpty()) {
@@ -54,44 +56,58 @@ public class OwnerMemberController {
 			String dir = request.getServletContext().getRealPath("/rtPicture");
 			String pictureName = UUID.randomUUID().toString();
 			File upRtImg = new File(dir, pictureName);
-			rtImg.transferTo(upRtImg); 
+			rtImg.transferTo(upRtImg);
 			rt.setRtPicture(pictureName);
 		}
 		service.insertRestaurant(rt, "ROLE_OWNER");
 		
-/*		List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-		System.out.println(authorities);
-		UsernamePasswordAuthenticationToken newAutentication = 
-				new UsernamePasswordAuthenticationToken(rt, null, authorities);
-
-		context.setAuthentication(newAutentication);
-		*/
+		/*
+		 * List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+		 * System.out.println(authorities);
+		 * UsernamePasswordAuthenticationToken newAutentication =
+		 * new UsernamePasswordAuthenticationToken(rt, null, authorities);
+		 * 
+		 * context.setAuthentication(newAutentication);
+		 */
 		return new ModelAndView("redirect:/regist_success.do", "businessId", rt.getBusinessId());
 	}
-
+	
 	@RequestMapping("/regist_success")
 	public ModelAndView restaurantSuccess(@RequestParam String businessId) {
 		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
 		return new ModelAndView("owner/regist_success.tiles", "rt", rt);
 	}
 	
-	/*@RequestMapping("/regist_update")
-	public ModelAndView updateRestaurant(@RequestParam String role) {
+	@RequestMapping("/regist_update")
+	public ModelAndView updateRestaurant(Restaurant restaurant, HttpServletRequest request) throws IllegalStateException, IOException {
 		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Restaurant rt = (Restaurant) authentication.getPrincipal();
 		
-	}*/
+		/*
+		 * List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+		 * System.out.println(authorities);
+		 * UsernamePasswordAuthenticationToken newAutentication =
+		 * new UsernamePasswordAuthenticationToken((Restaurant)(authentication.getPrincipal()), null, authorities);
+		 * 
+		 * context.setAuthentication(newAutentication);
+		 */
+		
+		service.updateRestaurant(rt, "ROLE_OWNER");
+		
+		return new ModelAndView("owner/regist_success.tiles");
+	}
 	
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {
 		List<Restaurant> restaurantList = service.selectAllRestaurant();
-		for(Restaurant r : restaurantList) {
+		for (Restaurant r : restaurantList) {
 			System.out.println(r);
 		}
 		return new ModelAndView("reservation/restaurant_list.tiles", "restaurantList", restaurantList);
 	}
 	
-	
-
 	@RequestMapping("/insertTable")
 	@Transactional
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {
@@ -99,7 +115,7 @@ public class OwnerMemberController {
 		System.out.println("Table - delete 시작");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-
+		
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member) authentication.getPrincipal();
 		String id = member.getMemberId();
@@ -107,27 +123,27 @@ public class OwnerMemberController {
 		System.out.println("Table - delete 완료");
 		System.out.println("Table - insert 시작");
 		int n = 1;
-		for(int i = 0; i < tableXY.length; i++) {
-			if(i % 3 == 0) {
-	
+		for (int i = 0; i < tableXY.length; i++) {
+			if (i % 3 == 0) {
+				
 				String xLocation = tableXY[i];
-				String yLocation = tableXY[i+1];
-				int people = Integer.parseInt(tableXY[i+2]);
-				Table table = new Table(3,n,people,xLocation,yLocation,id);
+				String yLocation = tableXY[i + 1];
+				int people = Integer.parseInt(tableXY[i + 2]);
+				Table table = new Table(3, n, people, xLocation, yLocation, id);
 				service.insertTable(table);
 				n++;
 			}
 		}
-
+		
 		System.out.println("Tabel - insert 성공");
 		return new ModelAndView("redirect:/index.do");
 	}
-
+	
 	@RequestMapping("/selectTable")
 	public ModelAndView selectTable() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-
+		
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member) authentication.getPrincipal();
 		String businessId = member.getMemberId();
@@ -136,9 +152,9 @@ public class OwnerMemberController {
 		System.out.println("Table - select 성공");
 		return new ModelAndView("owner/ownerTable.tiles", "Table", tableList);
 	}
-
+	
 	public List<Table> selectTable(String businessId) {
-
+		
 		System.out.println("Table - select 시작");
 		List<Table> tableList = service.selectTable(businessId);
 		System.out.println("Table - select 성공");
@@ -149,13 +165,14 @@ public class OwnerMemberController {
 	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
 		
 		List<Table> allTable = selectTable(businessId);
-		for(Table t : allTable) {
+		for (Table t : allTable) {
 			System.out.println("restaurantList.allTable : " + t);
 		}
 		System.out.println("resListController - resTime : " + resTime);
 
 		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
 		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurantName);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/tableSearchController.do");
 		mav.addObject("allTable", allTable);
@@ -172,9 +189,9 @@ public class OwnerMemberController {
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(resPlace, resDate, resTime, resPeople);
-
-		System.out.println("searchResController - resDate : "+resDate);
-		System.out.println("searchResController - resTime : "+resTime);
+		
+		System.out.println("searchResController - resDate : " + resDate);
+		System.out.println("searchResController - resTime : " + resTime);
 		//검증
 		if (restaurantList.isEmpty()) {
 			System.out.println("해당 조건에 맞는 음식점이 없습니다.");
@@ -191,5 +208,25 @@ public class OwnerMemberController {
 		}
 	}
 	
+	@RequestMapping("/selectSales")
+	public ModelAndView selectSales() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String businessId = member.getMemberId();
+		System.out.println("selectSales 호출");
+		System.out.println(businessId);
+		Map<String, String> Sales = service.selectSales(businessId); 
+		System.out.println(Sales);
+		
+		//MAP의 KEY값을 이용하여 VALUE값 가져오기
+		for (String mapkey : Sales.keySet()) {
+			System.out.println("key:" + mapkey + ",value:" + Sales.get(mapkey));
+		}
+		
+		return new ModelAndView("owner/restaurant_Sales.tiles", "Sales", Sales);
+	}
 	
 }

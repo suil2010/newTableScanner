@@ -190,14 +190,13 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
-		return	restaurantDao.selectRestaurantByBusinessId(businessId);
+		return restaurantDao.selectRestaurantByBusinessId(businessId);
 	}
 
 	@Override
 	public List<Reservation> selectJoinReservationByMemId(String memberId) {
 		return dao.selectJoinReservationByMemId(memberId);
 	}
-
 	
 	/* 사용가능한 테이블만 뽑아오기 위한 로직 */
 	@Override

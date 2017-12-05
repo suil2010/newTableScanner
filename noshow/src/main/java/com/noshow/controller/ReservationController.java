@@ -84,7 +84,9 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/tableSearchController")
-	public ModelAndView tableSearchController(HttpServletRequest request, String resDate, String resTime, int resPeople, String restaurantName, String businessId) {
+	public ModelAndView tableSearchController(HttpServletRequest request, String resDate, String resTime, int resPeople,String businessId) {
+		
+		String restaurantName = (String) request.getAttribute("restaurantName");
 		
 		List<Table> tableList = service.selectUsableTable(resDate, resTime, businessId);
 		for(Table t : tableList) {
@@ -98,6 +100,7 @@ public class ReservationController {
 		//log	
 		System.out.println("tableSearchController - "+resDate);
 		System.out.println("tableSearchController - " + businessId);
+		System.out.println("tableSearchController - restaurantName " + restaurantName);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("resDate", resDate);
@@ -112,6 +115,7 @@ public class ReservationController {
 	}
 
 	
+	/* 내 예약 조회 */
 	@RequestMapping("/myReservation")
 	public ModelAndView myReservation() {
 		

@@ -218,13 +218,16 @@ public class OwnerMemberController {
 		String businessId = member.getMemberId();
 		System.out.println("selectSales 호출");
 		System.out.println(businessId);
-		Map<String, String> Sales = service.selectSales(businessId); 
-		System.out.println(Sales);
+		List<Map<Object,Object>> Sales = service.selectSales(businessId); 
 		
-		//MAP의 KEY값을 이용하여 VALUE값 가져오기
-		for (String mapkey : Sales.keySet()) {
-			System.out.println("key:" + mapkey + ",value:" + Sales.get(mapkey));
+		
+		for(Map<Object, Object> sale : Sales) {
+			for (Object mapkey : sale.keySet()) {
+				System.out.println("key:" + mapkey + ",value:" + sale.get(mapkey));
+			}
 		}
+		//MAP의 KEY값을 이용하여 VALUE값 가져오기
+		
 		
 		return new ModelAndView("owner/restaurant_Sales.tiles", "Sales", Sales);
 	}

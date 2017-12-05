@@ -77,8 +77,8 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 
 	@Override
-	public Map<String, String> selectSales(String id) {
-		return session.selectMap(makeSqlId("selectSales"), id);
+	public List<Map<Object,Object>> selectSales(String id) {
+		return session.selectList(makeSqlId("selectSales"), id);
 	}
 
 	

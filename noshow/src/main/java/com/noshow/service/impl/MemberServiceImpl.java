@@ -83,6 +83,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String getFindById(String memberName, String memberEmail) {
+		return dao.selectMemberIdByMemberNameAndMemberEmail(memberName, memberEmail);
+	}
+	
+	
+	@Override
 	@Transactional
 	public void getFindByPassword(Member member) throws Exception {
 		if (dao.selectFindPasswordByMemberId(member) == 1) {

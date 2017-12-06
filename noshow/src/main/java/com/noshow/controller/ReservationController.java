@@ -1,8 +1,10 @@
 package com.noshow.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,15 +12,16 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.ReservationService;
 import com.noshow.vo.Member;
 import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
+import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
 
 
@@ -84,7 +87,9 @@ public class ReservationController {
 	}
 	
 	@RequestMapping("/tableSearchController")
-	public ModelAndView tableSearchController(HttpServletRequest request, String resDate, String resTime, int resPeople, String restaurantName, String businessId) {
+	public ModelAndView tableSearchController(HttpServletRequest request, String resDate, String resTime, int resPeople,String businessId) {
+		
+		Restaurant restaurant = (Restaurant)request.getAttribute("restaurant");
 		
 		List<Table> tableList = service.selectUsableTable(resDate, resTime, businessId);
 		for(Table t : tableList) {
@@ -98,6 +103,7 @@ public class ReservationController {
 		//log	
 		System.out.println("tableSearchController - "+resDate);
 		System.out.println("tableSearchController - " + businessId);
+		System.out.println("tableSearchController - restaurant " + restaurant);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("resDate", resDate);
@@ -105,13 +111,26 @@ public class ReservationController {
 		mav.addObject("resPeople", resPeople);
 		mav.addObject("allTable",allTable);
 		mav.addObject("tableList", tableList);
-		mav.addObject("restaurantName", restaurantName);
-		mav.addObject("businessId", businessId);
+		mav.addObject("restaurant", restaurant);
 		
 		return mav;
 	}
-
 	
+	/* 2017.12.05 23:18-현준_ajax TEST Controller */
+	@RequestMapping("/reSearchTable")
+	@ResponseBody
+	public List<Table> reSearchTable(String resDate, String resStartTIme, String businessId , HttpServletResponse response) throws IOException {
+//		int resPeople = (Integer)params.get("resPeople");
+		System.out.println("ReservationController.reSearchTable - resDate : " + resDate);
+		System.out.println("ReservationController.reSearchTable - resStartTime : " + resDate);
+		
+		List<Table> tableList = service.selectUsableTable(resDate, resStartTIme, businessId);
+		
+		return tableList;
+	}
+	
+	
+	/* 내 예약 조회 */
 	@RequestMapping("/myReservation")
 	public ModelAndView myReservation() {
 		

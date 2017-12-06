@@ -72,6 +72,14 @@
 		where member_id = #{member_id}
 	</update>
 	
+	<!-- selectMemberIdByMemberNameAndMemberEmail -->
+	<select id="selectMemberIdByMemberNameAndMemberEmail" parameterType="java.util.HashMap" resultType="String">
+		select member_id
+		from member
+		where member_name = #{memberName} and member_email = #{memberEmail}
+	
+	</select>
+	
 	<!-- 비밀번호 찾기시 임시비밀번호 설정 -->
 	<update id="updatePasswordByMemberId" parameterType="Member">
 		update member

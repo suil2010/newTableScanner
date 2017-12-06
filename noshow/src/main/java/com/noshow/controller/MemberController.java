@@ -83,4 +83,15 @@ public class MemberController {
 		return new ModelAndView("/index.tiles");
 	}
 	
+	@RequestMapping("/find_id")
+	public ModelAndView findById(String memberName, String memberEmail) throws Exception {
+		String memberId = service.getFindById(memberName, memberEmail);
+		if(memberId == null) {
+			throw new Exception();
+		}
+		return new ModelAndView("/find.tiles","memberId",memberId);
+		
+	}
+	
+	
 }

@@ -36,6 +36,13 @@ public interface MemberService {
 	 * @param memberId
 	 */
 	void removeMember(String memberId);
+	
+	/**
+	 * ID 찾기
+	 * @param memberName
+	 * @param memberEmail
+	 */
+	String getFindById(String memberName, String memberEmail);
 
 	/**
 	 * 비밀번호 찾기 (이메일로 임시비밀번호 전송)

@@ -234,7 +234,7 @@ public class OwnerMemberController {
 		//검증
 		if (restaurantList.isEmpty()) {
 			System.out.println("해당 조건에 맞는 음식점이 없습니다.");
-			return new ModelAndView("reservation/restaurant_list.tiles", "restaurantList", "null");
+			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
 		} else {
 			System.out.println("조건에 맞는 음식점 있다요~");
 			ModelAndView mav = new ModelAndView();

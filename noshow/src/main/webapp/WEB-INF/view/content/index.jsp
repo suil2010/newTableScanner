@@ -16,7 +16,7 @@
 			$('.timepicker').timepicker({
 				timeFormat : 'HH:mm',
 				interval : 30,
-				defaultTime : '12',
+/* 				defaultTime : '12', */
 				startTime : '07:00',
 				dynamic : false,
 				dropdown : true,
@@ -148,13 +148,13 @@
 					<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
 				</div>
 				<div class="input-group col-sm-2 col-xs-12">
-					<input type="date" class="form-control " placeholder="날짜" name="resDate">
+					<input type="date" class="form-control " placeholder="날짜" name="resDate" required>
 				</div>
 				<div class="input-group col-sm-2 col-xs-12">
-					<input type="text" class="form-control timepicker" placeholder="시간" name="resTime">
+					<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
 				</div>
 				<div class="input-group col-sm-2 col-xs-12">
-					<input type="number" class="form-control" placeholder="인원" name="resPeople">
+					<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
 				</div>
 				<div class="input-group col-sm-1">
 					<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
@@ -178,7 +178,7 @@
 					</button>
 				</div>
 				<div class="input-group col-sm-3 col-xs-12 ">
-					<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
+					<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
 				</div>
 				<div class="input-group col-sm-3 col-xs-12">
 					<input type="text" class="form-control " placeholder="이름" name="resName">

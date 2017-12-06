@@ -273,11 +273,9 @@ public class OwnerMemberController {
 		System.out.println("OwnerMemberController.searchRestaurantByName - resPlace : "+resPlace );
 		System.out.println("OwnerMemberController.searchRestaurantByName - resName : "+resName );
 		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(resPlace, resName);
-		if (restaurantList == null) {
+		if (restaurantList.isEmpty()) {
 			System.out.println("해당하는 음식점이 없습니다.");
-			List<String> list = new ArrayList<>();
-			list.add("검색조건에 해당하는 음식점이 없습니다.");
-			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", list);
+			return new ModelAndView("reservation/restaurant_list.tiles","notfountRestaurant", "검색 결과가 없습니다.");
 		} else {
 			System.out.println("검색조건에 맞는 음식점이 있다요오옹");
 			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);

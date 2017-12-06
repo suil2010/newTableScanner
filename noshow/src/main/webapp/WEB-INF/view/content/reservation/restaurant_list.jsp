@@ -46,7 +46,11 @@
 	
 	<c:choose>
 		<c:when test="${requestScope.restaurantList == null }">
-			<label>검색 조건에 맞는 음식점이 없습니다.</label>
+			<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
+					<div style="border: 1px solid #000; cursor: pointer; height: 100%;"> 
+						<span><b>${requestScope.notfountRestaurant }</b></span><br>		
+					</div>
+				</div>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${requestScope.restaurantList }" var="restaurant">

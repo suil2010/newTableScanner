@@ -26,7 +26,7 @@
 		<h2>예약 1/3</h2>
 	<c:choose>
 		<c:when test="${requestScope.resPeople == null}">
-			<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantListByName.do"  id="submitform">
+			<form name="restaurantList" action="${initParam.rootPath }/index.do"  id="submitform">
 	  			<input type="hidden" name="businessId" class="businessId"/>
 				<sec:csrfInput />
 			</form>
@@ -48,7 +48,8 @@
 		<c:when test="${requestScope.restaurantList == null }">
 			<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
 					<div style="border: 1px solid #000; cursor: pointer; height: 100%;"> 
-						<span><b>${requestScope.notfountRestaurant }</b></span><br>		
+						<span><b>${requestScope.notfountRestaurant }</b></span><br>	
+						<h4>클릭하시면 홈으로 이동합니다. 다시 검색해 주세요!	</h4>
 					</div>
 				</div>
 		</c:when>

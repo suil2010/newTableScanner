@@ -173,8 +173,8 @@ public class OwnerMemberController {
 		}
 		System.out.println("resListController - resTime : " + resTime);
 		
-		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
-		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurantName);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
+		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurant);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/tableSearchController.do");
@@ -182,7 +182,7 @@ public class OwnerMemberController {
 		mav.addObject("resDate", resDate);
 		mav.addObject("resTime", resTime);
 		mav.addObject("resPeople", resPeople);
-		mav.addObject("restaurantName", restaurantName);
+		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
 		
 		return mav;
@@ -195,12 +195,12 @@ public class OwnerMemberController {
 		for (Table t : allTable) {
 			System.out.println("restaurantListByName.allTable : " + t);
 		}
-		String restaurantName = service.selectRestaurantByBusinessId(businessId).getRtName();
-		System.out.println("OwnerMemberController.restaurantListByName - restaurantName : " + restaurantName);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
+		System.out.println("OwnerMemberController.restaurantListByName - restaurantName : " + restaurant);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("allTable", allTable);
-		mav.addObject("restaurantName", restaurantName);
+		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
 		
 		return mav;

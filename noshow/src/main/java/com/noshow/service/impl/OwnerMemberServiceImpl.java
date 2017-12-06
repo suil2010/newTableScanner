@@ -2,6 +2,7 @@ package com.noshow.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,7 +50,15 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
-		return dao.selectRestaurantByBusinessId(businessId);
+		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
+		List<Restaurant> list = new ArrayList<>();
+		list.add(restaurant);
+		list = timeFormatting(list);
+		for(Restaurant r : list) {
+			return r;
+		}
+		return restaurant;
+		
 	}
 	
 	@Override
@@ -182,7 +191,7 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	/* 음식점 Open, Close 시간만 던져주기위한 메소드 분리 */
 	public List<Restaurant> timeFormatting(List<Restaurant> restaurantList) {
 		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat afterFormat = new SimpleDateFormat("hh:mm a", Locale.US);
+		SimpleDateFormat afterFormat = new SimpleDateFormat("HH:mm");
 		Date resOpen_Date, resClose_Date;
 		try {
 			for(Restaurant res : restaurantList) {

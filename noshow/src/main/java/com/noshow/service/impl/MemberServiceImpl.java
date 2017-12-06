@@ -41,6 +41,11 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MessageSource messageSource;
 
+	/**
+	 * 1. 멤버추가
+	 * 2. 멤버의 권한 추가
+	 * 3. 이메일 보내기!
+	 */
 	@Override
 	@Transactional
 	public void addMember(Member member, String role) {

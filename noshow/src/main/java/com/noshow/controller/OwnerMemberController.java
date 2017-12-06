@@ -17,7 +17,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -76,12 +78,21 @@ public class OwnerMemberController {
 	}
 	
 	@RequestMapping("/regist_success")
-	public ModelAndView restaurantSuccess(@RequestParam String businessId) {
+	public ModelAndView restaurantSuccess(HttpServletRequest request) {
+		String memberId = (String) request.getAttribute("businessId");
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
+		
 		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
-		return new ModelAndView("owner/regist_success.tiles", "rt", rt);
+		return new ModelAndView("owner/ownerInfo.tiles", "rt", rt);
 	}
 	
 	@RequestMapping("/regist_update")
+	public String updateRestaurant(@ModelAttribute Restaurant rt) {
+		service.updateRestaurant(rt);
+		return "regist_success.do";
+	}
 	public ModelAndView updateRestaurant(Restaurant restaurant, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -97,11 +108,18 @@ public class OwnerMemberController {
 		 * context.setAuthentication(newAutentication);
 		 */
 		
-		service.updateRestaurant(rt, "ROLE_OWNER");
+		service.updateRestaurant(rt);
 		
 		return new ModelAndView("owner/regist_success.tiles");
+
 	}
 	
+	/*@RequestMapping("/regist_delete")
+	public ModelAndView deleteRestaurant(@RequestParam String businessId) {
+		service.deleteRestaurant(businessId);
+		return new ModelAndView("redirect:/owner/delete_rt_success.tiles");
+	}*/
+
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {
 		List<Restaurant> restaurantList = service.selectAllRestaurant();

@@ -37,11 +37,13 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		dao.insertRestaurant(rt);
 		authoritydao.updateAuthority(new Authority(rt.getBusinessId(), role));
 	}
-	
+
+
 	@Override
-	public int updateRestaurant(Restaurant rt, String role) {
+	public int updateRestaurant(Restaurant rt) {
 		return dao.updateRestaurant(rt);
 	}
+
 	
 	@Override
 	public int deleteRestaurant(String businessId) {
@@ -225,4 +227,10 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	
 	}
 
+
+
+
+
+
+	
 }

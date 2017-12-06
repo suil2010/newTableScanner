@@ -33,6 +33,9 @@
 		#{rtTerm}, #{rtPicture},
 		#{rtAddress}, #{rtCapacity}, #{rtDeposit})
 	</insert>
+	
+	<!-- <update id="updateRestaurant" parameterType="Restaurant">
+
 
 	<update id="updateRestaurant" parameterType="Restaurant">
 		update restaurant
@@ -50,8 +53,31 @@
 			<if test="rtCapacity != null"> rt_capacity = #{rtCapacity},</if>
 			<if test="rtDeposit != null"> rt_deposit = #{rtDeposit}</if>
 		</set>
-		where busines_id = #{businessId}
+		where business_id = #{businessId}
+	</update> -->
+	
+	<update id="updateRestaurant" parameterType="restaurant">
+		update restaurant
+		set
+			rt_num = #{rtNum},
+			rt_name = #{rtName},
+			rt_tel = #{rtTel},
+			rt_field = #{rtField},
+			rt_holiday = #{rtHoliday},
+			rt_open = #{rtOpen},
+			rt_close = #{rtClose},
+			rt_term = #{rtTerm},
+			rt_picture = #{rtPicture},
+			rt_address = #{rtAddress},
+			rt_capacity = #{rtCapacity},
+			rt_deposit = #{rtDeposit}
+		where business_id = #{businessId}
 	</update>
+	
+	<delete id="deleteRestaurant" parameterType="Restaurant"> 
+		delete from restaurant 
+		where business_id = #{businessId} 
+	</delete>
 
 
 

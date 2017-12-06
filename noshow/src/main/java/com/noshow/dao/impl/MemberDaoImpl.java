@@ -1,13 +1,12 @@
 package com.noshow.dao.impl;
 
-import java.util.List;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.noshow.dao.MemberDao;
-import com.noshow.vo.Authority;
 import com.noshow.vo.Member;
 
 @Repository
@@ -55,6 +54,15 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update(makeSqlId("updatePasswordByMemberId"), member);
 		
 	}
+
+	@Override
+	public String selectMemberIdByMemberNameAndMemberEmail(String memberName, String memberEmail){
+		HashMap<String, String> map = new HashMap<>();
+		map.put("memberName", memberName);
+		map.put("memberEmail", memberEmail);
+		return session.selectOne(makeSqlId("selectMemberIdByMemberNameAndMemberEmail"), map);
+	}
+	
 	
 	
 }

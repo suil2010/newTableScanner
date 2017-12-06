@@ -129,7 +129,6 @@
 								<p>
 									<span>${alltables.tablePeople}명</span>
 							</div>
-
 						</c:forEach>
 					</div>
 				</div>
@@ -195,15 +194,7 @@
 						<br>
 						<c:choose>
 							<c:when test="${requestScope.tableList == null}">
-								예약을 진행하고싶으면 예약내용으로 검색하세요 일단...여긴 추가구현할게요..
-								<%-- <c:forEach items="${requestScope.allTable }" var="tables" varStatus="cnt">
-									<c:if test="${cnt.index % 2 == 0 }">
-										<br>
-									</c:if>
-									<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
-									<input type="checkbox" name="tableList" value="${tables.tableSeq }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									</label>
-								</c:forEach> --%>
+								<h4><b>예약 희망 날짜</b>와 <b>예약 희망 시간</b>을 지정하시면 예약 가능 테이블이 표출됩니다.</h4>
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">

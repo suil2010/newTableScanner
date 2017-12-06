@@ -1,7 +1,27 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <script>
+	
 	$(document).ready(function() {
+		//date
+		var options = {
+				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
+				twentyFour: true, //Display 24 hour format, defaults to false 
+				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
+				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
+				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
+				hoverState: 'hover-state', //The hover state class to use, for custom CSS 
+				title: 'TabelScanner', //The Wickedpicker's title, 
+				showSeconds: false, //Whether or not to show seconds, 
+				secondsInterval: 1, //Change interval for seconds, defaults to 1  , 
+				minutesInterval: 1, //Change interval for minutes, defaults to 1 
+				beforeShow: null, //A function to be called before the Wickedpicker is shown 
+				show: null, //A function to be called when the Wickedpicker is shown 
+				clearable: false, //Make the picker's input clearable (has clickable "x")  
+			}; 
+		$('.timepicker').wickedpicker(options);
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -43,34 +63,50 @@
 				}
 			});
 		});
+		
+		function checktSelect(){
+			var field = document.form1.rtField
+			var selValue = field.options[field.selectedIndex].value;
+		}
+		
+		
+		function btnCheck(){
+			if(confirm("수정하시겠습니까?")){
+			    document.form.action = "";
+			    document.form.submit();
+			   }
+		};
+		
 	});
 </script>
-<div class="container" style="max-width: 800px; padding-top: 50px;">  
-	<form class="form-horizontal">
-		<sec:csrfInput/>
+
+<div class="container" style="max-width: 800px; padding-top: 50px;">
+	<form class="form-horizontal" name="form" id="form" method="post" action="${initParam.rootPath }/regist_update.do" enctype="multipart/form-data" onsubmit="btnCheck()">
+		
+		
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessNum">사업자번호 :</label>
+			<label class="col-sm-3 control-label" for="rtNum">사업자번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessNum" placeholder="'-' 빼고 입력해주세요. " id="businessNum" class="form-control">
+				<input type="text" name="rtNum" id="rtNum" value="${requestScope.rt.rtNum }" class="form-control" readonly>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessName">음식점명 :</label>
+			<label class="col-sm-3 control-label" for="rtName">음식점명 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessName" id="businessName" class="form-control">
+				<input type="text" name="rtName" id="rtName" value="${requestScope.rt.rtName }" class="form-control">
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessTel">음식점 전화번호 :</label>
+			<label class="col-sm-3 control-label" for="rtTel">음식점 전화번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessTel" placeholder="'-' 빼고 입력해주세요. " id="businessTel" class="form-control">
+				<input type="text" name="rtTel" value="${requestScope.rt.rtTel }" placeholder="'-' 빼고 입력해주세요. " id="rtTel" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
+			<label class="col-sm-3 control-label" for="rtField">업종 :</label>
 			<div class="col-sm-9">
 				<select name="rtField" required>
 					<option value=1>한식</option>
@@ -85,7 +121,7 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
+			<label class="col-sm-3 control-label" for="rtHoliday">휴무일 : </label>
 			<div class="col-sm-9">
 				<select name="rtHoliday" required>
 					<option value=1>일</option>
@@ -102,21 +138,21 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
 			<div class="col-sm-9">
-				<input type="text" name="businessOpen" id="businessOpen" class="form-control">
+				<input type="text" name="rtOpen" value="${requestScope.rt.rtOpen }"id="rtOpen" class="form-control timepicker" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
 			<div class="col-sm-9">
-				<input type="text" name="businessClose" id="businessClose" class="form-control">
+				<input type="text" name="rtClose" value="${requestScope.rt.rtClose }" id="rtClose" class="form-control timepicker" required>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
-				<select name="businessTerm" id="businessTerm" >
+				<select name="rtTerm" id="rtTerm" required>
 					<option value=1>1시간</option>
 					<option value=2>2시간</option>
 					<option value=3>3시간</option>
@@ -127,31 +163,31 @@
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-3 control-label">매장 사진 :</label>
+			<label class="col-sm-3 control-label" for="rtImg">매장 사진 :</label>
 			<div class="col-sm-9">
-				<input type="file" name="businessImg" placeholder="매장 사진을 등록하세요" >
+				<input type="file" name="rtImg" value="${requestScope.rt.rtImg }" placeholder="매장 사진을 등록하세요" required>
 			</div>
 		</div>
 		
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessCapaity">수용가능 인원 : </label>
+			<label class="col-sm-3 control-label" for="rtCapaity">수용가능 인원 : </label>
 			<div class="col-sm-9">
-				<input type="text" name="businessCapaity" id="businessCapaity" class="form-control">
+				<input type="number" name="rtCapaity" value="${requestScope.rt.rtCapacity }" id="rtCapaity" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="businessdeposit">1인당 예약금 : </label>
+			<label class="col-sm-3 control-label" for="rtDeposit">1인당 예약금 : </label>
 			<div class="col-sm-9">
-				<input type="text" name="businessdeposit" id="businessdeposit" class="form-control">
+				<input type="number" name="rtDeposit" value="${requestScope.rt.rtDeposit }" id="rtDeposit" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label">위치 : </label>
 			<div class="col-sm-6">
-				<input type="text" name="businessdAddress" class="Address form-control">
+				<input type="text" name="rtAddress" class="Address form-control" required>
 			</div>
 			<button type="button" class="btn btn-default col-sm-2 Search">검색</button> 
 		</div>
@@ -160,11 +196,12 @@
 
 		<div class="form-group">
 			<div class="col-sm-12">
-				<input type="submit" value="등록" class="ownersubmit">
+				<input type="submit" value="수정하기" class="ownersubmit" id="btnUpdate">
 			</div>
 		</div>
-
+		<sec:csrfInput/>
 	</form>
+	
 </div>
 
 

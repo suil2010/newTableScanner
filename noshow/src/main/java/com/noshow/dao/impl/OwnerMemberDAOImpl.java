@@ -77,5 +77,7 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 
 	
+
+	
 	
 }

@@ -112,11 +112,11 @@ header>a>span {
 	</header>
 
 	<div class="col-sm-2 col-xs-12 tab">
-		<a href="ownerInfo.do">
+		<a href="${initParam.rootPath }/regist_success.do">
 			<div class="tab1">
 				<span>음식점 정보수정</span>
 			</div>
-		</a> 
+		</a>
 		<a href="#">
 			<div class="tab2">
 				<span>음식점 메뉴수정</span>
@@ -127,11 +127,7 @@ header>a>span {
 				<span>음식점 테이블수정</span>
 			</div>
 		</a> 
-		<a href="#">
-			<div class="tab4">
-				<span>음식점 정보삭제</span>
-			</div>
-		</a>
+		
 	</div>
 
 	<section class="col-sm-10 col-xs-12" style="height: 100%;">

@@ -5,7 +5,7 @@
 	$(document).ready(function() {
 		
 		//date
-		var options = { 
+		var options = {
 				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
 				twentyFour: true, //Display 24 hour format, defaults to false 
 				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 

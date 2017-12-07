@@ -1,22 +1,24 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script>
 	$(document).ready(
 		function() {
 
 			$('#myTab a').click(function(e) {
 				e.preventDefault()
-				$(this).tab('show');     
-				$(this).parent().siblings().find("a").css({"background":"#00b2d6"});
-				$(this).css({"background":"#008ca8"});
+				$(this).tab('show');
+				$(this).parent().siblings().find("a").css({
+					"background" : "#00b2d6"
+				});
+				$(this).css({
+					"background" : "#008ca8"
+				});
 			});
 
 			$('.timepicker').timepicker({
 				timeFormat : 'HH:mm',
 				interval : 30,
-/* 				defaultTime : '12', */
+				/* 				defaultTime : '12', */
 				startTime : '07:00',
 				dynamic : false,
 				dropdown : true,
@@ -120,127 +122,103 @@
 						} else {
 							alert('GPS를 지원하지 않습니다');
 						}
-
-					});  
-
+					});
 				});
-			//test
-
 		});
 </script>
-<ul class="nav nav-tabs" role="tablist" id="myTab">
-	<li class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6">조건검색</a></li>
-	<li><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6;" >이름검색</a></li>
-</ul>
-
-<div class="tab-content">
-
-	<!-- 조건 검색바 -->
-	<div role="tabpanel" class="tab-pane active" id="S1">
-		<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do">
-			<div class="form-group col-sm-12">
-				<div class="input-group col-sm-1 col-xs-1">
-					<button type="button" class="gpsbtn btn" style="float: right; border: 1px solid #000; background: #fff;">
-						<span class="glyphicon glyphicon-map-marker"></span>
-					</button>
-				</div>
-				<div class="input-group col-sm-3 col-xs-12">
-					<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
-				</div>
-				<div class="input-group col-sm-2 col-xs-12">
-					<input type="date" class="form-control " placeholder="날짜" name="resDate" required>
-				</div>
-				<div class="input-group col-sm-2 col-xs-12">
-					<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
-				</div>
-				<div class="input-group col-sm-2 col-xs-12">
-					<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
-				</div>
-				<div class="input-group col-sm-1">
-					<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</div>
-			</div>
-			<sec:csrfInput />
-		</form>
-	</div>
-
-
-	<!-- 이름으로 검색바 -->
-	<div role="tabpanel" class="tab-pane" id="S2">
-
-		<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
-			<div class="form-group col-sm-12 text-center">
-				<div class="input-group col-sm-1 col-xs-1">
-					<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">
-						<span class="glyphicon glyphicon-map-marker"></span>
-					</button>
-				</div>
-				<div class="input-group col-sm-3 col-xs-12 ">
-					<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
-				</div>
-				<div class="input-group col-sm-3 col-xs-12">
-					<input type="text" class="form-control " placeholder="이름" name="resName">
-				</div>
-
-				<div class="input-group col-sm-1">
-					<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</div>
-			</div>
-			<sec:csrfInput />
-		</form>
-	</div>
-	<style>
-.map_wrap {
-	position: relative;
-	width: 100%;
-	height: 500px;
-	top: 200px;
+<style>
+.nav{
+	padding: 0;
+}
+@media (max-width: 767px){
+	.nav{
+		padding-left: 15px;
+	}
 }
 
-.title {
-	font-weight: bold;
-	display: block;
-}
-
-.hAddr {
-	position: absolute;
-	left: 10px;
-	top: 10px;
-	border-radius: 2px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
-	z-index: 1;
-	padding: 5px;
-}
-
-#centerAddr {
-	display: block;
-	margin-top: 2px;
-	font-weight: normal;
-}
-
-.bAddr {
-	padding: 5px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-}
 </style>
-	<div class="map_wrap" style="display: none;">
-		<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-		<div class="hAddr">
-			<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
+<div class="container-fluid"
+	style="min-height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/img4.jpg'); background-color: rgba(0,0,0,0.3); padding:0;">
+	<div class="background" style="width: 100%; height: 100%; background: rgba(0,0,0,0.5); position: absolute;">  
+		<div class="container" style="height: 25%; margin-top: 150px;">
+			<ul class="nav nav-tabs" role="tablist" id="myTab">
+				<li class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6">조건검색</a></li>
+				<li><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6;">이름검색</a></li>
+			</ul>
+
+			<div class="tab-content">
+
+				<!-- 조건 검색바 -->
+				<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left; border: 1px solid #fff;"> 
+					<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do" style="width: 100%; height: 100%; float: left; padding: 0;">
+						<div class="form-group col-sm-12 nav">
+							<div class="input-group col-sm-1 col-xs-1 input-group-lg">   
+								<button type="button" class="gpsbtn btn" style="float: right; border: 1px solid #000; background: #fff;">
+									<span class="glyphicon glyphicon-map-marker"></span>
+								</button>
+							</div>
+							<div class="input-group col-sm-4">
+								<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
+							</div>
+							<div class="input-group col-sm-2 col-xs-12">
+								<input type="date" class="form-control" placeholder="날짜" name="resDate" required>
+							</div>
+							<div class="input-group col-sm-2 col-xs-12">
+								<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
+							</div>
+							<div class="input-group col-sm-2 col-xs-12"> 
+								<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
+							</div>  
+								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							
+						</div>
+						<sec:csrfInput />
+					</form>
+				</div>
+
+
+				<!-- 이름으로 검색바 -->
+				<div role="tabpanel" class="tab-pane" id="S2">
+
+					<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
+						<div class="form-group col-sm-12 text-center">
+							<div class="input-group col-sm-1 col-xs-1">
+								<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">
+									<span class="glyphicon glyphicon-map-marker"></span>
+								</button>
+							</div>
+							<div class="input-group col-sm-3 col-xs-12 ">
+								<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
+							</div>
+							<div class="input-group col-sm-3 col-xs-12">
+								<input type="text" class="form-control " placeholder="이름" name="resName">
+							</div>
+
+							<div class="input-group col-sm-1">
+								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</div>
+						</div>
+						<sec:csrfInput />
+					</form>
+				</div>
+
+
+				<!-- GPS -->
+				<div class="map_wrap" style="display: none;">
+					<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+					<div class="hAddr">
+						<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
-
 </div>
-
-
-
 
 
 

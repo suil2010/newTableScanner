@@ -9,12 +9,14 @@
 <link rel="stylesheet" href="${initParam.rootPath }/resource/css/jquery-ui.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script src="${initParam.rootPath }/resource/jquery/jquery-ui.min.js"></script>
 <script src="${initParam.rootPath }/resource/bootstrap/js/bootstrap.min.js"></script>
 <script src="${initParam.rootPath }/resource/jquery/wickedpicker.min.js"></script>
 <script src="${initParam.rootPath }/resource/jquery/morris.min.js"></script>
-<script src="${initParam.rootPath }/resource/jquery/raphael-min.js"></script>
+<script src="${initParam.rootPath }/resource/jquery/raphael-min.js"></script> 
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c"></script>
 <title>TableScanner</title>
@@ -22,15 +24,15 @@
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<div class="container" style="padding-top: 30px;">
-
-		<div class="row">
+	<div class="container-fluid" style="padding-top: 5px; padding-left: 0; padding-right: 0;">
+  
+		<div class="row" style="margin: 0;">
 			<!-- 내용 -->
-			<section class="col-sm-12">
+			<section class="col-sm-12" style="padding: 0;">
 				<tiles:insertAttribute name="content" />
 			</section>
 		</div>
 	</div>
-
+	<tiles:insertAttribute name="footer" />
 </body>
 </html>

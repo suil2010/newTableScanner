@@ -40,7 +40,7 @@
 		font-size: 20px; 
 	}
 	.mainmenu > li > a{
-		color: #000;
+		color: #1e1e1e;
 	}
 	.submenu{
 		padding-left : 10px;
@@ -52,11 +52,11 @@
 	}
 	.submenu >li{
 		width: 100%;
-		font-size: 16px; 
+		font-size: 12px; 
 		background: #fff;  
 	}
 	.submenu > li > a{
-		color: #000;
+		color: #1e1e1e;  
 	}
 
 </style>

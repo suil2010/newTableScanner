@@ -16,6 +16,7 @@
 		<li><a href="${initParam.rootPath }/member/update.do">사용자 정보 수정</a></li>
 		<li><a href="${initParam.rootPath }/all_restaurant.do">음식점 예약</a></li>
 		<li><a href="${initParam.rootPath }/myReservation.do">사용자 예약 내역</a></li>
+		<li><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기 등록 내역</a></li>
 		<li><a href="${initParam.rootPath }/member/regist_rt_form.do">음식점 등록</a></li>
 	</sec:authorize>
 

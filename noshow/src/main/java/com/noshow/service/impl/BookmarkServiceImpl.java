@@ -1,5 +1,8 @@
 package com.noshow.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.noshow.dao.BookmarkDAO;
 import com.noshow.service.BookmarkService;
 import com.noshow.vo.Bookmark;
+import com.noshow.vo.Restaurant;
 
 @Service
 public class BookmarkServiceImpl implements BookmarkService{
@@ -27,7 +31,7 @@ public class BookmarkServiceImpl implements BookmarkService{
 
 	@Override
 	public List<Bookmark> selectBookmarkBymemberId(String memberId) {
-		return dao.selectBookmarkBymemberId(memberId);
+		return timeFormatting(dao.selectBookmarkBymemberId(memberId));
 	}
 
 	@Override
@@ -40,6 +44,27 @@ public class BookmarkServiceImpl implements BookmarkService{
 		System.out.println("bookmarkServiceImpl - memberId : "+memberId+", businessId : "+businessId);
 		Bookmark bookmark = new Bookmark(memberId, businessId);
 		return dao.selectCheckBookmark(bookmark);
+	}
+	
+	/* 시간 변환 */
+	public List<Bookmark> timeFormatting(List<Bookmark> bookmarkList) {
+		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat afterFormat = new SimpleDateFormat("HH:mm");
+		Date resOpen_Date, resClose_Date;
+		try {
+			for(Bookmark bm : bookmarkList) {
+				
+				resOpen_Date = beforeFormat.parse(bm.getRestaurant().getRtOpen());
+				resClose_Date = beforeFormat.parse(bm.getRestaurant().getRtClose());
+				bm.getRestaurant().setRtOpen(afterFormat.format(resOpen_Date));
+				bm.getRestaurant().setRtClose(afterFormat.format(resClose_Date));
+			}
+			return bookmarkList;
+		} catch (ParseException e) {
+			System.out.println("OwnerMemberServiceImpl.timeFormatting - 데이터 변환 실패ㅠㅠ");
+			e.printStackTrace();
+		}
+		return bookmarkList;
 	}
 
 }

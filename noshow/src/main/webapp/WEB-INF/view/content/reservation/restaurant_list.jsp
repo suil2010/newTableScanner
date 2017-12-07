@@ -48,8 +48,6 @@
 		</c:otherwise>
 	</c:choose>
 	
-	
-	
 	<c:choose>
 		<c:when test="${requestScope.restaurantList == null }">
 			<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
@@ -60,10 +58,19 @@
 				</div>
 		</c:when>
 		<c:otherwise>
-			<c:forEach items="${requestScope.restaurantList }" var="restaurant">
+			<c:forEach items="${requestScope.restaurantList }" var="restaurant" varStatus="cnt">
 				<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
 					<div style="border: 1px solid #000; cursor: pointer; height: 100%;"> 
-						<span><b>${restaurant.rtName }</b></span><br>
+					<c:set var="bookmarkCheck" value="${restaurant.businessId }bookmarkCheck"></c:set>
+						<span><b>${restaurant.rtName }</b></span>
+						<c:choose>
+							<c:when test="${result[cnt.index] == 1}">
+								<span style="color:red;float:right;font-size:30px">♥ </span><br>
+							</c:when>
+							<c:otherwise>
+								<span style="color:red;float:right;font-size:30px">♡ </span><br>
+							</c:otherwise>
+						</c:choose>
 						위치 : ${restaurant.rtAddress}<br>
 						업종 : ${restaurant.rtField}<br>
 						휴무 : 매주 ${restaurant.rtHoliday }요일<br>
@@ -78,9 +85,6 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-
-
-
 
 </body>
 </html>

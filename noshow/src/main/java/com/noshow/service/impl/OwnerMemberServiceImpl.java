@@ -226,11 +226,5 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		return timeFormatting(restaurantList);
 	
 	}
-
-
-
-
-
-
 	
 }

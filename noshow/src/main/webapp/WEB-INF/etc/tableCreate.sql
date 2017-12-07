@@ -395,6 +395,7 @@ ALTER TABLE ANSWER
       create sequence table_list_seq;
       create sequence res_num_seq;
       create sequence tabel_list_seq;
+      create sequence bookmark_num_seq;
 
       select * from seq;
       SELECT * FROM dual;

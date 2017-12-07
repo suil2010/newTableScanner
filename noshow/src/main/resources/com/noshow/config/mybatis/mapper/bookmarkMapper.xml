@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.bookmarkMapper">
+	
+	<sql id="bookmark-column">
+		bookmark_num,
+		member_id,
+		business_id
+	</sql>
+
+	<sql id="select-bookmark-join-member">
+		SELECT	b.bookmark_num,
+				b.member_id,
+				b.business_id,
+				m.member_name,
+				m.member_gender,
+				m.member_tel,
+				m.member_birthday,
+				m.member_email,
+				r.rt_num,
+				r.rt_name,
+				r.rt_tel,
+				r.rt_field,
+				r.rt_holiday,
+				r.rt_open,
+				r.rt_close,
+				r.rt_term,
+				r.rt_picture,
+				r.rt_address,
+				r.rt_capacity,
+				r.rt_deposit
+		FROM	bookmark b, member m, restaurant r
+		WHERE	b.member_id = m.member_id
+		AND		b.business_id = r.business_id
+	</sql>
+	
+	<resultMap type="Member" id="member-resultmap">
+		<id column="member_id" property="memberId"/>
+		<result column="member_password" property="memberPassword"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_gender" property="memberGender"/>
+		<result column="member_tel" property="memberTel"/>
+		<result column="member_birthday" property="memberBirthday"/>
+		<result column="member_email" property="memberEmail"/>
+	</resultMap>
+	
+	<resultMap type="restaurant" id="restaurant-resultMap">
+		<result column="business_Id" property="businessId" />
+		<result column="rt_num" property="rtNum" />
+		<result column="rt_name" property="rtName"/>
+		<result column="rt_tel" property="rtTel" />
+		<result column="rt_field" property="rtField" />
+		<result column="rt_holiday" property="rtHoliday" />
+		<result column="rt_open" property="rtOpen" />
+		<result column="rt_close" property="rtClose" />
+		<result column="rt_term" property="rtTerm" />
+		<result column="rt_picture" property="rtPicture" />
+		<result column="rt_address" property="rtAddress" />
+		<result column="rt_capacity" property="rtCapacity" />
+		<result column="rt_deposit" property="rtDeposit" />
+	</resultMap>
+	
+	<resultMap type="bookmark" id="bookmark-resultmap">
+		<id column="bookmark_num" property="bookmarkNum"/>
+		<result column="member_id" property="memberId"/>
+		<result column="business_id" property="businessId"/>
+	</resultMap>
+	
+	<resultMap type="bookmark" id="bookmark-join-resultmap" extends="bookmark-resultmap">
+		<collection property="member" resultMap="member-resultmap"/>
+		<collection property="restaurant" resultMap="restaurant-resultMap"/>
+	</resultMap>
+	
+	
+	<!-- INSERT -->
+	<insert id="insertBookmark" parameterType="bookmark">
+		INSERT	INTO	BOOKMARK	VALUES
+		(	bookmark_num_seq.NEXTVAL,
+			#{memberId},
+			#{businessId}
+		)
+	</insert>
+	
+	<!-- DELETE -->
+	<delete id="deleteBookmark" parameterType="bookmark">
+		DELETE	FROM	BOOKMARK
+		WHERE	member_id = #{memberId}
+		AND		business_id = #{businessId}
+	</delete>
+	
+	<!-- SELECT -->
+	<!-- 회원 ID 로 찾기 -->
+	<select id="selectBookmarkBymemberId" parameterType="string" resultMap="bookmark-join-resultmap">
+		<include refid="select-bookmark-join-member"/>
+		AND		b.member_id = #{value}
+	</select>
+	
+	<!-- 사업주 ID 로 찾기 -->
+	<select id="selectBookmarkByBusinessId" parameterType="string" resultType="_int">
+		SELECT 	COUNT(*)
+		FROM	bookmark
+		WHERE	business_id = #{value}
+		GROUP BY	business_id
+	</select>
+	
+	<select id="selectCheckBookmark" parameterType="bookmark" resultType="_int">
+		SELECT 	COUNT(*)
+		FROM	bookmark
+		WHERE	business_id = #{businessId}
+		AND		member_id = #{memberId}
+	</select>
+</mapper>
+
+
+
+
+
+

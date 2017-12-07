@@ -25,8 +25,14 @@
 
 		<h2>예약 1/3</h2>
 	<c:choose>
-		<c:when test="${requestScope.resPeople == null}">
+		<c:when test="${requestScope.restaurantList == null}">
 			<form name="restaurantList" action="${initParam.rootPath }/index.do"  id="submitform">
+	  			<input type="hidden" name="businessId" class="businessId"/>
+				<sec:csrfInput />
+			</form>
+		</c:when>
+		<c:when test="${requestScope.resPeople == null }">
+			<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantListByName.do"  id="submitform">
 	  			<input type="hidden" name="businessId" class="businessId"/>
 				<sec:csrfInput />
 			</form>

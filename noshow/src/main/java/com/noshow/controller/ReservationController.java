@@ -105,7 +105,7 @@ public class ReservationController {
 		System.out.println("tableSearchController - " + businessId);
 		System.out.println("tableSearchController - restaurant " + restaurant);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("reservation/reservation_form.tiles");
+		mav.setViewName("/finalResInfo.do");
 		mav.addObject("resDate", resDate);
 		mav.addObject("resTime", resTime);
 		mav.addObject("resPeople", resPeople);

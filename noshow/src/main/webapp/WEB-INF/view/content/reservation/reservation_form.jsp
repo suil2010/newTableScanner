@@ -15,9 +15,21 @@
 	position: absolute;
 }
 </style>
+
 <script>
 	function chaneResInfo(){
+		if ($("#resDate").val() == "" ) {
+			alert("날짜를 먼저 지정해주세요~");
+			$("#resDate").focus();
+			return false;
+		}
+		
 		alert($("#resDate").val());
+		if($("#resStartTime").val() == "") {
+			alert("시간도 지정해주셔야 테이블 검색이 되요~");
+			$("#resStartTime").focus();
+			return false;
+		}
 		alert($("#resStartTime").val());
 		$.ajax({
 			"url":"/noshow/reSearchTable.do",
@@ -49,10 +61,74 @@
 		}); 
 	}
 	
+	function addBookmark() {
+		alert("즐겨찾기 추가");
+		$.ajax({
+			"url":"/noshow/addBookmark.do",
+			"type":"get",
+			"data":{"businessId":"${requestScope.restaurant.businessId }"},
+			"dataType":"json",
+			"success":function(result){
+				var txt = "<b>즐겨찾기<b><br>";
+				if(result == 1) {
+					alert("즐겨찾기 추가 성공");
+					txt += "<button id='deleteBookmarkBtn' class='btn btn-default btn-sm' name='bookmartBtn'>"
+						+ "<span class='glyphicon glyphicon-heart'></span>"
+						+ "즐겨찾기 삭제"
+						+ "</button>"
+				} else {
+					alert("즐겨찾기 추가 실패");
+					txt += "<button id='bookmarkBtn' class='btn btn-default btn-sm' name='bookmartBtn'>"
+						+ "<span class='glyphicon glyphicon-heart-empty'></span>"
+						+ "즐겨찾기 추가"
+						+ "</button>"
+				}
+				$("#orderDiv").html(txt);
+			},	//end of success
+			"error":function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+	
+	function deleteBookmark() {
+		alert("즐겨찾기 삭제");
+		$.ajax({
+			"url":"/noshow/deleteBookmark.do",
+			"type":"get",
+			"data":{"businessId":"${requestScope.restaurant.businessId }"},
+			"dataType":"json",
+			"success":function(result){
+				var txt = "<b>즐겨찾기<b><br>";
+				if(result == 1) {
+					alert("즐겨찾기 삭제 성공");
+					txt += "<button id='bookmarkBtn' class='btn btn-default btn-sm' name='bookmartBtn'>"
+						+ "<span class='glyphicon glyphicon-heart-empty'></span>"
+						+ "즐겨찾기 추가"
+						+ "</button>"
+				} else {
+					alert("즐겨찾기 삭제 실패");
+					txt += "<button id='deleteBookmarkBtn' class='btn btn-default btn-sm' name='bookmartBtn'>"
+						+ "<span class='glyphicon glyphicon-heart'></span>"
+						+ "즐겨찾기 삭제"
+						+ "</button>"
+				}
+				$("#orderDiv").html(txt);
+			},	//end of success
+			"error":function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+	
 	$(document).ready(function() {
 		
 		$("#resDate").on("change", chaneResInfo);
 		/* $("#resStartTime").on("Select", chaneResInfo); */
+		
+		
+		$("#orderDiv").on("click", "#bookmarkBtn",addBookmark);
+		$("#orderDiv").on("click", "#deleteBookmarkBtn", deleteBookmark);
 		
 		$("#resStartTime").timepicker({
 			timeFormat: 'HH:mm',
@@ -135,10 +211,25 @@
 			</div>
 
 		</div>
-
+		<div id="orderDiv">
+			<c:choose>
+				<c:when test="${requestScope.bookmarkCheck == 1 }">
+					<button id="deleteBookmarkBtn" class="btn btn-default btn-sm" name="deleteBookmartBtn">
+					<span class="glyphicon glyphicon-heart"></span>
+						즐겨찾기 삭제
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button id="bookmarkBtn" class="btn btn-default btn-sm" name="bookmartBtn"> 
+					<span class="glyphicon glyphicon-heart-empty"></span>
+						즐겨찾기 추가
+					</button>
+				</c:otherwise>
+			</c:choose>	
+		</div>	
 		<form method="post" name="resForm" action="${initParam.rootPath}/addReservation.do" onsubmit="return formCheck()" class="col-sm-4">
 			<div class="panel panel-default">
-				<div class="panel-heading">
+				<div class="panel-heading" id="orderDiv">
 					<h3 class="panel-title">주문표</h3>
 				</div>
 				<div class="panel-body">

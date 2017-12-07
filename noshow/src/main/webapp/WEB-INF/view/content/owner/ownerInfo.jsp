@@ -106,9 +106,9 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label" for="rtField">업종 :</label>
-			<div class="col-sm-9">
-				<select name="rtField" required>
+			<label class="col-sm-3 control-label " for="rtField">업종 :</label>
+			<div class="col-sm-9" >
+				<select name="rtField" required class="form-control">
 					<option value=1>한식</option>
 					<option value=2>중식</option>
 					<option value=3>일식</option>
@@ -123,7 +123,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtHoliday">휴무일 : </label>
 			<div class="col-sm-9">
-				<select name="rtHoliday" required>
+				<select name="rtHoliday" required class="form-control">
 					<option value=1>일</option>
 					<option value=2>월</option>
 					<option value=3>화</option>
@@ -152,7 +152,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
-				<select name="rtTerm" id="rtTerm" required>
+				<select name="rtTerm" id="rtTerm" required class="form-control">
 					<option value=1>1시간</option>
 					<option value=2>2시간</option>
 					<option value=3>3시간</option>
@@ -196,7 +196,7 @@
 
 		<div class="form-group">
 			<div class="col-sm-12">
-				<input type="submit" value="수정하기" class="ownersubmit" id="btnUpdate">
+				<input type="submit" value="수정하기" class="ownersubmit btn btn-default" id="btnUpdate" style="float: right; margin-top: 10px;">
 			</div>
 		</div>
 		<sec:csrfInput/>

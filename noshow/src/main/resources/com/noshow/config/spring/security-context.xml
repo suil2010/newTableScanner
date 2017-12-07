@@ -26,12 +26,11 @@
 	 -->
 
 	<http>
+		<intercept-url pattern="/member/mypage**" access="permitAll"/> 
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')"/>
 		<intercept-url pattern="/owner/**" access="hasRole('ROLE_OWNER')"/>
-		<!-- 
-		<intercept-url pattern="owner" access="hasRole('ROLE_OWNER')"/>
-		 -->
+
 		<intercept-url pattern="/**" access="permitAll"/>
 		<form-login
 						login-page="/login_form.do"

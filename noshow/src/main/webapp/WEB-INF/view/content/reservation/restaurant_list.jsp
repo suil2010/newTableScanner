@@ -14,7 +14,7 @@
 		});
 	});
 </script>
-<div class="container">
+<div class="container">  
 	<c:choose>
 		<c:when test="${requestScope.restaurantList == null}">
 			<form name="restaurantList" action="${initParam.rootPath }/index.do" id="submitform">
@@ -30,14 +30,14 @@
 		</c:when>
 		<c:otherwise>
 			<form method="post" name="restaurantList" action="${initParam.rootPath }/restaurantList.do" id="submitform">
-				<input type="hidden" name="businessId" class="businessId" /> <input type="hidden" name="resPeople" class="resPeople" /> <input type="hidden"
-					name="resDate" class="resDate"
-				/> <input type="hidden" name="resTime" class="resTime" />
+				<input type="hidden" name="businessId" class="businessId" /> 
+				<input type="hidden" name="resPeople" class="resPeople" /> 
+				<input type="hidden" name="resDate" class="resDate"/> 
+				<input type="hidden" name="resTime" class="resTime" />
 				<sec:csrfInput />
 			</form>
 		</c:otherwise>
 	</c:choose>
-
 	<c:choose>
 		<c:when test="${requestScope.restaurantList == null }">
 			<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
@@ -47,11 +47,16 @@
 				</div>
 			</div>
 		</c:when>
+		
 		<c:otherwise>
 			<c:forEach items="${requestScope.restaurantList }" var="restaurant">
 				<div class="item clearfix col-md-6 col-sm-12" style="height: 140px; padding: 10px;">
 					<div style="border: 1px solid #000; cursor: pointer; height: 100%;">
-						<span><b>${restaurant.rtName }</b></span><br> 위치 : ${restaurant.rtAddress}<br> 업종 : ${restaurant.rtField}<br> 휴무 : 매주
+						
+						<img src="${restaurant.rtPicture }">
+						<span><b>${restaurant.rtName }</b></span><br> 
+						위치 : ${restaurant.rtAddress}<br> 
+						업종 : ${restaurant.rtField}<br> 휴무 : 매주
 						${restaurant.rtHoliday }요일<br> 영업시간 : ${restaurant.rtOpen} ~ ${restaurant.rtClose} <input type="hidden" name="businessId"
 							value="${restaurant.businessId }"
 						/> <input type="hidden" name="resPeople" value="${requestScope.resPeople }" /> <input type="hidden" name="resDate"

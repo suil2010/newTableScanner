@@ -149,11 +149,11 @@
 			<div class="tab-content">
 
 				<!-- 조건 검색바 -->
-				<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left; border: 1px solid #fff;"> 
+				<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left;">    
 					<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do" style="width: 100%; height: 100%; float: left; padding: 0;">
 						<div class="form-group col-sm-12 nav">
 							<div class="input-group col-sm-1 col-xs-1 input-group-lg">   
-								<button type="button" class="gpsbtn btn" style="float: right; border: 1px solid #000; background: #fff;">
+								<button type="button" class="gpsbtn btn" style="float: right; background: #fff;">
 									<span class="glyphicon glyphicon-map-marker"></span>
 								</button>
 							</div>
@@ -189,9 +189,9 @@
 									<span class="glyphicon glyphicon-map-marker"></span>
 								</button>
 							</div>
-							<div class="input-group col-sm-3 col-xs-12 ">
+							<div class="input-group col-sm-4 col-xs-12 ">
 								<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
-							</div>
+							</div> 
 							<div class="input-group col-sm-3 col-xs-12">
 								<input type="text" class="form-control " placeholder="이름" name="resName">
 							</div>

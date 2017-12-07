@@ -1,113 +1,143 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<style type="text/css">
-header {
-	width: 100%;
-	height: 60px;
-	float: left;
-	border-bottom: 1px solid #E0E0E0;
-	min-width: 400px;
-}
-li{
-float: right;
-width: 100px;
-height: 100%;
-line-height: 60px;
-}
-ul{
-height: 100%;
-}
-.logo {
-	width: 250px;
-	height: 100%;
-	float: left;
-}
-.ul2{
-	display: none; 
-	float: right;
-}
-.ul2 > .ul2_div{  
-width: 40%;
-height : 100%;  
-position: absolute; 
-background: rgba(0,0,0,0.9);
-z-index: 5;
-float: right;   
-}
-.ul2 > .ul2_div > li {
-	width: 100%; height : 60px;
-	float: none;
-}  
-@media screen and (max-width: 768px){ /*화면이 웹 스크린이고 width가 750px 이하가 되면 아래의 css 설정이 적용됨.*/
-	.ul1{
-		display: none; 
-	}
-	.ul2{
-		display: block;
-		float: left;
+	<script type="text/javascript">
+		$(function(){
+			/* header menu */
+			$(".mainmenu > li").on("mouseover",function(){
+			  $(this).children(".submenu").stop().slideDown();
+			});
+			$(".mainmenu > li").on("mouseleave",function(){
+			  $(this).children(".submenu").stop().slideUp();
+			});  
+
+			/* header member 로그아웃 */
+			$("#logout").on("click", function() {
+				$("#logoutForm").submit();
+			});
+
 	
-	}
-	.ul2_div > li > a {    
-		color: #fff;  
-		font-size: 16px;   
-	}
-	.ul2btn{
-		margin-left: 10px;     	
-	}
-	.logo{
-		float: right; 
-		margin-right: 50px;
+		});
+	</script>
+
+<style type="text/css">
+ 	/* 공통 */
+	*{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
 	}
 
-}
-	.ul2 > .ul2_div{
+	/* header menu*/
+	.mainmenu > li {
+		float: left;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		position: relative;
+		padding: 0; 
+		font-size: 20px; 
+	}
+	.mainmenu > li > a{
+		color: #1e1e1e;
+	}
+	.submenu{
+		padding-left : 10px;
+		padding-right : 10px; 
+		width : 100%;
+		position: absolute;
+		z-index: 1000;
 		display: none;
 	}
+	.submenu >li{
+		width: 100%;
+		font-size: 12px; 
+		background: #fff;  
+	}
+	.submenu > li > a{
+		color: #1e1e1e;  
+	}
+
 </style>
-<script>
-	$(function(){
-		$(".ul2btn").on("click",function(){
-			$(".ul2 > .ul2_div").css({"display":"block"})
-		});
-	});
-</script>
-<header>
-	<div class="logo">
-			<a href="index.do"> <span style="line-height: 60px; font-size: 32px;">TableScanner</span></a>
-		
+
+<header class="navbar-static-top" style="height: 60px;">
+	<div class="col-sm-2 logo" style="height: 100%;">
+		<a href="${initParam.rootPath }/index.do"><span style="font-size: 32px; line-height: 60px; color: #28B78D; text-align: center;">TableScanner</span></a>
 	</div>
-	<ul class="ul1"> 
-		<%--인증 안된(로그인 안한) 사용자 메뉴 : 인증되면 안보여야 하는 메뉴 --%>
-		<sec:authorize access="!isAuthenticated()">
-			<li><a href="${initParam.rootPath }/login_form.do">로그인</a></li>
-			<li><a href="${initParam.rootPath }/join_member_form.do">회원가입</a></li>
-		</sec:authorize>
-	</ul>
-	<ul class="ul2">  
-		<%--인증 안된(로그인 안한) 사용자 메뉴 : 인증되면 안보여야 하는 메뉴 --%>   
-		<button class="ul2btn" style="width: 50px; height: calc(100% - 10px); margin-top:5px; margin-bottom: 5px; float: right; margin-right: 20px;">더보기</button> 
-		<div class="ul2_div">
-			<sec:authorize access="!isAuthenticated()">
-				<li><a href="${initParam.rootPath }/login_form.do">로그인</a></li>
-				<li><a href="${initParam.rootPath }/join_member_form.do">회원가입</a></li>
+	<div class="col-sm-7 menu" style=" height: 100%;">
+		<ul class="mainmenu" style="list-style: none; background: red; margin-top: 10px;">
+
+			<!-- 개발자 -->
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="#">회원관리</a></li>
 			</sec:authorize>
-		</div>
-	</ul>
-	<!-- 
-		로그아웃전송폼
-		+ 로그인/로그아웃은 반드시 POST방식으로 요청하며 csrf 토큰을 보내야 한다.
-		+ 로그아웃은 단순 링크이므로 아래와 같이 hidden 폼을 말들고 클릭시 Javascript에서 form을 submit하여 처리한다.
-	 -->
+
+			<!-- 비회원 -->
+			<sec:authorize access="!isAuthenticated()">
+				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
+			</sec:authorize>
+
+			<!-- 일반회원 -->
+			<sec:authorize access="hasRole('ROLE_MEMBER')">
+				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
+				<li class="col-sm-2"><a href="#">즐겨찾기</a></li>
+			</sec:authorize>
+
+			<!-- 사업자회원 -->
+			<sec:authorize access="hasRole('ROLE_OWNER')">
+				<li class="col-sm-2"><a href="#">음식점관리</a>
+					<ul class="submenu" style="list-style: none;">
+						<li><a href="${initParam.rootPath }/regist_success.do">음식점 정보수정</a></li>
+						<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
+						<li><a href="${initParam.rootPath }/owner/join_menu_form.do">메뉴 수정</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-2"><a href="#">예약관리</a>
+					<ul class="submenu" style="list-style: none;">
+						<li><a href="#">예약조회</a></li>
+						<li><a href="#">예약등록</a></li>
+					</ul>
+				</li>
+				<li class="col-sm-2"><a href="${initParam.rootPath}/selectSales.do">통계</a></li>
+				<li class="col-sm-2"><a href="#">리뷰</a></li>
+				<li class="col-sm-2"><a href="#">문의</a></li>
+				<li class="col-sm-2"><a href="#">공지사항</a></li>
+			</sec:authorize>
+		</ul>
+	</div>
+	<div class="col-sm-3 member" style="height: 100%; padding: 10px; text-align: center;">
+
 	<form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
 		<sec:csrfInput />
 	</form>
 
-	<script>
-		$(document).ready(function() {
-			$("#logout").on("click", function() {
-				$("#logoutForm").submit();
-			});
-		});
-	</script>
+		<!-- 개발자  -->
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<a href="#"><button class="btn btn-default">로그인</button></a>
+			<a href="#"><button class="btn btn-default">회원가입</button></a>
+		</sec:authorize>
+
+		<!-- 비회원 -->
+		<sec:authorize access="!isAuthenticated()">
+			<a href="${initParam.rootPath }/login_form.do"><button class="btn btn-default">로그인</button></a>
+			<a href="${initParam.rootPath }/join_member_form.do"><button class="btn btn-default">회원가입</button></a>
+		</sec:authorize>
+
+		<!-- 일반회원 -->
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
+			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="${initParam.rootPath }/member/mypage.do"><button class="btn btn-default">마이페이지</button></a> 
+		</sec:authorize>
+		
+		<!-- 사업자회원 -->
+		<sec:authorize access="hasRole('ROLE_OWNER')">
+			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="${initParam.rootPath }/member/mypage.do"><button class="btn btn-default">마이페이지</button></a>
+		</sec:authorize>
+
+	</div>
 </header>

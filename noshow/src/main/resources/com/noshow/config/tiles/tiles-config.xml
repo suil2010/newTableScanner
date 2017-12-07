@@ -5,19 +5,12 @@
 
 <tiles-definitions>
 
-	<!-- owner tiles -->
-	<definition name="ownerTemplate" template="/WEB-INF/view/layout/ownerTemplate.jsp">
 
-	</definition>
-<!--	2017.12.01/pm6:41분 owner 정보추가하면 권한 바뀌는지 테스트 하기 위해 주석처리함 -->
- 	<definition name="owner/*.tiles" extends="ownerTemplate">
-		<put-attribute name="content" value="/WEB-INF/view/content/owner/{1}.jsp" />
-	</definition>
   
 	<!-- main tiles -->
 	<definition name="mainTemplate" template="/WEB-INF/view/layout/mainTemplate.jsp">
 		<put-attribute name="header" value="/WEB-INF/view/layout/header.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/view/layout/menu.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/view/layout/footer.jsp" />
 	</definition>
 
 	<definition name="*.tiles" extends="mainTemplate">

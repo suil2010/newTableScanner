@@ -1,6 +1,19 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script type="text/javascript">
+	window.onload = function name() {
+		var memberGender = document.getElementsByName("memberGender");
+		var Gender = '<sec:authentication property="principal.memberGender"/>'
+		for (var i = 0; memberGender.length; i++) {
+			if (memberGender[i].value == Gender) {
+				memberGender[i].checked = true;
+			}
+		}
+	}
+</script>
 
 <div class="container" style="max-width: 800px;">
 	<c:if test="{not empty requestScope.errorMessage}">
@@ -43,9 +56,10 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberBirthday">Birthday</label>
 			<div class="col-sm-10">
-				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday">
+				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday" value="<sec:authentication property='principal.memberBirthday'/>">
 			</div>
-		</div>
+		</div>  
+		
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberTel">Tel</label>
@@ -77,6 +91,12 @@
 				<button type="submit" class="btn btn-default">정보수정</button>
 			</div>
 		</div>
+		
 	</form>
 
 </div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+			<fmt:formatDate value='<sec:authentication property="principal.memberBirthday"/>' pattern="yyyy-MM-dd"/> 
+			</div>
+		</div>

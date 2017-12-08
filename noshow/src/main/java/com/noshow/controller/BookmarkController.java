@@ -29,6 +29,7 @@ public class BookmarkController {
 	@Autowired
 	private BookmarkService service;
 	
+	
 	@RequestMapping("/finalResInfo")
 	public ModelAndView finalResInfo(HttpServletRequest request) {
 		SecurityContext context = SecurityContextHolder.getContext();

@@ -276,10 +276,10 @@ public class OwnerMemberController {
 		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(resPlace, resName);
 		if (restaurantList.isEmpty()) {
 			System.out.println("해당하는 음식점이 없습니다.");
-			return new ModelAndView("reservation/restaurant_list.tiles","notfountRestaurant", "검색 결과가 없습니다.");
+			return new ModelAndView("/checkBookmark.do");
 		} else {
 			System.out.println("검색조건에 맞는 음식점이 있다요오옹");
-			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
+			return new ModelAndView("/checkBookmark.do","restaurantList", restaurantList);
 		}
 		
 	}

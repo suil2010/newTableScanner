@@ -18,6 +18,8 @@
 		<mapper resource="com/noshow/config/mybatis/mapper/reservationMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/menuMapper.xml"/>		
 		<mapper resource="com/noshow/config/mybatis/mapper/bookmarkMapper.xml"/>	
+		<mapper resource="com/noshow/config/mybatis/mapper/reviewMapper.xml"/>
+		
 	</mappers>
 	
 </configuration>

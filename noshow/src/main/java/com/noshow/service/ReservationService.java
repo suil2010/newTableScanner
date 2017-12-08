@@ -22,6 +22,7 @@ public interface ReservationService {
 
 	List<Reservation> selectReservationByBusinessId(String businessId);
 
+	int calTotalPrice(String businessId, int resPeople);
 
 	/* ##### OrderTableService ##### */
 	int addOrderTable(List<Integer> tableSeq, int resNum);

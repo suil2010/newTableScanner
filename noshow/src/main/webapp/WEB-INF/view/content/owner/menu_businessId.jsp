@@ -23,7 +23,7 @@
 		
         $("#divname").hide(); 
         $("#divnamebtn").click(function() {
-            $("#divname").show('3000'); //천천히 보이기
+            $("#divname").toggle(); //천천히 보이기
         });
 	});
 </script>

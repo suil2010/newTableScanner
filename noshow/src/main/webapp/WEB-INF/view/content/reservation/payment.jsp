@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -11,7 +12,7 @@
 			pay_method : 'vbank',
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : '주문명:결제테스트',
-			amount : ${requestScope.reservation.resPrice},   
+			amount : '${requestScope.reservation.resPrice}',   
 			buyer_email : '${requestScope.member.memberEmail}',
 			buyer_name : '${requestScope.member.memberName}',
 			buyer_tel : '${requestScope.member.memberTel}',
@@ -23,6 +24,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
+				$(".submit").submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
@@ -31,3 +33,13 @@
 		});
 	});
 </script>
+
+<form action="${initParam.rootPath }/noshow/addReservation.do" method="post" class="submit">
+	<input type="hidden" name="resDate" value="${requestScope.reservation.resDate}" >
+	<input type="hidden" name="resPeople" value="${requestScope.reservation.resPeople}" >
+	<input type="hidden" name="resStartTime" value="${requestScope.reservation.resStartTime}" >
+	<input type="hidden" name="resPayStatement" value="${requestScope.reservation.resPayStatement}" >
+	<input type="hidden" name="businessId" value="${requestScope.reservation.businessId}" >
+	<input type="hidden" name="tableList" value="${requestScope.reservation.tableList}" >	 
+	<sec:csrfInput />
+</form>

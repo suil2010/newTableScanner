@@ -127,108 +127,143 @@
 		});
 </script>
 <style>
-.nav{
+.nav {
 	padding: 0;
 }
-.background > .container {
+
+.background>.container {
 	margin-top: 150px;
 }
-@media (max-width: 991px){
-	.nav{
+
+@media ( max-width : 991px) {
+	.nav {
 		padding-left: 15px;
 	}
-	.background > .container{ 
+	.background>.container {
 		margin-top: 20px;
 	}
 	.gpsbtn {
-	margin-left: 0 !important;
-	} 
+		margin-left: 0 !important;
+	}
 }
-
 </style>
-<div class="container-fluid"
-	style="min-height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/img4.jpg'); background-color: rgba(0,0,0,0.3); padding:0;">
-	<div class="background" style="width: 100%; height: 100%; background: rgba(0,0,0,0.5); position: absolute;">  
-		<div class="container" style="height: 25%;">
-			<ul class="nav nav-tabs" role="tablist" id="myTab">
-				<li class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6">조건검색</a></li>
-				<li><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6;">이름검색</a></li>
-			</ul>
+<div class="container-fluid">
 
-			<div class="tab-content">
+	<div class="row"
+		style="height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/img4.jpg'); background-color: rgba(0,0,0,0.3); padding:0;"
+	>
+		<div class="background" style="width: 100%; height: 400px; background: rgba(0, 0, 0, 0.5); position: absolute;">
+			<div class="container" style="height: 25%;">
+				<ul class="nav nav-tabs" role="tablist" id="myTab">
+					<li class="active"><a href="#S1" aria-controls="home" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6">조건검색</a></li>
+					<li><a href="#S2" aria-controls="profile" role="tab" data-toggle="tab" style="color: #fff; background: #00b2d6;">이름검색</a></li>
+				</ul>
 
-				<!-- 조건 검색바 -->
-				<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left;">    
-					<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do" style="width: 100%; height: 100%; float: left; padding: 0;">
-						<div class="form-group col-sm-12 nav">
-							
-							<button type="button" class="gpsbtn btn" style="background: #fff; margin-left: 30px;">  
-								<span class="glyphicon glyphicon-map-marker"></span>
-							</button>
-							
-							<div class="input-group col-md-4 col-xs-12">
-								<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
-							</div>
-							<div class="input-group col-md-2 col-xs-12">
-								<input type="date" class="form-control" placeholder="날짜" name="resDate" required>
-							</div>
-							<div class="input-group col-md-2 col-xs-12">
-								<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
-							</div>
-							<div class="input-group col-md-2 col-xs-12"> 
-								<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
-							</div>  
+				<div class="tab-content">
+
+					<!-- 조건 검색바 -->
+					<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left;">
+						<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do"
+							style="width: 100%; height: 100%; float: left; padding: 0;"
+						>
+							<div class="form-group col-sm-12 nav">
+
+								<button type="button" class="gpsbtn btn" style="background: #fff; margin-left: 30px;">
+									<span class="glyphicon glyphicon-map-marker"></span>
+								</button>
+
+								<div class="input-group col-md-4 col-xs-12">
+									<input type="text" class="form-control gps" placeholder="위치" name="resPlace">
+								</div>
+								<div class="input-group col-md-2 col-xs-12">
+									<input type="date" class="form-control" placeholder="날짜" name="resDate" required>
+								</div>
+								<div class="input-group col-md-2 col-xs-12">
+									<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
+								</div>
+								<div class="input-group col-md-2 col-xs-12">
+									<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
+								</div>
 								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
-							
-						</div>
-						<sec:csrfInput />
-					</form>
-				</div>
 
-
-				<!-- 이름으로 검색바 -->
-				<div role="tabpanel" class="tab-pane" id="S2">
-
-					<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
-						<div class="form-group col-sm-12 text-center">
-							<div class="input-group col-sm-1 col-xs-1">
-								<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">
-									<span class="glyphicon glyphicon-map-marker"></span>
-								</button>
 							</div>
-							<div class="input-group col-sm-4 col-xs-12 ">
-								<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
-							</div> 
-							<div class="input-group col-sm-3 col-xs-12">
-								<input type="text" class="form-control " placeholder="이름" name="resName">
-							</div>
-
-							<div class="input-group col-sm-1">
-								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
-									<span class="glyphicon glyphicon-search"></span>
-								</button>
-							</div>
-						</div>
-						<sec:csrfInput />
-					</form>
-				</div>
-
-
-				<!-- GPS -->
-				<div class="map_wrap" style="display: none;">
-					<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-					<div class="hAddr">
-						<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
+							<sec:csrfInput />
+						</form>
 					</div>
+
+
+					<!-- 이름으로 검색바 -->
+					<div role="tabpanel" class="tab-pane" id="S2">
+
+						<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
+							<div class="form-group col-sm-12 text-center">
+								<div class="input-group col-sm-1 col-xs-1">
+									<button type="button" class="btn gpsbtn" style="float: right; border: 1px solid #000; background: #fff;">
+										<span class="glyphicon glyphicon-map-marker"></span>
+									</button>
+								</div>
+								<div class="input-group col-sm-4 col-xs-12 ">
+									<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
+								</div>
+								<div class="input-group col-sm-3 col-xs-12">
+									<input type="text" class="form-control " placeholder="이름" name="resName">
+								</div>
+
+								<div class="input-group col-sm-1">
+									<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</div>
+							</div>
+							<sec:csrfInput />
+						</form>
+					</div>
+
+
+					<!-- GPS -->
+					<div class="map_wrap" style="display: none;">
+						<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
+						<div class="hAddr">
+							<span class="title">지도중심기준 행정동 주소정보</span> <span id="centerAddr"></span>
+						</div>
+					</div>
+
 				</div>
+
 
 			</div>
 		</div>
 	</div>
+	<style>
+.content>.col-sm-4>.contents {
+	border: 1px solid #000;
+	height: 280px;
+}
+</style>
+	<div class="row content" style="padding: 20px; padding-left: 40px; padding-right: 40px;">
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+	</div>
+	<div class="row content" style="padding: 20px; padding-left: 40px; padding-right: 40px;">
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+		<div class="col-sm-4">
+			<div class="contents"></div>
+		</div>
+	</div>
 </div>
-
-
-
-

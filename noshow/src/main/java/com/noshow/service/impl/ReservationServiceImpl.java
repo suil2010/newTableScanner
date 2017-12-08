@@ -207,6 +207,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Map<String, String> tableMap = new HashMap<>();
 		tableMap.put("resStartTime", resStartTime);
 		tableMap.put("resEndTime", resEndTime);
+		System.out.println("resEndTime"+resEndTime);
 		tableMap.put("businessId", businessId);
 		List<Table> tableList = restaurantDao.selectUsableTable(tableMap);
 		

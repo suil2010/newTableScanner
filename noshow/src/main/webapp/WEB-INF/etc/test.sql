@@ -9,4 +9,6 @@ UPDATE member set member_name = "dkssudgktpdy" WHERE member_id = '201234026';
 
 		select res_date , sum(res_people) from RESERVATION where business_id = 'test-1' group by res_date
 
-select * from restaurant
+
+select * from reservation;
+

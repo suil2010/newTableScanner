@@ -117,7 +117,6 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/find_id", produces="application/String;charset=utf8")
 	public @ResponseBody String findById(String memberName, String memberEmail) throws Exception {
-		System.out.println(memberName);
 		String memberId = service.getFindById(memberName, memberEmail);
 		if(memberId == null) {
 			return "Email, Name을 다시 확인하세요.";

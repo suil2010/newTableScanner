@@ -15,6 +15,8 @@
 	}
 </script>
 
+<sec:csrfInput/>
+
 <div class="container" style="max-width: 800px;">
 	<c:if test="{not empty requestScope.errorMessage}">
 		<div>${requestScope.errorMessage }</div>
@@ -53,12 +55,12 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+ 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberBirthday">Birthday</label>
 			<div class="col-sm-10">
 				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday" value="<sec:authentication property='principal.memberBirthday'/>">
 			</div>
-		</div>  
+		</div>   
 		
 
 		<div class="form-group">
@@ -95,8 +97,4 @@
 	</form>
 
 </div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-			<fmt:formatDate value='<sec:authentication property="principal.memberBirthday"/>' pattern="yyyy-MM-dd"/> 
-			</div>
-		</div>
+

@@ -25,6 +25,7 @@ public class Reservation implements Serializable{
 	private Member member;
 	private List<OrderTable> orderTable;
 	private Restaurant restaurant;
+	private List<Integer> tableList;
 	
 	public List<OrderTable> getOrderTable() {
 		return orderTable;
@@ -81,6 +82,26 @@ public class Reservation implements Serializable{
 		this.businessId = businessId;
 		this.restaurant = restaurant;
 		this.orderTable = orderTable;
+	}
+
+	public Reservation(String resDate, int resPeople, String resStartTime, int resPrice , String resPayStatement, String memberId, String businessId,
+			List<Integer> tableList) {
+		this.resDate = resDate;
+		this.resPeople = resPeople;
+		this.resStartTime = resStartTime;
+		this.resPayStatement = resPayStatement;
+		this.resPrice = resPrice;
+		this.memberId = memberId;
+		this.businessId = businessId;
+		this.tableList = tableList;
+	}
+
+	public List<Integer> getTableList() {
+		return tableList;
+	}
+
+	public void setTableList(List<Integer> tableList) {
+		this.tableList = tableList;
 	}
 
 	public int getResNum() {

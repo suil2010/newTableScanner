@@ -35,7 +35,8 @@
 	<!-- 2017.12.08 윤동웅 -->
 	<mvc:view-controller path="/owner/ownerMypage.do" view-name="owner/ownerMypage.tiles"/>	
 	<mvc:view-controller path="/owner/join_menu_form.do" view-name="owner/join_menu_form.tiles"/>	
-	
+	<mvc:view-controller path="/owner/menu_update.do" view-name="owner/menu_update.tiles"/>	
+
 	
 	<!-- 일반회원, 사업자회원 -->
 	<mvc:view-controller path="/mypage/member_info.do" view-name="mypage/member_info.tiles"/>	

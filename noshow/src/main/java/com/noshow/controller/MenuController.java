@@ -55,7 +55,7 @@ public class MenuController {
 	
 	/**
 	 * 2017. 윤동웅
-	 * 메뉴 조회!
+	 * business id로 메뉴 조회!
 	 * @param businessId
 	 * @return
 	 */
@@ -81,4 +81,30 @@ public class MenuController {
 		return "삭제가 완료되었습니다.";
 	}
 	
+	/**
+	 * 메뉴 번호로 메뉴 정보조회
+	 * @param menuNum
+	 * @return
+	 */
+	@RequestMapping("/getMenuByNum")
+	public ModelAndView getMenuByMenuNum(int menuNum) {
+		Menu menu = service.getMenuByMenuNum(menuNum);
+		return new ModelAndView("owner/menu_update.tiles","menu",menu);
+	}
+	
+	@RequestMapping("/updateMenu")
+		public ModelAndView updateMenu(Menu menu, HttpServletRequest request) throws IllegalStateException, IOException{
+		// 메뉴 파일 업로드
+		MultipartFile menuImage = menu.getMenuImage();
+		if(menuImage != null && !menuImage.isEmpty()) {
+			//사진을 저장할 디렉토리
+			String dir = request.getServletContext().getRealPath("/menuPicture");
+			String pictureName = UUID.randomUUID().toString();
+			File upMenuImage = new File(dir, pictureName);
+			menuImage.transferTo(upMenuImage);
+			menu.setMenuPicture(pictureName);
+		}
+		service.updateMenu(menu);
+		return new ModelAndView("redirect:/menu_businessId.do");
+	}
 } 

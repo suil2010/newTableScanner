@@ -65,5 +65,10 @@ public interface MenuDao {
 	 */
 	List<Menu> selectMenuBybusinessId(String businessId);
 	
+	/**
+	 * MenuNum으로 menu정보 가져오기
+	 * @param menuNum
+	 * @return
+	 */
 	Menu selectMenuByMenuNum(int menuNum);
 }

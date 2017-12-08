@@ -141,6 +141,7 @@ CREATE TABLE REVIEW (
    REVIEW_TEXT VARCHAR2(1500), /* 내용 */
    REVIEW_TIME DATE, /* 작성시간 */
    REVEIW_IMG VARCHAR2(36), /* 리뷰사진 */
+   REVIEW_GRADE	NUMBER,	/* 리뷰 평점 */
    MEMBER_ID VARCHAR2(20), /* 회원아이디 */
    BUSINESS_ID VARCHAR2(20), /* 점주 회원 아이디 */
    RES_NUM NUMBER, /* 예약리스트번호 */
@@ -391,11 +392,14 @@ ALTER TABLE ANSWER
       drop sequence table_list_seq;
       drop sequence res_num_seq;
       drop sequence tabel_list_seq;
+      drop sequence bookmark_num_seq;
+      drop sequence review_num_seq;
       
       create sequence table_list_seq;
       create sequence res_num_seq;
       create sequence tabel_list_seq;
       create sequence bookmark_num_seq;
+      create sequence review_num_seq;
 
       select * from seq;
       SELECT * FROM dual;

@@ -17,7 +17,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 	private SqlSessionTemplate session;
 	
 	private String makeSqlId(String id) {
-		return "noshow.config.mybatis.mapper.reservationMapper." + id;
+		return "com.noshow.config.mybatis.mapper.reservationMapper." + id;
 	}
 	
 	@Override

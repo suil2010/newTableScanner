@@ -93,6 +93,7 @@
 	<select id="selectBookmarkBymemberId" parameterType="string" resultMap="bookmark-join-resultmap">
 		<include refid="select-bookmark-join-member"/>
 		AND		b.member_id = #{value}
+		ORDER BY	bookmark_num
 	</select>
 	
 	<!-- 사업주 ID 로 찾기 -->

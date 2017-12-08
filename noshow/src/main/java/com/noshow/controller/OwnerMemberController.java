@@ -216,7 +216,7 @@ public class OwnerMemberController {
 		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
 		System.out.println("OwnerMemberController.restaurantListByName - restaurantName : " + restaurant);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("reservation/reservation_form.tiles");
+		mav.setViewName("/finalResInfo.do");
 		mav.addObject("allTable", allTable);
 		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
@@ -238,7 +238,7 @@ public class OwnerMemberController {
 		} else {
 			System.out.println("조건에 맞는 음식점 있다요~");
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("reservation/restaurant_list.tiles");
+			mav.setViewName("/checkBookmark.do");
 			mav.addObject("restaurantList", restaurantList);
 			mav.addObject("resPeople", resPeople);
 			mav.addObject("resDate", resDate);

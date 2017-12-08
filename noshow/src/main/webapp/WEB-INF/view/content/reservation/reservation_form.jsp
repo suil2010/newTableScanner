@@ -193,6 +193,7 @@
 				<li><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">테이블정보</a></li>
 			</ul>
 
++
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="home">1</div>
 				<div role="tabpanel" class="tab-pane" id="profile">2</div>

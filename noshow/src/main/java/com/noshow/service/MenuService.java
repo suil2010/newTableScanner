@@ -11,4 +11,6 @@ public interface MenuService {
 	Menu getMenuByMenuNum(int menuNum);
 	
 	List<Menu> getMenuBybusinessId(String businessId);
+	
+	void deleteMenu(int menuNum);
 }

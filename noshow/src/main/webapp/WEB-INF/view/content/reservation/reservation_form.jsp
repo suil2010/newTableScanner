@@ -185,7 +185,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-8" style="min-height: 1350px;">
+		<div class="col-sm-8">
 			<ul class="nav nav-tabs" role="tablist" id="myTab">
 				<li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">메뉴</a></li>
 				<li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">리뷰</a></li>

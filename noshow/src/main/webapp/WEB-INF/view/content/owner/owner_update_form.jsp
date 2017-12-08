@@ -81,7 +81,7 @@
 </script>
 
 <div class="container" style="max-width: 800px; padding-top: 50px;">
-	<form class="form-horizontal" name="form" id="form" method="post" action="${initParam.rootPath }/regist_update.do" enctype="multipart/form-data" onsubmit="btnCheck()">
+	<form class="form-horizontal" name="form" id="form" method="post" action="${initParam.rootPath }/update_rt.do" enctype="multipart/form-data" onsubmit="btnCheck()">
 		
 		
 		<div class="form-group">

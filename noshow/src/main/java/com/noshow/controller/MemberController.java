@@ -17,6 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.MemberService;
@@ -31,11 +32,17 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	/**
+	 * 2017.
+	 * @param member
+	 * @return
+	 */
 	@RequestMapping("/join_member")
 	public ModelAndView inserMember(@ModelAttribute Member member) {
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("/join_success.do", "memberId", member.getMemberId());
 	}
+	
 
 	@RequestMapping("/join_success")
 	public ModelAndView joinSuccess(String memberId) {
@@ -43,6 +50,7 @@ public class MemberController {
 		return new ModelAndView("member/join_success.tiles", "member", member);
 	}
 	
+
 	@RequestMapping("/update_Member")
 	public String updateMember(@ModelAttribute Member member, @RequestParam String oldMemberPassword, HttpServletRequest request, ModelMap model) throws IllegalStateException, IOException {
 		
@@ -65,6 +73,12 @@ public class MemberController {
 		return "member/mypage.tiles";
 	}
 	
+	/**
+	 * 윤동웅
+	 * 회원 탈퇴를 처리하는 controller
+	 * member테이블에서 사라지지않고 로그인할수 있는 권한을 업데이트 시킴
+	 * @return
+	 */
 	@RequestMapping("/remove_Member")
 	public String removeMember() {
 		
@@ -77,21 +91,38 @@ public class MemberController {
 	}
 	
 	
+	/**
+	 * 2017.12.06 윤동웅
+	 * ID와 Email로 임시비밀번호 메일로 전송
+	 * @param memberId
+	 * @param memberEmail
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/find_password")
 	public ModelAndView findByPassword(String memberId, String memberEmail) throws Exception {
 		service.getFindByPassword(new Member(memberId, null, memberEmail));
 		return new ModelAndView("/index.tiles");
 	}
 	
-	@RequestMapping("/find_id")
-	public ModelAndView findById(String memberName, String memberEmail) throws Exception {
+	/**
+	 * 2017.12.08 윤동웅 ajax로 수정
+	 * 
+	 * 2017.12.07 윤동웅 
+	 * Name와 Email로 ID찾기
+	 * @param memberName
+	 * @param memberEmail
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/find_id", produces="application/String;charset=utf8")
+	public @ResponseBody String findById(String memberName, String memberEmail) throws Exception {
 		String memberId = service.getFindById(memberName, memberEmail);
 		if(memberId == null) {
-			throw new Exception();
+			return "Email, Name을 다시 확인하세요.";
 		}
-		return new ModelAndView("/find.tiles","memberId",memberId);
+		return memberId;
 		
 	}
-	
 	
 }

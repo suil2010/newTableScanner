@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-<script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 <style type="text/css">
 #droppable>div {
@@ -185,7 +182,7 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-8" style="min-height: 1350px;">
+		<div class="col-sm-8">
 			<ul class="nav nav-tabs" role="tablist" id="myTab">
 				<li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">메뉴</a></li>
 				<li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">리뷰</a></li>
@@ -226,9 +223,9 @@
 						즐겨찾기 추가
 					</button>
 				</c:otherwise>
-			</c:choose>	
+			</c:choose>	   
 		</div>	
-		<form method="post" name="resForm" action="${initParam.rootPath}/addReservation.do" onsubmit="return formCheck()" class="col-sm-4">
+		<form name="resForm" action="${initParam.rootPath}/payment.do" onsubmit="return formCheck()" class="col-sm-4" method="post">
 			<div class="panel panel-default">
 				<div class="panel-heading" id="orderDiv">
 					<h3 class="panel-title">주문표</h3>

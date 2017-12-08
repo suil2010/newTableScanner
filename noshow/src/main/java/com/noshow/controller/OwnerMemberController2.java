@@ -32,13 +32,13 @@ import com.noshow.vo.Restaurant;
 import com.noshow.vo.Table;
 
 @Controller
-public class OwnerMemberController {
+public class OwnerMemberController2 {
 	
-	@Autowired
+/*	@Autowired
 	private OwnerMemberService service;
 	
 	
-	/**
+	*//**
 	 * 2017.12.08 윤동웅
 	 * 음식점 정보를 등록하고 음식점 점주 환경으로 변환하기 위해 재 로그인
 	 * @param rt
@@ -47,7 +47,7 @@ public class OwnerMemberController {
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
-	 */
+	 *//*
 	@RequestMapping("/join_rt")
 	@Transactional
 	public ModelAndView joinRestaurant(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
@@ -70,38 +70,49 @@ public class OwnerMemberController {
 		return new ModelAndView("redirect:/login_form.do");
 	}
 	
-	/**
-	 * 2017.12.08 윤동웅
-	 * 음식점 정보 수정
-	 * @param rt
-	 * @return
-	 */
-	@RequestMapping("/update_rt")
-	public String updateRestaurant(@ModelAttribute Restaurant rt) {
-		service.updateRestaurant(rt);
-		return "find_rt_byid.do";
-	}
-	
-	/**
-	 * 2017.12.08 윤동웅
-	 * 현재 접속된 사용자의 음식점 정보 보기!
-	 * @return
-	 */
-	@RequestMapping("/find_rt_byid")
-	public ModelAndView findRestaurantByBusinessId() {
-		
+	@RequestMapping("/regist_success")
+	public ModelAndView restaurantSuccess(HttpServletRequest request) {
+		String memberId = (String) request.getAttribute("businessId");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
-		
-		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
+		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
+		return new ModelAndView("owner/ownerInfo.tiles", "rt", rt);
 	}
 	
-
+	@RequestMapping("/regist_update")
+	public String updateRestaurant(@ModelAttribute Restaurant rt) {
+		service.updateRestaurant(rt);
+		return "regist_success.do";
+	}
 	
+	public ModelAndView updateRestaurant(Restaurant restaurant, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Restaurant rt = (Restaurant) authentication.getPrincipal();
+		
+		
+		 * List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
+		 * System.out.println(authorities);
+		 * UsernamePasswordAuthenticationToken newAutentication =
+		 * new UsernamePasswordAuthenticationToken((Restaurant)(authentication.getPrincipal()), null, authorities);
+		 * 
+		 * context.setAuthentication(newAutentication);
+		 
+		
+		service.updateRestaurant(rt);
+		
+		return new ModelAndView("owner/regist_success.tiles");
 
+	}
+	
+	@RequestMapping("/regist_delete")
+	public ModelAndView deleteRestaurant(@RequestParam String businessId) {
+		service.deleteRestaurant(businessId);
+		return new ModelAndView("redirect:/owner/delete_rt_success.tiles");
+	}
 
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {
@@ -189,7 +200,7 @@ public class OwnerMemberController {
 		return mav;
 	}
 	
-	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
+	 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 
 	@RequestMapping("/restaurantListByName")
 	public ModelAndView restaurantListByName(String businessId) {
 		List<Table> allTable = selectTable(businessId);
@@ -207,7 +218,7 @@ public class OwnerMemberController {
 		return mav;
 	}
 	
-	/* 예약정보를 받아서 처리하는 controller */
+	 예약정보를 받아서 처리하는 controller 
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(resPlace, resDate, resTime, resPeople);
@@ -282,6 +293,6 @@ public class OwnerMemberController {
 			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
 		}
 		
-	}
+	}*/
 	
 }

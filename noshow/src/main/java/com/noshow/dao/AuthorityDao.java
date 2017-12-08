@@ -19,8 +19,18 @@ public interface AuthorityDao {
 	 */
 	List<Authority> selectAuthorityByMemberId(String memberId);
 
+	/**
+	 * 사용자 권한 업데이트
+	 * @param authority
+	 * @return
+	 */
 	int updateAuthority(Authority authority);
 	
+	/**
+	 * 사용자 권한 해제
+	 * @param memberId
+	 * @return
+	 */
 	int deleteAuthority(String memberId);
 
 }

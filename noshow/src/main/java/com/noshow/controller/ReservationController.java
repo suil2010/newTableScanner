@@ -1,6 +1,7 @@
 package com.noshow.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -144,6 +145,26 @@ public class ReservationController {
 	
 		return new ModelAndView("member/mypage_reservation.tiles", "reservationList", reservationList);
 		
+	}
+	
+	/* 결제 */
+	@RequestMapping("/payment")
+	public ModelAndView payment(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
+		System.out.println("payment호출");
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member)authentication.getPrincipal();
+		String memberId = member.getMemberId();
+		int resPrice = resPeople * 3000;
+		Reservation reservation = new Reservation(resDate, resPeople, resStartTime, resPrice, resPayStatement ,memberId, businessId, tableList);
+	
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("member", member);
+		mav.addObject("reservation", reservation);
+		mav.setViewName("reservation/payment.tiles");
+		return mav; 
 	}
 	
 }

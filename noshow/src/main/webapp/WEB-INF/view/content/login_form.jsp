@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<div class="container" style="max-width: 800px;">
+<div class="container"  style="padding-top: 80px; max-width: 800px;">   
 	<form class="form-horizontal" action="${initParam.rootPath}/login.do" method="post">
 		<sec:csrfInput />
 		<div class="form-group">

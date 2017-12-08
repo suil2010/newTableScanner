@@ -79,7 +79,7 @@ function checkemail(){
 
 </script>
 
-<div class="container" style="max-width: 800px;">
+<div class="container" style="max-width: 800px; padding-top: 30px;">
 	<h1>회원가입</h1>
 	<form class="form-horizontal" method="post" action="${initParam.rootPath}/join_member.do">
 		<sec:csrfInput />

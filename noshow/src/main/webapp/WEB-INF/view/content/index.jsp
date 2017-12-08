@@ -150,7 +150,7 @@
 <div class="container-fluid">
 
 	<div class="row"
-		style="height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/img4.jpg'); background-color: rgba(0,0,0,0.3); padding:0;"
+		style="height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/main.jpg'); background-color: rgba(0,0,0,0.3); padding:0;"
 	>
 		<div class="background" style="width: 100%; height: 400px; background: rgba(0, 0, 0, 0.5); position: absolute;">
 			<div class="container" style="height: 25%;">
@@ -238,32 +238,34 @@
 	</div>
 	<style>
 .content>.col-sm-4>.contents {
-	border: 1px solid #000;
-	height: 280px;
+	height: 260px;
+}
+.content > .col-sm-4 {
+	padding-left: 30px; 
+	padding-right: 30px; 
 }
 </style>
-	<div class="row content" style="padding: 20px; padding-left: 40px; padding-right: 40px;">
-		<div class="col-sm-4">
-			<div class="contents"></div>
+	<div class="row content" style="padding: 30px; padding-left: 60px; padding-right: 60px; padding-bottom: 20px;">
+		<div class="col-md-4">
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img1.jpg" style="width: 100%; height: 100%;" class="img-rounded"/></div>
 		</div>
-
-		<div class="col-sm-4">
-			<div class="contents"></div>
+		<div class="col-md-4">
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img2.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
 		</div>
-		<div class="col-sm-4">
-			<div class="contents"></div>
-		</div>
-	</div>
-	<div class="row content" style="padding: 20px; padding-left: 40px; padding-right: 40px;">
-		<div class="col-sm-4">
-			<div class="contents"></div>
-		</div>
-
-		<div class="col-sm-4">
-			<div class="contents"></div>
-		</div>
-		<div class="col-sm-4">
-			<div class="contents"></div>
+		<div class="col-md-4">
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img3.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
 		</div>
 	</div>
+	<div class="row content" style="padding-left: 60px; padding-right: 60px; padding-bottom: 40px;">
+		<div class="col-md-4" > 
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img4.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+		</div>
+		<div class="col-md-4">
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img5.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+		</div>
+		<div class="col-md-4"> 
+			<div class="contents"><img src="${initParam.rootPath }/resource/img/img6.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+		</div>
+	</div>
+	
 </div>

@@ -106,7 +106,9 @@ public class MemberController {
 	}
 	
 	/**
-	 * 2017.12.07 윤동웅
+	 * 2017.12.08 윤동웅 ajax로 수정
+	 * 
+	 * 2017.12.07 윤동웅 
 	 * Name와 Email로 ID찾기
 	 * @param memberName
 	 * @param memberEmail

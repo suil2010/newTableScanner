@@ -37,79 +37,60 @@ public class OwnerMemberController {
 	@Autowired
 	private OwnerMemberService service;
 	
+	
+	/**
+	 * 2017.12.08 윤동웅
+	 * 음식점 정보를 등록하고 음식점 점주 환경으로 변환하기 위해 재 로그인
+	 * @param rt
+	 * @param request
+	 * @param r
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@RequestMapping("/join_rt")
 	@Transactional
-	public ModelAndView joinRt(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
+	public ModelAndView joinRestaurant(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
 		
-		/* 2017.12.07 6:40 윤동웅 */
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		
-		/* 2017.12.04 11:40 현준 Test */
-		System.out.println("OwnerMemberController - rt : " + rt);
-		System.out.println("rtOpen : " + rt.getRtOpen() + ", rtClose : " + rt.getRtClose());
-		System.out.println("OwnerMemberController - r.count : " + r.getErrorCount());
-		System.out.println("OwnerMemberController - r : " + r);
-		// 식당이미지 업로드
+	
 		MultipartFile rtImg = rt.getRtImg();
 		if (rtImg != null && !rtImg.isEmpty()) {
-			// 이미지를 저장할 디렉토리
 			String dir = request.getServletContext().getRealPath("/rtPicture");
 			String pictureName = UUID.randomUUID().toString();
 			File upRtImg = new File(dir, pictureName);
 			rtImg.transferTo(upRtImg);
 			rt.setRtPicture(pictureName);
 		}
+		
 		service.insertRestaurant(rt, "ROLE_OWNER");
-		
-		
 		context.setAuthentication(null);
 
 		return new ModelAndView("redirect:/login_form.do");
 	}
 	
-	@RequestMapping("/regist_success")
-	public ModelAndView restaurantSuccess(HttpServletRequest request) {
-		String memberId = (String) request.getAttribute("businessId");
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
-		
-		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
-		return new ModelAndView("owner/ownerInfo.tiles", "rt", rt);
-	}
-	
-	@RequestMapping("/regist_update")
+	/**
+	 * 2017.12.08 윤동웅
+	 * 음식점 정보 수정
+	 * @param rt
+	 * @return
+	 */
+	@RequestMapping("/update_rt")
 	public String updateRestaurant(@ModelAttribute Restaurant rt) {
 		service.updateRestaurant(rt);
 		return "regist_success.do";
 	}
-	public ModelAndView updateRestaurant(Restaurant restaurant, HttpServletRequest request) throws IllegalStateException, IOException {
-		
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		Restaurant rt = (Restaurant) authentication.getPrincipal();
-		
-		/*
-		 * List<GrantedAuthority> authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-		 * System.out.println(authorities);
-		 * UsernamePasswordAuthenticationToken newAutentication =
-		 * new UsernamePasswordAuthenticationToken((Restaurant)(authentication.getPrincipal()), null, authorities);
-		 * 
-		 * context.setAuthentication(newAutentication);
-		 */
-		
-		service.updateRestaurant(rt);
-		
-		return new ModelAndView("owner/regist_success.tiles");
-
-	}
 	
-	/*@RequestMapping("/regist_delete")
-	public ModelAndView deleteRestaurant(@RequestParam String businessId) {
-		service.deleteRestaurant(businessId);
-		return new ModelAndView("redirect:/owner/delete_rt_success.tiles");
-	}*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {

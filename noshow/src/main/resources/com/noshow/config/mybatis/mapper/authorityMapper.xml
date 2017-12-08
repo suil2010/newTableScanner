@@ -13,17 +13,18 @@
 		from authority
 	</sql>
 	
-		<!-- 사용자 id로 사용자의 권한 조회 -->
+	<!-- 사용자 id로 사용자의 권한 조회 -->
 	<select id="selectAuthorityByMemberId" parameterType="string" resultMap="authority-resultmap">
 		<include refid="authority-select-sql"/>	
 		where member_id = #{value}
 	</select>
 	
-		<!-- 권한 추가 -->
+	<!-- 권한 추가 -->
 	<insert id="insertAuthority" parameterType="Authority">
 		INSERT INTO authority(member_id, authority) values(#{memberId}, #{authority})
 	</insert>
 	
+	<!-- 권한 업데이트 -->
 	<update id="updateAuthority" parameterType="Authority">
 		UPDATE AUTHORITY
 		<set>

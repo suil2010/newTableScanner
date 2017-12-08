@@ -2,26 +2,41 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
-<form method="post" action="${initParam.rootPath}/find_id.do">
-	<sec:csrfInput />
-	<div class="form-group">
-		<label class="col-sm-2 control-label" for="memberName">ID</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" placeholder="Name"
-				name="memberName" id="memberName">
-		</div>
-	</div>
+<script>
+$(document).ready(function(){
+	
+	$("#checkBtn").on("click",function(){
+		$.ajax({
+			"url":"${initParam.rootPath }/find_id.do",
+			"type":"get",
+			"dataType":"text",
+			"data":{
+				"memberName" : $("#memberName").val(),
+				"memberEmail" : $("#memberEmail").val()
+			},
+			"success":function(obj){
+				if(obj == "Email, Name을 다시 확인하세요."){
+					alert(obj);	
+				}else{
+					text = "ID는 " + obj + " 입니다.";
+					$("#view").html(text);
+				}
+			},
+			"error":function(a){
+				alert("오류발생");
+			}
+		});		
+	});
+});
 
-	<div class="form-group">
-		<label class="col-sm-2 control-label" for="memberEmail">Email</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" placeholder="Email"
-				name="memberEmail" id="memberEmail">
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">ID찾기</button>
-		</div>
-	</div>
-</form>
+</script>
+
+
+
+<div class="container" id="view">
+	<span class="text-center">가입할 때 등록한 이름을 입력해주세요.</span>
+	<input type="text" name="memberName" id="memberName">
+	<span class="text-center">가입할 때 등록한 Email을 입력해주세요.</span>
+	<input type="text" name="memberEmail" id="memberEmail">
+	<button id="checkBtn" name="checkBtn">확인</button>
+</div>

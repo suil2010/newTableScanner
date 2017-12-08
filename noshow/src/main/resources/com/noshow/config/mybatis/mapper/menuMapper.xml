@@ -56,7 +56,7 @@
 	<insert id="insertMenu" parameterType="Menu">
 		insert into menu(menu_num, menu_name, menu_comment, menu_price,
 		menu_picture<!-- , classification_num -->, business_id)
-		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
+		values(menu_num_seq.NEXTVAL, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
 		<!-- , #{classificationNum} -->, #{businessId})
 	</insert>
 

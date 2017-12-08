@@ -147,7 +147,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param resPeople
 	 * @return
 	 */
-	private int calTotalPrice(String businessId, int resPeople) {
+	@Override
+	public int calTotalPrice(String businessId, int resPeople) {
 		System.out.println(businessId);
 		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
 		return restaurant.getRtDeposit() * resPeople;

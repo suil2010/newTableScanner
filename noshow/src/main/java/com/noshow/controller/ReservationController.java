@@ -35,7 +35,6 @@ public class ReservationController {
 	@RequestMapping("/addReservation")
 	@Transactional
 	public ModelAndView addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
-		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		
@@ -153,11 +152,14 @@ public class ReservationController {
 		System.out.println("payment호출");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		
+		System.out.println("payment - resDate : "+resDate);
+		for(int t : tableList) {
+			System.out.println("payment-table : " + t);
+		}
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member)authentication.getPrincipal();
 		String memberId = member.getMemberId();
-		int resPrice = resPeople * 3000;
+		int resPrice = service.calTotalPrice(businessId, resPeople);
 		Reservation reservation = new Reservation(resDate, resPeople, resStartTime, resPrice, resPayStatement ,memberId, businessId, tableList);
 	
 		ModelAndView mav = new ModelAndView();

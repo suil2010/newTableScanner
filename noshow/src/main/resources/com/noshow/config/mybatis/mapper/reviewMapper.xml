@@ -39,6 +39,11 @@
 		<association property="reservation" column="res_num" javaType="Reservation" select="seletReservation"/>
 	</resultMap>
 	
+	<resultMap type="hashmap" id="reviewRank">
+		<result column="AVG(review_grade)" property="gradeAvg"/>
+		<association property="restaurant" column="business_id" javaType="Restaurant" select="selectRestaurant"/>
+	</resultMap>
+	
 	<!-- Join Select -->
 	
 	<!-- join_member -->
@@ -81,7 +86,7 @@
 		VALUES (
 				review_num_seq.NEXTVAL,
 				#{reviewText},
-				to_date(SYSDATE, 'yyyy/mm/dd hh24:mi:ss'),
+				SYSDATE,
 				#{reviewImageName},
 				#{reviewGrade},
 				#{memberId},
@@ -98,7 +103,7 @@
 		SET		review_text = #{reviewText},
 				review_grade = #{reviewGrade},
 				review_img = #{reviewImageName},
-				review_time = to_date(SYSDATE, 'yyyy/mm/dd hh24:mi:ss')
+				review_time = SYSDATE,
 		WHERE	review_num = #{reviewNum}
 	</update>
 	
@@ -122,11 +127,11 @@
 		WHERE	business_id = #{businessId}
 	</select>
 	
-	<select id="selectReviewForRank" resultMap="review-join-resultmap">
-		SELECT
-		<include refid="review-column-sql"/>
+	<select id="selectReviewForRank" resultMap="reviewRank">
+		SELECT	AVG(review_grade), business_id 
 		FROM	review
+		GROUP BY	business_id
+		ORDER BY	AVG(review_grade) DESC
 	</select>
-	
 	
 </mapper>

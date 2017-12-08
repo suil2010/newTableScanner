@@ -8,10 +8,12 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,15 @@ public class MenuController {
 	@Autowired
 	private MenuService service;
 	
+	/**
+	 * 2017.12.08 윤동웅
+	 * 메뉴 등록하기
+	 * @param menu
+	 * @param request
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@RequestMapping("/join_menu")
 	public ModelAndView RegisterMenu(Menu menu, HttpServletRequest request) throws IllegalStateException, IOException{
 		// 메뉴 파일 업로드
@@ -38,21 +49,36 @@ public class MenuController {
 			menu.setMenuPicture(pictureName);
 		}
 		service.addMenu(menu);
-		return new ModelAndView("redirect:/join_menu_success.do", "menuNum", menu.getMenuNum());
+		return new ModelAndView("redirect:/menu_businessId.do");
 		
 	}
 	
-	@RequestMapping("/join_menu_success")
-	public ModelAndView RegisterSuccess(int menuNum) {
-		Menu menu = service.getMenuByMenuNum(menuNum);
-		return new ModelAndView("owner/menu_success.tiles", "menu", menu);
-	}	
-	
+	/**
+	 * 2017. 윤동웅
+	 * 메뉴 조회!
+	 * @param businessId
+	 * @return
+	 */
 	@RequestMapping("/menu_businessId")
 	public ModelAndView getMenubybusinessId(String businessId) {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		businessId = ((Member)authentication.getPrincipal()).getMemberId();
 		List<Menu> menu = service.getMenuBybusinessId(businessId);
-		System.out.println(menu);
 		return new ModelAndView("owner/menu_businessId.tiles","menu", menu);
+	}
+	
+	/**
+	 * 2017.12.08 윤동웅
+	 * 메뉴 삭제하기!
+	 * @param menuNum
+	 * @return
+	 */
+	@RequestMapping(value="/remove_menu", produces="application/String;charset=utf8")
+	public @ResponseBody String removeMenu(int menuNum) {
+		service.deleteMenu(menuNum);
+		return "삭제가 완료되었습니다.";
 	}
 	
 } 

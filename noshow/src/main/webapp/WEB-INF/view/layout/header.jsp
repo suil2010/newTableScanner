@@ -84,7 +84,7 @@
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<li class="col-sm-2"><a href="#">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
-				<li class="col-sm-2"><a href="#">즐겨찾기</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기</a></li>
 			</sec:authorize>
 
 			<!-- 사업자회원 -->

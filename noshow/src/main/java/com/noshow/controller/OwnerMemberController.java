@@ -79,18 +79,29 @@ public class OwnerMemberController {
 	@RequestMapping("/update_rt")
 	public String updateRestaurant(@ModelAttribute Restaurant rt) {
 		service.updateRestaurant(rt);
-		return "regist_success.do";
+		return "find_rt_byid.do";
 	}
 	
+	/**
+	 * 2017.12.08 윤동웅
+	 * 현재 접속된 사용자의 음식점 정보 보기!
+	 * @return
+	 */
+	@RequestMapping("/find_rt_byid")
+	public ModelAndView findRestaurantByBusinessId() {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
+		
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
+		
+		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
+	}
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
+
 
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {

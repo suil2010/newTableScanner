@@ -19,10 +19,7 @@
 				}
 			});
 		});
-/* 		$(".menuNum").on("click",function(){
-			$(".menusubmit").submit();
-			
-		}); */
+
         $("#divnamebtn").click(function() {
             $("#divname").toggle(); //천천히 보이기
         });

@@ -6,6 +6,8 @@ UPDATE AUTHORITY set AUTHORITY = 'ROLE_OWNER' WHERE business_id = '00000000';
 select * from AUTHORITY;
 select * from member;
 select * from menu;
+update MEMBER set drop_check = '0' where member_id = 'dldbfl';
+insert into AUTHORITY values('dldbfl', 'ROLE_MEMBER');
 UPDATE member set member_name = "dkssudgktpdy" WHERE member_id = '201234026';
 
 
@@ -13,4 +15,3 @@ UPDATE member set member_name = "dkssudgktpdy" WHERE member_id = '201234026';
 
 
 select * from reservation;
-

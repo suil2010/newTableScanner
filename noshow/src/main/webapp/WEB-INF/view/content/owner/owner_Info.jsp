@@ -16,4 +16,6 @@
 수용가능 인원 : ${requestScope.rt.rtCapacity } <br>
 1인당 취소금액 : ${requestScope.rt.rtDeposit } <br>
 <sec:csrfInput/>
+
+<a href="${initParam.rootPath }/owner_update_form.do">수정하기</a>
 </div>

@@ -96,13 +96,13 @@
 			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
 			<div class="col-sm-9">
 				<select name="rtField" required>
-					<option value=1>한식</option>
-					<option value=2>중식</option>
-					<option value=3>일식</option>
-					<option value=4>분식</option>
-					<option value=5>치킨</option>
-					<option value=6>피자</option>
-					<option value=7>족발</option>
+					<option value="한식">한식</option>
+					<option value="중식">중식</option>
+					<option value="일식">일식</option>
+					<option value="분식">분식</option>
+					<option value="치킨">치킨</option>
+					<option value="피자">피자</option>
+					<option value="족발">족발</option>
 				</select>
 			</div>
 		</div>
@@ -111,13 +111,13 @@
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
 				<select name="rtHoliday" required>
-					<option value=1>일</option>
-					<option value=2>월</option>
-					<option value=3>화</option>
-					<option value=4>수</option>
-					<option value=5>목</option>
-					<option value=6>금</option>
-					<option value=7>토</option>
+					<option value="일">일</option>
+					<option value="월">월</option>
+					<option value="화">화</option>
+					<option value="수">수</option>
+					<option value="목">목</option>
+					<option value="금">금</option>
+					<option value="토">토</option>
 				</select>
 			</div>
 		</div>

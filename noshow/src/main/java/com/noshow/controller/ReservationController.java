@@ -41,7 +41,6 @@ public class ReservationController {
 
 	} 
 	
-	
 	@RequestMapping("/reservationSuccess")
 	public ModelAndView reservationSuccess(int resNum) {
 		Reservation reservation = service.selectReservationByResNum(resNum);

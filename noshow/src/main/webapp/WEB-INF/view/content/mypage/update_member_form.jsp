@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
 	window.onload = function name() {
@@ -14,14 +14,18 @@
 		}
 	}
 </script>
+<style>
+.mainTemplate{ 
+background: #FAFAFA;    
+} 
+</style>
+<sec:csrfInput />
 
-<sec:csrfInput/>
-
-<div class="container" style="max-width: 800px;">
+<div class="col-md-10" style="background: #fff; padding-bottom: 50px;">
 	<c:if test="{not empty requestScope.errorMessage}">
 		<div>${requestScope.errorMessage }</div>
 	</c:if>
-	<form class="form-horizontal" method="post" action="${initParam.rootPath}/update_Member.do">
+	<form class="form-horizontal" method="post" action="${initParam.rootPath}/update_Member.do" style="padding-top: 40px;">
 		<sec:csrfInput />
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberId">ID</label>
@@ -37,7 +41,7 @@
 			<div class="col-sm-10">
 				<input type="text" class="form-control" placeholder="oldPassword" name="oldMemberPassword" id="oldMemberPassword" required="required">
 			</div>
-		</div>  
+		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberPassword">새로운 비밀번호</label>
@@ -55,13 +59,15 @@
 			</div>
 		</div>
 
- 		<div class="form-group">
+		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberBirthday">Birthday</label>
 			<div class="col-sm-10">
-				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday" value="<sec:authentication property='principal.memberBirthday'/>">
+				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday"
+					value="<sec:authentication property='principal.memberBirthday'/>"
+				>
 			</div>
-		</div>   
-		
+		</div>
+
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberTel">Tel</label>
@@ -78,23 +84,19 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 control-label">Gender</label> 
-			<label class="radio-inline"> 
-					<input type="radio" name="memberGender" value="male">남자
-			</label> 
-			
-			<label class="radio-inline"> 
-					<input type="radio" name="memberGender" value="female">여자
+			<label class="col-sm-2 control-label">Gender</label> <label class="radio-inline"> <input type="radio" name="memberGender" value="male">남자
+			</label> <label class="radio-inline"> <input type="radio" name="memberGender" value="female">여자
 			</label>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" class="btn btn-default">정보수정</button>
+				<button type="submit" class="btn btn-default" style="float: right;">정보수정</button>   
 			</div>
 		</div>
-		
+
 	</form>
 
+</div>
 </div>
 

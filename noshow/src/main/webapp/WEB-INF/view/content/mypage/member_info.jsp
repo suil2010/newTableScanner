@@ -1,50 +1,66 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<sec:csrfInput/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="row">
-	<div class="col-sm-12">
-		<h1>본인정보 조회결과</h1>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">사용자 ID</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberId" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">이름</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberName" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">이메일주소</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberEmail" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">생년월일</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberBirthday" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">성별</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberGender" />
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">전화번호</div>
-	<div class="col-sm-9">
-		<sec:authentication property="principal.memberTel" />
-	</div>
-</div>
+<style>
+.mainTemplate{ 
+background: #FAFAFA;    
+}
+label , p{
+	text-align: center;  
+	height: 50px;
+	line-height: 50px;
+}
+</style>
+<sec:csrfInput />
+<div class="col-md-10" style="background: #fff; padding-bottom: 50px;">
 
-<form action="${initParam.rootPath }/remove_Member.do" method="post">
-	<button type="submit">회원 탈퇴하기!</button>
-	<sec:csrfInput />
-</form>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>본인정보 조회결과</h1>
+		</div>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">사용자 ID</label> 
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberId" />
+		</p>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">이름</label>
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberName" />
+		</p>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">이메일주소</label>
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberEmail" />
+		</p>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">생년월일</label>
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberBirthday" />
+		</p>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">성별</label>
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberGender" />
+		</p>
+	</div>
+	<div class="row">
+		<label class="col-sm-3">전화번호</label>
+		<p class="col-sm-9">
+			<sec:authentication property="principal.memberTel" />
+		</p> 
+	</div>
+ 
+	<form action="${initParam.rootPath }/remove_Member.do" method="post">
+		<button type="submit" class="btn btn-default" style="float: right; margin-top: 30px;" >회원탈퇴</button>
+		<sec:csrfInput />
+	</form>
+</div>
+</div>

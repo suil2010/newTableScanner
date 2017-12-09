@@ -2,11 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 <script>
 	$(document).ready(function() {
 		$(".item").on("click", function() {
@@ -15,8 +11,8 @@
 		});   
 	});
 </script>
-</head>
-<body>
+<div class="container">
+
 <h1>내 즐겨찾기 목록</h1>
 	
 	<h2>즐겨찾기 등록 내역</h2>
@@ -61,6 +57,4 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-
-</body>
-</html>
+</div>

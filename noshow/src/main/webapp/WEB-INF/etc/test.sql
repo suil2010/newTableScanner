@@ -15,3 +15,4 @@ UPDATE member set member_name = "dkssudgktpdy" WHERE member_id = '201234026';
 
 
 select * from reservation;
+select * from restaurant

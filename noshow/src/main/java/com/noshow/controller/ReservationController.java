@@ -60,7 +60,7 @@ public class ReservationController {
 		String memberId = member.getMemberId();
 		List<Reservation> reservationList = service.selectJoinReservationByMemId(memberId);
 	
-		return new ModelAndView("member/mypage_reservation.tiles", "reservationList", reservationList);
+		return new ModelAndView("tabmenu/mypage/mypage_reservation.tiles", "reservationList", reservationList);
 		
 	}
 	

@@ -125,19 +125,19 @@
 		<sec:authorize access="!isAuthenticated()">
 			<a href="${initParam.rootPath }/login_form.do"><button class="btn btn-default">로그인</button></a>
 			<a href="${initParam.rootPath }/join_member_form.do"><button class="btn btn-default">회원가입</button></a>
-		</sec:authorize>
+		</sec:authorize> 
 
 		<!-- 일반회원 -->
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
-			<a href="${initParam.rootPath }/member/mypage.do"><button class="btn btn-default">마이페이지</button></a> 
-		</sec:authorize>
+			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a> 
+		</sec:authorize> 
 		
 		<!-- 사업자회원 -->
 		<sec:authorize access="hasRole('ROLE_OWNER')">
 			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
-			<a href="${initParam.rootPath }/owner/ownerMypage.do"><button class="btn btn-default">마이페이지</button></a>
-		</sec:authorize>
+			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
+		</sec:authorize> 
 
 	</div>
 </header>

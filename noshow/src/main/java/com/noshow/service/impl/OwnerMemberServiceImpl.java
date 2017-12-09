@@ -120,12 +120,18 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	
 			int rtHoliday = dayFormatting(resDate);
 			
+			System.out.println("selectBySearch-rtHoliday : "+rtHoliday);
+			System.out.println("selectBySearch-resDate : "+resDate);
+			System.out.println("selectBySearch-resTime : "+resTime);
+			System.out.println("selectBySearch-resPeople : "+resPeople);
+
 			Map<String, Object> searchInfo = new HashMap<>();
 			searchInfo.put("resPlace", resPlace);
 			searchInfo.put("rtHoliday", rtHoliday);
 			searchInfo.put("resTime", resTime);
 			searchInfo.put("resPeople", resPeople);
-			List<Restaurant> restaurantList = setFieldMethod(dao.selectRestaurantBySearch(searchInfo));
+			List<Restaurant> restaurantList = dao.selectRestaurantBySearch(searchInfo);
+			restaurantList = setFieldMethod(restaurantList);
 			restaurantList = setHoliDayMethod(restaurantList);
 			restaurantList = timeFormatting(restaurantList);
 			return checkBookmark(memberId, restaurantList);

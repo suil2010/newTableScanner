@@ -182,7 +182,7 @@
 									<input type="text" class="form-control timepicker" placeholder="시간" name="resTime" required>
 								</div>
 								<div class="input-group col-md-2 col-xs-12">
-									<input type="number" class="form-control" placeholder="인원" name="resPeople" required>
+									<input type="number" class="form-control" placeholder="인원" name="resPeople" min="1" required>
 								</div>
 								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
 									<span class="glyphicon glyphicon-search"></span>

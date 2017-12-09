@@ -60,7 +60,6 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
-		System.out.println("######TESTTESTTEST"+businessId);
 		List<Restaurant> restaurantList = new ArrayList<>();
 		restaurantList.add(restaurant);
 		restaurantList = setFieldMethod(restaurantList);
@@ -227,16 +226,13 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		try {
 			for(Restaurant res : restaurantList) {
 				//Test
-				System.out.println("OwnerServiceImpl-rtName : " + res.getRtName() + "rtOpen : " +res.getRtOpen()+", rtClose : "+res.getRtClose());
 				resOpen_Date = beforeFormat.parse(res.getRtOpen());
 				resClose_Date = beforeFormat.parse(res.getRtClose());
 				res.setRtOpen(afterFormat.format(resOpen_Date));
 				res.setRtClose(afterFormat.format(resClose_Date));
-				System.out.println("OwnerServiceImpl - 변환 후 - rtName : "+res.getRtName()+", rtOpen :"+res.getRtOpen()+", rtClose : "+res.getRtClose());
 			}
 			return restaurantList;
 		} catch (ParseException e) {
-			System.out.println("OwnerMemberServiceImpl.timeFormatting - 데이터 변환 실패ㅠㅠ");
 			e.printStackTrace();
 		}
 		return restaurantList;
@@ -307,7 +303,6 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-		System.out.println("resServiceImp.calResEndTime - resStartTime : "+resStartTime);
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
 		int rt_term = restaurant.getRtTerm();
 
@@ -317,10 +312,8 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 			cal.setTime(formatDate);
 			cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
-			System.out.println("resServiceImp.calResEndTime - resEndTime : "+resEndTime);
 			return resEndTime;
 		} catch (ParseException e) {
-			System.out.println("Date 변환 실패");
 			e.printStackTrace();
 		}
 		return resStartTime;

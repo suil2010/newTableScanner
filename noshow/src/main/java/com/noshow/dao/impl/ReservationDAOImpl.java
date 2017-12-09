@@ -22,7 +22,6 @@ public class ReservationDAOImpl implements ReservationDAO{
 	
 	@Override
 	public int insertReservation(Reservation reservation) {
-		System.out.println("resDAOImpl-insertReservation : "+reservation);
 		return session.insert(makeSqlId("insertReservation"), reservation);
 	}
 

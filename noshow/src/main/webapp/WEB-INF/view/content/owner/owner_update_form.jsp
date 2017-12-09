@@ -5,22 +5,14 @@
 	
 	$(document).ready(function() {
 		//date
-		var options = {
-				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
-				twentyFour: true, //Display 24 hour format, defaults to false 
-				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
-				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
-				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
-				hoverState: 'hover-state', //The hover state class to use, for custom CSS 
-				title: 'TabelScanner', //The Wickedpicker's title, 
-				showSeconds: false, //Whether or not to show seconds, 
-				secondsInterval: 1, //Change interval for seconds, defaults to 1  , 
-				minutesInterval: 1, //Change interval for minutes, defaults to 1 
-				beforeShow: null, //A function to be called before the Wickedpicker is shown 
-				show: null, //A function to be called when the Wickedpicker is shown 
-				clearable: false, //Make the picker's input clearable (has clickable "x")  
-			}; 
-		$('.timepicker').wickedpicker(options);
+		$("#rtOpen, #rtClose").timepicker({
+			timeFormat: 'HH:mm',
+			interval: 30,
+			startTime: "12:00",
+			dynamic:false,
+			dropdown:true,
+			scrollbar:true,
+		});	
 		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -82,7 +74,7 @@
 
 <div class="container" style="max-width: 800px; padding-top: 50px;">
 	<form class="form-horizontal" name="form" id="form" method="post" action="${initParam.rootPath }/update_rt.do" enctype="multipart/form-data" onsubmit="btnCheck()">
-		
+		<input type="hidden" name="businessId" id="businessId" value="<sec:authentication property="principal.memberId" />">
 		
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtNum">사업자번호 :</label>
@@ -109,13 +101,13 @@
 			<label class="col-sm-3 control-label " for="rtField">업종 :</label>
 			<div class="col-sm-9" >
 				<select name="rtField" required class="form-control">
-					<option value=1>한식</option>
-					<option value=2>중식</option>
-					<option value=3>일식</option>
-					<option value=4>분식</option>
-					<option value=5>치킨</option>
-					<option value=6>피자</option>
-					<option value=7>족발</option>
+					<option value="한식">한식</option>
+					<option value="중식">중식</option>
+					<option value="일식">일식</option>
+					<option value="분식">분식</option>
+					<option value="치킨">치킨</option>
+					<option value="피자">피자</option>
+					<option value="족발">족발</option>
 				</select>
 			</div>
 		</div>
@@ -124,13 +116,13 @@
 			<label class="col-sm-3 control-label" for="rtHoliday">휴무일 : </label>
 			<div class="col-sm-9">
 				<select name="rtHoliday" required class="form-control">
-					<option value=1>일</option>
-					<option value=2>월</option>
-					<option value=3>화</option>
-					<option value=4>수</option>
-					<option value=5>목</option>
-					<option value=6>금</option>
-					<option value=7>토</option>
+					<option value='일요일'>일요일</option>
+					<option value='월요일'>월요일</option>
+					<option value='화요일'>화요일</option>
+					<option value='수요일'>수요일</option>
+					<option value='목요일'>목요일</option>
+					<option value='금요일'>금요일</option>
+					<option value='토요일'>토요일</option>
 				</select>
 			</div>
 		</div>
@@ -138,14 +130,14 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
 			<div class="col-sm-9">
-				<input type="text" name="rtOpen" value="${requestScope.rt.rtOpen }"id="rtOpen" class="form-control timepicker" required>
+				<input name="rtOpen" value="${requestScope.rt.rtOpen }"id="rtOpen" class="form-control timepicker" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtClose" value="${requestScope.rt.rtClose }" id="rtClose" class="form-control timepicker" required>
+				<input name="rtClose" value="${requestScope.rt.rtClose }" id="rtClose" class="form-control timepicker" required>
 			</div>
 		</div>
 		
@@ -173,7 +165,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtCapaity">수용가능 인원 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtCapaity" value="${requestScope.rt.rtCapacity }" id="rtCapaity" class="form-control" required>
+				<input type="number" name="rtCapacity" value="${requestScope.rt.rtCapacity }" id="rtCapacity" class="form-control" required>
 			</div>
 		</div>
 

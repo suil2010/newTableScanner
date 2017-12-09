@@ -76,7 +76,7 @@
 
 			<!-- 비회원 -->
 			<sec:authorize access="!isAuthenticated()">
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
 			</sec:authorize>
 

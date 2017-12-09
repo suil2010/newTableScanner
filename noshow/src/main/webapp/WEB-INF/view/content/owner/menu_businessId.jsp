@@ -19,9 +19,7 @@
 				}
 			});
 		});
-		
-		
-        $("#divname").hide(); 
+
         $("#divnamebtn").click(function() {
             $("#divname").toggle(); //천천히 보이기
         });
@@ -30,7 +28,7 @@
 
 
 <button id="divnamebtn">메뉴추가하기</button>
-<div id="divname">
+<div id="divname" hidden="">
 	<h6>메뉴추가</h6>
 	<form method="post" action="${initParam.rootPath}/join_menu.do" enctype="multipart/form-data">
 		<input type="hidden" name="menuNum" value="1" />
@@ -56,6 +54,7 @@
 				<td>메뉴 설명</td>
 				<td>메뉴가격</td>
 				<td>삭제</td>
+				<td>수정</td>
 			</tr>
 		</thead>
 		<tbody id="tbody">
@@ -65,8 +64,13 @@
 					<td>${item.menuName}</td>
 					<td>${item.menuComment}</td>
 					<td>${item.menuPrice}</td>
+					<td><button class="deleteMenu" value="${item.menuNum}">삭제</button></td>
 					<td>
-						<button class="deleteMenu" name="deleteMenu" value="${item.menuNum}">삭제</button>
+						<form action="${initParam.rootPath }/getMenuByNum.do" method="post" class="menusubmit">
+							<input type="hidden" value="${item.menuNum}" name="menuNum">
+							<button type="submit" class="menuNum">수정</button>
+						<sec:csrfInput />
+						</form>
 					</td>
 				</tr>
 			</c:forEach>

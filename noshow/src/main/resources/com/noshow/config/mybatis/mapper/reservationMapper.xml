@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="noshow.config.mybatis.mapper.reservationMapper">
+<mapper namespace="com.noshow.config.mybatis.mapper.reservationMapper">
 
 	<sql id="select-reservation">
 		SELECT res_num,
@@ -185,6 +185,14 @@
 		AND		o.table_seq = t.table_seq
 		AND		r.member_id = #{value}
 		ORDER BY	r.res_num DESC
+	</select>
+	
+	<select id="selectReservationByResNum" parameterType="_int" resultMap="reservation-join-resultmap">
+		<include refid="select-reservation-join-restaurant"/>
+		WHERE	r.business_id = m.business_id
+		AND		r.res_num = o.res_num
+		AND		o.table_seq = t.table_seq
+		AND		r.res_num = #{value}
 	</select>
 
 </mapper>

@@ -31,7 +31,7 @@
 		$.ajax({
 			"url":"/noshow/reSearchTable.do",
 			"type":"get",
-			"data":{"resDate":$("#resDate").val(),"resStartTIme":$("#resStartTime").val(),"businessId":"${requestScope.restaurant.businessId }"},
+			"data":{"resDate":$("#resDate").val(),"resStartTime":$("#resStartTime").val(),"businessId":"${requestScope.restaurant.businessId }"},
 			"dataType":"json",
 			"beforeSend":function(){
 				var txt = "시간 정해주세요 정하라고!";
@@ -193,7 +193,10 @@
 +
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="home">1</div>
-				<div role="tabpanel" class="tab-pane" id="profile">2</div>
+				<!-- 2017.12.08 - 현준_ 리뷰 TEST -->
+				<div role="tabpanel" class="tab-pane" id="profile">
+					
+				</div>
 				<div role="tabpanel" class="tab-pane" id="messages">3</div>
 				<div role="tabpanel" class="tab-pane" id="settings">
 					<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
@@ -211,7 +214,7 @@
 		</div>
 		<div id="orderDiv">
 			<c:choose>
-				<c:when test="${requestScope.bookmarkCheck == 1 }">
+				<c:when test="${requestScope.restaurant.bookmarkCheck == 1 }">
 					<button id="deleteBookmarkBtn" class="btn btn-default btn-sm" name="deleteBookmartBtn">
 					<span class="glyphicon glyphicon-heart"></span>
 						즐겨찾기 삭제
@@ -255,7 +258,7 @@
 								<input class="form-control timepicker" name="resStartTime" id="resStartTime" placeholder="몇시에 오실건가요?" required>
 							</c:when>
 							<c:otherwise>
-								<input class="form-control timepicker" name="resStartTime" id="resStartTime" value="${requestScope.resTime }" placeholder="몇시에 오실건가요?" required>
+								<input class="form-control timepicker" name="resStartTime" id="resStartTime" value="${requestScope.resTime }" required>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -266,7 +269,7 @@
 								<input type="number"  class="form-control" name="resPeople" placeholder="몇명이오는지알려줭" min="1" required>
 							</c:when>
 							<c:otherwise>
-								<input type="number" value="${requestScope.resPeople }" class="form-control" name="resPeople" placeholder="몇명이오는지알려줭" min="1" required>
+								<input type="number" value="${requestScope.resPeople }" class="form-control" name="resPeople" min="1" required>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -282,11 +285,11 @@
 						<h3>예약 가능한 테이블</h3>
 						<br>
 						<c:choose>
-							<c:when test="${requestScope.tableList == null}">
+							<c:when test="${requestScope.restaurant.usableTable == null}">
 								<h4><b>예약 희망 날짜</b>와 <b>예약 희망 시간</b>을 지정하시면 예약 가능 테이블이 표출됩니다.</h4>
 							</c:when>
 							<c:otherwise>
-								<c:forEach items="${requestScope.tableList }" var="tables" varStatus="cnt">
+								<c:forEach items="${requestScope.restaurant.usableTable }" var="tables" varStatus="cnt">
 									<c:if test="${cnt.index % 2 == 0 }">
 										<br>
 									</c:if>

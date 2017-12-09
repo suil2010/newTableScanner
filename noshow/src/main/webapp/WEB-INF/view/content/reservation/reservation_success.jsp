@@ -29,12 +29,12 @@
 			<tbody>
 				<tr>
 					<td>${requestScope.reservation.resNum }</td>
-					<td>${requestScope.restaurantName }</td>
+					<td>${requestScope.reservation.restaurant.rtName }</td>
 					<td>${requestScope.reservation.memberId }</td>
 					<td>${requestScope.reservation.resStartTime }</td>
 					<td>${requestScope.reservation.resPeople }</td>
 					<td>
-					<c:forEach items="${requestScope.orderTableList }" var="tables" varStatus="cnt">
+					<c:forEach items="${requestScope.reservation.orderTable }" var="tables" varStatus="cnt">
 						${tables.table.tableNum }<br>
 					</c:forEach>
 					</td>

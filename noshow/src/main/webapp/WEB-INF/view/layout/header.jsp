@@ -93,7 +93,7 @@
 					<ul class="submenu" style="list-style: none;">
 						<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 						<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
-						<li><a href="${initParam.rootPath }/owner/join_menu_form.do">메뉴 수정</a></li>
+						<li><a href="${initParam.rootPath }/menu_businessId.do">메뉴 수정</a></li>
 					</ul>
 				</li>
 				<li class="col-sm-2"><a href="#">예약관리</a>

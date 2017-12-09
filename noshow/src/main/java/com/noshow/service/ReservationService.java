@@ -22,6 +22,7 @@ public interface ReservationService {
 
 	List<Reservation> selectReservationByBusinessId(String businessId);
 
+	int calTotalPrice(String businessId, int resPeople);
 
 	/* ##### OrderTableService ##### */
 	int addOrderTable(List<Integer> tableSeq, int resNum);
@@ -36,6 +37,6 @@ public interface ReservationService {
 
 	List<Reservation> selectJoinReservationByMemId(String memberId);
 	
-	List<Table> selectUsableTable(String resDate, String resTime, String businessId);
+	Reservation selectReservationByResNum(int resNum);
 
 }

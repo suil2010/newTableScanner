@@ -72,6 +72,18 @@ public class OwnerMemberController {
 		return new ModelAndView("redirect:/login_form.do");
 	}
 	
+	@RequestMapping("/find_rt_update")
+	public ModelAndView findRestaurantByBusinessIdUpdate() {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
+		
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
+		
+		return new ModelAndView("owner/owner_update_form.tiles","rt",restaurant);
+	}
+	
 	/**
 	 * 2017.12.08 윤동웅
 	 * 음식점 정보 수정
@@ -80,6 +92,7 @@ public class OwnerMemberController {
 	 */
 	@RequestMapping("/update_rt")
 	public String updateRestaurant(@ModelAttribute Restaurant rt) {
+		System.out.println(rt);
 		service.updateRestaurant(rt);
 		return "find_rt_byid.do";
 	}
@@ -101,9 +114,9 @@ public class OwnerMemberController {
 		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
 	}
 	
-
 	
-
+	
+	
 
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {

@@ -17,5 +17,5 @@
 1인당 취소금액 : ${requestScope.rt.rtDeposit } <br>
 <sec:csrfInput/>
 
-<a href="${initParam.rootPath }/owner_update_form.do">수정하기</a>
+<a href="${initParam.rootPath }/find_rt_update.do">수정하기</a>
 </div>

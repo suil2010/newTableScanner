@@ -55,5 +55,10 @@ public class ReservationDAOImpl implements ReservationDAO{
 	public List<Reservation> selectJoinReservationByMemId(String memberId) {
 		return session.selectList(makeSqlId("selectJoinReservationByMemId"), memberId);
 	}
+
+	@Override
+	public Reservation selectReservationByResNum(int resNum) {
+		return session.selectOne(makeSqlId("selectReservationByResNum"), resNum);
+	}
 	
 }

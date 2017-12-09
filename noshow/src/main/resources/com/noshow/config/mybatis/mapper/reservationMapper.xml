@@ -186,6 +186,14 @@
 		AND		r.member_id = #{value}
 		ORDER BY	r.res_num DESC
 	</select>
+	
+	<select id="selectReservationByResNum" parameterType="_int" resultMap="reservation-join-resultmap">
+		<include refid="select-reservation-join-restaurant"/>
+		WHERE	r.business_id = m.business_id
+		AND		r.res_num = o.res_num
+		AND		o.table_seq = t.table_seq
+		AND		r.res_num = #{value}
+	</select>
 
 </mapper>
 

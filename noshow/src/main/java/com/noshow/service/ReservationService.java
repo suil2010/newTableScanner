@@ -37,6 +37,6 @@ public interface ReservationService {
 
 	List<Reservation> selectJoinReservationByMemId(String memberId);
 	
-	List<Table> selectUsableTable(String resDate, String resTime, String businessId);
+	Reservation selectReservationByResNum(int resNum);
 
 }

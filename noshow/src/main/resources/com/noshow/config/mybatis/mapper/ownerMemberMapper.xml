@@ -58,19 +58,20 @@
 	
 	<update id="updateRestaurant" parameterType="restaurant">
 		update restaurant
-		set
-			rt_num = #{rtNum},
-			rt_name = #{rtName},
-			rt_tel = #{rtTel},
-			rt_field = #{rtField},
-			rt_holiday = #{rtHoliday},
-			rt_open = #{rtOpen},
-			rt_close = #{rtClose},
-			rt_term = #{rtTerm},
-			rt_picture = #{rtPicture},
-			rt_address = #{rtAddress},
-			rt_capacity = #{rtCapacity},
-			rt_deposit = #{rtDeposit}
+		<set>
+			<if test="rtNum != null"> rt_num = #{rtNum}, </if>
+			<if test="rtName != null"> rt_name = #{rtName}, </if>
+			<if test="rtTel != null"> rt_tel = #{rtTel}, </if>
+			<if test="rtField != null"> rt_field = #{rtField}, </if>
+			<if test="rtHoliday != null"> rt_holiday = #{rtHoliday}, </if>
+			<if test="rtOpen != null"> rt_open = #{rtOpen}, </if>
+			<if test="rtClose != null"> rt_close = #{rtClose}, </if>
+			<if test="rtTerm != null"> rt_term = #{rtTerm}, </if>
+			<if test="rtPicture != null"> rt_picture = #{rtPicture}, </if>
+			<if test="rtAddress != null"> rt_address = #{rtAddress}, </if>														
+			<if test="rtCapacity != null"> rt_capacity = #{rtCapacity}, </if>
+			<if test="rtDeposit != null"> rt_deposit = #{rtDeposit} </if>	
+		</set>
 		where business_id = #{businessId}
 	</update>
 	

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.reviewMapper">
+
+	<!-- Review -->
+	<sql id="review-column-sql">
+		review_num, review_text, review_time, review_img, review_grade, member_id, business_id, res_num
+	</sql>
+	
+	<sql id="review-join-sql">
+		SELECT	v.review_num,
+				v.review_text,
+				v.review_time,
+				v.review_img,
+				v.review_grade,
+				v.member_id,
+				v.business_id,
+				v.res_num,
+				m.member_name,
+				m.member_gender,
+				m.member_birthday,
+				o.rt_name,
+				r.res_num
+		FROM	review v, member m, restaurant o, reservation r			
+	</sql>
+	<resultMap type="review" id="review-resultmap">
+		<id column="review_num" property="reviewNum"/>
+		<result column="review_text" property="reviewText"/>
+		<result column="review_time" property="reviewTime"/>
+		<result column="review_img" property="reviewImageName"/>
+		<result column="member_id" property="memberId"/>
+		<result column="business_id" property="businessId"/>
+		<result column="res_num" property="resNum"/>
+	</resultMap>
+	
+	<resultMap type="review" id="review-join-resultmap" extends="review-resultmap">
+		<association property="member" column="member_id" javaType="Member" select="selectMember"/>
+		<association property="restaurant" column="business_id" javaType="Restaurant" select="selectRestaurant"/>
+		<association property="reservation" column="res_num" javaType="Reservation" select="seletReservation"/>
+	</resultMap>
+	
+	<resultMap type="hashmap" id="reviewRank">
+		<result column="AVG(review_grade)" property="gradeAvg"/>
+		<association property="restaurant" column="business_id" javaType="Restaurant" select="selectRestaurant"/>
+	</resultMap>
+	
+	<!-- Join Select -->
+	
+	<!-- join_member -->
+	<select id="selectMember" resultType="Member">
+		SELECT	MEMBER_ID, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_GENDER, MEMBER_TEL, MEMBER_BIRTHDAY, MEMBER_EMAIL
+		FROM	member
+		WHERE	member_id = #{member_id}
+	</select>
+	
+	<!-- join_restaurant -->
+	<select id="selectRestaurant" resultType="Restaurant">
+		SELECT	BUSINESS_ID, RT_NUM, RT_NAME, RT_TEL, RT_FIELD, RT_HOLIDAY, RT_OPEN, RT_CLOSE,
+				RT_TERM, RT_PICTURE, RT_ADDRESS,
+				RT_CAPACITY, RT_DEPOSIT
+		FROM	restaurant
+		WHERE	business_id = #{business_id}
+	</select>
+		
+	<!-- Join_reservation  -->
+	<select id="seletReservation" resultType="Reservation">
+			SELECT	res_num,
+					res_date,
+					res_people,
+					res_start_time,
+					res_end_time,
+					res_paid_time,
+					res_pay_statement,
+					res_price,
+					member_id,
+					business_id
+			FROM	reservation
+			WHERE	res_num = #{res_num}
+	</select>
+	
+	
+	<!-- INSERT -->
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO REVIEW(
+		<include refid="review-column-sql"/>)
+		VALUES (
+				review_num_seq.NEXTVAL,
+				#{reviewText},
+				SYSDATE,
+				#{reviewImageName},
+				#{reviewGrade},
+				#{memberId},
+				#{businessId},
+				#{resNum}
+		)
+		<selectKey keyProperty="reviewNum" order="AFTER" resultType="_int">
+			SELECT review_num_seq.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<update id="updateReview" parameterType="review">
+		UPDATE	review
+		SET		review_text = #{reviewText},
+				review_grade = #{reviewGrade},
+				review_img = #{reviewImageName},
+				review_time = SYSDATE,
+		WHERE	review_num = #{reviewNum}
+	</update>
+	
+	<delete id="deleteReviewByReviewNum" parameterType="_int">
+		DELETE
+		FROM	review
+		WHERE	review_num = #{value}
+	</delete>
+	
+	<select id="selectReviewByMemberId" parameterType="string" resultMap="review-join-resultmap">
+		SELECT	
+		<include refid="review-column-sql"/>
+		FROM	review
+		WHERE	member_id = #{value}
+	</select>
+	
+	<select id="selectReviewByBusinessId" parameterType="string" resultMap="review-join-resultmap">
+		SELECT
+		<include refid="review-column-sql"/>
+		FROM	review
+		WHERE	business_id = #{businessId}
+	</select>
+	
+	<select id="selectReviewForRank" resultMap="reviewRank">
+		SELECT	AVG(review_grade), business_id 
+		FROM	review
+		GROUP BY	business_id
+		ORDER BY	AVG(review_grade) DESC
+	</select>
+	
+</mapper>

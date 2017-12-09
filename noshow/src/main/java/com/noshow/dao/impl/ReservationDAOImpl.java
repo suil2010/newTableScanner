@@ -17,12 +17,11 @@ public class ReservationDAOImpl implements ReservationDAO{
 	private SqlSessionTemplate session;
 	
 	private String makeSqlId(String id) {
-		return "noshow.config.mybatis.mapper.reservationMapper." + id;
+		return "com.noshow.config.mybatis.mapper.reservationMapper." + id;
 	}
 	
 	@Override
 	public int insertReservation(Reservation reservation) {
-		System.out.println("resDAOImpl-insertReservation : "+reservation);
 		return session.insert(makeSqlId("insertReservation"), reservation);
 	}
 
@@ -54,6 +53,11 @@ public class ReservationDAOImpl implements ReservationDAO{
 	@Override
 	public List<Reservation> selectJoinReservationByMemId(String memberId) {
 		return session.selectList(makeSqlId("selectJoinReservationByMemId"), memberId);
+	}
+
+	@Override
+	public Reservation selectReservationByResNum(int resNum) {
+		return session.selectOne(makeSqlId("selectReservationByResNum"), resNum);
 	}
 	
 }

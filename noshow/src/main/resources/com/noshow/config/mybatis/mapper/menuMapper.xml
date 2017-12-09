@@ -56,20 +56,21 @@
 	<insert id="insertMenu" parameterType="Menu">
 		insert into menu(menu_num, menu_name, menu_comment, menu_price,
 		menu_picture<!-- , classification_num -->, business_id)
-		values(#{menuNum}, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
+		values(menu_num_seq.NEXTVAL, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
 		<!-- , #{classificationNum} -->, #{businessId})
 	</insert>
 
 	<!-- 메뉴 수정 -->
 	<update id="updateMenu" parameterType="com.noshow.vo.Menu">
 		update menu
-		set menu_name = #{menuName},
-		menu_comment = #{menuComment},
-		menu_price = #{menuPrice},
-		menu_picture = #{menuPicture},
-		
+		<set>
+			<if test="menuName != null"> menu_name = #{menuName}, </if>
+			<if test="menuComment != null"> menu_comment = #{menuComment}, </if>
+			<if test="menuPrice != null"> menu_price = #{menuPrice}, </if>
+			<if test="menuPicture != null"> menu_picture = #{menuPicture}, </if>
+			<if test="businessId != null"> business_id = #{businessId}, </if>								
+		</set>						
 <!-- 		classification_num = #{classificationNum}, -->
-		business_id = #{businessId}
 		where menu_num = #{menuNum}
 	</update>
 

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -24,6 +25,7 @@
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
+				alert("${requestScope.reservation.tableList}");
 				$(".submit").submit();
 			} else {
 				var msg = '결제에 실패하였습니다.';
@@ -34,12 +36,14 @@
 	});
 </script>
 
-<form action="${initParam.rootPath }/noshow/addReservation.do" method="post" class="submit">
+<form action="${initParam.rootPath }/addReservation.do" method="post" class="submit">
 	<input type="hidden" name="resDate" value="${requestScope.reservation.resDate}" >
 	<input type="hidden" name="resPeople" value="${requestScope.reservation.resPeople}" >
 	<input type="hidden" name="resStartTime" value="${requestScope.reservation.resStartTime}" >
 	<input type="hidden" name="resPayStatement" value="${requestScope.reservation.resPayStatement}" >
 	<input type="hidden" name="businessId" value="${requestScope.reservation.businessId}" >
-	<input type="hidden" name="tableList" value="${requestScope.reservation.tableList}" >	 
+	<c:forEach items="${requestScope.reservation.tableList}" var="table">
+		<input type="hidden" name="tableList" value="${table}">	 
+	</c:forEach>
 	<sec:csrfInput />
 </form>

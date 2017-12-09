@@ -41,34 +41,27 @@ public class ReservationServiceImpl implements ReservationService {
 	public Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq) {
 
 		// 사업주가 설정한 1인당 예약금을 예약 인원에 맞게 초기화
-		int resNum = 0;
 		int resPrice = calTotalPrice(businessId, resPeople);
 		resStartTime = calStartTime(resDate, resStartTime);
 		String resEndTime = calResEndTime(businessId, resStartTime);
 		Date resPaidTime = new Date();
-		for(int table : tableSeq ) {
-			System.out.println("사용자가 고른 테이블 : "+table);
-		}
 	
-		Reservation reservation = new Reservation(resNum, resDate, resPeople, resStartTime, resEndTime, resPaidTime,
+		Reservation reservation = new Reservation(resDate, resPeople, resStartTime, resEndTime, resPaidTime,
 				resPayStatement, resPrice, memberId, businessId);
-		System.out.println("예약 insert 전 seq값 : "+reservation.getResNum());
 		int result = dao.insertReservation(reservation);
-		System.out.println("예약 insert 후 seq값 : " + reservation.getResNum());
-		System.out.println(result);
 		
 //		 = selectReservationByReservationInfo(memberId, businessId, resStartTime);
-		resNum = reservation.getResNum();
+		int resNum = reservation.getResNum();
 		
 		/* 예약테이블 추가를 위한 부분 */
 		result = result + addOrderTable(tableSeq, resNum);
-		
+		List<OrderTable> orderTable = orderTableDao.selectOrderTableByResNum(resNum);
+		reservation.setOrderTable(orderTable);
+		reservation.setRestaurant(selectRestaurantByBusinessId(businessId));
 		// 검증
 		if (result ==2) {
-			System.out.println("insert 성공");
 			return reservation;
 		} else {
-			System.out.println("insert 실패!!");
 			return reservation;
 		}
 		
@@ -121,7 +114,6 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-		System.out.println("resServiceImp.calResEndTime - resStartTime : "+resStartTime);
 		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
 		int rt_term = restaurant.getRtTerm();
 
@@ -131,10 +123,8 @@ public class ReservationServiceImpl implements ReservationService {
 			cal.setTime(formatDate);
 			cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
-			System.out.println("resServiceImp.calResEndTime - resEndTime : "+resEndTime);
 			return resEndTime;
 		} catch (ParseException e) {
-			System.out.println("Date 변환 실패");
 			e.printStackTrace();
 		}
 		return resStartTime;
@@ -147,8 +137,8 @@ public class ReservationServiceImpl implements ReservationService {
 	 * @param resPeople
 	 * @return
 	 */
-	private int calTotalPrice(String businessId, int resPeople) {
-		System.out.println(businessId);
+	@Override
+	public int calTotalPrice(String businessId, int resPeople) {
 		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
 		return restaurant.getRtDeposit() * resPeople;
 	}
@@ -156,19 +146,13 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	/* OrderTableService */
 	@Override
+	@Transactional
 	public int addOrderTable(List<Integer> tableSeq, int resNum) {
 		int result = 0;
 		
-		System.out.println("ResServiceImpl-addOrderTable-resNum : " + resNum);
 		for(int tableNum : tableSeq) {
 			OrderTable orderTable = new OrderTable(tableNum, resNum);
 			result = orderTableDao.insertOrderTable(orderTable);
-			System.out.println("addOrderTable - result"+result);
-			if (result == 1) {
-				System.out.println("예약 번호 : "+resNum+" - 테이블 번호 : "+tableNum+"insert 성공");
-			} else {
-				System.out.println("예약 번호 : "+resNum+" - 테이블 번호 : "+tableNum+"insert 실패!!");
-			}
 		}
 		return result;
 	}
@@ -197,24 +181,10 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Reservation> selectJoinReservationByMemId(String memberId) {
 		return dao.selectJoinReservationByMemId(memberId);
 	}
-	
-	/* 사용가능한 테이블만 뽑아오기 위한 로직 */
-	@Override
-	public List<Table> selectUsableTable(String resDate, String resTime, String businessId) {
 
-		String resStartTime = calStartTime(resDate, resTime);
-		String resEndTime = calResEndTime(businessId, resStartTime);
-		Map<String, String> tableMap = new HashMap<>();
-		tableMap.put("resStartTime", resStartTime);
-		tableMap.put("resEndTime", resEndTime);
-		System.out.println("resEndTime"+resEndTime);
-		tableMap.put("businessId", businessId);
-		List<Table> tableList = restaurantDao.selectUsableTable(tableMap);
-		
-		for(Table t : tableList) {
-			System.out.println("ReservationServiceImpl.selectUsableTable - "+t);
-		}
-		return tableList;
+	@Override
+	public Reservation selectReservationByResNum(int resNum) {
+		return dao.selectReservationByResNum(resNum);
 	}
 
 }

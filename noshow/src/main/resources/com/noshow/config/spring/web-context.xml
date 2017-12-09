@@ -18,6 +18,9 @@
 	<mvc:view-controller path="/join_member_form.do" view-name="common/join_member_form.tiles"/>
 	<mvc:view-controller path="/find_id_form.do" view-name="common/find_id_form.tiles"/>
 	<mvc:view-controller path="/find_password_form.do" view-name="common/findPassword.tiles"/>
+	<mvc:view-controller path="/board_list.do" view-name="common/board_list.tiles"/>
+	<mvc:view-controller path="/board_write.do" view-name="common/board_write.tiles"/>
+	
 	
 	<!-- 일반회원 -->
 	<mvc:view-controller path="/member/regist_rt_form.do" view-name="member/regist_rt_form.tiles"/>
@@ -30,9 +33,13 @@
 	<mvc:view-controller path="/restaurant_Sales.do" view-name="owner/restaurant_Sales.tiles"/>
 	<!-- <mvc:view-controller path="/restaurant_list.do" view-name="reservation/restaurant_list.tiles"/> -->
 	<mvc:view-controller path="/owner/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
-	
+
 	<!-- 2017.12.08 윤동웅 -->
 	<mvc:view-controller path="/owner/ownerMypage.do" view-name="owner/ownerMypage.tiles"/>	
+	<mvc:view-controller path="/owner/join_menu_form.do" view-name="owner/join_menu_form.tiles"/>	
+	<mvc:view-controller path="/owner/menu_update.do" view-name="owner/menu_update.tiles"/>	
+	<mvc:view-controller path="/owner_update_form.do" view-name="owner/owner_update_form.tiles"/>
+
 	
 	
 	<!-- 일반회원, 사업자회원 -->

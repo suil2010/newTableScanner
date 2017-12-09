@@ -51,4 +51,6 @@ public interface ReservationDAO {
 	Reservation selectReservationByReservationInfo(Map<String, String> resInfoMap);
 
 	List<Reservation> selectJoinReservationByMemId(String memberId);
+	
+	Reservation selectReservationByResNum(int resNum);
 }

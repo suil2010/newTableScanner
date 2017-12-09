@@ -54,10 +54,9 @@
 
 
 					<div style="border: 1px solid #000; cursor: pointer; height: 100%;">
-						<c:set var="bookmarkCheck" value="${restaurant.businessId }bookmarkCheck"></c:set>
 						<span><b>${restaurant.rtName }</b></span>
 						<c:choose>
-							<c:when test="${result[cnt.index] == 1}">
+							<c:when test="${restaurant.bookmarkCheck == 1}">
 								<span style="color: red; float: right; font-size: 30px">♥ </span>
 								<br>
 							</c:when>

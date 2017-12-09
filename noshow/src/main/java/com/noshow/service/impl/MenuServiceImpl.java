@@ -29,5 +29,15 @@ public class MenuServiceImpl implements MenuService{
 	public List<Menu> getMenuBybusinessId(String businessId) {
 		return dao.selectMenuBybusinessId(businessId);
 	}
+
+	@Override
+	public void deleteMenu(int menuNum) {
+		dao.deleteMenu(menuNum);
+	}
+
+	@Override
+	public void updateMenu(Menu menu) {
+		dao.updateMenu(menu);
+	}
 	
 }

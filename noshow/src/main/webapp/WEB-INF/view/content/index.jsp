@@ -207,7 +207,7 @@
 								<div class="input-group col-sm-4 col-xs-12 ">
 									<input type="text" class="form-control gps" placeholder="위치" name="resPlace" required>
 								</div>
-								<div class="input-group col-sm-3 col-xs-12">
+								<div class="input-group col-sm-4 col-xs-12">
 									<input type="text" class="form-control " placeholder="이름" name="resName">
 								</div>
 

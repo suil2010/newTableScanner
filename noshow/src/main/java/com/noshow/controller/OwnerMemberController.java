@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -107,7 +109,7 @@ public class OwnerMemberController {
 		Authentication authentication = context.getAuthentication();
 		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId ,businessId);
 		
 		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
 	}
@@ -180,18 +182,18 @@ public class OwnerMemberController {
 	
 	@RequestMapping("/restaurantList")
 	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
 		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String memberId = member.getMemberId();
 		List<Table> allTable = selectTable(businessId);
-		for (Table t : allTable) {
-			System.out.println("restaurantList.allTable : " + t);
-		}
-		System.out.println("resListController - resTime : " + resTime);
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
-		System.out.println("OwnerMemberController.restaurantList - restaurantName : " + restaurant);
+		Restaurant restaurant = service.selectRestaurantByBusinessIdResInfo(resDate,resTime,memberId,businessId);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/tableSearchController.do");
+		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("allTable", allTable);
 		mav.addObject("resDate", resDate);
 		mav.addObject("resTime", resTime);
@@ -205,17 +207,18 @@ public class OwnerMemberController {
 	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
 	@RequestMapping("/restaurantListByName")
 	public ModelAndView restaurantListByName(String businessId) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String memberId = member.getMemberId();
 		List<Table> allTable = selectTable(businessId);
-		for (Table t : allTable) {
-			System.out.println("restaurantListByName.allTable : " + t);
-		}
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
-		System.out.println("OwnerMemberController.restaurantListByName - restaurantName : " + restaurant);
+		
+		Restaurant restaurant = service.selectRestaurantByBusinessId(memberId, businessId);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/finalResInfo.do");
+		mav.setViewName("reservation/reservation_form.tiles");
 		mav.addObject("allTable", allTable);
 		mav.addObject("restaurant", restaurant);
-		mav.addObject("businessId", businessId);
 		
 		return mav;
 	}
@@ -223,18 +226,19 @@ public class OwnerMemberController {
 	/* 예약정보를 받아서 처리하는 controller */
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
-		List<Restaurant> restaurantList = service.selectRestaurantBySearch(resPlace, resDate, resTime, resPeople);
-		
-		System.out.println("searchResController - resDate : " + resDate);
-		System.out.println("searchResController - resTime : " + resTime);
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String memberId = member.getMemberId();
+		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
+
 		//검증
 		if (restaurantList.isEmpty()) {
-			System.out.println("해당 조건에 맞는 음식점이 없습니다.");
 			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
 		} else {
-			System.out.println("조건에 맞는 음식점 있다요~");
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/checkBookmark.do");
+			mav.setViewName("reservation/restaurant_list.tiles");
 			mav.addObject("restaurantList", restaurantList);
 			mav.addObject("resPeople", resPeople);
 			mav.addObject("resDate", resDate);
@@ -284,17 +288,28 @@ public class OwnerMemberController {
 	
 	@RequestMapping("/searchRestaurantByName")
 	public ModelAndView searchRestaurantByName(String resPlace, String resName) {
-		System.out.println("OwnerMemberController.searchRestaurantByName - resPlace : "+resPlace );
-		System.out.println("OwnerMemberController.searchRestaurantByName - resName : "+resName );
-		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(resPlace, resName);
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String memberId = member.getMemberId();
+		
+		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(memberId, resPlace, resName);
 		if (restaurantList.isEmpty()) {
-			System.out.println("해당하는 음식점이 없습니다.");
-			return new ModelAndView("/checkBookmark.do");
+			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
 		} else {
-			System.out.println("검색조건에 맞는 음식점이 있다요오옹");
-			return new ModelAndView("/checkBookmark.do","restaurantList", restaurantList);
+			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
 		}
 		
+	}
+	
+	/* 2017.12.05 23:18-현준_ajax TEST Controller */
+	/* 2017.12.09 02:38 정리 완료 */
+	@RequestMapping("/reSearchTable")
+	@ResponseBody
+	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
+		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
 	
 }

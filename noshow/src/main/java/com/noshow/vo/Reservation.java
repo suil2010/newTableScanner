@@ -26,37 +26,12 @@ public class Reservation implements Serializable{
 	private List<OrderTable> orderTable;
 	private Restaurant restaurant;
 	private List<Integer> tableList;
-	
-	public List<OrderTable> getOrderTable() {
-		return orderTable;
-	}
-	
-	public void setOrderTable(List<OrderTable> orderTable) {
-		this.orderTable = orderTable;
-	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
-	public Member getMember() {
-		return member;
-	}
-
-	public void setMember(Member member) {
-		this.member = member;
-	}
 
 	public Reservation() {
 	}
 
-	public Reservation(int resNum, String resDate, int resPeople, String resStartTime, String resEndTime, Date resPaidTime, String resPayStatement,
+	public Reservation(String resDate, int resPeople, String resStartTime, String resEndTime, Date resPaidTime, String resPayStatement,
 			int resPrice, String memberId, String businessId) {
-		this.resNum = resNum;
 		this.resDate = resDate;
 		this.resPeople = resPeople;
 		this.resStartTime = resStartTime;
@@ -93,14 +68,6 @@ public class Reservation implements Serializable{
 		this.resPrice = resPrice;
 		this.memberId = memberId;
 		this.businessId = businessId;
-		this.tableList = tableList;
-	}
-
-	public List<Integer> getTableList() {
-		return tableList;
-	}
-
-	public void setTableList(List<Integer> tableList) {
 		this.tableList = tableList;
 	}
 
@@ -184,12 +151,45 @@ public class Reservation implements Serializable{
 		this.businessId = businessId;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public List<OrderTable> getOrderTable() {
+		return orderTable;
+	}
+
+	public void setOrderTable(List<OrderTable> orderTable) {
+		this.orderTable = orderTable;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
+	public List<Integer> getTableList() {
+		return tableList;
+	}
+
+	public void setTableList(List<Integer> tableList) {
+		this.tableList = tableList;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [resNum=" + resNum + ", resDate=" + resDate + ", resPeople=" + resPeople + ", resStartTime="
 				+ resStartTime + ", resEndTime=" + resEndTime + ", resPaidTime=" + resPaidTime + ", resPayStatement="
 				+ resPayStatement + ", resPrice=" + resPrice + ", memberId=" + memberId + ", businessId=" + businessId
-				+ ", member=" + member + "]";
+				+ ", member=" + member + ", orderTable=" + orderTable + ", restaurant=" + restaurant + ", tableList="
+				+ tableList + "]";
 	}
 
 	@Override
@@ -199,6 +199,7 @@ public class Reservation implements Serializable{
 		result = prime * result + ((businessId == null) ? 0 : businessId.hashCode());
 		result = prime * result + ((member == null) ? 0 : member.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
+		result = prime * result + ((orderTable == null) ? 0 : orderTable.hashCode());
 		result = prime * result + ((resDate == null) ? 0 : resDate.hashCode());
 		result = prime * result + ((resEndTime == null) ? 0 : resEndTime.hashCode());
 		result = prime * result + resNum;
@@ -207,6 +208,8 @@ public class Reservation implements Serializable{
 		result = prime * result + resPeople;
 		result = prime * result + resPrice;
 		result = prime * result + ((resStartTime == null) ? 0 : resStartTime.hashCode());
+		result = prime * result + ((restaurant == null) ? 0 : restaurant.hashCode());
+		result = prime * result + ((tableList == null) ? 0 : tableList.hashCode());
 		return result;
 	}
 
@@ -233,6 +236,11 @@ public class Reservation implements Serializable{
 			if (other.memberId != null)
 				return false;
 		} else if (!memberId.equals(other.memberId))
+			return false;
+		if (orderTable == null) {
+			if (other.orderTable != null)
+				return false;
+		} else if (!orderTable.equals(other.orderTable))
 			return false;
 		if (resDate == null) {
 			if (other.resDate != null)
@@ -264,6 +272,16 @@ public class Reservation implements Serializable{
 			if (other.resStartTime != null)
 				return false;
 		} else if (!resStartTime.equals(other.resStartTime))
+			return false;
+		if (restaurant == null) {
+			if (other.restaurant != null)
+				return false;
+		} else if (!restaurant.equals(other.restaurant))
+			return false;
+		if (tableList == null) {
+			if (other.tableList != null)
+				return false;
+		} else if (!tableList.equals(other.tableList))
 			return false;
 		return true;
 	}

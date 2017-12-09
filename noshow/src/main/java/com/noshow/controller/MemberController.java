@@ -1,6 +1,7 @@
 package com.noshow.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +34,39 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	
+	// memberInfo 손대지마세요.
+	@RequestMapping("/mypage/member_info")
+	public String memberInfo(ModelMap model) {
+		String url = null;
+		Collection authorizes = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for(Object auth : authorizes) {
+			SimpleGrantedAuthority authority = (SimpleGrantedAuthority)auth;
+			if(authority.getAuthority().equals("ROLE_MEMBER")) {
+				model.addAttribute("tabMenu", "true");
+				url = "tabmenu/mypage/member_info.tiles";
+				break;
+			}
+		}
+		if(url == null) url = "mypage/member_info.tiles";
+		return url;
+	}
+	@RequestMapping("/mypage/update_member_form")
+	public String updateMemberForm(ModelMap model) {
+		String url = null;
+		Collection authorizes = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for(Object auth : authorizes) {
+			SimpleGrantedAuthority authority = (SimpleGrantedAuthority)auth;
+			if(authority.getAuthority().equals("ROLE_MEMBER")) {
+				model.addAttribute("tabMenu", "true");
+				url = "tabmenu/mypage/update_member_form.tiles";
+				break;
+			}
+		}
+		System.out.println(model.get("tabMenu"));
+		if(url == null) url = "mypage/member_info.tiles";
+		return url;
+	}
 	/**
 	 * 2017.
 	 * @param member
@@ -69,8 +104,8 @@ public class MemberController {
 				new UsernamePasswordAuthenticationToken(member, null, authorities);
 
 		context.setAuthentication(newAutentication);
-		
-		return "member/mypage.tiles";
+		model.addAttribute("tabMenu", "true"); 
+		return "tabmenu/mypage/update_member_form.tiles";   
 	}
 	
 	/**

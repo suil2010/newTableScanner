@@ -1,9 +1,8 @@
 package com.noshow.vo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Restaurant implements Serializable{
@@ -33,6 +32,8 @@ public class Restaurant implements Serializable{
 	
 	private Member member; /* 점주 회원 아이디 */
 	private Table table;
+	private int bookmarkCheck; /* 2017.12.08 현준 추가 */
+	private List<Table> usableTable;
 	
 	public Restaurant() {}
 
@@ -56,6 +57,30 @@ public class Restaurant implements Serializable{
 		this.rtDeposit = rtDeposit;
 		this.member = member;
 		this.table = table;
+	}
+	
+	public Restaurant(String businessId, int rtNum, String rtName, String rtTel, String rtField, String rtHoliday,
+			String rtOpen, String rtClose, int rtTerm, MultipartFile rtImg, String rtPicture, String rtAddress,
+			int rtCapacity, int rtDeposit, Member member, Table table, int bookmarkCheck, List<Table> usableTable) {
+		super();
+		this.businessId = businessId;
+		this.rtNum = rtNum;
+		this.rtName = rtName;
+		this.rtTel = rtTel;
+		this.rtField = rtField;
+		this.rtHoliday = rtHoliday;
+		this.rtOpen = rtOpen;
+		this.rtClose = rtClose;
+		this.rtTerm = rtTerm;
+		this.rtImg = rtImg;
+		this.rtPicture = rtPicture;
+		this.rtAddress = rtAddress;
+		this.rtCapacity = rtCapacity;
+		this.rtDeposit = rtDeposit;
+		this.member = member;
+		this.table = table;
+		this.bookmarkCheck = bookmarkCheck;
+		this.usableTable = usableTable;
 	}
 
 	public String getBusinessId() {
@@ -186,19 +211,36 @@ public class Restaurant implements Serializable{
 		this.table = table;
 	}
 
+	public int getBookmarkCheck() {
+		return bookmarkCheck;
+	}
+
+	public void setBookmarkCheck(int bookmarkCheck) {
+		this.bookmarkCheck = bookmarkCheck;
+	}
+
+	public List<Table> getUsableTable() {
+		return usableTable;
+	}
+
+	public void setUsableTable(List<Table> usableTable) {
+		this.usableTable = usableTable;
+	}
+
 	@Override
 	public String toString() {
 		return "Restaurant [businessId=" + businessId + ", rtNum=" + rtNum + ", rtName=" + rtName + ", rtTel=" + rtTel
 				+ ", rtField=" + rtField + ", rtHoliday=" + rtHoliday + ", rtOpen=" + rtOpen + ", rtClose=" + rtClose
 				+ ", rtTerm=" + rtTerm + ", rtImg=" + rtImg + ", rtPicture=" + rtPicture + ", rtAddress=" + rtAddress
 				+ ", rtCapacity=" + rtCapacity + ", rtDeposit=" + rtDeposit + ", member=" + member + ", table=" + table
-				+ "]";
+				+ ", bookmarkCheck=" + bookmarkCheck + ", usableTable=" + usableTable + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + bookmarkCheck;
 		result = prime * result + ((businessId == null) ? 0 : businessId.hashCode());
 		result = prime * result + ((member == null) ? 0 : member.hashCode());
 		result = prime * result + ((rtAddress == null) ? 0 : rtAddress.hashCode());
@@ -215,6 +257,7 @@ public class Restaurant implements Serializable{
 		result = prime * result + ((rtTel == null) ? 0 : rtTel.hashCode());
 		result = prime * result + rtTerm;
 		result = prime * result + ((table == null) ? 0 : table.hashCode());
+		result = prime * result + ((usableTable == null) ? 0 : usableTable.hashCode());
 		return result;
 	}
 
@@ -227,6 +270,8 @@ public class Restaurant implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Restaurant other = (Restaurant) obj;
+		if (bookmarkCheck != other.bookmarkCheck)
+			return false;
 		if (businessId == null) {
 			if (other.businessId != null)
 				return false;
@@ -295,8 +340,12 @@ public class Restaurant implements Serializable{
 				return false;
 		} else if (!table.equals(other.table))
 			return false;
+		if (usableTable == null) {
+			if (other.usableTable != null)
+				return false;
+		} else if (!usableTable.equals(other.usableTable))
+			return false;
 		return true;
 	}
 
-	
 }

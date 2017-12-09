@@ -1,5 +1,8 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,11 +35,15 @@ html,body{
 </head>
 <body>
 	<tiles:insertAttribute name="header" />
-	<div class="container-fluid" style="padding-top: 5px; padding-left: 0; padding-right: 0; min-height: 100%;"> 
+	<div class="container-fluid mainTemplate" style="padding-top: 5px; padding-left: 0; padding-right: 0; min-height: 100%;"> 
   
 		<div class="row" style="margin: 0;">
 			<!-- 내용 -->
 			<section class="col-sm-12" style="padding: 0;">
+			
+				<c:if test="${not empty requestScope.tabMenu }">
+			  		<tiles:insertAttribute name="tab"/> 
+		  		</c:if>
 				<tiles:insertAttribute name="content" />
 			</section>
 		</div>

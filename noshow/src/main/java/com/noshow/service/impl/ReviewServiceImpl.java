@@ -18,38 +18,32 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public int addReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.insertReview(review);
 	}
 
 	@Override
 	public int updateReview(Review review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.updateReview(review);
 	}
 
 	@Override
 	public int deleteReview(int reviewNum) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteReview(reviewNum);
 	}
 
 	@Override
 	public List<Review> selectReviewByMemberId(String memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectReviewByMemberId(memberId);
 	}
 
 	@Override
 	public List<Review> selectReviewByBusinessId(String businessId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectReviewByBusinessId(businessId);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectReviewForRank() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.selectReviewForRank();
 	}
 	
 }

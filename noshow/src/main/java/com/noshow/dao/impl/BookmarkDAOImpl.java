@@ -22,7 +22,6 @@ public class BookmarkDAOImpl implements BookmarkDAO{
 	
 	@Override
 	public int insertBookmark(Bookmark bookmark) {
-		System.out.println("BookmarkDAOImpl.insertBookmark - bookmark : "+bookmark);
 		return session.insert(makeSqlId("insertBookmark"), bookmark);
 	}
 
@@ -43,7 +42,6 @@ public class BookmarkDAOImpl implements BookmarkDAO{
 
 	@Override
 	public int selectCheckBookmark(Bookmark bookmark) {
-		System.out.println("BookmarkDAO.selectCheckBookmark - bookmark : " +bookmark);
 		return session.selectOne(makeSqlId("selectCheckBookmark") , bookmark);
 	}
 

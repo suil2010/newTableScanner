@@ -71,10 +71,7 @@ public class ReservationController {
 		System.out.println("payment호출");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		System.out.println("payment - resDate : "+resDate);
-		for(int t : tableList) {
-			System.out.println("payment-table : " + t);
-		}
+
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member)authentication.getPrincipal();
 		String memberId = member.getMemberId();

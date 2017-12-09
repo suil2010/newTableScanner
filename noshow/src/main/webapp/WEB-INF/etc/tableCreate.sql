@@ -391,17 +391,12 @@ ALTER TABLE ANSWER
 /*시퀀스*/
       drop sequence table_list_seq;
       drop sequence res_num_seq;
-      drop sequence tabel_list_seq;
       drop sequence bookmark_num_seq;
       drop sequence review_num_seq;
       drop sequence menu_num_seq;
       
       create sequence table_list_seq;
       create sequence res_num_seq;
-      create sequence tabel_list_seq;
       create sequence bookmark_num_seq;
       create sequence review_num_seq;
       create sequence menu_num_seq;
-
-      select * from seq;
-      SELECT * FROM dual;

@@ -31,7 +31,7 @@ public class Restaurant implements Serializable{
 	private int rtDeposit; /* 1인 금액 */
 	
 	private Member member; /* 점주 회원 아이디 */
-	private Table table;
+	private List<Table> table;
 	private int bookmarkCheck; /* 2017.12.08 현준 추가 */
 	private List<Table> usableTable;
 	
@@ -39,7 +39,7 @@ public class Restaurant implements Serializable{
 
 	public Restaurant(String businessId, int rtNum, String rtName, String rtTel, String rtField, String rtHoliday,
 			String rtOpen, String rtClose, int rtTerm, MultipartFile rtImg, String rtPicture, String rtAddress,
-			int rtCapacity, int rtDeposit, Member member, Table table) {
+			int rtCapacity, int rtDeposit, Member member, List<Table> table) {
 		super();
 		this.businessId = businessId;
 		this.rtNum = rtNum;
@@ -61,7 +61,7 @@ public class Restaurant implements Serializable{
 	
 	public Restaurant(String businessId, int rtNum, String rtName, String rtTel, String rtField, String rtHoliday,
 			String rtOpen, String rtClose, int rtTerm, MultipartFile rtImg, String rtPicture, String rtAddress,
-			int rtCapacity, int rtDeposit, Member member, Table table, int bookmarkCheck, List<Table> usableTable) {
+			int rtCapacity, int rtDeposit, Member member, List<Table> table, int bookmarkCheck, List<Table> usableTable) {
 		super();
 		this.businessId = businessId;
 		this.rtNum = rtNum;
@@ -203,11 +203,11 @@ public class Restaurant implements Serializable{
 		this.member = member;
 	}
 
-	public Table getTable() {
+	public List<Table> getTable() {
 		return table;
 	}
 
-	public void setTable(Table table) {
+	public void setTable(List<Table> table) {
 		this.table = table;
 	}
 
@@ -347,5 +347,6 @@ public class Restaurant implements Serializable{
 			return false;
 		return true;
 	}
+
 
 }

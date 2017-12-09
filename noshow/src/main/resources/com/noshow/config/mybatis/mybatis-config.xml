@@ -20,6 +20,7 @@
 		<mapper resource="com/noshow/config/mybatis/mapper/boardMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/bookmarkMapper.xml"/>	
 		<mapper resource="com/noshow/config/mybatis/mapper/reviewMapper.xml"/>
+		<mapper resource="com/noshow/config/mybatis/mapper/searchMapper.xml"/>
 	</mappers>
 	
 </configuration>

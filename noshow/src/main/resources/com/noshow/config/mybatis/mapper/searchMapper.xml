@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.searchMapper">
+
+	<sql id="restaurant-column-sql">
+		BUSINESS_ID, RT_NUM, RT_NAME, RT_TEL, RT_FIELD, RT_HOLIDAY,
+		RT_OPEN, RT_CLOSE,
+		RT_TERM, RT_PICTURE, RT_ADDRESS,
+		RT_CAPACITY,
+		RT_DEPOSIT
+	</sql>
+	
+	<resultMap type="Restaurant" id="restaurant-resultmap">
+		<id column="BUSINESS_ID" property="businessId" />
+		<result column="RT_NUM" property="rtNum" />
+		<result column="RT_NAME" property="rtName" />
+		<result column="RT_TEL" property="rtTel" />
+		<result column="RT_FIELD" property="rtField" />
+		<result column="RT_HOLIDAY" property="rtHoliday" />
+		<result column="RT_OPEN" property="rtOpen" />
+		<result column="RT_CLOSE" property="rtClose" />
+		<result column="RT_TERM" property="rtTerm" />
+		<result column="RT_PICTURE" property="rtPicture" />
+		<result column="RT_ADDRESS" property="rtAddress" />
+		<result column="RT_CAPACITY" property="rtCapacity" />
+		<result column="RT_DEPOSIT" property="rtDeposit" />
+	</resultMap>	
+	
+	<resultMap type="table" id="table-resultmap">
+		<id column="table_seq" property="tableSeq" />
+		<result column="table_num" property="tableNum" />
+		<result column="table_people" property="tablePeople" />
+		<result column="x_location" property="xLocation" />
+		<result column="y_location" property="yLocation" />
+		<result column="business_Id" property="businessId" />
+	</resultMap>
+	
+	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
+		select
+		* from table_ WHERE business_id = #{value}
+	</select>
+	
+		<!-- ######### RESTAURANT SELECT ########## -->
+
+	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
+		SELECT
+		<include refid="restaurant-column-sql" />
+		FROM restaurant
+		WHERE business_id = #{value}
+	</select>
+	
+		<!-- TEST_2017.12.04_현준 예약된 테이블 제외한 전체테이블 조회 -->
+	<select id="selectUsableTable" parameterType="map" resultMap="table-resultmap">
+	<![CDATA[
+		SELECT	*
+		FROM	table_ t
+		WHERE	t.business_id = #{businessId}
+		AND		t.table_seq NOT IN 
+				( 
+				SELECT 	t.table_seq
+				FROM	order_table t, reservation r
+				WHERE	r.business_id = #{businessId}
+				AND		r.res_num = t.res_num
+				AND		r.res_start_time <= to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss')
+				AND		r.res_end_time >= to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
+				)
+		ORDER BY t.table_seq
+	]]>
+
+	</select>
+	
+	
+	<!-- TEST_2017.12.04_현준 search 조건으로 식당 list 뽑을 수 있는지? -->
+	<select id="selectRestaurantBySearch" parameterType="map" resultMap="restaurant-resultmap">
+		SELECT
+		<include refid="restaurant-column-sql" />
+		FROM
+		(SELECT
+		<include refid="restaurant-column-sql" />
+		FROM restaurant
+		WHERE rt_holiday != #{rtHoliday}
+		AND rt_address like '%'||#{resPlace}||'%'
+		)
+		WHERE to_date(#{resTime},'hh24:mi')
+		BETWEEN to_date(to_char(rt_open, 'hh24:mi'), 'hh24:mi') AND to_date(to_char(rt_close, 'hh24:mi'), 'hh24:mi')
+	</select>
+	
+	<!-- 지역 + 음식점 이름으로 검색 -->
+	<select id="selectRestaurantByNameSearch" parameterType="map" resultMap="restaurant-resultmap">
+		SELECT
+		<include refid="restaurant-column-sql"/>
+		FROM 	restaurant
+		WHERE	rt_address like '%'||#{resPlace}||'%'
+		AND		rt_name like '%'||#{resName}||'%'
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

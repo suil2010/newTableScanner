@@ -21,7 +21,7 @@
 			return false;
 		}
 		
-		alert($("#resDate").val());
+/* 		alert($("#resDate").val()); */
 		if($("#resStartTime").val() == "") {
 			alert("시간도 지정해주셔야 테이블 검색이 되요~");
 			$("#resStartTime").focus();
@@ -144,25 +144,20 @@
 		// 결제방식이 선택되었는지 체크
 		var payment = document.getElementsByName('resPayStatement');
 		var tableCheck = document.resForm.tableList;
+		var tableList = $("input[name=tableList]");
 		var cnt = 0;
+		alert(tableCheck.length);
 		for (var i = 0; i < payment.length; i++) {
 			if (payment[i].checked == true) {
 
 				// 결제방식 선택 후, 테이블이 선택되었는지 체크
-				for (var j = 0; j < tableCheck.length; j++) {
-					if (tableCheck[j].checked) { // checkbox 체크되어있다면~
-						alert(tableCheck[j].value);
-						cnt++;
-					}
-				}
-				if (cnt == 0) {
+				if(!tableList.is(":checked")){
 					alert('테이블은 최소 하나 이상 선택해주세요!');
 					return false;
 				} else {
 					alert('최종 예약으로 진행합니다.');
 					return true;
 				}
-
 			} else {
 				alert('결제수단을 선택하세요!!');
 				return false;
@@ -190,7 +185,6 @@
 				<li><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">테이블정보</a></li>
 			</ul>
 
-+
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="home">1</div>
 				<!-- 2017.12.08 - 현준_ 리뷰 TEST -->
@@ -200,7 +194,7 @@
 				<div role="tabpanel" class="tab-pane" id="messages">3</div>
 				<div role="tabpanel" class="tab-pane" id="settings">
 					<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
-						<c:forEach items="${requestScope.allTable}" var="alltables">
+						<c:forEach items="${requestScope.restaurant.table}" var="alltables">
 							<div class="draggable" style="top: ${alltables.yLocation}px; left: ${alltables.xLocation}px;">
 								<span>${alltables.tableNum }번 테이블</span>
 								<p>

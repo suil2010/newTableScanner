@@ -97,9 +97,7 @@
 		business_id = #{value}
 	</delete>
 
-
 	<!-- ######### RESTAURANT SELECT ########## -->
-
 	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
 		SELECT
 		<include refid="restaurant-column-sql" />
@@ -113,54 +111,8 @@
 		FROM restaurant
 	</select>
 
-	<!-- TEST_2017.12.04_현준 예약된 테이블 제외한 전체테이블 조회 -->
-	<select id="selectUsableTable" parameterType="map" resultMap="table-resultmap">
-	<![CDATA[
-		SELECT	*
-		FROM	table_ t
-		WHERE	t.business_id = #{businessId}
-		AND		t.table_seq NOT IN 
-				( 
-				SELECT 	t.table_seq
-				FROM	order_table t, reservation r
-				WHERE	r.business_id = #{businessId}
-				AND		r.res_num = t.res_num
-				AND		r.res_start_time <= to_date(#{resEndTime}, 'yyyy/mm/dd hh24:mi:ss')
-				AND		r.res_end_time >= to_date(#{resStartTime}, 'yyyy/mm/dd hh24:mi:ss')
-				)
-		ORDER BY t.table_seq
-	]]>
-
-	</select>
-
-
-	<!-- TEST_2017.12.04_현준 search 조건으로 식당 list 뽑을 수 있는지? -->
-	<select id="selectRestaurantBySearch" parameterType="map" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql" />
-		FROM
-		(SELECT
-		<include refid="restaurant-column-sql" />
-		FROM restaurant
-		WHERE rt_holiday != #{rtHoliday}
-		AND rt_address like '%'||#{resPlace}||'%'
-		)
-		WHERE to_date(#{resTime},'hh24:mi')
-		BETWEEN to_date(to_char(rt_open, 'hh24:mi'), 'hh24:mi') AND to_date(to_char(rt_close, 'hh24:mi'), 'hh24:mi')
-	</select>
-	
-	<!-- 지역 + 음식점 이름으로 검색 -->
-	<select id="selectRestaurantByNameSearch" parameterType="map" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql"/>
-		FROM 	restaurant
-		WHERE	rt_address like '%'||#{resPlace}||'%'
-		AND		rt_name like '%'||#{resName}||'%'
-	</select>
-
 	<select id="selectSales" parameterType="string" resultType="map">
 		select res_date , sum(res_people) from RESERVATION where business_id = #{value} group by res_date
-
 	</select>
 
 </mapper>

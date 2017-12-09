@@ -47,11 +47,6 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 	
 	@Override
-	public int selectRestaurantByRtName(String rtName) {
-		return session.selectOne(makeSqlId("selectRestaurantByRtName"), rtName);
-	}
-	
-	@Override
 	public int insertTable(Table table) {
 		return session.insert(makeSqlId("insertTable"), table);
 	}
@@ -67,27 +62,8 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	}
 
 	@Override
-	public List<Restaurant> selectRestaurantBySearch(Map<String, Object> searchInfo) {
-		return session.selectList(makeSqlId("selectRestaurantBySearch"), searchInfo);
-	}
-
-	@Override
-	public List<Table> selectUsableTable(Map<String, String> tableMap) {
-		return session.selectList(makeSqlId("selectUsableTable"), tableMap);
-	}
-
-	@Override
 	public List<Map<Object,Object>> selectSales(String id) {
 		return session.selectList(makeSqlId("selectSales"), id);
 	}
-
-	@Override
-	public List<Restaurant> selectRestaurantByNameSearch(Map<String, String> searchInfo) {
-		return session.selectList(makeSqlId("selectRestaurantByNameSearch"), searchInfo);
-	}
-
-	
-
-	
 	
 }

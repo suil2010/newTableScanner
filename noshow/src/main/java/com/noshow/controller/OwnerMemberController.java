@@ -109,13 +109,10 @@ public class OwnerMemberController {
 		Authentication authentication = context.getAuthentication();
 		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId ,businessId);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId);
 		
 		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
 	}
-	
-	
-	
 	
 
 	@RequestMapping("/all_restaurant")
@@ -180,73 +177,6 @@ public class OwnerMemberController {
 		return tableList;
 	}
 	
-	@RequestMapping("/restaurantList")
-	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		
-		// 현재 사용자 정보를 받아와서 member 객체 생성
-		Member member = (Member) authentication.getPrincipal();
-		String memberId = member.getMemberId();
-		List<Table> allTable = selectTable(businessId);
-		
-		Restaurant restaurant = service.selectRestaurantByBusinessIdResInfo(resDate,resTime,memberId,businessId);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("reservation/reservation_form.tiles");
-		mav.addObject("allTable", allTable);
-		mav.addObject("resDate", resDate);
-		mav.addObject("resTime", resTime);
-		mav.addObject("resPeople", resPeople);
-		mav.addObject("restaurant", restaurant);
-		mav.addObject("businessId", businessId);
-		
-		return mav;
-	}
-	
-	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
-	@RequestMapping("/restaurantListByName")
-	public ModelAndView restaurantListByName(String businessId) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		// 현재 사용자 정보를 받아와서 member 객체 생성
-		Member member = (Member) authentication.getPrincipal();
-		String memberId = member.getMemberId();
-		List<Table> allTable = selectTable(businessId);
-		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(memberId, businessId);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("reservation/reservation_form.tiles");
-		mav.addObject("allTable", allTable);
-		mav.addObject("restaurant", restaurant);
-		
-		return mav;
-	}
-	
-	/* 예약정보를 받아서 처리하는 controller */
-	@RequestMapping("/searchRestaurant")
-	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		// 현재 사용자 정보를 받아와서 member 객체 생성
-		Member member = (Member) authentication.getPrincipal();
-		String memberId = member.getMemberId();
-		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
-
-		//검증
-		if (restaurantList.isEmpty()) {
-			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
-		} else {
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("reservation/restaurant_list.tiles");
-			mav.addObject("restaurantList", restaurantList);
-			mav.addObject("resPeople", resPeople);
-			mav.addObject("resDate", resDate);
-			mav.addObject("resTime", resTime);
-			return mav;
-		}
-	}
-	
 	@RequestMapping("/selectSales")
 	public ModelAndView selectSales() throws Exception{
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -284,32 +214,6 @@ public class OwnerMemberController {
 		ObjectMapper mapper = new ObjectMapper();
 		String str = mapper.writeValueAsString(list);
 		return new ModelAndView("owner/restaurant_Sales.tiles", "sales", str);
-	}
-	
-	@RequestMapping("/searchRestaurantByName")
-	public ModelAndView searchRestaurantByName(String resPlace, String resName) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		
-		// 현재 사용자 정보를 받아와서 member 객체 생성
-		Member member = (Member) authentication.getPrincipal();
-		String memberId = member.getMemberId();
-		
-		List<Restaurant> restaurantList = service.selectRestaurantByNameSearch(memberId, resPlace, resName);
-		if (restaurantList.isEmpty()) {
-			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
-		} else {
-			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
-		}
-		
-	}
-	
-	/* 2017.12.05 23:18-현준_ajax TEST Controller */
-	/* 2017.12.09 02:38 정리 완료 */
-	@RequestMapping("/reSearchTable")
-	@ResponseBody
-	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
-		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
 	
 }

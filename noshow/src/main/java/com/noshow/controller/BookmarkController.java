@@ -67,6 +67,7 @@ public class BookmarkController {
 		if (myBookmarkList.isEmpty()) {
 			return  new ModelAndView("member/myBookmark.tiles", "emptyBookmark", "등록된 즐겨찾기가 없습니다.");
 		}
+		
 		return new ModelAndView("member/myBookmark.tiles", "myBookmarkList", myBookmarkList);
 	}
 	

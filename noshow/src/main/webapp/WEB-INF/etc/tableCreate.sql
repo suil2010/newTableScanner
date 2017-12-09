@@ -1,8 +1,8 @@
 DROP TABLE AUTHORITY CASCADE CONSTRAINTS; /* 권한 */
 DROP TABLE MEMBER CASCADE CONSTRAINTS; /* 회원 */
 DROP TABLE RESTAURANT CASCADE CONSTRAINTS; /* 음식점 정보 */
+DROP TABLE RT_CODE CASCADE CONSTRAINTS; /* 코드 테이블 */
 DROP TABLE MENU CASCADE CONSTRAINTS; /*메뉴*/
-DROP TABLE CLASSIFICATION CASCADE CONSTRAINTS; /* 분류 */
 DROP TABLE TABLE_ CASCADE CONSTRAINTS; /* 테이블 */
 DROP TABLE ORDER_TABLE CASCADE CONSTRAINTS; /* 테이블주문 */
 DROP TABLE RESERVATION CASCADE CONSTRAINTS; /* 예약 */
@@ -38,19 +38,27 @@ CREATE TABLE MEMBER (
 /* 음식점 정보 */
 CREATE TABLE RESTAURANT (
    BUSINESS_ID VARCHAR2(20) NOT NULL, /* 점주 회원 아이디 */
-   RT_NUM NUMBER Unique, /* 사업자번호 */
+   RT_HOLIDAY NUMBER NOT NULL, /* 휴무일 */
+   RT_FIELD NUMBER NOT NULL, /* 업종 */
+   RT_TERM NUMBER NOT NULL, /* 테이블 이용시간 */
+   RT_NUM NUMBER NOT NULL, /* 사업자번호 */
    RT_NAME VARCHAR(200), /* 음식점명 */
    RT_TEL VARCHAR2(20), /* 음식점전화번호 */
-   RT_FIELD VARCHAR2(30), /* 업종 */
-   RT_HOLIDAY VARCHAR2(10), /* 휴무일 */
    RT_OPEN DATE, /* OPEN 시간 */
    RT_CLOSE DATE, /* CLOSE시간 */
-   RT_TERM NUMBER, /* 테이블 이용시간 */
    RT_PICTURE VARCHAR2(500), /* 저장이름 */
-   RT_ADDRESS VARCHAR2(300), /* 음식점위치 */
+   RT_ADDRESS VARCHAR2(300), /* 장소 */
    RT_CAPACITY NUMBER, /* 수용가능인원 */
    RT_DEPOSIT NUMBER, /* 1인 금액 */
    CONSTRAINT PK_RESTAURANT PRIMARY KEY (BUSINESS_ID)
+);
+
+/* 코드 */
+CREATE TABLE RT_CODE (
+   CODE_NUM NUMBER NOT NULL, /* 코드번호 */
+   CODE_VAL VARCHAR2(30) NOT NULL, /* 코드값 */
+   CODE_PART VARCHAR2(15) NOT NULL, /* 코드분류 */
+   CONSTRAINT PK_RT_CODE PRIMARY KEY (CODE_NUM)
 );
 
 /* 메뉴 */
@@ -60,17 +68,8 @@ CREATE TABLE MENU (
    MENU_COMMENT VARCHAR2(200), /* 메뉴설명 */
    MENU_PRICE NUMBER, /* 메뉴가격 */
    MENU_PICTURE VARCHAR2(500), /* 메뉴사진이름 */
-   CLASSIFICATION_NUM NUMBER, /* 대분류리스트번호 */
    BUSINESS_ID VARCHAR2(20), /* 점주 회원 아이디 */
    CONSTRAINT PK_MENU PRIMARY KEY (MENU_NUM)
-);
-
-/* 대분류 */
-CREATE TABLE CLASSIFICATION (
-   CLASSIFICATION_NUM NUMBER NOT NULL, /* 대분류리스트번호 */
-   BUSINESS_ID VARCHAR2(20), /* 점주 회원 아이디 */
-   CLASSIFICATION_NAME VARCHAR2(15), /* 대분류명 */
-   CONSTRAINT PK_CLASSIFICATION PRIMARY KEY (CLASSIFICATION_NUM)
 );
 
 /* 테이블 */
@@ -97,7 +96,7 @@ CREATE TABLE RESERVATION (
    RES_DATE DATE, /* 예약날짜 */
    RES_PEOPLE NUMBER, /* 인원 */
    RES_START_TIME DATE, /* 예약 원하는시간 */
-   RES_END_TIME DATE,	/* 예약 종료 시간 */
+   RES_END_TIME DATE,   /* 예약 종료 시간 */
    RES_PAID_TIME DATE, /* 예약결제완료한시간 */
    RES_PAY_STATEMENT VARCHAR2(20), /* 결제유무 */
    RES_PRICE NUMBER, /* 예약금액 */
@@ -141,7 +140,7 @@ CREATE TABLE REVIEW (
    REVIEW_TEXT VARCHAR2(1500), /* 내용 */
    REVIEW_TIME DATE, /* 작성시간 */
    REVEIW_IMG VARCHAR2(36), /* 리뷰사진 */
-   REVIEW_GRADE	NUMBER,	/* 리뷰 평점 */
+   REVIEW_GRADE   NUMBER,   /* 리뷰 평점 */
    MEMBER_ID VARCHAR2(20), /* 회원아이디 */
    BUSINESS_ID VARCHAR2(20), /* 점주 회원 아이디 */
    RES_NUM NUMBER, /* 예약리스트번호 */
@@ -205,6 +204,36 @@ ALTER TABLE RESTAURANT
       REFERENCES MEMBER (
          MEMBER_ID
       );
+
+ALTER TABLE RESTAURANT
+   ADD
+      CONSTRAINT FK_RT_CODE_TO_RESTAURANT
+      FOREIGN KEY (
+         RT_HOLIDAY
+      )
+      REFERENCES RT_CODE (
+         CODE_NUM
+      );
+
+ALTER TABLE RESTAURANT
+   ADD
+      CONSTRAINT FK_RT_CODE_TO_RESTAURANT2
+      FOREIGN KEY (
+         RT_FIELD
+      )
+      REFERENCES RT_CODE (
+         CODE_NUM
+      );
+
+ALTER TABLE RESTAURANT
+   ADD
+      CONSTRAINT FK_RT_CODE_TO_RESTAURANT3
+      FOREIGN KEY (
+         RT_TERM
+      )
+      REFERENCES RT_CODE (
+         CODE_NUM
+      );      
       
 /* 메뉴 */      
 ALTER TABLE MENU
@@ -215,16 +244,6 @@ ALTER TABLE MENU
       )
       REFERENCES RESTAURANT (
          BUSINESS_ID
-      );
-
-ALTER TABLE MENU
-   ADD
-      CONSTRAINT FK_CLASSIFICATION_TO_MENU
-      FOREIGN KEY (
-         CLASSIFICATION_NUM
-      )
-      REFERENCES CLASSIFICATION (
-         CLASSIFICATION_NUM
       );
       
 /* 테이블 */
@@ -388,15 +407,42 @@ ALTER TABLE ANSWER
          QUESTION_NUM
       );
       
+/* code 테이블 기본 값 - 무조건 같이 실행!!!!!*/  
+insert into RT_CODE VALUES(1,'일','요일');
+insert into RT_CODE VALUES(2,'월','요일');
+insert into RT_CODE VALUES(3,'화','요일');
+insert into RT_CODE VALUES(4,'수','요일');
+insert into RT_CODE VALUES(5,'목','요일');
+insert into RT_CODE VALUES(6,'금','요일');
+insert into RT_CODE VALUES(7,'토','요일');
+insert into RT_CODE VALUES(8,'한식','업종');
+insert into RT_CODE VALUES(9,'치킨','업종');
+insert into RT_CODE VALUES(10,'중국집','업종');
+insert into RT_CODE VALUES(11,'피자','업종');
+insert into RT_CODE VALUES(12,'양식','업종');
+insert into RT_CODE VALUES(13,'분식','업종');
+insert into RT_CODE VALUES(14,'디저트','업종');
+insert into RT_CODE VALUES(15,'족발/보쌈','업종');
+insert into RT_CODE VALUES(16,'일식/돈까스','업종');
+insert into RT_CODE VALUES(17,'기타','업종');
+insert into RT_CODE VALUES(18,'1시간','이용시간');
+insert into RT_CODE VALUES(19,'2시간','이용시간');
+insert into RT_CODE VALUES(20,'3시간','이용시간');
+insert into RT_CODE VALUES(21,'4시간','이용시간');
+
 /*시퀀스*/
       drop sequence table_list_seq;
       drop sequence res_num_seq;
+      drop sequence tabel_list_seq;
       drop sequence bookmark_num_seq;
       drop sequence review_num_seq;
       drop sequence menu_num_seq;
       
       create sequence table_list_seq;
       create sequence res_num_seq;
+      create sequence tabel_list_seq;
       create sequence bookmark_num_seq;
       create sequence review_num_seq;
       create sequence menu_num_seq;
+
+    

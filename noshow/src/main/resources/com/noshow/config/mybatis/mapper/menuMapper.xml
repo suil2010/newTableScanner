@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.menuMapper">
-	
-	<!-- menu -->
-	<sql id ="menu-column-sql">
-		menu_num, menu_name, menu_comment, menu_price, menu_picture, business_id
-	</sql>
-	
+   
+   <!-- menu -->
+   <sql id ="menu-column-sql">
+      menu_num, menu_name, menu_comment, menu_price, menu_picture, business_id
+   </sql>
+   
 
-	<resultMap type="Menu" id="menu-resultmap">
-		<id column="menu_num" property="menuNum" />
-		<result column="menu_name" property="menuName" />
-		<result column="menu_comment" property="menuComment" />
-		<result column="menu_price" property="menuPrice" />
-		<result column="menu_picture" property="menuPicture" />
-		<result column="business_id" property="businessId" />
-	</resultMap>
-
-
-	<!-- 메뉴 등록 -->
-	<insert id="insertMenu" parameterType="Menu">
-		insert into menu(menu_num, menu_name, menu_comment, menu_price,
-		menu_picture<!-- , classification_num -->, business_id)
-		values(menu_num_seq.NEXTVAL, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}
-		<!-- , #{classificationNum} -->, #{businessId})
-	</insert>
-
-	<!-- 메뉴 수정 -->
-	<update id="updateMenu" parameterType="com.noshow.vo.Menu">
-		update menu
-		<set>
-			<if test="menuName != null"> menu_name = #{menuName}, </if>
-			<if test="menuComment != null"> menu_comment = #{menuComment}, </if>
-			<if test="menuPrice != null"> menu_price = #{menuPrice}, </if>
-			<if test="menuPicture != null"> menu_picture = #{menuPicture}, </if>
-			<if test="businessId != null"> business_id = #{businessId}, </if>								
-		</set>						
-<!-- 		classification_num = #{classificationNum}, -->
-		where menu_num = #{menuNum}
-	</update>
-
-	<!-- 메뉴 삭제 -->
-	<delete id="deleteMenu" parameterType="int">
-		delete from Menu
-		where menu_num = #{menuNum}
-	</delete>
+   <resultMap type="Menu" id="menu-resultmap">
+      <id column="menu_num" property="menuNum" />
+      <result column="menu_name" property="menuName" />
+      <result column="menu_comment" property="menuComment" />
+      <result column="menu_price" property="menuPrice" />
+      <result column="menu_picture" property="menuPicture" />
+      <result column="business_id" property="businessId" />
+   </resultMap>
 
 
-<!-- 여기서 부터 다시 하자! -->
-	<!-- 메뉴 num으로 메뉴 조회 -->
-	<select id = "selectMenuByMenuNum" parameterType="int" resultMap="menu-resultmap">
-		select <include refid="menu-column-sql"/>
-		from Menu
-		where menu_num = #{menuNum}
-	</select>
+   <!-- 메뉴 등록 -->
+   <insert id="insertMenu" parameterType="Menu">
+      insert into menu(<include refid="menu-column-sql"/>)
+      values(menu_num_seq.NEXTVAL, #{menuName}, #{menuComment}, #{menuPrice}, #{menuPicture}, #{businessId})
+   </insert>
+
+   <!-- 메뉴 수정 -->
+   <update id="updateMenu" parameterType="com.noshow.vo.Menu">
+      update menu
+      <set>
+         <if test="menuName != null"> menu_name = #{menuName}, </if>
+         <if test="menuComment != null"> menu_comment = #{menuComment}, </if>
+         <if test="menuPrice != null"> menu_price = #{menuPrice}, </if>
+         <if test="menuPicture != null"> menu_picture = #{menuPicture}, </if>
+         <if test="businessId != null"> business_id = #{businessId}, </if>                        
+      </set>                  
+      where menu_num = #{menuNum}
+   </update>
+
+   <!-- 메뉴 삭제 -->
+   <delete id="deleteMenu" parameterType="int">
+      delete from Menu
+      where menu_num = #{menuNum}
+   </delete>
 
 
-	<!-- BybusinessId로 메뉴들 조회 -->
-	<select id="selectMenuBybusinessId" resultMap="menu-resultmap">
-		select <include refid="menu-column-sql"/>
-		from Menu
-		where business_id = #{businessId}
-	</select>
+   <!-- 메뉴 num으로 메뉴 조회 -->
+   <select id = "selectMenuByMenuNum" parameterType="int" resultMap="menu-resultmap">
+      select <include refid="menu-column-sql"/>
+      from Menu
+      where menu_num = #{menuNum}
+   </select>
+
+
+   <!-- BybusinessId로 메뉴들 조회 -->
+   <select id="selectMenuBybusinessId" resultMap="menu-resultmap">
+      select <include refid="menu-column-sql"/>
+      from Menu
+      where business_id = #{businessId}
+   </select>
 
 </mapper>

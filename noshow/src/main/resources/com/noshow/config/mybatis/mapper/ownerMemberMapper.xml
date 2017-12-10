@@ -2,113 +2,121 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.ownerMemberMapper">
 
-	<sql id="restaurant-column-sql">
-		BUSINESS_ID, RT_HOLIDAY, RT_TERM, RT_FIELD, RT_NUM, RT_NAME, RT_TEL, RT_OPEN, RT_CLOSE, RT_PICTURE, RT_ADDRESS, RT_CAPACITY, RT_DEPOSIT
-	</sql>
-	
-	<sql id="Holiday-column-sql">
-		Holiday_Name, Holiday_VAL
-	</sql>
-	
-	<sql id="Term-column-sql">
-		Term_name, Term_VAL
-	</sql>
-	
-	<sql id="Field-column-sql">
-		field_name, field_VAL
-	</sql>
-	
-	<resultMap type="Holiday" id="Holiday-resultmap">
-		<id column="Holiday_Name" property="holidayName"/>
-		<result column="Holiday_VAL" property="holidayVal"/>
-	</resultMap>
-	
-	<resultMap type="Term" id="Term-resultmap">
-		<id column="Term_name" property="termName"/>
-		<result column="Term_VAL" property="termVal"/>
-	</resultMap>
-	
-	<resultMap type="Field" id="Field-resultmap">
-		<id column="field_name" property="fieldName"/>
-		<result column="field_VAL" property="fieldVal"/>
-	</resultMap>
-	
-	<resultMap type="Restaurant" id="restaurant-resultmap">
-		<id column="BUSINESS_ID" property="businessId" />
-		<result column="RT_NUM" property="rtNum" />
-		<result column="RT_NAME" property="rtName" />
-		<result column="RT_TEL" property="rtTel" />
-		<result column="RT_OPEN" property="rtOpen" />
-		<result column="RT_CLOSE" property="rtClose" />
-		<result column="RT_PICTURE" property="rtPicture" />
-		<result column="RT_ADDRESS" property="rtAddress" />
-		<result column="RT_CAPACITY" property="rtCapacity" />
-		<result column="RT_DEPOSIT" property="rtDeposit" />
-		<collection property="field" resultMap="Field-resultmap"/>
-		<collection property="holiday" resultMap="Holiday-resultmap"/>
-		<collection property="term" resultMap="Term-resultmap"/>		
-	</resultMap>
-	
-	
-	<insert id="insertRestaurant" parameterType="Restaurant">
-		INSERT INTO restaurant(<include refid="restaurant-column-sql" />)
-		VALUES (#{businessId}, #{rtHoliday}, #{rtTerm}, #{rtField}, #{rtNum}, #{rtName}, #{rtTel}, to_date(#{rtOpen}, 'hh24:mi'), to_date(#{rtClose},'hh24:mi'),
-				#{rtPicture}, #{rtAddress}, #{rtCapacity}, #{rtDeposit})
-	</insert>
-	
+   <!-- restaurant 기본 sql -->
+   <sql id="restaurant-column-sql">
+      BUSINESS_ID, RT_HOLIDAY, RT_TERM, RT_FIELD, RT_NUM, RT_NAME, RT_TEL, RT_OPEN, RT_CLOSE, RT_PICTURE, RT_ADDRESS, RT_CAPACITY, RT_DEPOSIT
+   </sql>
+   
+   <resultMap type="Restaurant" id="restaurant-resultmap">
+      <id column="BUSINESS_ID" property="businessId" />
+      <result column="RT_NUM" property="rtNum" />
+      <result column="RT_NAME" property="rtName" />
+      <result column="RT_TEL" property="rtTel" />
+      <result column="RT_OPEN" property="rtOpen" />
+      <result column="RT_CLOSE" property="rtClose" />
+      <result column="RT_PICTURE" property="rtPicture" />
+      <result column="RT_ADDRESS" property="rtAddress" />
+      <result column="RT_CAPACITY" property="rtCapacity" />
+      <result column="RT_DEPOSIT" property="rtDeposit" />
+      <collection property="field" resultMap="Field-resultmap"/>
+      <collection property="holiday" resultMap="Holiday-resultmap"/>
+      <collection property="term" resultMap="Term-resultmap"/>      
+   </resultMap>
+   
+   <!-- holiday 기본 sql -->
+   <sql id="Holiday-column-sql">
+      Holiday_Name, Holiday_VAL
+   </sql>
+   
+   <resultMap type="Holiday" id="Holiday-resultmap">
+      <id column="Holiday_Name" property="holidayName"/>
+      <result column="Holiday_VAL" property="holidayVal"/>
+   </resultMap>
+   
+   <!-- term 기본 sql -->
+   <sql id="Term-column-sql">
+      Term_name, Term_VAL
+   </sql>
+   
+   <resultMap type="Term" id="Term-resultmap">
+      <id column="Term_name" property="termName"/>
+      <result column="Term_VAL" property="termVal"/>
+   </resultMap>
+   
+   <!-- field 기본 sql -->
+   <sql id="Field-column-sql">
+      field_name, field_VAL
+   </sql>
+   
+   <resultMap type="Field" id="Field-resultmap">
+      <id column="field_name" property="fieldName"/>
+      <result column="field_VAL" property="fieldVal"/>
+   </resultMap>
+   
+   
+   <!-- Restaurant 등록 -->
+   <insert id="insertRestaurant" parameterType="Restaurant">
+      INSERT INTO restaurant(<include refid="restaurant-column-sql" />)
+      VALUES (#{businessId}, #{rtHoliday}, #{rtTerm}, #{rtField}, #{rtNum}, #{rtName}, #{rtTel}, to_date(#{rtOpen}, 'hh24:mi'), to_date(#{rtClose},'hh24:mi'),
+            #{rtPicture}, #{rtAddress}, #{rtCapacity}, #{rtDeposit})
+   </insert>
+   
+   <!-- holiday 전체 조회 -->
+   <select id="selectHoliday" resultMap="Holiday-resultmap">
+      select <include refid="Holiday-column-sql"/>
+      from Holiday 
+   </select>
 
-	<select id="selectHoliday" resultMap="Holiday-resultmap">
-		select <include refid="Holiday-column-sql"/>
-		from Holiday 
-	</select>
+   <!-- term 전체 조회 -->
+   <select id="selectTerm" resultMap="Term-resultmap">
+      select <include refid="Term-column-sql"/>
+      from Term
+   </select>
 
-	<select id="selectTerm" resultMap="Term-resultmap">
-		select <include refid="Term-column-sql"/>
-		from Term
-	</select>
-
-	<select id="selectField" resultMap="Field-resultmap">
-		select <include refid="Field-column-sql"/>
-		from Field
-	</select>
+   <select id="selectField" resultMap="Field-resultmap">
+      select <include refid="Field-column-sql"/>
+      from Field
+   </select>
 
 
-	<select id="selectRestaurantByBusinessId" parameterType="string" resultMap="restaurant-resultmap">
-		select RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, 
-				RESTAURANT.RT_TEL, RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
-				holiday.Holiday_Name, holiday.Holiday_VAL, term.Term_name, term.Term_VAL, field.field_name, field.field_VAL
-		FROM RESTAURANT, holiday, field, term 
-		WHERE RESTAURANT.rt_holiday = holiday.holiday_name and 
-	 		  RESTAURANT.rt_field = field.field_name and
-	  		  RESTAURANT.rt_term = term.term_name and 
-	  		  RESTAURANT.business_id = #{businessId}
-	</select>
+   <!-- businessId로 식당 정보 조회 -->
+   <select id="selectRestaurantByBusinessId" parameterType="string" resultMap="restaurant-resultmap">
+      select RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, 
+            RESTAURANT.RT_TEL, RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+            holiday.Holiday_Name, holiday.Holiday_VAL, term.Term_name, term.Term_VAL, field.field_name, field.field_VAL
+      FROM RESTAURANT, holiday, field, term 
+      WHERE RESTAURANT.rt_holiday = holiday.holiday_name and 
+            RESTAURANT.rt_field = field.field_name and
+             RESTAURANT.rt_term = term.term_name and 
+             RESTAURANT.business_id = #{businessId}
+   </select>
 
-	
- 	<update id="updateRestaurant" parameterType="restaurant">
-		update restaurant
-		<set>
-			<if test="rtNum != null"> rt_num = #{rtNum}, </if>
-			<if test="rtTerm != null"> rt_term = #{rtTerm}, </if>
-			<if test="rtField != null"> rt_field = #{rtField}, </if>
-			<if test="rtHoliday != null"> rt_holiday = #{rtHoliday}, </if>
-			<if test="rtName != null"> rt_name = #{rtName}, </if>
-			<if test="rtTel != null"> rt_tel = #{rtTel}, </if>
-			<if test="rtOpen != null"> rt_open = to_date(#{rtOpen}, 'hh24 : mi'), </if>
-			<if test="rtClose != null"> rt_close = to_date(#{rtClose},'hh24 : mi'), </if>
-			<if test="rtPicture != null"> rt_picture = #{rtPicture}, </if>
-			<if test="rtAddress != null"> rt_address = #{rtAddress}, </if>														
-			<if test="rtCapacity != null"> rt_capacity = #{rtCapacity}, </if>
-			<if test="rtDeposit != null"> rt_deposit = #{rtDeposit} </if>	
-		</set>
-		where business_id = #{businessId}
-	</update>
-	
-	
-<!-- 	<delete id="deleteRestaurant" parameterType="Restaurant"> 
-		delete from restaurant 
-		where business_id = #{businessId} 
-	</delete>  -->
+   
+   <!-- businessId로 식당 정보 업데이트 -->
+    <update id="updateRestaurant" parameterType="restaurant">
+      update restaurant
+      <set>
+         <if test="rtNum != null"> rt_num = #{rtNum}, </if>
+         <if test="rtTerm != null"> rt_term = #{rtTerm}, </if>
+         <if test="rtField != null"> rt_field = #{rtField}, </if>
+         <if test="rtHoliday != null"> rt_holiday = #{rtHoliday}, </if>
+         <if test="rtName != null"> rt_name = #{rtName}, </if>
+         <if test="rtTel != null"> rt_tel = #{rtTel}, </if>
+         <if test="rtOpen != null"> rt_open = to_date(#{rtOpen}, 'hh24 : mi'), </if>
+         <if test="rtClose != null"> rt_close = to_date(#{rtClose},'hh24 : mi'), </if>
+         <if test="rtPicture != null"> rt_picture = #{rtPicture}, </if>
+         <if test="rtAddress != null"> rt_address = #{rtAddress}, </if>                                          
+         <if test="rtCapacity != null"> rt_capacity = #{rtCapacity}, </if>
+         <if test="rtDeposit != null"> rt_deposit = #{rtDeposit} </if>   
+      </set>
+      where business_id = #{businessId}
+   </update>
+   
+   
+<!--    <delete id="deleteRestaurant" parameterType="Restaurant"> 
+      delete from restaurant 
+      where business_id = #{businessId} 
+   </delete>  -->
 
 
 </mapper>

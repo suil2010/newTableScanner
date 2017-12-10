@@ -42,6 +42,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
 		return dao.selectRestaurantByBusinessId(businessId);
 	}
+
+	@Override
+	public void updateRestaurant(Restaurant rt) {
+		dao.updateRestaurant(rt);
+	}
 	
 
 }

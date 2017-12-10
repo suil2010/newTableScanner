@@ -38,7 +38,7 @@ public class OwnerMemberController {
 
 	@RequestMapping("/join_rt")
 	@Transactional
-	public ModelAndView joinRestaurant(Restaurant rt, HttpServletRequest request, BindingResult r) throws IllegalStateException, IOException {
+	public ModelAndView joinRestaurant(Restaurant rt, HttpServletRequest request) throws IllegalStateException, IOException {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 	
@@ -65,15 +65,42 @@ public class OwnerMemberController {
 		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
 		
 		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
-		
-		System.out.println(rt);
 		return new ModelAndView("owner/owner_Info.tiles", "rt", rt);
 	}
 	
-	@RequestMapping("find_rt_update")
-		public ModelAndView findOwnerInfoById(){
+	@RequestMapping("/find_rt_update")
+		public ModelAndView findOwnerInfoById(HttpServletRequest request){
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
+		
+		Restaurant rt = service.selectRestaurantByBusinessId(businessId);
+		
+		Map<String, Object> map = service.selectcode();
+		map.put("rt",rt);
+		
+		return new ModelAndView("owner/owner_update_form.tiles", "map", map);
+	}
 	
-		return new ModelAndView();
+	@RequestMapping("/update_rt")
+	public ModelAndView updateRestaurant(Restaurant rt, HttpServletRequest request)  throws IllegalStateException, IOException  {
+		
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		rt.setBusinessId(((Member)authentication.getPrincipal()).getMemberId());
+		 
+		MultipartFile rtImg = rt.getRtImg();
+		if (rtImg != null && !rtImg.isEmpty()) {
+			String dir = request.getServletContext().getRealPath("/rtPicture");
+			String pictureName = UUID.randomUUID().toString();
+			File upRtImg = new File(dir, pictureName);
+			rtImg.transferTo(upRtImg);
+			rt.setRtPicture(pictureName);
+		}
+		
+		service.updateRestaurant(rt);
+		return new ModelAndView("redirect:/find_rt_byid.do");
 	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.noshow.vo.Field;
 import com.noshow.vo.Holiday;
+import com.noshow.vo.Member;
 import com.noshow.vo.Restaurant;
 import com.noshow.vo.Term;
 
@@ -36,5 +37,10 @@ public interface OwnerMemberDAO {
 	
  	//Restaurant 조회
   	Restaurant selectRestaurantByBusinessId(String businessId);
+  	
+  	/*
+  	 * update Restaurant
+  	 */
+  	int updateRestaurant(Restaurant rt);
 	
 }

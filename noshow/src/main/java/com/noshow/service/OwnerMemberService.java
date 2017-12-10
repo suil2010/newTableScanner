@@ -25,4 +25,10 @@ public interface OwnerMemberService {
 	 * @return
 	 */
 	Restaurant selectRestaurantByBusinessId(String businessId);
+	
+	/**
+	 * 식당 정보 수정
+	 * @param restaurant
+	 */
+	void updateRestaurant(Restaurant rt);
 }

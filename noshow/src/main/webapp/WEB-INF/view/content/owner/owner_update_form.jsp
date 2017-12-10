@@ -1,9 +1,19 @@
 <%@ page contentType="text/html;charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 
 <script>
 	
 	$(document).ready(function() {
+		//사진 변경처리
+		$("#imgChangeBtn").on("click", function(){
+			$("#changeSpan").hide().next().show();
+		});
+		$("#cancelImgChangeBtn").on("click", function(){
+			$("#rtImage").val("").parent().hide().prev().show();
+		});
+		
 		//date
 		$("#rtOpen, #rtClose").timepicker({
 			timeFormat: 'HH:mm',
@@ -79,21 +89,21 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtNum">사업자번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtNum" id="rtNum" value="${requestScope.rt.rtNum }" class="form-control" readonly>
+				<input type="text" name="rtNum" id="rtNum" value="${requestScope.map.rt.rtNum }" class="form-control" readonly>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtName">음식점명 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtName" id="rtName" value="${requestScope.rt.rtName }" class="form-control">
+				<input type="text" name="rtName" id="rtName" value="${requestScope.map.rt.rtName }" class="form-control">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTel">음식점 전화번호 :</label>
 			<div class="col-sm-9">
-				<input type="text" name="rtTel" value="${requestScope.rt.rtTel }" placeholder="'-' 빼고 입력해주세요. " id="rtTel" class="form-control" required>
+				<input type="text" name="rtTel" value="${requestScope.map.rt.rtTel }" placeholder="'-' 빼고 입력해주세요. " id="rtTel" class="form-control" required>
 			</div>
 		</div>
 
@@ -101,13 +111,17 @@
 			<label class="col-sm-3 control-label " for="rtField">업종 :</label>
 			<div class="col-sm-9" >
 				<select name="rtField" required class="form-control">
-					<option value="한식">한식</option>
-					<option value="중식">중식</option>
-					<option value="일식">일식</option>
-					<option value="분식">분식</option>
-					<option value="치킨">치킨</option>
-					<option value="피자">피자</option>
-					<option value="족발">족발</option>
+						<option value="-1"> 업종을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.field }" var="field">
+						<c:choose>
+							<c:when test="${field.fieldVal eq requestScope.map.rt.field.fieldVal }">
+								    <option value="${field.fieldName}" selected="selected"> ${field.fieldVal }</option>
+							</c:when>
+							<c:otherwise>
+									<option value="${field.fieldName}"> ${field.fieldVal }</option>
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -116,13 +130,17 @@
 			<label class="col-sm-3 control-label" for="rtHoliday">휴무일 : </label>
 			<div class="col-sm-9">
 				<select name="rtHoliday" required class="form-control">
-					<option value='일요일'>일요일</option>
-					<option value='월요일'>월요일</option>
-					<option value='화요일'>화요일</option>
-					<option value='수요일'>수요일</option>
-					<option value='목요일'>목요일</option>
-					<option value='금요일'>금요일</option>
-					<option value='토요일'>토요일</option>
+						<option value="-1"> 휴무일을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.holiday }" var="holiday">	
+						<c:choose>
+							<c:when test="${holiday.holidayVal eq requestScope.map.rt.holiday.holidayVal }">
+								    <option value="${holiday.holidayName}" selected="selected"> ${holiday.holidayVal }</option>
+							</c:when>
+							<c:otherwise>
+									<option value="${holiday.holidayName}"> ${holiday.holidayVal }</option>
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -130,14 +148,14 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessOpen">OPEN : </label>
 			<div class="col-sm-9">
-				<input name="rtOpen" value="${requestScope.rt.rtOpen }"id="rtOpen" class="form-control timepicker" required>
+				<input name="rtOpen" value="${requestScope.map.rt.rtOpen }"id="rtOpen" class="form-control timepicker" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessClose">CLOSE :</label>
 			<div class="col-sm-9">
-				<input name="rtClose" value="${requestScope.rt.rtClose }" id="rtClose" class="form-control timepicker" required>
+				<input name="rtClose" value="${requestScope.map.rt.rtClose }" id="rtClose" class="form-control timepicker" required>
 			</div>
 		</div>
 		
@@ -145,41 +163,55 @@
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
 				<select name="rtTerm" id="rtTerm" required class="form-control">
-					<option value=1>1시간</option>
-					<option value=2>2시간</option>
-					<option value=3>3시간</option>
-					<option value=4>4시간</option>
-					<option value=5>5시간</option>
+						<option value="-1"> 이용시간을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.term }" var="term">	
+						<c:choose>
+							<c:when test="${term.termVal eq requestScope.map.rt.term.termVal }">
+								    <option value="${term.termName}" selected="selected">  ${term.termVal }</option>
+							</c:when>
+							<c:otherwise>
+									<option value="${term.termName}"> ${term.termVal }</option>
+							</c:otherwise>
+						</c:choose>	
+					</c:forEach>
+						
 				</select>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtImg">매장 사진 :</label>
-			<div class="col-sm-9">
-				<input type="file" name="rtImg" value="${requestScope.rt.rtImg }" placeholder="매장 사진을 등록하세요" required>
-			</div>
+			
+			<span id="changeSpan">
+				<button id="imgChangeBtn" type="button" class="btn btn-success">사진변경</button>
+					<img id="rtPicture" src="${initParam.rootPath }/rtPicture/${requestScope.map.rt.rtPicture}" class="img-responsive" width="350px">
+			</span>
+			<span id="cancelSpan" style="display: none;">
+				<button id="cancelImgChangeBtn" type="button" class="btn btn-success">사진변경취소</button>
+				<input type='file' name='rtImg' id='rtImg' class='form-control'>
+			</span>
 		</div>
 		
+
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtCapaity">수용가능 인원 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtCapacity" value="${requestScope.rt.rtCapacity }" id="rtCapacity" class="form-control" required>
+				<input type="number" name="rtCapacity" value="${requestScope.map.rt.rtCapacity }" id="rtCapacity" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtDeposit">1인당 예약금 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtDeposit" value="${requestScope.rt.rtDeposit }" id="rtDeposit" class="form-control" required>
+				<input type="number" name="rtDeposit" value="${requestScope.map.rt.rtDeposit }" id="rtDeposit" class="form-control" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label">위치 : </label>
 			<div class="col-sm-6">
-				<input type="text" name="rtAddress" class="Address form-control" required>
+				<input type="text" name="rtAddress" value="${requestScope.map.rt.rtAddress }" class="Address form-control" required>
 			</div>
 			<button type="button" class="btn btn-default col-sm-2 Search">검색</button> 
 		</div>

@@ -135,7 +135,7 @@
 			<div class="col-sm-9">
 				<select name="rtTerm" id="rtTerm" required>
 						<option value="-1"> 이용시간을 선택하세요. </option>
-					<c:forEach items="${requestScope.map.term }" var="term">	
+					<c:forEach items="${requestScope.map.term}" var="term">	
 						<option value="${term.termName}"> ${term.termVal }</option>
 					</c:forEach>
 				</select>

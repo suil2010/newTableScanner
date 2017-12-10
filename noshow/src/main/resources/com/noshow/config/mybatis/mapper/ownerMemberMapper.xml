@@ -85,18 +85,17 @@
 	</select>
 
 	
-	
-<!-- 	<update id="updateRestaurant" parameterType="restaurant">
+ 	<update id="updateRestaurant" parameterType="restaurant">
 		update restaurant
 		<set>
 			<if test="rtNum != null"> rt_num = #{rtNum}, </if>
-			<if test="rtName != null"> rt_name = #{rtName}, </if>
-			<if test="rtTel != null"> rt_tel = #{rtTel}, </if>
+			<if test="rtTerm != null"> rt_term = #{rtTerm}, </if>
 			<if test="rtField != null"> rt_field = #{rtField}, </if>
 			<if test="rtHoliday != null"> rt_holiday = #{rtHoliday}, </if>
+			<if test="rtName != null"> rt_name = #{rtName}, </if>
+			<if test="rtTel != null"> rt_tel = #{rtTel}, </if>
 			<if test="rtOpen != null"> rt_open = to_date(#{rtOpen}, 'hh24 : mi'), </if>
 			<if test="rtClose != null"> rt_close = to_date(#{rtClose},'hh24 : mi'), </if>
-			<if test="rtTerm != null"> rt_term = #{rtTerm}, </if>
 			<if test="rtPicture != null"> rt_picture = #{rtPicture}, </if>
 			<if test="rtAddress != null"> rt_address = #{rtAddress}, </if>														
 			<if test="rtCapacity != null"> rt_capacity = #{rtCapacity}, </if>
@@ -105,10 +104,11 @@
 		where business_id = #{businessId}
 	</update>
 	
-	<delete id="deleteRestaurant" parameterType="Restaurant"> 
+	
+<!-- 	<delete id="deleteRestaurant" parameterType="Restaurant"> 
 		delete from restaurant 
 		where business_id = #{businessId} 
-	</delete> -->
+	</delete>  -->
 
 
 </mapper>

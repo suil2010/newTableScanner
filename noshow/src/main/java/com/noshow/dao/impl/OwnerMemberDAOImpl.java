@@ -46,5 +46,10 @@ public class OwnerMemberDAOImpl implements OwnerMemberDAO {
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
 		return session.selectOne(makeSqlId("selectRestaurantByBusinessId"), businessId);
 	}
+
+	@Override
+	public int updateRestaurant(Restaurant rt) {
+		return session.update(makeSqlId("updateRestaurant"), rt);
+	}
 	
 }

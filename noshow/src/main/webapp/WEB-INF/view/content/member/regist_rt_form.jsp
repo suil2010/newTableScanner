@@ -98,7 +98,7 @@
 				<select name="rtField" required>
 						<option value="-1"> 업종을 선택하세요. </option>
 					<c:forEach items="${requestScope.map.field }" var="field">	
-						<option value="${field.codeNum}"> ${field.codeVal }</option>
+						<option value="${field.fieldName}"> ${field.fieldVal }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -110,7 +110,7 @@
 				<select name="rtHoliday" required> 
 						<option value="-1"> 휴무일을 선택하세요. </option>
 					<c:forEach items="${requestScope.map.holiday }" var="holiday">	
-						<option value="${holiday.codeNum}"> ${holiday.codeVal }</option>
+						<option value="${holiday.holidayName}"> ${holiday.holidayVal }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -136,7 +136,7 @@
 				<select name="rtTerm" id="rtTerm" required>
 						<option value="-1"> 이용시간을 선택하세요. </option>
 					<c:forEach items="${requestScope.map.term }" var="term">	
-						<option value="${term.codeNum}"> ${term.codeVal }</option>
+						<option value="${term.termName}"> ${term.termVal }</option>
 					</c:forEach>
 				</select>
 			</div>

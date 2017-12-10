@@ -7,9 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Restaurant implements Serializable {
 	private String businessId; /* 회원 번호 */
-	private int rtField; /* 업종 - code table */
-	private int rtHoliday; /* 휴무일 - code table */
-	private int rtTerm; /* 테이블 이용시간 - code table */
+	private String rtField; /* 업종 - code table */
+	private String rtHoliday; /* 휴무일 - code table */
+	private String rtTerm; /* 테이블 이용시간 - code table */
 	private int rtNum; /* 사업자 번호 */
 	private String rtName; /* 음식점 명 */
 	private String rtTel; /* 음식점 전화번호 */
@@ -21,14 +21,19 @@ public class Restaurant implements Serializable {
 	private int rtCapacity; /* 수용가능인원 */
 	private int rtDeposit; /* 1인 금액 */
 
+	private Holiday holiday;
+	private Field field;
+	private Term term;
+
 	private List<Table> table;
 	private int bookmarkCheck; /* 2017.12.08 현준 추가 */
 	private List<Table> usableTable;
 
-	public Restaurant() {}
-	
+	public Restaurant() {
+	}
+
 	// 사진 파일 없는 생성자
-	public Restaurant(String businessId, int rtField, int rtHoliday, int rtTerm, int rtNum, String rtName, String rtTel,
+	public Restaurant(String businessId, String rtField, String rtHoliday, String rtTerm, int rtNum, String rtName, String rtTel,
 			String rtOpen, String rtClose, String rtPicture, String rtAddress, int rtCapacity, int rtDeposit) {
 		this.businessId = businessId;
 		this.rtField = rtField;
@@ -46,7 +51,7 @@ public class Restaurant implements Serializable {
 	}
 
 	// 파일 있는 생성자
-	public Restaurant(String businessId, int rtField, int rtHoliday, int rtTerm, int rtNum, String rtName, String rtTel,
+	public Restaurant(String businessId, String rtField, String rtHoliday, String rtTerm, int rtNum, String rtName, String rtTel,
 			String rtOpen, String rtClose, MultipartFile rtImg, String rtPicture, String rtAddress, int rtCapacity,
 			int rtDeposit) {
 		this.businessId = businessId;
@@ -65,7 +70,7 @@ public class Restaurant implements Serializable {
 		this.rtDeposit = rtDeposit;
 	}
 
-	public Restaurant(String businessId, int rtField, int rtHoliday, int rtTerm, int rtNum, String rtName, String rtTel,
+	public Restaurant(String businessId, String rtField, String rtHoliday, String rtTerm, int rtNum, String rtName, String rtTel,
 			String rtOpen, String rtClose, String rtPicture, String rtAddress, int rtCapacity, int rtDeposit,
 			List<Table> table, int bookmarkCheck, List<Table> usableTable) {
 		this.businessId = businessId;
@@ -86,6 +91,25 @@ public class Restaurant implements Serializable {
 		this.usableTable = usableTable;
 	}
 
+	public Restaurant(String businessId, int rtNum, String rtName, String rtTel, String rtOpen, String rtClose,
+			MultipartFile rtImg, String rtPicture, String rtAddress, int rtCapacity, int rtDeposit, Holiday holiday,
+			Field field, Term term) {
+		this.businessId = businessId;
+		this.rtNum = rtNum;
+		this.rtName = rtName;
+		this.rtTel = rtTel;
+		this.rtOpen = rtOpen;
+		this.rtClose = rtClose;
+		this.rtImg = rtImg;
+		this.rtPicture = rtPicture;
+		this.rtAddress = rtAddress;
+		this.rtCapacity = rtCapacity;
+		this.rtDeposit = rtDeposit;
+		this.holiday = holiday;
+		this.field = field;
+		this.term = term;
+	}
+
 	public String getBusinessId() {
 		return businessId;
 	}
@@ -94,27 +118,27 @@ public class Restaurant implements Serializable {
 		this.businessId = businessId;
 	}
 
-	public int getRtField() {
+	public String getRtField() {
 		return rtField;
 	}
 
-	public void setRtField(int rtField) {
+	public void setRtField(String rtField) {
 		this.rtField = rtField;
 	}
 
-	public int getRtHoliday() {
+	public String getRtHoliday() {
 		return rtHoliday;
 	}
 
-	public void setRtHoliday(int rtHoliday) {
+	public void setRtHoliday(String rtHoliday) {
 		this.rtHoliday = rtHoliday;
 	}
 
-	public int getRtTerm() {
+	public String getRtTerm() {
 		return rtTerm;
 	}
 
-	public void setRtTerm(int rtTerm) {
+	public void setRtTerm(String rtTerm) {
 		this.rtTerm = rtTerm;
 	}
 
@@ -198,6 +222,30 @@ public class Restaurant implements Serializable {
 		this.rtDeposit = rtDeposit;
 	}
 
+	public Holiday getHoliday() {
+		return holiday;
+	}
+
+	public void setHoliday(Holiday holiday) {
+		this.holiday = holiday;
+	}
+
+	public Field getField() {
+		return field;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public Term getTerm() {
+		return term;
+	}
+
+	public void setTerm(Term term) {
+		this.term = term;
+	}
+
 	public List<Table> getTable() {
 		return table;
 	}
@@ -224,11 +272,17 @@ public class Restaurant implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Restaurant [businessId=" + businessId + ", rtField=" + rtField + ", rtHoliday=" + rtHoliday
-				+ ", rtTerm=" + rtTerm + ", rtNum=" + rtNum + ", rtName=" + rtName + ", rtTel=" + rtTel + ", rtOpen="
-				+ rtOpen + ", rtClose=" + rtClose + ", rtImg=" + rtImg + ", rtPicture=" + rtPicture + ", rtAddress="
-				+ rtAddress + ", rtCapacity=" + rtCapacity + ", rtDeposit=" + rtDeposit + ", table=" + table
-				+ ", bookmarkCheck=" + bookmarkCheck + ", usableTable=" + usableTable + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Restaurant [businessId=").append(businessId).append(", rtField=").append(rtField)
+				.append(", rtHoliday=").append(rtHoliday).append(", rtTerm=").append(rtTerm).append(", rtNum=")
+				.append(rtNum).append(", rtName=").append(rtName).append(", rtTel=").append(rtTel).append(", rtOpen=")
+				.append(rtOpen).append(", rtClose=").append(rtClose).append(", rtImg=").append(rtImg)
+				.append(", rtPicture=").append(rtPicture).append(", rtAddress=").append(rtAddress)
+				.append(", rtCapacity=").append(rtCapacity).append(", rtDeposit=").append(rtDeposit)
+				.append(", holiday=").append(holiday).append(", field=").append(field).append(", term=").append(term)
+				.append(", table=").append(table).append(", bookmarkCheck=").append(bookmarkCheck)
+				.append(", usableTable=").append(usableTable).append("]");
+		return builder.toString();
 	}
 
 	

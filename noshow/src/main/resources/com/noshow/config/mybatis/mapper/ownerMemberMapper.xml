@@ -6,31 +6,49 @@
 		BUSINESS_ID, RT_HOLIDAY, RT_TERM, RT_FIELD, RT_NUM, RT_NAME, RT_TEL, RT_OPEN, RT_CLOSE, RT_PICTURE, RT_ADDRESS, RT_CAPACITY, RT_DEPOSIT
 	</sql>
 	
-	<sql id="rtCode-column-sql">
-		CODE_NUM, CODE_VAL, CODE_PART
+	<sql id="Holiday-column-sql">
+		Holiday_Name, Holiday_VAL
 	</sql>
+	
+	<sql id="Term-column-sql">
+		Term_name, Term_VAL
+	</sql>
+	
+	<sql id="Field-column-sql">
+		field_name, field_VAL
+	</sql>
+	
+	<resultMap type="Holiday" id="Holiday-resultmap">
+		<id column="Holiday_Name" property="holidayName"/>
+		<result column="Holiday_VAL" property="holidayVal"/>
+	</resultMap>
+	
+	<resultMap type="Term" id="Term-resultmap">
+		<id column="Term_name" property="termName"/>
+		<result column="Term_VAL" property="termVal"/>
+	</resultMap>
+	
+	<resultMap type="Field" id="Field-resultmap">
+		<id column="field_name" property="fieldName"/>
+		<result column="field_VAL" property="fieldVal"/>
+	</resultMap>
 	
 	<resultMap type="Restaurant" id="restaurant-resultmap">
 		<id column="BUSINESS_ID" property="businessId" />
 		<result column="RT_NUM" property="rtNum" />
 		<result column="RT_NAME" property="rtName" />
 		<result column="RT_TEL" property="rtTel" />
-		<result column="RT_FIELD" property="rtField" />
-		<result column="RT_HOLIDAY" property="rtHoliday" />
 		<result column="RT_OPEN" property="rtOpen" />
 		<result column="RT_CLOSE" property="rtClose" />
-		<result column="RT_TERM" property="rtTerm" />
 		<result column="RT_PICTURE" property="rtPicture" />
 		<result column="RT_ADDRESS" property="rtAddress" />
 		<result column="RT_CAPACITY" property="rtCapacity" />
 		<result column="RT_DEPOSIT" property="rtDeposit" />
+		<collection property="field" resultMap="Field-resultmap"/>
+		<collection property="holiday" resultMap="Holiday-resultmap"/>
+		<collection property="term" resultMap="Term-resultmap"/>		
 	</resultMap>
-
-	<resultMap type="RtCode" id="rtcode-resultmap">
-		<id column="CODE_NUM" property="codeNum"/>
-		<result column="CODE_VAL" property="codeVal"/>
-		<result column="CODE_PART" property="codePart"/>
-	</resultMap>
+	
 	
 	<insert id="insertRestaurant" parameterType="Restaurant">
 		INSERT INTO restaurant(<include refid="restaurant-column-sql" />)
@@ -39,24 +57,34 @@
 	</insert>
 	
 
-	<select id="selectHolidayByCode" resultMap="rtcode-resultmap">
-		select <include refid="rtCode-column-sql"/>
-		from RT_CODE 
-		where CODE_PART = '요일' order by code_num
+	<select id="selectHoliday" resultMap="Holiday-resultmap">
+		select <include refid="Holiday-column-sql"/>
+		from Holiday 
 	</select>
 
-	<select id="selectTermByCode" resultMap="rtcode-resultmap">
-		select <include refid="rtCode-column-sql"/>
-		from RT_CODE 
-		where CODE_PART = '이용시간' order by code_num 
+	<select id="selectTerm" resultMap="Term-resultmap">
+		select <include refid="Term-column-sql"/>
+		from Term
 	</select>
 
-	<select id="selectFieldByCode" resultMap="rtcode-resultmap">
-		select <include refid="rtCode-column-sql"/>
-		from RT_CODE
-		where CODE_PART = '업종' order by code_num
+	<select id="selectField" resultMap="Field-resultmap">
+		select <include refid="Field-column-sql"/>
+		from Field
 	</select>
 
+
+	<select id="selectRestaurantByBusinessId" parameterType="string" resultMap="restaurant-resultmap">
+		select RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, 
+				RESTAURANT.RT_TEL, RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+				holiday.Holiday_Name, holiday.Holiday_VAL, term.Term_name, term.Term_VAL, field.field_name, field.field_VAL
+		FROM RESTAURANT, holiday, field, term 
+		WHERE RESTAURANT.rt_holiday = holiday.holiday_name and 
+	 		  RESTAURANT.rt_field = field.field_name and
+	  		  RESTAURANT.rt_term = term.term_name and 
+	  		  RESTAURANT.business_id = #{businessId}
+	</select>
+
+	
 	
 <!-- 	<update id="updateRestaurant" parameterType="restaurant">
 		update restaurant

@@ -32,7 +32,7 @@ public class SearchServiceImpl implements SearchService{
 	@Resource
 	private BookmarkDAO bookmarkDao;
 
-	@Override
+/*	@Override
 	public Restaurant selectRestaurantByBusinessId(String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
 		restaurant = selectAllTable(businessId, restaurant);
@@ -48,7 +48,7 @@ public class SearchServiceImpl implements SearchService{
 		
 	}
 	
-	/* 현준 로직 구분&분리 */
+	 현준 로직 구분&분리 
 	@Override
 	public Restaurant selectRestaurantByBusinessIdResInfo(String resDate, String resTime, String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
@@ -94,7 +94,7 @@ public class SearchServiceImpl implements SearchService{
 		return dao.selectRestaurantByRtName(rtName);
 	}
 	
-	/* 현준_이름검색 */
+	 현준_이름검색 
 	@Override
 	public List<Restaurant> selectRestaurantByNameSearch(String memberId, String resPlace, String resName) {
 		Map<String, String> searchInfo = new HashMap<>();
@@ -115,7 +115,7 @@ public class SearchServiceImpl implements SearchService{
 		return restaurantList;
 	}
 
-	/* 사용가능한 테이블만 뽑아오기 위한 로직 */
+	 사용가능한 테이블만 뽑아오기 위한 로직 
 	@Override
 	public List<Table> selectUsableTable(String resDate, String resTime, String businessId) {
 
@@ -129,7 +129,7 @@ public class SearchServiceImpl implements SearchService{
 		return dao.selectUsableTable(tableMap);
 	}
 	
-	/* 사용자가 검색시 입력한 날짜를 요일로 바꿔주는 메소드 분리 */
+	 사용자가 검색시 입력한 날짜를 요일로 바꿔주는 메소드 분리 
 	public String dayFormatting(String resDate) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date formResDate;
@@ -175,7 +175,7 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	
-/*	 검색 결과 - 음식점리스트에 int로 들어오는 Field 값을 변환 
+	 검색 결과 - 음식점리스트에 int로 들어오는 Field 값을 변환 
 	public List<Restaurant> setFieldMethod(List<Restaurant> restaurantList) {
 		for(Restaurant res : restaurantList) {
 			switch (res.getRtField()) {
@@ -206,9 +206,9 @@ public class SearchServiceImpl implements SearchService{
 			
 		} return restaurantList;
 		
-	}*/
+	}
 
-/*	 검색 결과 - 음식점리스트에 int로 들어오는 holiday 값을 변환 
+	 검색 결과 - 음식점리스트에 int로 들어오는 holiday 값을 변환 
 	public List<Restaurant> setHoliDayMethod(List<Restaurant> restaurantList) {
 		for(Restaurant restaurant : restaurantList) {
 			switch (restaurant.getRtHoliday()) {
@@ -237,10 +237,10 @@ public class SearchServiceImpl implements SearchService{
 				break;
 			}
 		} return restaurantList;
-	}*/
+	}
 	
 	
-	/* 음식점 Open, Close 시간만 던져주기위한 메소드 분리 */
+	 음식점 Open, Close 시간만 던져주기위한 메소드 분리 
 	public List<Restaurant> timeFormatting(List<Restaurant> restaurantList) {
 		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		SimpleDateFormat afterFormat = new SimpleDateFormat("HH:mm");
@@ -260,26 +260,26 @@ public class SearchServiceImpl implements SearchService{
 		return restaurantList;
 	}
 	
-	/**
+	*//**
 	 * 사용자에게 시간만 받아서 처리하기 위한 메소드
 	 * @param resDate
 	 * @param resStartTime
 	 * @return
-	 */
+	 *//*
 	private String calStartTime(String resDate, String resStartTime) {
 		resStartTime = resDate + " " +resStartTime + ":00";
 		return resStartTime;
 	}
 	
 	
-	/**
+	*//**
 	 * 매개변수로 받은 사업주 ID로 rt_term (Table이용시간) 를 받고, resStartTime (예약시작시간) 에 re_term 을
 	 * 더하여 resEndTime(예약종료시간)을 리턴
 	 * 
 	 * @param businessId
 	 * @param resEndTime
 	 * @return
-	 */
+	 *//*
 	private String calResEndTime(String businessId, String resStartTime) {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -306,5 +306,5 @@ public class SearchServiceImpl implements SearchService{
 		List<Table> tableList = dao.selectTable(businessId);
 		restaurant.setTable(tableList);
 		return restaurant;
-	}
+	}*/
 }

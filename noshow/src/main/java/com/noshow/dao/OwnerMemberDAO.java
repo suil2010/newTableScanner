@@ -1,11 +1,11 @@
 package com.noshow.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import com.noshow.vo.Field;
+import com.noshow.vo.Holiday;
 import com.noshow.vo.Restaurant;
-import com.noshow.vo.RtCode;
-import com.noshow.vo.Table;
+import com.noshow.vo.Term;
 
 public interface OwnerMemberDAO {
 	
@@ -13,19 +13,19 @@ public interface OwnerMemberDAO {
 	 * code table selectHolidatbyCode
 	 * @return
 	 */
-	List<RtCode> selectHolidayByCode();
+	List<Holiday> selectHoliday();
 	
 	/**
 	 * code table selectTermByCode
 	 * @return
 	 */
-	List<RtCode> selectTermByCode();
+	List<Term> selectTerm();
 	
 	/**
 	 * code table selectFieldByCode
 	 * @return
 	 */
-	List<RtCode> selectFieldByCode();
+	List<Field> selectField();
 	
 	/**
 	 * insert Restaurant
@@ -33,5 +33,8 @@ public interface OwnerMemberDAO {
 	 * @return
 	 */
 	int insertRestaurant(Restaurant rt);
+	
+ 	//Restaurant 조회
+  	Restaurant selectRestaurantByBusinessId(String businessId);
 	
 }

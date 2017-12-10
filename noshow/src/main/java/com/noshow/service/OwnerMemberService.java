@@ -18,4 +18,11 @@ public interface OwnerMemberService {
 	 * role : 사용자 권한 / 관리자 - ROLE_ADMIN, 회원 - ROLE_MEMBER, 사업자회원 - ROLE_BUSINESS
 	 */
 	void insertRestaurant(Restaurant rt, String role);
+	
+	/**
+	 * 사업자(식당) 정보 조회
+	 * @param businessId
+	 * @return
+	 */
+	Restaurant selectRestaurantByBusinessId(String businessId);
 }

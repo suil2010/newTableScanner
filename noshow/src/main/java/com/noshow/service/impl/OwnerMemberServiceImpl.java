@@ -26,9 +26,9 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	public Map<String, Object> selectcode() {
 		
 		Map<String, Object> map  = new HashMap<String, Object>();
-		map.put("field", dao.selectFieldByCode());
-		map.put("holiday", dao.selectHolidayByCode());
-		map.put("term", dao.selectTermByCode());
+		map.put("field", dao.selectField());
+		map.put("holiday", dao.selectHoliday());
+		map.put("term", dao.selectTerm());
 		return map;
 	}
 
@@ -36,6 +36,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	public void insertRestaurant(Restaurant rt, String role) {
 		dao.insertRestaurant(rt);
 		authoritydao.updateAuthority(new Authority(rt.getBusinessId(), role));
+	}
+
+	@Override
+	public Restaurant selectRestaurantByBusinessId(String businessId) {
+		return dao.selectRestaurantByBusinessId(businessId);
 	}
 	
 

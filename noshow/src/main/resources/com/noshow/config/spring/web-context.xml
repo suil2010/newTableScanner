@@ -21,7 +21,6 @@
 	<mvc:view-controller path="/board_list.do" view-name="common/board_list.tiles"/>
 	<mvc:view-controller path="/board_write.do" view-name="common/board_write.tiles"/>
 	
-	
 	<!-- 일반회원 -->
 	<mvc:view-controller path="/member/regist_rt_form.do" view-name="member/regist_rt_form.tiles"/>
 

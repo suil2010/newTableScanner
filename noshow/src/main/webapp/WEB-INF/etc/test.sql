@@ -20,17 +20,17 @@ select * from restaurant
 insert into MEMBER(member_id, member_password, member_name, member_gender, member_tel, member_birthday, member_email) values('phj','phj','박현준','남','02132',sysdate,'djd' );
 insert into RESTAURANT values('phj',1,8,18,2012121,'현준이네고기집','010212132',sysdate,sysdate,'ahffk','ahffk',30,5000);
 
-select a.business_id, b.code_val, c.code_val, d.code_val
-from RESTAURANT a, rt_code b, rt_code c, rt_code d
-where a.rt_holiday = b.code_num and 
-	  a.rt_field = c.code_num and
-	  a.rt_term = d.code_num;
-	  
-select CODE_NUM, CODE_VAL, CODE_PART from RT_CODE where CODE_PART = '이용시간' order by code_num;	  
-select CODE_NUM, CODE_VAL, CODE_PART from RT_CODE where CODE_PART = '업종' order by code_num;	 
-select count(CODE_NUM) from RT_CODE where CODE_PART = '업종';	 
 
 select * from RESTAURANT;
 
+
+select RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, 
+	   RESTAURANT.RT_TEL, RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+	   holiday.Holiday_Name, holiday.Holiday_VAL, term.Term_name, term.Term_VAL, field.field_name, field.field_VAL
+FROM RESTAURANT, holiday, field, term 
+WHERE RESTAURANT.rt_holiday = holiday.holiday_name and 
+	  RESTAURANT.rt_field = field.field_name and
+	  RESTAURANT.rt_term = term.term_name and 
+	  RESTAURANT.business_id = 'djaqnsghd';
 
  

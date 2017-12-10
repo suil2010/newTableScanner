@@ -1,7 +1,9 @@
 DROP TABLE AUTHORITY CASCADE CONSTRAINTS; /* 권한 */
 DROP TABLE MEMBER CASCADE CONSTRAINTS; /* 회원 */
 DROP TABLE RESTAURANT CASCADE CONSTRAINTS; /* 음식점 정보 */
-DROP TABLE RT_CODE CASCADE CONSTRAINTS; /* 코드 테이블 */
+DROP TABLE TERM CASCADE CONSTRAINTS; /* 이용시간 */
+DROP TABLE FIELD CASCADE CONSTRAINTS; /* 업종 */
+DROP TABLE HOLIDAY CASCADE CONSTRAINTS; /* 휴무일 */
 DROP TABLE MENU CASCADE CONSTRAINTS; /*메뉴*/
 DROP TABLE TABLE_ CASCADE CONSTRAINTS; /* 테이블 */
 DROP TABLE ORDER_TABLE CASCADE CONSTRAINTS; /* 테이블주문 */
@@ -38,9 +40,9 @@ CREATE TABLE MEMBER (
 /* 음식점 정보 */
 CREATE TABLE RESTAURANT (
    BUSINESS_ID VARCHAR2(20) NOT NULL, /* 점주 회원 아이디 */
-   RT_HOLIDAY NUMBER NOT NULL, /* 휴무일 */
-   RT_FIELD NUMBER NOT NULL, /* 업종 */
-   RT_TERM NUMBER NOT NULL, /* 테이블 이용시간 */
+   RT_HOLIDAY VARCHAR2(15) NOT NULL, /* 휴무일 */
+   RT_FIELD VARCHAR2(15) NOT NULL, /* 업종 */
+   RT_TERM VARCHAR2(15) NOT NULL, /* 테이블 이용시간 */
    RT_NUM NUMBER NOT NULL, /* 사업자번호 */
    RT_NAME VARCHAR(200), /* 음식점명 */
    RT_TEL VARCHAR2(20), /* 음식점전화번호 */
@@ -53,12 +55,25 @@ CREATE TABLE RESTAURANT (
    CONSTRAINT PK_RESTAURANT PRIMARY KEY (BUSINESS_ID)
 );
 
-/* 코드 */
-CREATE TABLE RT_CODE (
-   CODE_NUM NUMBER NOT NULL, /* 코드번호 */
-   CODE_VAL VARCHAR2(30) NOT NULL, /* 코드값 */
-   CODE_PART VARCHAR2(15) NOT NULL, /* 코드분류 */
-   CONSTRAINT PK_RT_CODE PRIMARY KEY (CODE_NUM)
+/* 업종 */
+CREATE TABLE FIELD (
+   FIELD_NAME VARCHAR2(15) NOT NULL, /* 코드이름 */
+   FIELD_VAL VARCHAR2(30) NOT NULL, /* 코드값 */
+   CONSTRAINT PK_FIELD PRIMARY KEY (FIELD_NAME)
+);
+
+/* 테이블 이용시간 */
+CREATE TABLE TERM (
+   TERM_NAME VARCHAR2(15) NOT NULL, /* 코드이름 */
+   TERM_VAL VARCHAR2(30) NOT NULL, /* 코드값 */
+   CONSTRAINT PK_TERM PRIMARY KEY (TERM_NAME)
+);
+
+/* 휴무일 */
+CREATE TABLE HOLIDAY (
+   HOLIDAY_NAME VARCHAR2(15) NOT NULL, /* 코드이름 */
+   HOLIDAY_VAL VARCHAR2(30) NOT NULL, /* 코드값 */
+   CONSTRAINT PK_HOLIDAY PRIMARY KEY (HOLIDAY_NAME)
 );
 
 /* 메뉴 */
@@ -207,32 +222,32 @@ ALTER TABLE RESTAURANT
 
 ALTER TABLE RESTAURANT
    ADD
-      CONSTRAINT FK_RT_CODE_TO_RESTAURANT
+      CONSTRAINT FK_HOLIDAY_TO_RESTAURANT
       FOREIGN KEY (
          RT_HOLIDAY
       )
-      REFERENCES RT_CODE (
-         CODE_NUM
+      REFERENCES HOLIDAY (
+         HOLIDAY_NAME
       );
 
 ALTER TABLE RESTAURANT
    ADD
-      CONSTRAINT FK_RT_CODE_TO_RESTAURANT2
+      CONSTRAINT FK_FIELD_TO_RESTAURANT
       FOREIGN KEY (
          RT_FIELD
       )
-      REFERENCES RT_CODE (
-         CODE_NUM
+      REFERENCES FIELD (
+         FIELD_NAME
       );
 
 ALTER TABLE RESTAURANT
    ADD
-      CONSTRAINT FK_RT_CODE_TO_RESTAURANT3
+      CONSTRAINT FK_TERM_TO_RESTAURANT
       FOREIGN KEY (
          RT_TERM
       )
-      REFERENCES RT_CODE (
-         CODE_NUM
+      REFERENCES TERM (
+         TERM_NAME
       );      
       
 /* 메뉴 */      
@@ -408,28 +423,28 @@ ALTER TABLE ANSWER
       );
       
 /* code 테이블 기본 값 - 무조건 같이 실행!!!!!*/  
-insert into RT_CODE VALUES(0,'휴일없음','요일');
-insert into RT_CODE VALUES(1,'일','요일');
-insert into RT_CODE VALUES(2,'월','요일');
-insert into RT_CODE VALUES(3,'화','요일');
-insert into RT_CODE VALUES(4,'수','요일');
-insert into RT_CODE VALUES(5,'목','요일');
-insert into RT_CODE VALUES(6,'금','요일');
-insert into RT_CODE VALUES(7,'토','요일');
-insert into RT_CODE VALUES(8,'한식','업종');
-insert into RT_CODE VALUES(9,'치킨','업종');
-insert into RT_CODE VALUES(10,'중국집','업종');
-insert into RT_CODE VALUES(11,'피자','업종');
-insert into RT_CODE VALUES(12,'양식','업종');
-insert into RT_CODE VALUES(13,'분식','업종');
-insert into RT_CODE VALUES(14,'디저트','업종');
-insert into RT_CODE VALUES(15,'족발/보쌈','업종');
-insert into RT_CODE VALUES(16,'일식/돈까스','업종');
-insert into RT_CODE VALUES(17,'기타','업종');
-insert into RT_CODE VALUES(18,'1시간','이용시간');
-insert into RT_CODE VALUES(19,'2시간','이용시간');
-insert into RT_CODE VALUES(20,'3시간','이용시간');
-insert into RT_CODE VALUES(21,'4시간','이용시간');
+insert into HOLIDAY VALUES('not holiday','휴일없음');
+insert into HOLIDAY VALUES('Sun','일');
+insert into HOLIDAY VALUES('Mon','월');
+insert into HOLIDAY VALUES('Tue','화');
+insert into HOLIDAY VALUES('Wed','수');
+insert into HOLIDAY VALUES('Thu','목');
+insert into HOLIDAY VALUES('Fri','금');
+insert into HOLIDAY VALUES('Sat','토');
+insert into FIELD VALUES('Korean','한식');
+insert into FIELD VALUES('Chicken','치킨');
+insert into FIELD VALUES('Chinese','중국집');
+insert into FIELD VALUES('Pizza','피자');
+insert into FIELD VALUES('Western','양식');
+insert into FIELD VALUES('snack','분식');
+insert into FIELD VALUES('dessert','디저트');
+insert into FIELD VALUES('Pork','족발/보쌈');
+insert into FIELD VALUES('Japanese','일식/돈까스');
+insert into FIELD VALUES('Etc','기타');
+insert into TERM VALUES('1','1시간');
+insert into TERM VALUES('2','2시간');
+insert into TERM VALUES('3','3시간');
+insert into TERM VALUES('4','4시간');
 
 /*시퀀스*/
       drop sequence table_list_seq;

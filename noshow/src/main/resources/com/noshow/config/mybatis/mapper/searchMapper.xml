@@ -2,29 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.noshow.config.mybatis.mapper.searchMapper">
 
-	<sql id="restaurant-column-sql">
-		BUSINESS_ID, RT_NUM, RT_NAME, RT_TEL, RT_FIELD, RT_HOLIDAY,
-		RT_OPEN, RT_CLOSE,
-		RT_TERM, RT_PICTURE, RT_ADDRESS,
-		RT_CAPACITY,
-		RT_DEPOSIT
-	</sql>
-	
-	<resultMap type="Restaurant" id="restaurant-resultmap">
-		<id column="BUSINESS_ID" property="businessId" />
-		<result column="RT_NUM" property="rtNum" />
-		<result column="RT_NAME" property="rtName" />
-		<result column="RT_TEL" property="rtTel" />
-		<result column="RT_FIELD" property="rtField" />
-		<result column="RT_HOLIDAY" property="rtHoliday" />
-		<result column="RT_OPEN" property="rtOpen" />
-		<result column="RT_CLOSE" property="rtClose" />
-		<result column="RT_TERM" property="rtTerm" />
-		<result column="RT_PICTURE" property="rtPicture" />
-		<result column="RT_ADDRESS" property="rtAddress" />
-		<result column="RT_CAPACITY" property="rtCapacity" />
-		<result column="RT_DEPOSIT" property="rtDeposit" />
-	</resultMap>	
+   <!-- restaurant 기본 sql -->
+   <sql id="restaurant-column-sql">
+      BUSINESS_ID, RT_HOLIDAY, RT_TERM, RT_FIELD, RT_NUM, RT_NAME, RT_TEL, RT_OPEN, RT_CLOSE, RT_PICTURE, RT_ADDRESS, RT_CAPACITY, RT_DEPOSIT
+   </sql>
+
+   <resultMap type="Restaurant" id="restaurant-resultmap">
+      <id column="BUSINESS_ID" property="businessId" />
+      <result column="RT_NUM" property="rtNum" />
+      <result column="RT_NAME" property="rtName" />
+      <result column="RT_TEL" property="rtTel" />
+      <result column="RT_OPEN" property="rtOpen" />
+      <result column="RT_CLOSE" property="rtClose" />
+      <result column="RT_PICTURE" property="rtPicture" />
+      <result column="RT_ADDRESS" property="rtAddress" />
+      <result column="RT_CAPACITY" property="rtCapacity" />
+      <result column="RT_DEPOSIT" property="rtDeposit" />
+      <collection property="field" resultMap="Field-resultmap"/>
+      <collection property="holiday" resultMap="Holiday-resultmap"/>
+      <collection property="term" resultMap="Term-resultmap"/>
+      <collection property="table" resultMap="table-resultmap"/>  
+   </resultMap>
+   
+   <!-- holiday 기본 sql -->
+   <sql id="Holiday-column-sql">
+      Holiday_Name, Holiday_VAL
+   </sql>
+   
+   <resultMap type="Holiday" id="Holiday-resultmap">
+      <id column="Holiday_Name" property="holidayName"/>
+      <result column="Holiday_VAL" property="holidayVal"/>
+   </resultMap>
+   
+   <!-- term 기본 sql -->
+   <sql id="Term-column-sql">
+      Term_name, Term_VAL
+   </sql>
+   
+   <resultMap type="Term" id="Term-resultmap">
+      <id column="Term_name" property="termName"/>
+      <result column="Term_VAL" property="termVal"/>
+   </resultMap>
+   
+   <!-- field 기본 sql -->
+   <sql id="Field-column-sql">
+      field_name, field_VAL
+   </sql>
+   
+   <resultMap type="Field" id="Field-resultmap">
+      <id column="field_name" property="fieldName"/>
+      <result column="field_VAL" property="fieldVal"/>
+   </resultMap>
 	
 	<resultMap type="table" id="table-resultmap">
 		<id column="table_seq" property="tableSeq" />
@@ -41,12 +69,20 @@
 	</select>
 	
 		<!-- ######### RESTAURANT SELECT ########## -->
-
-	<select id="selectRestaurantByBusinessId" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql" />
-		FROM restaurant
-		WHERE business_id = #{value}
+<!-- 2017.12.11_현준 -->
+	<select id="selectRestaurantByBusinessId" parameterType="string" resultMap="restaurant-resultmap">
+		SELECT	RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, 
+				RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, RESTAURANT.RT_TEL, 
+	   			RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, 
+	   			RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+	   			holiday.Holiday_Name, holiday.Holiday_VAL, 
+	   			term.Term_name, term.Term_VAL, 
+	   			field.field_name, field.field_VAL
+		FROM 	RESTAURANT, holiday, field, term
+		WHERE 	RESTAURANT.rt_holiday = holiday.holiday_name 
+		AND 	RESTAURANT.rt_field = field.field_name
+		AND 	RESTAURANT.rt_term = term.term_name
+		AND		RESTAURANT.business_id = #{value}
 	</select>
 	
 		<!-- TEST_2017.12.04_현준 예약된 테이블 제외한 전체테이블 조회 -->
@@ -66,32 +102,46 @@
 				)
 		ORDER BY t.table_seq
 	]]>
-
 	</select>
 	
 	
 	<!-- TEST_2017.12.04_현준 search 조건으로 식당 list 뽑을 수 있는지? -->
+	<!-- 2017.12.11_현준  -->
 	<select id="selectRestaurantBySearch" parameterType="map" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql" />
-		FROM
-		(SELECT
-		<include refid="restaurant-column-sql" />
-		FROM restaurant
-		WHERE rt_holiday != #{rtHoliday}
-		AND rt_address like '%'||#{resPlace}||'%'
-		)
-		WHERE to_date(#{resTime},'hh24:mi')
-		BETWEEN to_date(to_char(rt_open, 'hh24:mi'), 'hh24:mi') AND to_date(to_char(rt_close, 'hh24:mi'), 'hh24:mi')
+		
+		SELECT	RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, 
+				RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, RESTAURANT.RT_TEL, 
+	   			RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, 
+	   			RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+	   			holiday.Holiday_Name, holiday.Holiday_VAL, 
+	   			term.Term_name, term.Term_VAL, 
+	   			field.field_name, field.field_VAL
+		FROM 	RESTAURANT, holiday, field, term
+		WHERE 	RESTAURANT.rt_holiday = holiday.holiday_name 
+		AND 	RESTAURANT.rt_field = field.field_name
+		AND 	RESTAURANT.rt_term = term.term_name
+		AND		holiday.holiday_val != #{rtHoliday}
+		AND		RESTAURANT.rt_address like '%'||#{resPlace}||'%'
+		AND 	to_date(#{resTime},'hh24:mi')
+		BETWEEN to_date(to_char(RESTAURANT.rt_open, 'hh24:mi'), 'hh24:mi') AND to_date(to_char(RESTAURANT.rt_close, 'hh24:mi'), 'hh24:mi')
 	</select>
 	
 	<!-- 지역 + 음식점 이름으로 검색 -->
+	<!-- 2017.12.11_현준 -->
 	<select id="selectRestaurantByNameSearch" parameterType="map" resultMap="restaurant-resultmap">
-		SELECT
-		<include refid="restaurant-column-sql"/>
-		FROM 	restaurant
-		WHERE	rt_address like '%'||#{resPlace}||'%'
-		AND		rt_name like '%'||#{resName}||'%'
+		SELECT	RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, 
+				RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, RESTAURANT.RT_TEL, 
+	   			RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, 
+	   			RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
+	   			holiday.Holiday_Name, holiday.Holiday_VAL, 
+	   			term.Term_name, term.Term_VAL, 
+	   			field.field_name, field.field_VAL
+		FROM 	RESTAURANT, holiday, field, term
+		WHERE 	RESTAURANT.rt_holiday = holiday.holiday_name 
+		AND 	RESTAURANT.rt_field = field.field_name
+		AND 	RESTAURANT.rt_term = term.term_name
+		AND		RESTAURANT.rt_address LIKE '%'||#{resPlace}||'%'
+		AND		RESTAURANT.rt_name LIKE '%'||#{resName}||'%'
 	</select>
 	
 </mapper>

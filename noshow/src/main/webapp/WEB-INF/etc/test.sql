@@ -55,13 +55,17 @@ select MEMBER.member_id, MEMBER.member_password, MEMBER.member_name, MEMBER.memb
 from MEMBER, AUTHORITY
 where member.member_id = AUTHORITY.member_id and AUTHORITY.AUTHORITY = 'ROLE_OWNER';
 -- 전체 식당 정보 조회 // selectAllRestaurant
+
 select RESTAURANT.BUSINESS_ID, RESTAURANT.RT_HOLIDAY, RESTAURANT.RT_TERM, RESTAURANT.RT_FIELD, RESTAURANT.RT_NUM, RESTAURANT.RT_NAME, 
 	   RESTAURANT.RT_TEL, RESTAURANT.RT_OPEN, RESTAURANT.RT_CLOSE, RESTAURANT.RT_PICTURE, RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
 	   holiday.Holiday_Name, holiday.Holiday_VAL, term.Term_name, term.Term_VAL, field.field_name, field.field_VAL
 FROM RESTAURANT, holiday, field, term 
 WHERE RESTAURANT.rt_holiday = holiday.holiday_name and 
 	  RESTAURANT.rt_field = field.field_name and
-	  RESTAURANT.rt_term = term.term_name;
+	  RESTAURANT.rt_term = term.term_name
+AND	  holiday.holiday_val != '월'
+AND	  RESTAURANT.rt_address like '%서울%'
+
 	  
 	  
  

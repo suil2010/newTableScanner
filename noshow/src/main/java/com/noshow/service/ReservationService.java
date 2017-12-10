@@ -1,17 +1,15 @@
 package com.noshow.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
 import com.noshow.vo.Restaurant;
-import com.noshow.vo.Table;
 
 public interface ReservationService {
-/*
-	 ##### ReservationService ##### 
+
+	/* ##### ReservationService ##### */
 	Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq);
 
 	int updateReservation(Reservation reservation, Map<String, OrderTable> orderTableMap);
@@ -24,7 +22,7 @@ public interface ReservationService {
 
 	int calTotalPrice(String businessId, int resPeople);
 
-	 ##### OrderTableService ##### 
+	/* ##### OrderTableService ##### */
 	int addOrderTable(List<Integer> tableSeq, int resNum);
 
 	int updateOrderTable(Map<String, OrderTable> orderTableMap);
@@ -38,5 +36,5 @@ public interface ReservationService {
 	List<Reservation> selectJoinReservationByMemId(String memberId);
 	
 	Reservation selectReservationByResNum(int resNum);
-*/
+
 }

@@ -66,8 +66,8 @@
 							</c:otherwise>
 						</c:choose>
 						위치 : ${restaurant.rtAddress}<br> 
-						업종 : ${restaurant.rtField}<br> 
-						휴무 : 매주 ${restaurant.rtHoliday }요일<br> 
+						업종 : ${restaurant.field.fieldVal}<br> 
+						휴무 : 매주 ${restaurant.holiday.holidayVal }요일<br> 
 						영업시간 :${restaurant.rtOpen} ~ ${restaurant.rtClose} 
 						<input type="hidden" name="businessId" value="${restaurant.businessId }" /> 
 						<input type="hidden"name="resPeople" value="${requestScope.resPeople }"/> 

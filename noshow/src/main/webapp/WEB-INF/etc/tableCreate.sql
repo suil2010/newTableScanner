@@ -408,6 +408,7 @@ ALTER TABLE ANSWER
       );
       
 /* code 테이블 기본 값 - 무조건 같이 실행!!!!!*/  
+insert into RT_CODE VALUES(0,'휴일없음','요일');
 insert into RT_CODE VALUES(1,'일','요일');
 insert into RT_CODE VALUES(2,'월','요일');
 insert into RT_CODE VALUES(3,'화','요일');

@@ -96,13 +96,10 @@
 			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
 			<div class="col-sm-9">
 				<select name="rtField" required>
-					<option value="한식">한식</option>
-					<option value="중식">중식</option>
-					<option value="일식">일식</option>
-					<option value="분식">분식</option>
-					<option value="치킨">치킨</option>
-					<option value="피자">피자</option>
-					<option value="족발">족발</option>
+						<option value="-1"> 업종을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.field }" var="field">	
+						<option value="${field.codeNum}"> ${field.codeVal }</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -110,14 +107,11 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
-				<select name="rtHoliday" required>
-					<option value="일요일">일요일</option>
-					<option value="월요일">월요일</option>
-					<option value="화요일">화요일</option>
-					<option value="수요일">수요일</option>
-					<option value="목요일">목요일</option>
-					<option value="금요일">금요일</option>
-					<option value="토요일">토요일</option>
+				<select name="rtHoliday" required> 
+						<option value="-1"> 휴무일을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.holiday }" var="holiday">	
+						<option value="${holiday.codeNum}"> ${holiday.codeVal }</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -140,11 +134,10 @@
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
 				<select name="rtTerm" id="rtTerm" required>
-					<option value=1>1시간</option>
-					<option value=2>2시간</option>
-					<option value=3>3시간</option>
-					<option value=4>4시간</option>
-					<option value=5>5시간</option>
+						<option value="-1"> 이용시간을 선택하세요. </option>
+					<c:forEach items="${requestScope.map.term }" var="term">	
+						<option value="${term.codeNum}"> ${term.codeVal }</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>

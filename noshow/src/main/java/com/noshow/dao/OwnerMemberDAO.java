@@ -4,31 +4,34 @@ import java.util.List;
 import java.util.Map;
 
 import com.noshow.vo.Restaurant;
+import com.noshow.vo.RtCode;
 import com.noshow.vo.Table;
 
 public interface OwnerMemberDAO {
 	
-	//Restaurant DB저장
+	/**
+	 * code table selectHolidatbyCode
+	 * @return
+	 */
+	List<RtCode> selectHolidayByCode();
+	
+	/**
+	 * code table selectTermByCode
+	 * @return
+	 */
+	List<RtCode> selectTermByCode();
+	
+	/**
+	 * code table selectFieldByCode
+	 * @return
+	 */
+	List<RtCode> selectFieldByCode();
+	
+	/**
+	 * insert Restaurant
+	 * @param rt
+	 * @return
+	 */
 	int insertRestaurant(Restaurant rt);
-	
-	//Restaurant DB수정
-	int updateRestaurant(Restaurant rt);
-	
-	//Restaurant DB삭제
-	int deleteRestaurant(String businessId);
-	
-	//Restaurant 조회
-	Restaurant selectRestaurantByBusinessId(String businessId);
-
-	//Restaurant 전체조회
-	List<Restaurant> selectAllRestaurant();
-
-	int insertTable(Table table);
-
-	List<Table> selectTable(String id);
-	
-	int deleteTable(String id);
-
-	List<Map<Object,Object>> selectSales(String id);
 	
 }

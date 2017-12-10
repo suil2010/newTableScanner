@@ -25,7 +25,7 @@ public class ReservationController {
 	@Autowired
 	private ReservationService service;
 	
-	@RequestMapping("/addReservation")
+	/*@RequestMapping("/addReservation")
 	@Transactional
 	public String addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList, RedirectAttributes redirectAttributes) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -48,7 +48,7 @@ public class ReservationController {
 
 	}
 	
-	/* 내 예약 조회 */
+	 내 예약 조회 
 	@RequestMapping("/myReservation")
 	public ModelAndView myReservation() {
 		
@@ -64,7 +64,7 @@ public class ReservationController {
 		
 	}
 	
-	/* 결제 */
+	 결제 
 	@RequestMapping("/payment")
 	public ModelAndView payment(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
 		System.out.println("payment호출");
@@ -82,6 +82,6 @@ public class ReservationController {
 		mav.addObject("reservation", reservation);
 		mav.setViewName("reservation/payment.tiles");
 		return mav; 
-	}
+	}*/
 	
 }

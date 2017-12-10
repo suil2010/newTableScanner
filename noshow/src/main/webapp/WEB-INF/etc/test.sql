@@ -25,3 +25,12 @@ from RESTAURANT a, rt_code b, rt_code c, rt_code d
 where a.rt_holiday = b.code_num and 
 	  a.rt_field = c.code_num and
 	  a.rt_term = d.code_num;
+	  
+select CODE_NUM, CODE_VAL, CODE_PART from RT_CODE where CODE_PART = '이용시간' order by code_num;	  
+select CODE_NUM, CODE_VAL, CODE_PART from RT_CODE where CODE_PART = '업종' order by code_num;	 
+select count(CODE_NUM) from RT_CODE where CODE_PART = '업종';	 
+
+select * from RESTAURANT;
+
+
+ 

@@ -6,11 +6,11 @@
 사업자번호 : ${requestScope.rt.rtNum } <br>
 매장 이름 : ${requestScope.rt.rtName } <br>
 매장 전화번호 : ${requestScope.rt.rtTel } <br>
-매장 업종 : ${requestScope.rt.rtField } <br>
-휴무일 : ${requestScope.rt.rtHoliday } <br>
+매장 업종 : ${requestScope.rt.field.fieldVal } <br>
+휴무일 : ${requestScope.rt.holiday.holidayVal} <br> 
 오픈시간 : ${requestScope.rt.rtOpen } <br>
 마감시간 : ${requestScope.rt.rtClose } <br>
-테이블 이용시간 : ${requestScope.rt.rtTerm } <br>
+테이블 이용시간 : ${requestScope.rt.term.termVal } <br>
 매장사진 : <img src="${initParam.rootPath }/rtPicture/${requestScope.rt.rtPicture}" width="350px"> <br>
 음식점 위치 : ${requestScope.rt.rtAddress } <br>
 수용가능 인원 : ${requestScope.rt.rtCapacity } <br>

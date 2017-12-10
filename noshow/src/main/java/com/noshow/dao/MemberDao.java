@@ -64,4 +64,29 @@ public interface MemberDao {
 		 * @return
 		 */
 		int updatePasswordByMemberId(Member member);
+		
+		/**
+		 * 관리자 권한을 가지는 회원 조회
+		 * @return
+		 */
+		List<Member> selectMemberAuthorityAdmin();
+		
+		/**
+		 * 일반 회원 권한을 가지는 회원 조회
+		 * @return
+		 */
+		List<Member> selectMemberAuthorityMember();
+		
+		/**
+		 * 사업자 권한을 가지는 회원 조회
+		 * @return
+		 */
+		List<Member> selectMemberAuthorityOwner();
+		
+		/**
+		 * 탈퇴한 회원 조회
+		 * @return
+		 */
+		List<Member> selectWithdrawMember();
+		
 }

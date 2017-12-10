@@ -27,7 +27,7 @@ public class SearchController {
 	@Autowired
 	private SearchService service;
 	
-	/* 2017.12.09 현준_OwnerMemberController에서 분리 */
+	/* 2017.12.09 현준_OwnerMemberController에서 분리 
 	@RequestMapping("/restaurantList")
 	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -51,7 +51,7 @@ public class SearchController {
 	}
 	
 	
-	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
+	 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 
 	@RequestMapping("/restaurantListByName")
 	public ModelAndView restaurantListByName(String businessId) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -68,7 +68,7 @@ public class SearchController {
 		return mav;
 	}
 	
-	/* 예약정보를 받아서 처리하는 controller */
+	 예약정보를 받아서 처리하는 controller 
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -112,11 +112,11 @@ public class SearchController {
 		
 	}
 	
-	/* 2017.12.05 23:18-현준_ajax Controller */
-	/* 2017.12.09 02:38 정리 완료 */
+	 2017.12.05 23:18-현준_ajax Controller 
+	 2017.12.09 02:38 정리 완료 
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
 	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
 		return service.selectUsableTable(resDate, resStartTime, businessId);
-	}
+	}*/
 }

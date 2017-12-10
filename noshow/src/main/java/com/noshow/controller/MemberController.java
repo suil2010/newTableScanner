@@ -160,4 +160,46 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 2017.12.10 윤동웅
+	 * 관리자 권한 member 전체 조회
+	 * @return
+	 */
+	@RequestMapping("/find_authority_admin")
+	public ModelAndView findAuthorityAdminMember() {
+		List<Member> member = service.selectMemberAuthorityAdmin(); 
+		return new ModelAndView("admin/authority_admin.tiles","member",member);
+	}
+	
+	/**
+	 * 2017.12.10 윤동웅
+	 * 일반 회원 권한 member 전체 조회
+	 * @return
+	 */
+	@RequestMapping("/find_authority_member")
+	public ModelAndView findAuthorityMember() {
+		List<Member> member = service.selectMemberAuthorityMember();
+		return new ModelAndView("admin/authority_member.tiles","member",member);
+	}
+	
+	/**
+	 * 2017.12.10 윤동웅
+	 * 사업자 권한 member 전체 조회
+	 * @return
+	 */
+	@RequestMapping("/find_authority_owner")
+	public ModelAndView findAuthorityOwnerMember() {
+		List<Member> member = service.selectMemberAuthorityOwner(); 
+		return new ModelAndView("admin/authority_owner.tiles","member",member);
+	}
+	
+	/**
+	 * 탈퇴한 member 전체 조회
+	 * @return
+	 */
+	@RequestMapping("/find_drop_member")
+	public ModelAndView findDropMember() {
+		List<Member> member = service.selectWithdrawMember();
+		return new ModelAndView("admin/drop_member.tiles","member",member);
+	}
 }

@@ -4,12 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.noshow.vo.Restaurant;
-import com.noshow.vo.Table;
 
 /**
  * 사업자 관련 업무로직 처리
  */
 public interface OwnerMemberService {
+
+	/**
+	 * 휴무일, 이용시간 간격, 업종 map으로 저장
+	 * @return
+	 */
+	Map<String, Object> selectcode();
+
 	
 	/**
 	 * 사업자(식당) 등록
@@ -19,36 +25,21 @@ public interface OwnerMemberService {
 	void insertRestaurant(Restaurant rt, String role);
 	
 	/**
-	 * 식당정보 수정
-	 * @return 
+	 * businessId로 사업자(식당) 정보 조회
+	 * @param businessId
+	 * @return
 	 */
-	int updateRestaurant(Restaurant rt);
-	
-	/**
-	 * 식당정보 삭제
-	 */
-	int deleteRestaurant(String businessId);
-
-	
 	Restaurant selectRestaurantByBusinessId(String businessId);
-
 	
 	/**
-	 * 모든 식당을 조회하는 메소드
+	 * 식당 정보 수정
+	 * @param restaurant
+	 */
+	void updateRestaurant(Restaurant rt);
+	
+	/**
+	 * 사업자 전체 조회
+	 * @return
 	 */
 	List<Restaurant> selectAllRestaurant();
-	
-	
-	/**
-	 * 테이블정보 등록
-	 */
-	int insertTable(Table table);
-	
-	List<Table> selectTable(String id);
-	
-	int deleteTable(String id);
-
-	List<Map<Object,Object>> selectSales(String id);
-	
-
 }

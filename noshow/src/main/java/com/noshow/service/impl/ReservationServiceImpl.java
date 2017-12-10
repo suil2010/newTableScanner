@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Resource 
 	private OrderTableDao orderTableDao;
-	
+/*	
 	@Override
 	@Transactional
 	public Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq) {
@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 //		 = selectReservationByReservationInfo(memberId, businessId, resStartTime);
 		int resNum = reservation.getResNum();
 		
-		/* 예약테이블 추가를 위한 부분 */
+		 예약테이블 추가를 위한 부분 
 		result = result + addOrderTable(tableSeq, resNum);
 		List<OrderTable> orderTable = orderTableDao.selectOrderTableByResNum(resNum);
 		reservation.setOrderTable(orderTable);
@@ -90,38 +90,38 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	
-	/**
+	*//**
 	 * 사용자에게 시간만 받아서 처리하기 위한 메소드
 	 * @param resDate
 	 * @param resStartTime
 	 * @return
-	 */
+	 *//*
 	private String calStartTime(String resDate, String resStartTime) {
 		resStartTime = resDate + " " +resStartTime + ":00";
 		return resStartTime;
 	}
 	
 	
-	/**
+	*//**
 	 * 매개변수로 받은 사업주 ID로 rt_term (Table이용시간) 를 받고, resStartTime (예약시작시간) 에 re_term 을
 	 * 더하여 resEndTime(예약종료시간)을 리턴
 	 * 
 	 * @param businessId
 	 * @param resEndTime
 	 * @return
-	 */
+	 *//*
 	private String calResEndTime(String businessId, String resStartTime) {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
-		int rt_term = restaurant.getRtTerm();
+		//Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
+		//int rt_term = restaurant.getRtTerm();
 
 		try {
 			formatDate = dateForm.parse(resStartTime);
 			Calendar cal = new GregorianCalendar(Locale.KOREA);
 			cal.setTime(formatDate);
-			cal.add(Calendar.HOUR, rt_term);
+			//cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
 			return resEndTime;
 		} catch (ParseException e) {
@@ -131,20 +131,20 @@ public class ReservationServiceImpl implements ReservationService {
  
 	}
 
-	/**
+	*//**
 	 * 사업주가 지정한 1인당 예약금을 예약인원에 맞추어 계산해서 리턴
 	 * @param businessId
 	 * @param resPeople
 	 * @return
-	 */
+	 *//*
 	@Override
-	public int calTotalPrice(String businessId, int resPeople) {
-		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
-		return restaurant.getRtDeposit() * resPeople;
-	}
+	//public int calTotalPrice(String businessId, int resPeople) {
+		//Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
+		//return restaurant.getRtDeposit() * resPeople;
+	//}
 
 	
-	/* OrderTableService */
+	 OrderTableService 
 	@Override
 	@Transactional
 	public int addOrderTable(List<Integer> tableSeq, int resNum) {
@@ -174,7 +174,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String businessId) {
-		return restaurantDao.selectRestaurantByBusinessId(businessId);
+		//return restaurantDao.selectRestaurantByBusinessId(businessId);
 	}
 
 	@Override
@@ -185,6 +185,6 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation selectReservationByResNum(int resNum) {
 		return dao.selectReservationByResNum(resNum);
-	}
+	}*/
 
 }

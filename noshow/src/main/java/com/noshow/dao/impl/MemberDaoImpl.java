@@ -1,6 +1,7 @@
 package com.noshow.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,26 @@ public class MemberDaoImpl implements MemberDao {
 		map.put("memberName", memberName);
 		map.put("memberEmail", memberEmail);
 		return session.selectOne(makeSqlId("selectMemberIdByMemberNameAndMemberEmail"), map);
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityAdmin() {
+		return session.selectList(makeSqlId("selectMemberAuthorityAdmin"));
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityMember() {
+		return session.selectList(makeSqlId("selectMemberAuthorityMember"));
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityOwner() {
+		return session.selectList(makeSqlId("selectMemberAuthorityOwner"));
+	}
+
+	@Override
+	public List<Member> selectWithdrawMember() {
+		return session.selectList(makeSqlId("selectWithdrawMember"));
 	}
 	
 	

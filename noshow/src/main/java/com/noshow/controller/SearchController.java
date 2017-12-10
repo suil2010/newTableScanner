@@ -78,6 +78,7 @@ public class SearchController {
 		String memberId = member.getMemberId();
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
 
+		
 		//검증
 		if (restaurantList.isEmpty()) {
 			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");

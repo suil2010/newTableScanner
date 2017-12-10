@@ -120,7 +120,7 @@
 	</select>
 	
 	<!-- 탈퇴한 회원 조회 -->
-	<select id="selectWithdrawMember">
+	<select id="selectWithdrawMember" resultMap="member-resultmap">
 		<include refid="member-select-sql"/>
 		where drop_Check = '1'
 	</select>

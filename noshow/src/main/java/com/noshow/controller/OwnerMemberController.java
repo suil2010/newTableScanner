@@ -2,6 +2,7 @@ package com.noshow.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -103,4 +104,9 @@ public class OwnerMemberController {
 		return new ModelAndView("redirect:/find_rt_byid.do");
 	}
 	
+	@RequestMapping("/find_rt")
+	public ModelAndView findAllRestaurant() {
+		List<Restaurant> rt = service.selectAllRestaurant();
+		return new ModelAndView("admin/find_restaurant.tiles","rt",rt);
+	}
 }

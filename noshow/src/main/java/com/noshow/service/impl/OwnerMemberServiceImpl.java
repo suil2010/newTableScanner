@@ -1,6 +1,7 @@
 package com.noshow.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -46,6 +47,11 @@ public class OwnerMemberServiceImpl implements OwnerMemberService {
 	@Override
 	public void updateRestaurant(Restaurant rt) {
 		dao.updateRestaurant(rt);
+	}
+
+	@Override
+	public List<Restaurant> selectAllRestaurant() {
+		return dao.selectAllRestaurant();
 	}
 	
 

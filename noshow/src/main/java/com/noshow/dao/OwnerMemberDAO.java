@@ -11,36 +11,47 @@ import com.noshow.vo.Term;
 public interface OwnerMemberDAO {
 	
 	/**
-	 * code table selectHolidatbyCode
+	 * 휴무일 목록 조회
 	 * @return
 	 */
 	List<Holiday> selectHoliday();
 	
 	/**
-	 * code table selectTermByCode
+	 * 식당 이용 시간 목록 조회
 	 * @return
 	 */
 	List<Term> selectTerm();
 	
 	/**
-	 * code table selectFieldByCode
+	 * 업종 목록 조회
 	 * @return
 	 */
 	List<Field> selectField();
 	
 	/**
-	 * insert Restaurant
+	 * 사업자 등록
 	 * @param rt
 	 * @return
 	 */
 	int insertRestaurant(Restaurant rt);
 	
- 	//Restaurant 조회
+ 	/**
+ 	 * 회원 아이디로 식당 정보 조회
+ 	 * @param businessId
+ 	 * @return
+ 	 */
   	Restaurant selectRestaurantByBusinessId(String businessId);
   	
   	/*
-  	 * update Restaurant
+  	 * 사업자 정보 수정
   	 */
   	int updateRestaurant(Restaurant rt);
+  	
+  	
+  	/**
+  	 * 모든 사업자 정보 조회
+  	 * @return
+  	 */
+  	List<Restaurant> selectAllRestaurant();
 	
 }

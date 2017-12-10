@@ -1,5 +1,6 @@
 package com.noshow.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.noshow.vo.Restaurant;
@@ -9,6 +10,10 @@ import com.noshow.vo.Restaurant;
  */
 public interface OwnerMemberService {
 
+	/**
+	 * 휴무일, 이용시간 간격, 업종 map으로 저장
+	 * @return
+	 */
 	Map<String, Object> selectcode();
 
 	
@@ -20,7 +25,7 @@ public interface OwnerMemberService {
 	void insertRestaurant(Restaurant rt, String role);
 	
 	/**
-	 * 사업자(식당) 정보 조회
+	 * businessId로 사업자(식당) 정보 조회
 	 * @param businessId
 	 * @return
 	 */
@@ -31,4 +36,10 @@ public interface OwnerMemberService {
 	 * @param restaurant
 	 */
 	void updateRestaurant(Restaurant rt);
+	
+	/**
+	 * 사업자 전체 조회
+	 * @return
+	 */
+	List<Restaurant> selectAllRestaurant();
 }

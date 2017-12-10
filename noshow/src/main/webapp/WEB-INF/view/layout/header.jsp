@@ -117,8 +117,7 @@
 
 		<!-- 개발자  -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="#"><button class="btn btn-default">로그인</button></a>
-			<a href="#"><button class="btn btn-default">회원가입</button></a>
+			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
 		</sec:authorize>
 
 		<!-- 비회원 -->

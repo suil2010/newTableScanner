@@ -461,4 +461,7 @@ insert into TERM VALUES('4','4시간');
       create sequence review_num_seq;
       create sequence menu_num_seq;
 
+      
+/* 관리자 계정 만들기 admin 으로 회원 가입후 아래 insert 실행!!*/
+UPDATE AUTHORITY set AUTHORITY = 'ROLE_ADMIN' WHERE member_id = 'admin';
     

@@ -42,4 +42,3 @@
 		<sec:csrfInput />
 	</table>
 </div>
-</div>

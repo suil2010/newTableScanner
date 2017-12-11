@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.noshow.dao.MenuDao;
-import com.noshow.vo.Classification;
 import com.noshow.vo.Menu;
 
 @Repository
@@ -21,21 +20,6 @@ public class MenuDaoImpl implements MenuDao{
 	}
 	
 	@Override
-	public int insertClassification(Classification classification) {
-		return session.insert(makeSqlId("insertClassification"), classification);
-	}
-
-	@Override
-	public int updateClassification(Classification classification) {
-		return session.update(makeSqlId("updateClassification"), classification);
-	}
-
-	@Override
-	public int deleteClassification(int classificationNum) {
-		return session.update(makeSqlId("deleteClassification"), classificationNum);
-	}
-
-	@Override
 	public int insertMenu(Menu menu) {
 		return session.insert(makeSqlId("insertMenu"), menu);
 	}
@@ -48,11 +32,6 @@ public class MenuDaoImpl implements MenuDao{
 	@Override
 	public int deleteMenu(int menuNum) {
 		return session.delete(makeSqlId("deleteMenu"), menuNum);
-	}
-
-	@Override
-	public List<Classification> selectClassificationBybusinessId(String businessId) {
-		return session.selectList(makeSqlId("selectClassificationBybusinessId"), businessId);
 	}
 
 	@Override

@@ -92,5 +92,37 @@
 		delete from member where member_Id = #{value}
 	</delete>
 	
+	<!-- 관리자 권한을 가지는 회원 조회 -->
+	<select id="selectMemberAuthorityAdmin" resultMap="member-resultmap">
+		select MEMBER.member_id, MEMBER.member_password, MEMBER.member_name, MEMBER.member_gender, 
+			   MEMBER.member_tel, MEMBER.member_birthday, MEMBER.member_email
+		from   MEMBER, AUTHORITY
+		where  MEMBER.member_id = AUTHORITY.member_id 
+			   and AUTHORITY.AUTHORITY = 'ROLE_ADMIN'
+	</select>
+	
+	<!-- 일반 사용자 가지는 회원 조회 -->
+	<select id="selectMemberAuthorityMember" resultMap="member-resultmap">
+		select MEMBER.member_id, MEMBER.member_password, MEMBER.member_name, MEMBER.member_gender, 
+			   MEMBER.member_tel, MEMBER.member_birthday, MEMBER.member_email
+		from   MEMBER, AUTHORITY
+		where  MEMBER.member_id = AUTHORITY.member_id 
+			   and AUTHORITY.AUTHORITY = 'ROLE_MEMBER'
+	</select>
 
+	<!-- 사업자 권한을 가지는 회원 조회 -->
+	<select id="selectMemberAuthorityOwner" resultMap="member-resultmap">
+		select MEMBER.member_id, MEMBER.member_password, MEMBER.member_name, MEMBER.member_gender, 
+			   MEMBER.member_tel, MEMBER.member_birthday, MEMBER.member_email
+		from   MEMBER, AUTHORITY
+		where  MEMBER.member_id = AUTHORITY.member_id 
+			   and AUTHORITY.AUTHORITY = 'ROLE_OWNER'
+	</select>
+	
+	<!-- 탈퇴한 회원 조회 -->
+	<select id="selectWithdrawMember" resultMap="member-resultmap">
+		<include refid="member-select-sql"/>
+		where drop_Check = '1'
+	</select>
+	
 </mapper>

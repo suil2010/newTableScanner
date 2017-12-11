@@ -1,6 +1,7 @@
 package com.noshow.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.noshow.vo.Member;
 
@@ -50,5 +51,36 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	void getFindByPassword(Member member) throws Exception;
+	
+	/**
+	 * 관리자 권한을 가지는 회원 조회
+	 * @return
+	 */
+	List<Member> selectMemberAuthorityAdmin();
+	
+	/**
+	 * 일반 회원 권한을 가지는 회원 조회
+	 * @return
+	 */
+	List<Member> selectMemberAuthorityMember();
+	
+	/**
+	 * 사업자 권한을 가지는 회원 조회
+	 * @return
+	 */
+	List<Member> selectMemberAuthorityOwner();	
+	
+	/**
+	 * 탈퇴한 회원 조회
+	 * @return
+	 */
+	List<Member> selectWithdrawMember();
+	
+	/**
+	 * 일반회원을 관리자로 권한 변경!
+	 * @return
+	 */
+	List<Member> MemberAuthorityUpdateAdmin(String memberId);
+	
 
 }

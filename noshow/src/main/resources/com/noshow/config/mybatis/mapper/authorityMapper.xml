@@ -33,6 +33,15 @@
 		WHERE member_id = #{memberId}
 	</update>
 	
+	<!-- 권한 업데이트 -->
+	<update id="updateAuthorityAdmin" parameterType="String">
+		UPDATE AUTHORITY
+		<set>
+			AUTHORITY = 'ROLE_ADMIN'
+		</set>
+		WHERE member_id = #{memberId}
+	</update>
+	
 	<!-- 삭제 -->
 	<delete id="deleteAuthority" parameterType="String">
 		delete from authority where member_id = #{memberId}

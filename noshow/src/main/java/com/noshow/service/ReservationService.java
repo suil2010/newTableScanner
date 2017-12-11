@@ -1,13 +1,11 @@
 package com.noshow.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.noshow.vo.OrderTable;
 import com.noshow.vo.Reservation;
 import com.noshow.vo.Restaurant;
-import com.noshow.vo.Table;
 
 public interface ReservationService {
 

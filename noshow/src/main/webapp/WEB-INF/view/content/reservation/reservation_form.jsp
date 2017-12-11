@@ -21,6 +21,7 @@
 			return false;
 		}
 
+
 		if ($("#resStartTime").val() == "") {
 			alert("시간도 지정해주셔야 테이블 검색이 되요~");
 			$("#resStartTime").focus();
@@ -241,7 +242,7 @@
 				<!-- 테이블정보 패널 -->
 				<div role="tabpanel" class="tab-pane" id="table">
 					<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
-						<c:forEach items="${requestScope.allTable}" var="alltables">
+						<c:forEach items="${requestScope.restaurant.table}" var="alltables">
 							<div class="draggable" style="top: ${alltables.yLocation}px; left: ${alltables.xLocation}px;">
 								<span>${alltables.tableNum }번 테이블</span>
 								<p>

@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Resource 
 	private OrderTableDao orderTableDao;
-	
+
 	@Override
 	@Transactional
 	public Reservation addReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, String memberId, String businessId, List<Integer> tableSeq) {
@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 //		 = selectReservationByReservationInfo(memberId, businessId, resStartTime);
 		int resNum = reservation.getResNum();
 		
-		/* 예약테이블 추가를 위한 부분 */
+//		 예약테이블 추가를 위한 부분 
 		result = result + addOrderTable(tableSeq, resNum);
 		List<OrderTable> orderTable = orderTableDao.selectOrderTableByResNum(resNum);
 		reservation.setOrderTable(orderTable);
@@ -114,14 +114,14 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-		Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
-		int rt_term = restaurant.getRtTerm();
+		//Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
+		//int rt_term = restaurant.getRtTerm();
 
 		try {
 			formatDate = dateForm.parse(resStartTime);
 			Calendar cal = new GregorianCalendar(Locale.KOREA);
 			cal.setTime(formatDate);
-			cal.add(Calendar.HOUR, rt_term);
+			//cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
 			return resEndTime;
 		} catch (ParseException e) {
@@ -144,7 +144,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	
-	/* OrderTableService */
+	// OrderTableService 
 	@Override
 	@Transactional
 	public int addOrderTable(List<Integer> tableSeq, int resNum) {

@@ -1,5 +1,6 @@
 package com.noshow.service.impl;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.InternetAddress;
@@ -130,5 +131,32 @@ public class MemberServiceImpl implements MemberService {
 			sb.append(charaters[rm.nextInt(charaters.length)]);
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityAdmin() {
+		return dao.selectMemberAuthorityAdmin();
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityMember() {
+		return dao.selectMemberAuthorityMember();
+	}
+
+	@Override
+	public List<Member> selectMemberAuthorityOwner() {
+		return dao.selectMemberAuthorityOwner();
+	}
+
+	@Override
+	public List<Member> selectWithdrawMember() {
+		return dao.selectWithdrawMember();
+	}
+
+	@Override
+	@Transactional
+	public List<Member> MemberAuthorityUpdateAdmin(String memberId) {
+		Authoritydao.updateAuthorityAdmin(memberId);
+		return dao.selectMemberAuthorityAdmin();
 	}
 }

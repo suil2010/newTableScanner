@@ -1,46 +1,57 @@
 package com.noshow.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import com.noshow.vo.Field;
+import com.noshow.vo.Holiday;
+import com.noshow.vo.Member;
 import com.noshow.vo.Restaurant;
-import com.noshow.vo.Table;
+import com.noshow.vo.Term;
 
 public interface OwnerMemberDAO {
 	
-	//Restaurant DB저장
+	/**
+	 * 휴무일 목록 조회
+	 * @return
+	 */
+	List<Holiday> selectHoliday();
+	
+	/**
+	 * 식당 이용 시간 목록 조회
+	 * @return
+	 */
+	List<Term> selectTerm();
+	
+	/**
+	 * 업종 목록 조회
+	 * @return
+	 */
+	List<Field> selectField();
+	
+	/**
+	 * 사업자 등록
+	 * @param rt
+	 * @return
+	 */
 	int insertRestaurant(Restaurant rt);
 	
-	//Restaurant DB수정
-	int updateRestaurant(Restaurant rt);
-	
-	//Restaurant DB삭제
-	int deleteRestaurant(String businessId);
-	
-	//Restaurant 조회
-	Restaurant selectRestaurantByBusinessId(String businessId);
-	
-	//Restaurant 전체조회
-	List<Restaurant> selectAllRestaurant();
-	
-	//Restaurant 이름으로 조회
-	int selectRestaurantByRtName(String rtName);
-
-	int insertTable(Table table);
-
-	List<Table> selectTable(String id);
-	
-	int deleteTable(String id);
-	
-	/* 2017.12.04 - 현준_검색 Test */
-	List<Restaurant> selectRestaurantBySearch(Map<String, Object> searchInfo);
-	
-	/* 2017.12.05 - 현준_식당 이름으로 검색 */
-	List<Restaurant> selectRestaurantByNameSearch(Map<String, String> searchInfo);
-	
-	/* 2017.12.04 - 현준_예약가능테이블 조회 TEST*/
-	List<Table> selectUsableTable(Map<String, String> tableMap);
-
-	List<Map<Object,Object>> selectSales(String id);
+ 	/**
+ 	 * 회원 아이디로 식당 정보 조회
+ 	 * @param businessId
+ 	 * @return
+ 	 */
+  	Restaurant selectRestaurantByBusinessId(String businessId);
+  	
+  	/*
+  	 * 사업자 정보 수정
+  	 */
+  	int updateRestaurant(Restaurant rt);
+  	
+  	
+  	/**
+  	 * 모든 사업자 정보 조회
+  	 * @return
+  	 */
+  	List<Restaurant> selectAllRestaurant();
 	
 }

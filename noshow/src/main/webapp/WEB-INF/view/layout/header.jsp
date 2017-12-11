@@ -71,7 +71,15 @@
 			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="col-sm-2"><a href="#">공지사항</a></li>
-				<li class="col-sm-2"><a href="#">회원관리</a></li>
+				<li class="col-sm-2"><a href="#">회원관리</a>
+					<ul class="submenu" style="list-style: none;">
+						<li><a href="${initParam.rootPath}/find_authority_admin.do">admin 회원 보기</a></li>
+						<li><a href="${initParam.rootPath }/find_authority_member.do">member 회원 보기</a></li>
+						<li><a href="${initParam.rootPath }/find_authority_owner.do">owner 회원 보기</a></li>
+						<li><a href="${initParam.rootPath }/find_drop_member.do">탈퇴 회원 보기</a></li>
+						<li><a href="${initParam.rootPath }/find_rt.do">음식점 정보 보기</a></li>
+					</ul>
+				</li>
 			</sec:authorize>
 
 			<!-- 비회원 -->
@@ -117,8 +125,7 @@
 
 		<!-- 개발자  -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="#"><button class="btn btn-default">로그인</button></a>
-			<a href="#"><button class="btn btn-default">회원가입</button></a>
+			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
 		</sec:authorize>
 
 		<!-- 비회원 -->

@@ -58,7 +58,6 @@ public class ReservationController {
 
 	} 
 	
-	
 	@RequestMapping("/reservationSuccess")
 	public ModelAndView reservationSuccess(int resNum) {
 		Reservation reservation = service.selectReservationByResNum(resNum);
@@ -66,7 +65,7 @@ public class ReservationController {
 
 	}
 	
-	/* 내 예약 조회 */
+//	 내 예약 조회 
 	@RequestMapping("/myReservation")
 	public ModelAndView myReservation(ModelMap model) {
 		
@@ -88,7 +87,7 @@ public class ReservationController {
 		return new ModelAndView("tabmenu/mypage/mypage_reservation.tiles", "reservationList", reservationList);
 	}
 	
-	/* 결제 */
+//	 결제 
 	@RequestMapping("/payment")
 	public ModelAndView payment(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
 		System.out.println("payment호출");

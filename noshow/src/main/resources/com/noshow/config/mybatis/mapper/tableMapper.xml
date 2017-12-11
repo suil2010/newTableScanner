@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.tableMapper">
+
+	<resultMap type="table" id="table-resultmap">
+		<id column="table_seq" property="tableSeq" />
+		<result column="table_num" property="tableNum" />
+		<result column="table_people" property="tablePeople" />
+		<result column="x_location" property="xLocation" />
+		<result column="y_location" property="yLocation" />
+		<result column="business_Id" property="businessId" />
+	</resultMap>
+
+	<!-- Table -->
+	<insert id="insertTable" parameterType="Table"> INSERT INTO table_
+		VALUES ( tabel_list_seq.nextval
+		, #{tableNum} , #{tablePeople} ,
+		#{xLocation} ,
+		#{yLocation},
+		#{businessId})
+	</insert>
+
+	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
+		SELECT	table_seq,
+				table_num,
+				table_people
+				x_location,
+				y_location,
+				business_id
+		FROM	table_ 
+		WHERE 	business_id = #{value}
+	</select>
+	<delete id="deleteTable" parameterType="string"> delete from table_ where
+		business_id = #{value}
+	</delete>
+</mapper>

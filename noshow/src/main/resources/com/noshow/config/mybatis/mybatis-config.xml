@@ -16,12 +16,12 @@
 		<mapper resource="com/noshow/config/mybatis/mapper/ownerMemberMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/orderTableMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/reservationMapper.xml"/>
-		<mapper resource="com/noshow/config/mybatis/mapper/menuMapper.xml"/>		
-		<mapper resource="com/noshow/config/mybatis/mapper/bookmarkMapper.xml"/>
+		<mapper resource="com/noshow/config/mybatis/mapper/menuMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/boardMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/bookmarkMapper.xml"/>	
 		<mapper resource="com/noshow/config/mybatis/mapper/reviewMapper.xml"/>
-		
+		<mapper resource="com/noshow/config/mybatis/mapper/searchMapper.xml"/>
+		<mapper resource="com/noshow/config/mybatis/mapper/tableMapper.xml"/>
 	</mappers>
 	
 </configuration>

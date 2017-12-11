@@ -94,7 +94,7 @@ public class MemberController {
 
 		if(!passwordEncoder.matches(oldMemberPassword, ((Member)authentication.getPrincipal()).getMemberPassword())) {
 			model.addAttribute("errorMessage", "패스워드를 확인하세요.");
-			return "member/update_member_form.tiles";
+			return "mypage/member_info.tiles";
 		}
 		service.updateMemberProfile(member);
 		
@@ -105,7 +105,7 @@ public class MemberController {
 
 		context.setAuthentication(newAutentication);
 		model.addAttribute("tabMenu", "true"); 
-		return "tabmenu/mypage/update_member_form.tiles";   
+		return "tabmenu/mypage/member_info.tiles";   
 	}
 	
 	/**

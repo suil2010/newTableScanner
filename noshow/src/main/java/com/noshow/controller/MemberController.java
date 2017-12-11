@@ -51,6 +51,7 @@ public class MemberController {
 		if(url == null) url = "mypage/member_info.tiles";
 		return url;
 	}
+	
 	@RequestMapping("/mypage/update_member_form")
 	public String updateMemberForm(ModelMap model) {
 		String url = null;
@@ -63,7 +64,6 @@ public class MemberController {
 				break;
 			}
 		}
-		System.out.println(model.get("tabMenu"));
 		if(url == null) url = "mypage/member_info.tiles";
 		return url;
 	}
@@ -94,7 +94,7 @@ public class MemberController {
 
 		if(!passwordEncoder.matches(oldMemberPassword, ((Member)authentication.getPrincipal()).getMemberPassword())) {
 			model.addAttribute("errorMessage", "패스워드를 확인하세요.");
-			return "member/update_member_form.tiles";
+			return "mypage/member_info.tiles";
 		}
 		service.updateMemberProfile(member);
 		
@@ -105,7 +105,7 @@ public class MemberController {
 
 		context.setAuthentication(newAutentication);
 		model.addAttribute("tabMenu", "true"); 
-		return "tabmenu/mypage/update_member_form.tiles";   
+		return "tabmenu/mypage/member_info.tiles";   
 	}
 	
 	/**
@@ -201,5 +201,16 @@ public class MemberController {
 	public ModelAndView findDropMember() {
 		List<Member> member = service.selectWithdrawMember();
 		return new ModelAndView("admin/drop_member.tiles","member",member);
+	}
+	
+	/**
+	 * 멤버 권한 관리자로 바꾸기!
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping("/memberAuthority_update")
+	public ModelAndView memberAuthorityUpdateAdmin(String memberId) {
+		List<Member> member = service.MemberAuthorityUpdateAdmin(memberId);
+		return new ModelAndView("admin/authority_owner.tiles","member",member);
 	}
 }

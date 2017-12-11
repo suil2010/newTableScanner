@@ -75,5 +75,12 @@ public interface MemberService {
 	 * @return
 	 */
 	List<Member> selectWithdrawMember();
+	
+	/**
+	 * 일반회원을 관리자로 권한 변경!
+	 * @return
+	 */
+	List<Member> MemberAuthorityUpdateAdmin(String memberId);
+	
 
 }

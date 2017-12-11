@@ -32,5 +32,12 @@ public interface AuthorityDao {
 	 * @return
 	 */
 	int deleteAuthority(String memberId);
+	
+	/**
+	 * 관리자 권한 주기!
+	 * @param memberId
+	 * @return
+	 */
+	int updateAuthorityAdmin(String memberId);
 
 }

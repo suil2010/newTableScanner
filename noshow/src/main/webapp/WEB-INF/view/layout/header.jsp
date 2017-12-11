@@ -90,30 +90,30 @@
 
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
 				<li class="col-sm-2"><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기</a></li>
 			</sec:authorize>
 
 			<!-- 사업자회원 -->
 			<sec:authorize access="hasRole('ROLE_OWNER')">
-				<li class="col-sm-2"><a href="#">음식점관리</a>
+				<li class="col-sm-2"><a href="${initParam.rootPath}/find_rt_byid.do"">음식점관리</a>
 					<ul class="submenu" style="list-style: none;">
 						<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 						<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
 						<li><a href="${initParam.rootPath }/menu_businessId.do">메뉴 수정</a></li>
 					</ul>
 				</li>
-				<li class="col-sm-2"><a href="#">예약관리</a>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/owner/reservation_info.do">예약관리</a>
 					<ul class="submenu" style="list-style: none;">
-						<li><a href="#">예약조회</a></li>
-						<li><a href="#">예약등록</a></li>
+						<li><a href="${initParam.rootPath }/owner/reservation_info.do">예약조회</a></li>
+						<li><a href="${initParam.rootPath }/ownerRestaurantInfo.do">예약등록</a></li>
 					</ul>
 				</li>
-				<li class="col-sm-2"><a href="${initParam.rootPath}/selectSales.do">통계</a></li>
+				<li class="col-sm-2"><a href="#">통계</a></li>
 				<li class="col-sm-2"><a href="#">리뷰</a></li>
 				<li class="col-sm-2"><a href="#">문의</a></li>
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
 		</ul>
 	</div>

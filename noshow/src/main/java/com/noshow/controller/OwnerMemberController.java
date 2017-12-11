@@ -2,7 +2,9 @@ package com.noshow.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +40,10 @@ public class OwnerMemberController {
 	@Autowired
 	private OwnerMemberService service;
 	
-	
 	/**
 	 * 2017.12.08 윤동웅
 	 * 음식점 정보를 등록하고 음식점 점주 환경으로 변환하기 위해 재 로그인
+	 * 
 	 * @param rt
 	 * @param request
 	 * @param r
@@ -56,7 +57,7 @@ public class OwnerMemberController {
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-	
+		
 		MultipartFile rtImg = rt.getRtImg();
 		if (rtImg != null && !rtImg.isEmpty()) {
 			String dir = request.getServletContext().getRealPath("/rtPicture");
@@ -68,13 +69,14 @@ public class OwnerMemberController {
 		
 		service.insertRestaurant(rt, "ROLE_OWNER");
 		context.setAuthentication(null);
-
+		
 		return new ModelAndView("redirect:/login_form.do");
 	}
 	
 	/**
 	 * 2017.12.08 윤동웅
 	 * 음식점 정보 수정
+	 * 
 	 * @param rt
 	 * @return
 	 */
@@ -87,6 +89,7 @@ public class OwnerMemberController {
 	/**
 	 * 2017.12.08 윤동웅
 	 * 현재 접속된 사용자의 음식점 정보 보기!
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/find_rt_byid")
@@ -94,17 +97,13 @@ public class OwnerMemberController {
 		
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		String businessId = ((Member)authentication.getPrincipal()).getMemberId();
+		String businessId = ((Member) authentication.getPrincipal()).getMemberId();
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId ,businessId);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(businessId, businessId);
 		
-		return new ModelAndView("owner/owner_Info.tiles","rt",restaurant);
+		return new ModelAndView("owner/owner_Info.tiles", "rt", restaurant);
 	}
 	
-
-	
-
-
 	@RequestMapping("/all_restaurant")
 	public ModelAndView selectAllRestaurant() {
 		List<Restaurant> restaurantList = service.selectAllRestaurant();
@@ -177,7 +176,7 @@ public class OwnerMemberController {
 		String memberId = member.getMemberId();
 		List<Table> allTable = selectTable(businessId);
 		
-		Restaurant restaurant = service.selectRestaurantByBusinessIdResInfo(resDate,resTime,memberId,businessId);
+		Restaurant restaurant = service.selectRestaurantByBusinessIdResInfo(resDate, resTime, memberId, businessId);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("reservation/reservation_form.tiles");
@@ -188,10 +187,32 @@ public class OwnerMemberController {
 		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
 		
+		System.out.println(resDate + resTime);
 		return mav;
 	}
 	
-	/* 이름검색으로 넘어오는 경우 식당상세 이동  처리 컨트롤러 */
+	@RequestMapping("/ownerRestaurantInfo")
+	public ModelAndView ownerRestaurantInfo() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member) authentication.getPrincipal();
+		String memberId = member.getMemberId();
+		
+		Date ownerDate2 = new Date();
+		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
+		String ownerDate = formatType.format(ownerDate2);
+		Restaurant restaurant = service.selectRestaurantByBusinessIdResInfo(ownerDate, "12:00", memberId, memberId);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("owner/reservation_join.tiles");
+		mav.addObject("restaurant", restaurant);
+		
+		return mav;
+	}
+	
+	/* 이름검색으로 넘어오는 경우 식당상세 이동 처리 컨트롤러 */
 	@RequestMapping("/restaurantListByName")
 	public ModelAndView restaurantListByName(String businessId) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -219,7 +240,7 @@ public class OwnerMemberController {
 		Member member = (Member) authentication.getPrincipal();
 		String memberId = member.getMemberId();
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
-
+		
 		//검증
 		if (restaurantList.isEmpty()) {
 			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
@@ -235,7 +256,7 @@ public class OwnerMemberController {
 	}
 	
 	@RequestMapping("/selectSales")
-	public ModelAndView selectSales() throws Exception{
+	public ModelAndView selectSales() throws Exception {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		
@@ -246,21 +267,18 @@ public class OwnerMemberController {
 		System.out.println(businessId);
 		List<Map<Object, Object>> sales = service.selectSales(businessId);
 		
-		
 		System.out.println(sales);
 		
-		String people = null;
 		String date = null;
-		int i = 0;
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (Map<Object, Object> sale : sales) {
 			HashMap<String, Object> m = new HashMap<>();
 			for (Object mapkey : sale.keySet()) {
 				if (mapkey.equals("SUM(RES_PEOPLE)")) {
-					m.put("people",  sale.get(mapkey));
+					m.put("people", sale.get(mapkey));
 				} else if (mapkey.equals("RES_DATE")) {
 					date = sale.get(mapkey).toString();
-					date = date.substring(0,10); 
+					date = date.substring(0, 10);
 					m.put("period", date);
 				}
 			}
@@ -286,7 +304,7 @@ public class OwnerMemberController {
 		if (restaurantList.isEmpty()) {
 			return new ModelAndView("reservation/restaurant_list.tiles", "notfountRestaurant", "해당 조건에 맞는 음식점이 없습니다.");
 		} else {
-			return new ModelAndView("reservation/restaurant_list.tiles","restaurantList", restaurantList);
+			return new ModelAndView("reservation/restaurant_list.tiles", "restaurantList", restaurantList);
 		}
 		
 	}
@@ -295,7 +313,7 @@ public class OwnerMemberController {
 	/* 2017.12.09 02:38 정리 완료 */
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
-	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
+	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId, HttpServletResponse response) throws IOException {
 		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
 	

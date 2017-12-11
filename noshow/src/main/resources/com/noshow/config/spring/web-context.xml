@@ -33,6 +33,9 @@
 	<mvc:view-controller path="/restaurant_Sales.do" view-name="owner/restaurant_Sales.tiles"/>
 	<!-- <mvc:view-controller path="/restaurant_list.do" view-name="reservation/restaurant_list.tiles"/> -->
 	<mvc:view-controller path="/owner/ownerInfo.do" view-name="owner/ownerInfo.tiles"/>
+	<mvc:view-controller path="/owner/reservation_info.do" view-name="owner/reservation_info.tiles"/>
+	<mvc:view-controller path="/owner/reservation_join.do" view-name="owner/reservation_join.tiles"/>
+	 
 
 	<!-- 2017.12.08 윤동웅 -->
 	<mvc:view-controller path="/owner/ownerMypage.do" view-name="owner/ownerMypage.tiles"/>	

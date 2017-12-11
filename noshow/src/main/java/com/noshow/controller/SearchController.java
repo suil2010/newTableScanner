@@ -77,7 +77,6 @@ public class SearchController {
 		Member member = (Member) authentication.getPrincipal();
 		String memberId = member.getMemberId();
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
-
 		
 		//검증
 		if (restaurantList.isEmpty()) {

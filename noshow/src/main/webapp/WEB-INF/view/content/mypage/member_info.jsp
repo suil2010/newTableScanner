@@ -1,7 +1,13 @@
+<%@page import="java.util.Date"%>
+<%@page import="com.noshow.vo.Member"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	Date birthday = ((Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberBirthday();
+%>
 <style>
 .mainTemplate {
 	background: #FAFAFA;
@@ -19,7 +25,6 @@ label, p {
 <sec:authorize access="hasRole('ROLE_MEMBER')">
 
 	<div class="col-md-10" style="background: #fff; padding-bottom: 50px;">
-
 
 		<div class="row">
 			<div class="col-sm-12">
@@ -76,7 +81,7 @@ label, p {
 	<div class="container" style="max-width: 800px; margin-top: 20px;">
 		<div class="col-md-12" style="background: #fff; padding-bottom: 50px; border: 1px solid #fff; border-radius: 10px;">
 			<div class="row">
-				<div class="col-sm-12"> 
+				<div class="col-sm-12">
 					<h1>본인정보 조회결과</h1>
 				</div>
 			</div>

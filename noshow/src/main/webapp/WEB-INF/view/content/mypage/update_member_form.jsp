@@ -1,7 +1,13 @@
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="com.noshow.vo.Member"%>
+<%@page import="java.util.Date"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+	Date birthday = ((Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberBirthday();
+%>
 
 <script type="text/javascript">
 	window.onload = function name() {
@@ -63,7 +69,7 @@ background: #FAFAFA;
 			<label class="col-sm-2 control-label" for="memberBirthday">Birthday</label>
 			<div class="col-sm-10">
 				<input type="date" class="form-control" name="memberBirthday" id="memberBirthday"
-					value="<sec:authentication property='principal.memberBirthday'/>"
+					value="<fmt:formatDate value='<%=birthday %>' pattern='yyyy-MM-dd'/>"
 				>
 			</div>
 		</div>

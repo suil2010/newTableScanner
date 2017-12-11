@@ -51,6 +51,7 @@ public class MemberController {
 		if(url == null) url = "mypage/member_info.tiles";
 		return url;
 	}
+	
 	@RequestMapping("/mypage/update_member_form")
 	public String updateMemberForm(ModelMap model) {
 		String url = null;

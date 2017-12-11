@@ -26,7 +26,6 @@ public class TableController {
 	@Transactional
 	public ModelAndView insertTable(@RequestParam String[] tableXY) {
 		// 수정이 필요함 3번에 한번씩 service를 호출하지않고 List로 전달하여 insert할수 있도록.
-		System.out.println("Table - delete 시작");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		
@@ -34,8 +33,6 @@ public class TableController {
 		Member member = (Member) authentication.getPrincipal();
 		String id = member.getMemberId();
 		service.deleteTable(id);
-		System.out.println("Table - delete 완료");
-		System.out.println("Table - insert 시작");
 		int n = 1;
 		for (int i = 0; i < tableXY.length; i++) {
 			if (i % 3 == 0) {
@@ -44,12 +41,12 @@ public class TableController {
 				String yLocation = tableXY[i + 1];
 				int people = Integer.parseInt(tableXY[i + 2]);
 				Table table = new Table(3, n, people, xLocation, yLocation, id);
+				System.out.println(table); 
 				service.insertTable(table);
 				n++;
 			}
 		}
 		
-		System.out.println("Tabel - insert 성공");
 		return new ModelAndView("redirect:/index.do");
 	}
 
@@ -61,9 +58,8 @@ public class TableController {
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member) authentication.getPrincipal();
 		String businessId = member.getMemberId();
-		System.out.println("Table - select 시작");
 		List<Table> tableList = service.selectTable(businessId);
-		System.out.println("Table - select 성공");
+		System.out.println(tableList);
 		return new ModelAndView("owner/ownerTable.tiles", "Table", tableList);
 	}
 }

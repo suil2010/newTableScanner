@@ -21,14 +21,9 @@
 	</insert>
 
 	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
-		SELECT	table_seq,
-				table_num,
-				table_people
-				x_location,
-				y_location,
-				business_id
-		FROM	table_ 
-		WHERE 	business_id = #{value}
+		SELECT *
+		FROM table_
+		WHERE business_id = #{value}
 	</select>
 	<delete id="deleteTable" parameterType="string"> delete from table_ where
 		business_id = #{value}

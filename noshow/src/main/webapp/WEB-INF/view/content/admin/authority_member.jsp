@@ -12,6 +12,11 @@
 성별 : ${item.memberGender }   <br>
 전화번호 : ${item.memberTel }   <br>
 이메일 : ${item.memberEmail } <br>
+
+<form action="${initParam.rootPath}/memberAuthority_update.do">
+	<button type="submit" value="${item.memberId }" id="memberId" name="memberId">관리자 권한 주기!</button>
+</form>
+
 </div>
 <hr>
 </c:forEach>

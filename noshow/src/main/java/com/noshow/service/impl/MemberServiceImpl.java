@@ -152,4 +152,11 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> selectWithdrawMember() {
 		return dao.selectWithdrawMember();
 	}
+
+	@Override
+	@Transactional
+	public List<Member> MemberAuthorityUpdateAdmin(String memberId) {
+		Authoritydao.updateAuthorityAdmin(memberId);
+		return dao.selectMemberAuthorityAdmin();
+	}
 }

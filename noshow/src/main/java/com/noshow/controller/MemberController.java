@@ -202,4 +202,15 @@ public class MemberController {
 		List<Member> member = service.selectWithdrawMember();
 		return new ModelAndView("admin/drop_member.tiles","member",member);
 	}
+	
+	/**
+	 * 멤버 권한 관리자로 바꾸기!
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping("/memberAuthority_update")
+	public ModelAndView memberAuthorityUpdateAdmin(String memberId) {
+		List<Member> member = service.MemberAuthorityUpdateAdmin(memberId);
+		return new ModelAndView("admin/authority_owner.tiles","member",member);
+	}
 }

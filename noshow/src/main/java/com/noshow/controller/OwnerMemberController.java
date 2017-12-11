@@ -107,6 +107,7 @@ public class OwnerMemberController {
 	@RequestMapping("/find_rt")
 	public ModelAndView findAllRestaurant() {
 		List<Restaurant> rt = service.selectAllRestaurant();
+		System.out.println(rt);
 		return new ModelAndView("admin/find_restaurant.tiles","rt",rt);
 	}
 }

@@ -33,8 +33,7 @@ WHERE RESTAURANT.rt_holiday = holiday.holiday_name and
 	  RESTAURANT.rt_term = term.term_name and 
 	  RESTAURANT.business_id = 'djaqnsghd';
 	  
-
-	  
+  
 	  
 	  
 	  
@@ -67,5 +66,8 @@ AND	  holiday.holiday_val != '월'
 AND	  RESTAURANT.rt_address like '%서울%'
 
 	  
-	  
- 
+select to_char(RT_OPEN,'hh24:mi')
+from restaurant;
+
+
+

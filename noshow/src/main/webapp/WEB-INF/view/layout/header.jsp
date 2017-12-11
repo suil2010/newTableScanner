@@ -90,7 +90,7 @@
 
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
 				<li class="col-sm-2"><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기</a></li>
 			</sec:authorize>
@@ -110,10 +110,10 @@
 						<li><a href="${initParam.rootPath }/ownerRestaurantInfo.do">예약등록</a></li>
 					</ul>
 				</li>
-				<li class="col-sm-2"><a href="${initParam.rootPath}/selectSales.do">통계</a></li>
+				<li class="col-sm-2"><a href="#">통계</a></li>
 				<li class="col-sm-2"><a href="#">리뷰</a></li>
 				<li class="col-sm-2"><a href="#">문의</a></li>
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
 		</ul>
 	</div>

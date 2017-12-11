@@ -125,8 +125,6 @@
 
 	$(document).ready(function() {
 		$("#input-id").rating();
-		또는
-		// with plugin options
 		$("#input-id").rating({
 			min : 1,
 			max : 5,
@@ -322,7 +320,7 @@
 						<br>
 						<h3>예약 가능한 테이블</h3>
 						<br>
-						<c:choose>
+						<c:choose> 
 							<c:when test="${requestScope.restaurant.usableTable == null}">
 								<h4>
 									<b>예약 희망 날짜</b>와 <b>예약 희망 시간</b>을 지정하시면 예약 가능 테이블이 표출됩니다.

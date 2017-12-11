@@ -1,32 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#btnWrite").click(function(){
-			location.href="${initParam.rootPath}/board_write.do";
-		});
-	});
-</script>
-</head>
-<body>
-	<h1>게시판</h1>
-	<h2>게시글 목록</h2>
-	<button type="button" id="btnWrite">글쓰기</button>
-	<table border="1" width="600px">
+
+<style>
+thead>tr>th {
+	text-align: center;
+}
+</style>
+<div class="container" style="max-width: 1000px; padding-top: 40px;">
+
+	<table class="table" style="width: 100%;">
 		<thead>
 			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>조회수</th>
+				<th style="width: 10%;">번호</th>
+				<th style="width: 45%;">제목</th>
+				<th style="width: 20%;">작성자</th>
+				<th style="width: 15%;">작성일</th>
+				<th style="width: 10%;">조회수</th>
 			</tr>
 			<c:forEach var="row" items="${list }">
 				<tr>
@@ -38,6 +29,7 @@
 				</tr>
 			</c:forEach>
 	</table>
-	
-</body>
-</html>
+	<a href="${initParam.rootPath}/board_write.do">
+		<button type="button" id="btnWrite" class="btn btn-default">글쓰기</button>
+	</a>
+</div>

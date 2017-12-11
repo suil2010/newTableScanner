@@ -70,4 +70,6 @@ select to_char(RT_OPEN,'hh24:mi')
 from restaurant;
 
 
+select * from TABLE_
+
 

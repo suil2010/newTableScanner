@@ -1,7 +1,13 @@
+<%@page import="java.util.Date"%>
+<%@page import="com.noshow.vo.Member"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	Date birthday = ((Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberBirthday();
+%>
 <style>
 .mainTemplate{ 
 background: #FAFAFA;    
@@ -42,8 +48,8 @@ label , p{
 	<div class="row">
 		<label class="col-sm-3">생년월일</label>
 		<p class="col-sm-9">
-			<sec:authentication property="principal.memberBirthday" />
-		</p>
+			<fmt:formatDate value="<%=birthday %>" pattern="yyyy-MM-dd"/>
+		</p> 
 	</div>
 	<div class="row">
 		<label class="col-sm-3">성별</label>

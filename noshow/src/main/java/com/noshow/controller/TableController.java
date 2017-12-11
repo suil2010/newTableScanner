@@ -17,7 +17,7 @@ import com.noshow.vo.Member;
 import com.noshow.vo.Table;
 
 @Controller
-public class Test_TableController {
+public class TableController {
 	
 	@Autowired
 	private TableService service;

@@ -64,7 +64,6 @@ public class MemberController {
 				break;
 			}
 		}
-		System.out.println(model.get("tabMenu"));
 		if(url == null) url = "mypage/member_info.tiles";
 		return url;
 	}

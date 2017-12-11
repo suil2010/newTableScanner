@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${initParam.rootPath }/resource/css/jquery-ui.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${initParam.rootPath }/resource/bootstrap/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="${initParam.rootPath }/resource/css/timepicker.min.css"> 
+<link rel="stylesheet" href="${initParam.rootPath }/resource/css/timepicker.min.css">  
 <script src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
 <script src="${initParam.rootPath }/resource/jquery/jquery-ui.min.js"></script>
 <script src="${initParam.rootPath }/resource/bootstrap/js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
 <script src="${initParam.rootPath }/resource/jquery/iamport.payment-1.1.5.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c&libraries=services,clusterer,drawing"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b8d7bc1472b16a686520346ba668407c"></script>
-<title>TableScanner</title>
+<title>TableScanner</title> 
 <style type="text/css">
 html,body{
 	height: 100%;

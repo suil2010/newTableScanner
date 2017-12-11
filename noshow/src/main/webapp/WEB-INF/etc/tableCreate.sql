@@ -147,7 +147,7 @@ CREATE TABLE COMMEN (
    COMMEN_TIME DATE DEFAULT sysdate, /* 작성시간 */
    BOARD_NUM NUMBER, /* 글번호 */
    CONSTRAINT memo_mseq_pk PRIMARY KEY (COMMEN_NUM)
-);
+); 
 
 /* 후기 */
 CREATE TABLE REVIEW (

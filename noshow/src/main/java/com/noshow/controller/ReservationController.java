@@ -1,14 +1,16 @@
 package com.noshow.controller;
 
+import java.util.Collection;
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +43,21 @@ public class ReservationController {
 
 	} 
 	
+	@RequestMapping("/ownerAddReservation")
+	public String ownerAddReservation(String resDate, int resPeople, String resStartTime, String resPayStatement, @RequestParam List<Integer> tableList, RedirectAttributes redirectAttributes) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		Member member = (Member)authentication.getPrincipal();
+		String memberId = member.getMemberId();
+		Reservation reservation = service.addReservation(resDate, resPeople, resStartTime, resPayStatement, memberId, memberId, tableList);
+		redirectAttributes.addAttribute("resNum", reservation.getResNum());
+		
+		return "redirect:/reservationSuccess.do";
+
+	} 
+	
 	@RequestMapping("/reservationSuccess")
 	public ModelAndView reservationSuccess(int resNum) {
 		Reservation reservation = service.selectReservationByResNum(resNum);
@@ -50,7 +67,7 @@ public class ReservationController {
 	
 //	 내 예약 조회 
 	@RequestMapping("/myReservation")
-	public ModelAndView myReservation() {
+	public ModelAndView myReservation(ModelMap model) {
 		
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -59,9 +76,15 @@ public class ReservationController {
 		
 		String memberId = member.getMemberId();
 		List<Reservation> reservationList = service.selectJoinReservationByMemId(memberId);
-	
+		Collection authorizes = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for(Object auth : authorizes) {
+			SimpleGrantedAuthority authority = (SimpleGrantedAuthority)auth;
+			if(authority.getAuthority().equals("ROLE_MEMBER")) {
+				model.addAttribute("tabMenu", "true");  
+				break;
+			}
+		}
 		return new ModelAndView("tabmenu/mypage/mypage_reservation.tiles", "reservationList", reservationList);
-		
 	}
 	
 //	 결제 

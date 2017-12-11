@@ -97,17 +97,17 @@
 
 			<!-- 사업자회원 -->
 			<sec:authorize access="hasRole('ROLE_OWNER')">
-				<li class="col-sm-2"><a href="#">음식점관리</a>
+				<li class="col-sm-2"><a href="${initParam.rootPath}/find_rt_byid.do"">음식점관리</a>
 					<ul class="submenu" style="list-style: none;">
 						<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 						<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
 						<li><a href="${initParam.rootPath }/menu_businessId.do">메뉴 수정</a></li>
 					</ul>
 				</li>
-				<li class="col-sm-2"><a href="#">예약관리</a>
+				<li class="col-sm-2"><a href="${initParam.rootPath }/owner/reservation_info.do">예약관리</a>
 					<ul class="submenu" style="list-style: none;">
-						<li><a href="#">예약조회</a></li>
-						<li><a href="#">예약등록</a></li>
+						<li><a href="${initParam.rootPath }/owner/reservation_info.do">예약조회</a></li>
+						<li><a href="${initParam.rootPath }/ownerRestaurantInfo.do">예약등록</a></li>
 					</ul>
 				</li>
 				<li class="col-sm-2"><a href="${initParam.rootPath}/selectSales.do">통계</a></li>

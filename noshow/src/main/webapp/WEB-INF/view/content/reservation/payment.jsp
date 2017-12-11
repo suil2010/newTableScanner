@@ -10,13 +10,13 @@
 
 		IMP.request_pay({
 			pg : 'inicis', // version 1.1.0부터 지원.
-			pay_method : 'vbank',
+			pay_method : '${requestScope.reservation.resPayStatement}',
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : '주문명:결제테스트',
 			amount : '${requestScope.reservation.resPrice}',   
 			buyer_email : '${requestScope.member.memberEmail}',
 			buyer_name : '${requestScope.member.memberName}',
-			buyer_tel : '${requestScope.member.memberTel}',
+			buyer_tel : '${requestScope.member.memberTel}', 
 			m_redirect_url : 'http://127.0.0.1:8088/noshow/addReservation.do'
 		}, function(rsp) {
 			if (rsp.success) {

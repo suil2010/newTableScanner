@@ -12,15 +12,19 @@
 		});
 
 		/* header member 로그아웃 */
-		$("#logout").on("click", function() {
+		$(".logout").on("click", function() { 
 			$("#logoutForm").submit();
 		});
-		
-		$(".open").on("click",function(){
-			$(".menu2").css({"display":"block"});
+
+		$(".open").on("click", function() {
+			$(".menu2").css({
+				"display" : "block"
+			});
 		});
-		$(".close").on("click",function(){
-			$(".menu2").css({"display":"none"});   
+		$(".close").on("click", function() {
+			$(".menu2").css({
+				"display" : "none"
+			});
 		});
 
 	});
@@ -91,7 +95,7 @@
 	width: 100%;
 	height: 100px;
 	text-align: center;
-	background: rgba(0, 0, 0, 0.7); 
+	background: rgba(0, 0, 0, 0.7);
 	float: right;
 }
 
@@ -102,19 +106,24 @@
 }
 
 .menu2>ul>li:hover {
-	background: rgba(0, 0, 0, 1); 
+	background: rgba(0, 0, 0, 1);
 }
-.li{
+
+.li {
 	text-align: left !important;
 	color: #fff !important;
-	height: 50px !important;  
+	height: 50px !important;
 	line-height: 50px;
-	font-size: 20px; 
-	padding-left: 20px;   
-	background: rgba(0,0,0,1) !important;
+	font-size: 20px;
+	padding-left: 20px;
+	background: rgba(0, 0, 0, 1) !important;
 }
 </style>
 <!-- 1200px 미만 display -->
+<form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
+	<sec:csrfInput />
+</form>
+
 <header class="navbar-static-top header2" style="height: 60px;">
 	<div class="col-md-10 logo col-xs-10" style="height: 100%;">
 		<a href="${initParam.rootPath }/index.do"><span style="font-size: 32px; line-height: 60px; color: #28B78D; text-align: center;">TableScanner</span></a>
@@ -123,10 +132,12 @@
 		<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 	</button>
 	<div class="menu2" style="height: 100%; width: 250px; right: 0; position: absolute; z-index: 100; display: none;">
-		<ul> 
-		
-			<li class="close" style="height: 50px; background:black !important; "><span class="glyphicon glyphicon-remove" style="color: #fff; font-size: 30px; margin-top: 5px;"></span></li>  
-			<!-- 개발자 -->    
+		<ul>
+
+			<li class="close" style="height: 50px; background: black !important;"><span class="glyphicon glyphicon-remove"
+				style="color: #fff; font-size: 30px; margin-top: 5px;"
+			></span></li>
+			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="#">공지사항</a></li>
 				<li class="li">회원관리</li>
@@ -151,8 +162,8 @@
 			</sec:authorize>
 
 			<!-- 사업자회원 -->
-			<sec:authorize access="hasRole('ROLE_OWNER')"> 
-			
+			<sec:authorize access="hasRole('ROLE_OWNER')">
+
 				<li class="li">음식점관리</li>
 				<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 				<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
@@ -171,9 +182,9 @@
 
 
 
-<!-- 개발자  -->
+		<!-- 개발자  -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 		</sec:authorize>
 
 		<!-- 비회원 -->
@@ -184,20 +195,17 @@
 
 		<!-- 일반회원 -->
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
 
 		<!-- 사업자회원 -->
 		<sec:authorize access="hasRole('ROLE_OWNER')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
 
 
-		<form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
-			<sec:csrfInput />
-		</form>
 
 
 
@@ -263,13 +271,11 @@
 	</div>
 	<div class="col-sm-3 member" style="height: 100%; padding: 10px; text-align: center;">
 
-		<form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
-			<sec:csrfInput />
-		</form>
+
 
 		<!-- 개발자  -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 		</sec:authorize>
 
 		<!-- 비회원 -->
@@ -280,13 +286,13 @@
 
 		<!-- 일반회원 -->
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
 
 		<!-- 사업자회원 -->
 		<sec:authorize access="hasRole('ROLE_OWNER')">
-			<a href="#" id="logout"><button class="btn btn-default">로그아웃</button></a>
+			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
 

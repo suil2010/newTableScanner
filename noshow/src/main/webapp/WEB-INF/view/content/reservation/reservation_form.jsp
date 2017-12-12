@@ -176,7 +176,7 @@
 	<!-- 음식점목록 1번쨰 row (식당이미지 - 설명) -->
 	<div class="row">
 		<div class="col-sm-6">
-			<img src="..." alt="식당 이미지">
+			<img src="${initParam.rootPath }/rtPicture/${requestScope.restaurant.rtPicture}" alt="식당 이미지">
 		</div>
 		<div class="col-sm-6">설명 설명 설명</div>
 		<div id="orderDiv">

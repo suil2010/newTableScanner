@@ -240,32 +240,45 @@
 .content>.col-sm-4>.contents {
 	height: 260px;
 }
-.content > .col-sm-4 {
-	padding-left: 30px; 
-	padding-right: 30px; 
+
+.content>.col-sm-4 {
+	padding-left: 30px;
+	padding-right: 30px;
 }
 </style>
 	<div class="row content" style="padding: 30px; padding-left: 60px; padding-right: 60px; padding-bottom: 20px;">
 		<div class="col-md-4">
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img1.jpg" style="width: 100%; height: 100%;" class="img-rounded"/></div>
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img1.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img2.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img2.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img3.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img3.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
 	</div>
 	<div class="row content" style="padding-left: 60px; padding-right: 60px; padding-bottom: 40px;">
-		<div class="col-md-4" > 
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img4.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+		<div class="col-md-4">
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img4.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img5.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img5.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
-		<div class="col-md-4"> 
-			<div class="contents"><img src="${initParam.rootPath }/resource/img/img6.jpg" style="width: 100%; height: 100%;"class="img-rounded"/></div>
+		<div class="col-md-4">
+			<div class="contents">
+				<img src="${initParam.rootPath }/resource/img/img6.jpg" style="width: 100%; height: 100%;" class="img-rounded" />
+			</div>
 		</div>
 	</div>
-	
+
 </div>

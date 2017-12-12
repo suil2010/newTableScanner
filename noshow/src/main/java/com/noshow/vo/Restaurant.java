@@ -28,6 +28,34 @@ public class Restaurant implements Serializable {
 	private List<Table> table;
 	private int bookmarkCheck; /* 2017.12.08 현준 추가 */
 	private List<Table> usableTable;
+	private int reservationCheck; /* 2017.12.11 현준 추가 */
+	private List<Menu> menuList;  /* 2017.12.11 현준 추가 */
+	private List<Review> reviewList; /* 2017.12.11 현준 추가 */
+
+	
+	public int getReservationCheck() {
+		return reservationCheck;
+	}
+
+	public void setReservationCheck(int reservationCheck) {
+		this.reservationCheck = reservationCheck;
+	}
+
+	public List<Menu> getMenuList() {
+		return menuList;
+	}
+
+	public void setMenuList(List<Menu> menuList) {
+		this.menuList = menuList;
+	}
+
+	public List<Review> getReviewList() {
+		return reviewList;
+	}
+
+	public void setReviewList(List<Review> reviewList) {
+		this.reviewList = reviewList;
+	}
 
 	public Restaurant() {
 	}

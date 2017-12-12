@@ -18,4 +18,6 @@ public interface ReviewService {
 	List<Review> selectReviewByBusinessId(String businessId);
 	
 	List<Map<String, Object>> selectReviewForRank();
+	
+	int selectMaxResNum(String memberId, String businessId);
 }

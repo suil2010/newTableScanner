@@ -5,37 +5,57 @@ import java.io.Serializable;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Review implements Serializable{
-	private int reviewNum;
-	private String reviewText;
-	private String reviewTime;
-	private String reviewImageName;
-	private MultipartFile reviewImage;
-	private int reviewGrade;
-	private String memberId;
-	private String businessId;
-	private int resNum;
+	private int reviewNum;		/* 후기 글 번호 */
+	private String reviewText; /* 후기 글 내용 */
+	private String reviewTime; /* 후기 작성 시간 */
+	private String reviewImg;  /* 사진 저장 이름 */
+	private MultipartFile reviewPicture; /* 사진 */
+	private float reviewGrade;	/* 후기 평점 */
+	private String memberId;	/* 회원ID */
+	private String businessId;	/* 사업자ID */
+	private int resNum;			/* 예약 번호 */
 	
 	private Member member;
 	private Restaurant restaurant;
 	private Reservation reservation;
 	
 	public Review() {}
-	
-	public Review(String reviewText, int reviewGrade, String memberId, String businessId, int resNum) {
+
+	public Review(String reviewText, MultipartFile reviewPicture, float reviewGrade, String memberId,
+			String businessId) {
+		super();
 		this.reviewText = reviewText;
+		this.reviewPicture = reviewPicture;
 		this.reviewGrade = reviewGrade;
 		this.memberId = memberId;
 		this.businessId = businessId;
-		this.resNum = resNum;
 	}
 
-	public Review(String reviewText, String reviewImageName, int reviewGrade, String memberId, String businessId, int resNum) {
+	public Review(String reviewText, String reviewImg, float reviewGrade, String memberId, String businessId) {
+		super();
 		this.reviewText = reviewText;
-		this.reviewImageName = reviewImageName;
+		this.reviewImg = reviewImg;
+		this.reviewGrade = reviewGrade;
+		this.memberId = memberId;
+		this.businessId = businessId;
+	}
+
+	public Review(int reviewNum, String reviewText, String reviewTime, String reviewImg, MultipartFile reviewPicture,
+			float reviewGrade, String memberId, String businessId, int resNum, Member member, Restaurant restaurant,
+			Reservation reservation) {
+		super();
+		this.reviewNum = reviewNum;
+		this.reviewText = reviewText;
+		this.reviewTime = reviewTime;
+		this.reviewImg = reviewImg;
+		this.reviewPicture = reviewPicture;
 		this.reviewGrade = reviewGrade;
 		this.memberId = memberId;
 		this.businessId = businessId;
 		this.resNum = resNum;
+		this.member = member;
+		this.restaurant = restaurant;
+		this.reservation = reservation;
 	}
 
 	public int getReviewNum() {
@@ -62,27 +82,27 @@ public class Review implements Serializable{
 		this.reviewTime = reviewTime;
 	}
 
-	public String getReviewImageName() {
-		return reviewImageName;
+	public String getReviewImg() {
+		return reviewImg;
 	}
 
-	public void setReviewImageName(String reviewImageName) {
-		this.reviewImageName = reviewImageName;
+	public void setReviewImg(String reviewImg) {
+		this.reviewImg = reviewImg;
 	}
 
-	public MultipartFile getReviewImage() {
-		return reviewImage;
+	public MultipartFile getReviewPicture() {
+		return reviewPicture;
 	}
 
-	public void setReviewImage(MultipartFile reviewImage) {
-		this.reviewImage = reviewImage;
+	public void setReviewPicture(MultipartFile reviewPicture) {
+		this.reviewPicture = reviewPicture;
 	}
 
-	public int getReviewGrade() {
+	public float getReviewGrade() {
 		return reviewGrade;
 	}
 
-	public void setReviewGrade(int reviewGrade) {
+	public void setReviewGrade(float reviewGrade) {
 		this.reviewGrade = reviewGrade;
 	}
 
@@ -137,9 +157,9 @@ public class Review implements Serializable{
 	@Override
 	public String toString() {
 		return "Review [reviewNum=" + reviewNum + ", reviewText=" + reviewText + ", reviewTime=" + reviewTime
-				+ ", reviewImageName=" + reviewImageName + ", reviewImage=" + reviewImage + ", reviewGrade="
-				+ reviewGrade + ", memberId=" + memberId + ", businessId=" + businessId + ", resNum=" + resNum
-				+ ", member=" + member + ", restaurant=" + restaurant + ", reservation=" + reservation + "]";
+				+ ", reviewImg=" + reviewImg + ", reviewPicture=" + reviewPicture + ", reviewGrade=" + reviewGrade
+				+ ", memberId=" + memberId + ", businessId=" + businessId + ", resNum=" + resNum + ", member=" + member
+				+ ", restaurant=" + restaurant + ", reservation=" + reservation + "]";
 	}
 
 	@Override
@@ -152,10 +172,10 @@ public class Review implements Serializable{
 		result = prime * result + resNum;
 		result = prime * result + ((reservation == null) ? 0 : reservation.hashCode());
 		result = prime * result + ((restaurant == null) ? 0 : restaurant.hashCode());
-		result = prime * result + reviewGrade;
-		result = prime * result + ((reviewImage == null) ? 0 : reviewImage.hashCode());
-		result = prime * result + ((reviewImageName == null) ? 0 : reviewImageName.hashCode());
+		result = prime * result + Float.floatToIntBits(reviewGrade);
+		result = prime * result + ((reviewImg == null) ? 0 : reviewImg.hashCode());
 		result = prime * result + reviewNum;
+		result = prime * result + ((reviewPicture == null) ? 0 : reviewPicture.hashCode());
 		result = prime * result + ((reviewText == null) ? 0 : reviewText.hashCode());
 		result = prime * result + ((reviewTime == null) ? 0 : reviewTime.hashCode());
 		return result;
@@ -197,19 +217,19 @@ public class Review implements Serializable{
 				return false;
 		} else if (!restaurant.equals(other.restaurant))
 			return false;
-		if (reviewGrade != other.reviewGrade)
+		if (Float.floatToIntBits(reviewGrade) != Float.floatToIntBits(other.reviewGrade))
 			return false;
-		if (reviewImage == null) {
-			if (other.reviewImage != null)
+		if (reviewImg == null) {
+			if (other.reviewImg != null)
 				return false;
-		} else if (!reviewImage.equals(other.reviewImage))
-			return false;
-		if (reviewImageName == null) {
-			if (other.reviewImageName != null)
-				return false;
-		} else if (!reviewImageName.equals(other.reviewImageName))
+		} else if (!reviewImg.equals(other.reviewImg))
 			return false;
 		if (reviewNum != other.reviewNum)
+			return false;
+		if (reviewPicture == null) {
+			if (other.reviewPicture != null)
+				return false;
+		} else if (!reviewPicture.equals(other.reviewPicture))
 			return false;
 		if (reviewText == null) {
 			if (other.reviewText != null)
@@ -223,5 +243,6 @@ public class Review implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 }

@@ -45,4 +45,11 @@ public interface SearchService {
 	 */
 	List<Table> selectUsableTable(String resDate, String resTime, String businessId);
 	
+	/** 2017.12.11
+	 * 예약내역 있는지 여부 Check - 리뷰 작성권한 check 위함_TEST
+	 * @param memberId
+	 * @param businessId
+	 * @return
+	 */
+	Restaurant selectCountCheckRervation(String memberId, String businessId, Restaurant restaurant);
 }

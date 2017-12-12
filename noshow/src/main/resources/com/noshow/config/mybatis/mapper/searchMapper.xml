@@ -22,6 +22,7 @@
       <collection property="holiday" resultMap="Holiday-resultmap"/>
       <collection property="term" resultMap="Term-resultmap"/>
       <collection property="table" resultMap="table-resultmap"/>  
+      <collection property="menuList" resultMap="menu-resultmap"/>
    </resultMap>
    
    <!-- holiday 기본 sql -->
@@ -63,6 +64,15 @@
 		<result column="business_Id" property="businessId" />
 	</resultMap>
 	
+	   <resultMap type="Menu" id="menu-resultmap">
+      <id column="menu_num" property="menuNum" />
+      <result column="menu_name" property="menuName" />
+      <result column="menu_comment" property="menuComment" />
+      <result column="menu_price" property="menuPrice" />
+      <result column="menu_picture" property="menuPicture" />
+      <result column="business_id" property="businessId" />
+   </resultMap>
+	
 	<select id="selectTable" parameterType="string" resultMap="table-resultmap">
 		select
 		* from table_ WHERE business_id = #{value}
@@ -77,11 +87,17 @@
 	   			RESTAURANT.RT_ADDRESS, RESTAURANT.RT_CAPACITY, RT_DEPOSIT,
 	   			holiday.Holiday_Name, holiday.Holiday_VAL, 
 	   			term.Term_name, term.Term_VAL, 
-	   			field.field_name, field.field_VAL
-		FROM 	RESTAURANT, holiday, field, term
+	   			field.field_name, field.field_VAL,
+	   			table_.table_seq, table_.table_num, table_.table_people,
+	   			table_.x_location, table_.y_location,
+	   			menu.menu_num, menu.menu_name, menu.menu_comment,
+	   			menu.menu_price, menu.menu_picture
+		FROM 	RESTAURANT, holiday, field, term, table_, menu
 		WHERE 	RESTAURANT.rt_holiday = holiday.holiday_name 
 		AND 	RESTAURANT.rt_field = field.field_name
 		AND 	RESTAURANT.rt_term = term.term_name
+		AND		RESTAURANT.business_id = table_.business_Id
+		AND		RESTAURANT.business_id = menu.business_Id
 		AND		RESTAURANT.business_id = #{value}
 	</select>
 	
@@ -142,6 +158,14 @@
 		AND 	RESTAURANT.rt_term = term.term_name
 		AND		RESTAURANT.rt_address LIKE '%'||#{resPlace}||'%'
 		AND		RESTAURANT.rt_name LIKE '%'||#{resName}||'%'
+	</select>
+	
+	<!-- 리뷰 작성 권한 걸르기 위한 TEST 쿼리 -->
+	<select id="selectCountCheckRervation" parameterType="map" resultType="_int">
+		SELECT 	COUNT(*)
+		FROM	reservation
+		WHERE	business_id = #{businessId}
+		AND		member_id = #{memberId}
 	</select>
 	
 </mapper>

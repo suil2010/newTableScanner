@@ -18,6 +18,7 @@ public class TableServiceImpl implements TableService{
 
 	@Override
 	public int insertTable(Table table) {
+		System.out.println("TableServiceImpl-table : "+ table);
 		return dao.insertTable(table);
 	}
 

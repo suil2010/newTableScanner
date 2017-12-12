@@ -77,7 +77,6 @@ public class SearchController {
 		Member member = (Member) authentication.getPrincipal();
 		String memberId = member.getMemberId();
 		List<Restaurant> restaurantList = service.selectRestaurantBySearch(memberId, resPlace, resDate, resTime, resPeople);
-
 		
 		//검증
 		if (restaurantList.isEmpty()) {
@@ -117,6 +116,8 @@ public class SearchController {
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
 	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
+		System.out.println("SearchController-------------------------");
 		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
+	
 }

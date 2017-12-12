@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.QnAMapper">
+
+	<sql id="question-column">
+		QUESTION_NUM, MEMBER_ID, QUESTION_TEXT, QUESTION_TIME, BUSINESS_ID
+	</sql>
+	
+	<sql id="answer-column">
+		ANSWER_NUM, ANSWER_DATE, ANSWER_TEXT, QUESTION_NUM, BUSINESS_ID
+	</sql>
+	
+	<!-- QUESTION ResultMap -->
+	<resultMap type="question" id="question-resultmap">
+		<id column="QUESTION_NUM" property="questionNum"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="QUESTION_TEXT" property="questionText"/>
+		<result column="QUESTION_TIME" property="questionTime"/>
+		<result column="BUSINESS_ID" property="businessId"/>
+		<collection property="member" resultMap="member-resultmap"/>
+		<collection property="restaurant" resultMap="restaurant-resultmap"/>
+		<collection property="answer" resultMap="answer-resultmap"/>
+	</resultMap>
+	
+	<!-- ANSWER ResultMap -->
+	<resultMap type="answer" id="answer-resultmap">
+		<id column="ANSWER_NUM" property="answerNum"/>
+		<result column="ANSWER_DATE" property="answerDate"/>
+		<result column="ANSWER_TEXT" property="answerText"/>
+		<result column="QUESTION_NUM" property="questionNum"/>
+		<collection property="question" resultMap="question-resultmap"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="member-resultmap">
+		<id column="member_id" property="memberId"/>
+		<result column="member_password" property="memberPassword"/>
+		<result column="member_name" property="memberName"/>
+		<result column="member_gender" property="memberGender"/>
+		<result column="member_tel" property="memberTel"/>
+		<result column="member_birthday" property="memberBirthday"/>
+		<result column="member_email" property="memberEmail"/>
+	</resultMap>
+	
+	<resultMap type="Restaurant" id="restaurant-resultmap">
+	      <id column="BUSINESS_ID" property="businessId" />
+	      <result column="RT_NUM" property="rtNum" />
+	      <result column="RT_NAME" property="rtName" />
+	      <result column="RT_TEL" property="rtTel" />
+	      <result column="RT_OPEN" property="rtOpen" />
+	      <result column="RT_CLOSE" property="rtClose" />
+	      <result column="RT_PICTURE" property="rtPicture" />
+	      <result column="RT_ADDRESS" property="rtAddress" />
+	      <result column="RT_CAPACITY" property="rtCapacity" />
+	      <result column="RT_DEPOSIT" property="rtDeposit" />
+	      <collection property="field" resultMap="Field-resultmap"/>
+	      <collection property="holiday" resultMap="Holiday-resultmap"/>
+	      <collection property="term" resultMap="Term-resultmap"/>      
+   </resultMap>
+   
+   <resultMap type="Holiday" id="Holiday-resultmap">
+      <id column="Holiday_Name" property="holidayName"/>
+      <result column="Holiday_VAL" property="holidayVal"/>
+   </resultMap>
+
+   <resultMap type="Term" id="Term-resultmap">
+      <id column="Term_name" property="termName"/>
+      <result column="Term_VAL" property="termVal"/>
+   </resultMap>  
+   <resultMap type="Field" id="Field-resultmap">
+      <id column="field_name" property="fieldName"/>
+      <result column="field_VAL" property="fieldVal"/>
+   </resultMap>
+   
+   <!--##### QUESTION SQL #####-->
+   <insert id="insertQuestion" parameterType="question">
+   	INSERT	INTO	QUESTION	VALUES
+   	(	question_num_seq.NEXTVAL,
+   	 	#{memberId},
+   	 	#{questionText},
+   	 	SYSDATE,
+   	 	#{businessId}
+   	)
+   	<selectKey keyProperty="questionNum" order="AFTER" resultType="_int">
+   		SELECT question_num_seq.CURRVAL FROM DUAL
+   	</selectKey>
+   </insert>
+   
+   <update id="updqteQuestion" parameterType="question">
+   	UPDATE	question
+   	SET		question_text = #{questionText}
+   	WHERE	member_id = #{memberId}
+   	AND		question_num = #{questionNum}
+   </update>
+   
+   <delete id="deleteQuestion" parameterType="_int">
+   	DELETE
+   	FROM	question
+   	WHERE	question_num = #{value}
+   </delete>
+   
+   <select id="selectQuestionByMemberId" parameterType="string" resultMap="question-resultmap">
+   	SELECT	<include refid="question-column"/>
+   	FROM	question
+   	WHERE	member_id = #{value}
+   </select>
+   
+   <select id="selectQuestionByBusinessId" parameterType="string" resultMap="question-resultmap">
+	SELECT	<include refid="question-column"/>
+	FROM	question
+	WHERE	business_id = #{value}   
+   </select>
+   
+   
+   <!-- ##### ANSWER SQL #####-->
+   <insert id="insertAnswer" parameterType="answer">
+   	INSERT	INTO	ANSWER	VALUES
+   	(	answer_num_seq.NEXTVAL,
+   	 	SYSDATE
+   	 	#{answerText},
+   	 	#{questionNum},
+   	 	#{businessId}
+   	)
+   	<selectKey keyProperty="answerNum" order="AFTER" resultType="_int">
+   		SELECT answer_num_seq.CURRVAL FROM DUAL
+   	</selectKey>
+   </insert>
+   
+   <update id="updqteAnswer" parameterType="answer">
+   	UPDATE	answer
+   	SET		answertext = #{answerText}
+   	WHERE	business_id = #{businessId}
+   	AND		answer_num = #{answerNum}
+   </update>
+   
+   <delete id="deleteAnswer" parameterType="_int">
+   	DELETE
+   	FROM	answer
+   	WHERE	answer_num = #{value}
+   </delete>
+   
+   <select id="selectAnswerByQuestionNum" parameterType="_int" resultMap="answer-resultmap">
+   	SELECT	<include refid="answer-column"/>
+   	FROM	answer
+   	WHERE	question_num = #{value}
+   </select>
+   
+   
+</mapper>

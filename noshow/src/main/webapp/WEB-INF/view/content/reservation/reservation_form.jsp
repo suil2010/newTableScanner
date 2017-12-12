@@ -541,7 +541,7 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-
+						<sec:csrfInput />
 					</div>
 					<div class="form-group" id="totalPriceDiv">
 						총 예약 금액 : 

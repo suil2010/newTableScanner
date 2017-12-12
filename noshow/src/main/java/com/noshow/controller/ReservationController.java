@@ -1,5 +1,6 @@
 package com.noshow.controller;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.noshow.service.ReservationService;
 import com.noshow.vo.Member;
 import com.noshow.vo.Reservation;
+import com.noshow.vo.Restaurant;
 
 
 @Controller
@@ -105,6 +108,17 @@ public class ReservationController {
 		mav.addObject("reservation", reservation);
 		mav.setViewName("reservation/payment.tiles");
 		return mav; 
+	}
+	
+	/* 2017.12.11 - 현준_예약폼에서 인원 변경에 따른 총 금액 ajax 처리 Controller */
+	@RequestMapping(value="/totalResPrice",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String totalResPrice(int resPeople, String businessId) {
+		System.out.println("ReservationController.reCalculateResPrice - resPeople : "+resPeople+", businessId : " + businessId );
+		int totalPrice = service.calTotalPrice(businessId, resPeople);
+		System.out.println("Total Reservation Price : "+totalPrice);
+		
+		return new DecimalFormat("#,### 원").format(totalPrice);
 	}
 	
 }

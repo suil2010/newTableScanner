@@ -4,7 +4,7 @@
 
 	<!-- Review -->
 	<sql id="review-column-sql">
-		review_num, review_text, review_time, review_img, review_grade, member_id, business_id, res_num
+		reveiw_num, review_text, review_time, REVEIW_IMG, REVIEW_GRADE, member_id, business_id, res_num
 	</sql>
 	
 	<sql id="review-join-sql">
@@ -27,7 +27,8 @@
 		<id column="review_num" property="reviewNum"/>
 		<result column="review_text" property="reviewText"/>
 		<result column="review_time" property="reviewTime"/>
-		<result column="review_img" property="reviewImageName"/>
+		<result column="review_img" property="reviewImg"/>
+		<result column="review_grade" property="reviewGrade"/>
 		<result column="member_id" property="memberId"/>
 		<result column="business_id" property="businessId"/>
 		<result column="res_num" property="resNum"/>
@@ -87,7 +88,7 @@
 				review_num_seq.NEXTVAL,
 				#{reviewText},
 				SYSDATE,
-				#{reviewImageName},
+				#{reviewImg},
 				#{reviewGrade},
 				#{memberId},
 				#{businessId},
@@ -132,6 +133,13 @@
 		FROM	review
 		GROUP BY	business_id
 		ORDER BY	AVG(review_grade) DESC
+	</select>
+	
+	<select id="selectMaxResNum" parameterType="map" resultType="_int">
+		SELECT	MAX(res_num)
+		FROM	reservation
+		WHERE	member_id = #{memberId}
+		AND		business_id = #{businessId}
 	</select>
 	
 </mapper>

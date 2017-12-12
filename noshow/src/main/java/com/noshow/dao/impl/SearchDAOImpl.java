@@ -50,4 +50,10 @@ public class SearchDAOImpl implements SearchDAO{
 	public List<Table> selectTable(String businessId) {
 		return session.selectList(makeSqlId("selectTable"), businessId);
 	}
+
+	@Override
+	public int selectCountCheckRervation(Map<String, String> checkRes) {
+		return session.selectOne(makeSqlId("selectCountCheckRervation"), checkRes);
+	}
+
 }

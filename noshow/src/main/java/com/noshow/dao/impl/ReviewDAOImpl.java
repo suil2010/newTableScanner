@@ -49,5 +49,10 @@ public class ReviewDAOImpl implements ReviewDAO{
 	public List<Map<String, Object>> selectReviewForRank() {
 		return session.selectList(makeSqlId("selectReviewForRank"));
 	}
+
+	@Override
+	public int selectMaxResNum(Map<String, String> map) {
+		return session.selectOne(makeSqlId("selectMaxResNum"), map);
+	}
 	
 }

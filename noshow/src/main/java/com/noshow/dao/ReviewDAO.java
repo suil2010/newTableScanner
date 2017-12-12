@@ -47,4 +47,11 @@ public interface ReviewDAO {
 	 * @return
 	 */
 	List<Map<String, Object>> selectReviewForRank();
+	
+	/** 2017.12.11
+	 * TEST_ 가장 나중의 예약번호를 찾는 부분
+	 * @param map
+	 * @return
+	 */
+	int selectMaxResNum(Map<String, String> map);
 }

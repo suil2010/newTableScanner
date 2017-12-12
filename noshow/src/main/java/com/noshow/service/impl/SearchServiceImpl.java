@@ -16,10 +16,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.noshow.dao.BookmarkDAO;
+import com.noshow.dao.ReviewDAO;
 import com.noshow.dao.SearchDAO;
 import com.noshow.service.SearchService;
 import com.noshow.vo.Bookmark;
+import com.noshow.vo.Menu;
 import com.noshow.vo.Restaurant;
+import com.noshow.vo.Review;
 import com.noshow.vo.Table;
 
 @Service
@@ -31,7 +34,11 @@ public class SearchServiceImpl implements SearchService{
 	/* 현준 추가 */
 	@Resource
 	private BookmarkDAO bookmarkDao;
-
+	
+	/* 2017.12.11 - 현준 _ 리뷰리스트 위해 추가 */
+	@Resource
+	private ReviewDAO reviewDao;
+	
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
@@ -54,6 +61,13 @@ public class SearchServiceImpl implements SearchService{
 	public Restaurant selectRestaurantByBusinessIdResInfo(String resDate, String resTime, String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
 //		restaurant = selectAllTable(businessId, restaurant);
+		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
+		List<Review> reviewList = selectReviewByBusinesId(businessId);
+		//TEST
+		for(Review review : reviewList) {
+			System.out.println("SearchServiceImpl-reviewList -> review : " +review);
+		}
+		restaurant.setReviewList(reviewList);
 		List<Restaurant> restaurantList = new ArrayList<>();
 		List<Table> tableList = selectUsableTable(resDate, resTime, businessId);
 		restaurant.setUsableTable(tableList);
@@ -62,6 +76,10 @@ public class SearchServiceImpl implements SearchService{
 		restaurantList = checkBookmark(memberId, restaurantList);
 		restaurantList = timeFormatting(restaurantList);
 		for(Restaurant r : restaurantList) {
+			for(Menu m : r.getMenuList()) {
+				System.out.println("SearchServiceImpl-restaurant.menu : "+ m);
+
+			}
 			return r;
 		}
 		return restaurant;
@@ -270,6 +288,7 @@ public class SearchServiceImpl implements SearchService{
 	 */
 	private String calStartTime(String resDate, String resStartTime) {
 		resStartTime = resDate + " " +resStartTime + ":00";
+		System.out.println("SearchServiceImpl.calStartTime - resStartTime : " + resStartTime);
 		return resStartTime;
 	}
 	
@@ -305,10 +324,21 @@ public class SearchServiceImpl implements SearchService{
  
 	}
 
-/*	public Restaurant selectAllTable(String businessId, Restaurant restaurant) {
-		
-		List<Table> tableList = dao.selectTable(businessId);
-		restaurant.setTable(tableList);
+	@Override
+	public Restaurant selectCountCheckRervation(String memberId, String businessId, Restaurant restaurant) {
+		Map<String, String> checkRes = new HashMap<>();
+		checkRes.put("memberId", memberId);
+		checkRes.put("businessId", businessId);
+		System.out.println("SearchServiceImpl.selCntChckRes - memberId : " +memberId+", businessId : "+businessId);
+		int resCheckResult = dao.selectCountCheckRervation(checkRes);
+		System.out.println("COUNT 체크 결과 : " +resCheckResult);
+		restaurant.setReservationCheck(resCheckResult);
 		return restaurant;
-	}*/
+	}
+	
+	private List<Review> selectReviewByBusinesId(String businessId) {
+		return reviewDao.selectReviewByBusinessId(businessId);
+	}
+
+	
 }

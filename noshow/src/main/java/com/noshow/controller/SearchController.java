@@ -116,6 +116,8 @@ public class SearchController {
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
 	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
+		System.out.println("SearchController-------------------------");
 		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
+	
 }

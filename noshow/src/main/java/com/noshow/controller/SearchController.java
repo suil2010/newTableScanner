@@ -46,7 +46,7 @@ public class SearchController {
 		mav.addObject("resPeople", resPeople);
 		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
-		
+		System.out.println(restaurant); 
 		return mav;
 	}
 	

@@ -52,7 +52,7 @@ label, p {
 		<div class="row">
 			<label class="col-sm-3">생년월일</label>
 			<p class="col-sm-9">
-				<sec:authentication property="principal.memberBirthday" />
+				<fmt:formatDate value='<%=birthday %>' pattern='yyyy-MM-dd'/>
 			</p>
 		</div>
 		<div class="row">
@@ -72,7 +72,6 @@ label, p {
 			<button type="submit" class="btn btn-default" style="float: right; margin-top: 30px;">회원탈퇴</button>
 			<sec:csrfInput />
 		</form>
-	</div>
 	</div>
 </sec:authorize>
 
@@ -106,7 +105,7 @@ label, p {
 			<div class="row">
 				<label class="col-sm-3">생년월일</label>
 				<p class="col-sm-9">
-					<sec:authentication property="principal.memberBirthday" />
+					<fmt:formatDate value='<%=birthday %>' pattern='yyyy-MM-dd'/>
 				</p>
 			</div>
 			<div class="row">

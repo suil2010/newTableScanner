@@ -427,12 +427,9 @@
 
 				<!-- 테이블정보 패널 -->
 				<div role="tabpanel" class="tab-pane" id="table">
-					<div id="droppable"
-						style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
-						<c:forEach items="${requestScope.restaurant.table}"
-							var="alltables">
-							<div class="draggable"
-								style="top: ${alltables.yLocation}px; left: ${alltables.xLocation}px;">
+			<div id="droppable" style="width: 700px; height: 500px; border: 1px solid #000; position: relative; margin-top: 30px;">
+						<c:forEach items="${requestScope.restaurant.table}" var="alltables">
+							<div class="draggable" style="top: ${alltables.yLocation}px; left: ${alltables.xLocation}px;">
 								<span>${alltables.tableNum }번 테이블</span>
 								<p>
 									<span>${alltables.tablePeople}명</span>

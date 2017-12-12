@@ -8,19 +8,24 @@ public class Board implements Serializable{
 	private String boardSubject; /*글 제목*/
 	private String boardText; /*글 내용*/
 	private int boardViews; /*조회수*/
-	private Date BoardTime; /*작성시간*/
-	private Member MemberId; /*작성자아이디*/
+	private Date boardTime; /*작성시간*/
+	private String memberId; /*작성자아이디*/
 	
 	public Board() {}
 
-	public Board(int boardNum, String boardSubject, String boardText, int boardViews, Date boardTime, Member memberId) {
-		super();
+	public Board(String boardSubject, String boardText, String memberId) {
+		this.boardSubject = boardSubject;
+		this.boardText = boardText;
+		this.memberId = memberId;
+	}
+
+	public Board(int boardNum, String boardSubject, String boardText, int boardViews, Date boardTime, String memberId) {
 		this.boardNum = boardNum;
 		this.boardSubject = boardSubject;
 		this.boardText = boardText;
 		this.boardViews = boardViews;
-		BoardTime = boardTime;
-		MemberId = memberId;
+		this.boardTime = boardTime;
+		this.memberId = memberId;
 	}
 
 	public int getBoardNum() {
@@ -56,75 +61,30 @@ public class Board implements Serializable{
 	}
 
 	public Date getBoardTime() {
-		return BoardTime;
+		return boardTime;
 	}
 
 	public void setBoardTime(Date boardTime) {
-		BoardTime = boardTime;
+		this.boardTime = boardTime;
 	}
 
-	public Member getMemberId() {
-		return MemberId;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMemberId(Member memberId) {
-		MemberId = memberId;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	@Override
 	public String toString() {
-		return "Board [boardNum=" + boardNum + ", boardSubject=" + boardSubject + ", boardText=" + boardText
-				+ ", boardViews=" + boardViews + ", BoardTime=" + BoardTime + ", MemberId=" + MemberId + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((BoardTime == null) ? 0 : BoardTime.hashCode());
-		result = prime * result + ((MemberId == null) ? 0 : MemberId.hashCode());
-		result = prime * result + boardNum;
-		result = prime * result + ((boardSubject == null) ? 0 : boardSubject.hashCode());
-		result = prime * result + ((boardText == null) ? 0 : boardText.hashCode());
-		result = prime * result + boardViews;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Board other = (Board) obj;
-		if (BoardTime == null) {
-			if (other.BoardTime != null)
-				return false;
-		} else if (!BoardTime.equals(other.BoardTime))
-			return false;
-		if (MemberId == null) {
-			if (other.MemberId != null)
-				return false;
-		} else if (!MemberId.equals(other.MemberId))
-			return false;
-		if (boardNum != other.boardNum)
-			return false;
-		if (boardSubject == null) {
-			if (other.boardSubject != null)
-				return false;
-		} else if (!boardSubject.equals(other.boardSubject))
-			return false;
-		if (boardText == null) {
-			if (other.boardText != null)
-				return false;
-		} else if (!boardText.equals(other.boardText))
-			return false;
-		if (boardViews != other.boardViews)
-			return false;
-		return true;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Board [boardNum=").append(boardNum).append(", boardSubject=").append(boardSubject)
+				.append(", boardText=").append(boardText).append(", boardViews=").append(boardViews)
+				.append(", boardTime=").append(boardTime).append(", memberId=").append(memberId).append("]");
+		return builder.toString();
 	}
 	
+
 	
 }

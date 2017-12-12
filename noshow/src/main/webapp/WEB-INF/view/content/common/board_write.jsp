@@ -10,8 +10,8 @@
 			if (confirm("등록하시겠습니까?")) {
 				document.form.submit();
 			}
-			var title = $("#title").val();
-			var content = $("#content").val();
+			var title = $("#boardSubject").val();
+			var content = $("#boardText").val();
 			var writer = $("#writer").val();
 
 			if (title == "") {
@@ -19,21 +19,12 @@
 				document.form.title.focus();
 				return;
 			}
-			if (title == "") {
-				alert("제목을 입력하세요");
-				document.form.content.focus();
-				return;
-			}
 			if (content == "") {
 				alert("내용을 입력하세요");
 				document.form.content.focus();
 				return;
 			}
-			if (writer == "") {
-				alert("이름을 입력하세요");
-				document.form.writer.focus();
-				return;
-			}
+
 			// 입력한 데이터를 서버로 전송
 			document.form.submit();
 		});
@@ -41,26 +32,22 @@
 </script>
 <div class="container" style="width: 800px;">
 	<h2>게시글 작성하기</h2>
+	
 	<form name="form" method="post" action="${initParam.rootPath }/insertBoard.do">
-		<sec:csrfInput />
+
 		<div>
-			작성일자 :
-			<fmt:formatDate value="${board.boardTime}" pattern="yyyy-MM-dd a HH:mm:ss" />
-		</div>
-		<div>조회수 : ${board.boardViews}</div> 
+			작성자 : <input type="text" name="memberId" id="memberId" value="<sec:authentication property='principal.memberId' />" class="form-control">
+		</div> 
 		<div>
-			작성자 : <input name="writer" id="writer" value="${board.boardWriter}" class="form-control" Placeholder="이름을 입력해주세요">
-		</div>
-		<div>
-			제목 <input name="title" id="title" size="80" value="${board.boardSubject}" class="form-control" placeholder="제목을 입력해주세요">
+			제목 <input type="text" name="boardSubject" id="boardSubject" size="80" class="form-control" placeholder="제목을 입력해주세요">
 		</div>
 		<div>
 			내용
-			<textarea name="content" id="content" rows="16" cols="80" class="form-control" placeholder="내용을 입력해주세요" style="resize: none;">${board.boardText}</textarea>
+			<textarea name="boardText" id="boardText" rows="16" cols="80" class="form-control" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
 		</div>
-		<!-- 게시물번호를 hidden으로 처리 -->
-		<input type="hidden" name="boardNum" value="${board.boardNum}">
+		
 		<button type="submit" id="submit" class="btn btn-default" style="float: right;">등록</button>
-
+		<sec:csrfInput />
 	</form>
+	
 </div>

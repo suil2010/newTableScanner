@@ -98,7 +98,7 @@
 			}
 		});
 	}
-  
+
 	//즐겨찾기 삭제
 	function deleteBookmark() {
 		var a = $(".token").children().val();
@@ -225,7 +225,7 @@
 
 				$("#resDate").on("change", chaneResInfo);
 				/* $("#resStartTime").on("Select", chaneResInfo); */
-				$("#orderDiv").on("click", "#bookmarkBtn", addBookmark);  
+				$("#orderDiv").on("click", "#bookmarkBtn", addBookmark);
 				$("#orderDiv").on("click", "#deleteBookmarkBtn", deleteBookmark);
 				$("#resPeople").on("change", changeResPeople);
 
@@ -307,30 +307,47 @@
 
 
 <div class="container">
- 	<div class="token" style="display: none;">
- 		<sec:csrfInput />
- 	</div>
- 	
+	<div class="token" style="display: none;">
+		<sec:csrfInput />
+	</div>
+
 	<!-- 음식점목록 1번쨰 row (식당이미지 - 설명) -->
-	<div class="row">
-		<div class="col-sm-6">
-			<img src="${initParam.rootPath }/rtPicture/${requestScope.restaurant.rtPicture}" alt="식당 이미지">
+	<div class="row" style="background: #fff; margin-bottom: 20px; margin-top: 20px;">
+		<div class="col-sm-6" style="padding: 10px;">
+			<img src="${initParam.rootPath }/rtPicture/${requestScope.restaurant.rtPicture}" alt="식당 이미지" style="width: 100%;">
 		</div>
-		<div class="col-sm-6">설명 설명 설명</div>
-		<div id="orderDiv">
-			<c:choose>
-				<c:when test="${requestScope.restaurant.bookmarkCheck == 1 }">
-					<button id="deleteBookmarkBtn" class="btn btn-default btn-sm" name="deleteBookmartBtn">
-						<span class="glyphicon glyphicon-heart"></span> 즐겨찾기 삭제
-					</button>
-				</c:when>
-				<c:otherwise>
-					<button id="bookmarkBtn" class="btn btn-default btn-sm" name="bookmartBtn">
-						<span class="glyphicon glyphicon-heart-empty"></span> 즐겨찾기 추가
-					</button>
-				</c:otherwise>
-			</c:choose>
+		<div class="col-sm-6" style="padding: 30px;">
+
+			<span style="font-size: 34px; font-weight: bold;">${requestScope.restaurant.rtName}</span>
+			<p>
+				<span style="font-size: 22px;">음식점 전화번호 : ${requestScope.restaurant.rtTel}</span>
+			<p>
+				<span style="font-size: 22px;">Open : ${requestScope.restaurant.rtOpen}</span> <span style="font-size: 22px;">Close :
+					${requestScope.restaurant.rtClose}</span>
+			<p>
+				<span style="font-size: 22px;">위치 : ${requestScope.restaurant.rtAddress}</span>
+			<p>
+				<span style="font-size: 22px;">수용가능인원 : ${requestScope.restaurant.rtCapacity}</span>
+			<p>
+				<span style="font-size: 22px;">1인 금액 : ${requestScope.restaurant.rtDeposit}</span>
+			<p>
+			<div id="orderDiv">
+				<c:choose>
+					<c:when test="${requestScope.restaurant.bookmarkCheck == 1 }">
+						<button id="deleteBookmarkBtn" class="btn btn-default btn-sm" name="deleteBookmartBtn">
+							<span class="glyphicon glyphicon-heart"></span> 즐겨찾기 삭제
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button id="bookmarkBtn" class="btn btn-default btn-sm" name="bookmartBtn">
+							<span class="glyphicon glyphicon-heart-empty"></span> 즐겨찾기 추가
+						</button>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
 		</div>
+
 	</div>
 
 	<!-- 음식점목록 2번쨰 row (메뉴,테이블,문의 리뷰 - 주문표) -->

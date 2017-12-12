@@ -34,8 +34,6 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	
-	// memberInfo 손대지마세요.
 	@RequestMapping("/mypage/member_info")
 	public String memberInfo(ModelMap model) {
 		String url = null;
@@ -75,15 +73,15 @@ public class MemberController {
 	@RequestMapping("/join_member")
 	public ModelAndView inserMember(@ModelAttribute Member member) {
 		service.addMember(member, "ROLE_MEMBER");
-		return new ModelAndView("/join_success.do", "memberId", member.getMemberId());
+		return new ModelAndView("/index.tiles", "memberId", member.getMemberId());
 	}
 	
-
-	@RequestMapping("/join_success")
-	public ModelAndView joinSuccess(String memberId) {
-		Member member = service.getUserByMemberId(memberId);
-		return new ModelAndView("member/join_success.tiles", "member", member);
-	}
+//
+//	@RequestMapping("/join_success")
+//	public ModelAndView joinSuccess(String memberId) {
+//		Member member = service.getUserByMemberId(memberId);
+//		return new ModelAndView("/index.do", "member", member);
+//	}
 	
 
 	@RequestMapping("/update_Member")

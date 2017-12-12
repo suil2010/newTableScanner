@@ -59,8 +59,10 @@ public class SearchServiceImpl implements SearchService{
 	/* 예약조건에서 나온 식당 리스트에서 식당을 선택했을 때 식당 정보 조회 */
 	@Override
 	public Restaurant selectRestaurantByBusinessIdResInfo(String resDate, String resTime, String memberId, String businessId) {
+		System.out.println(businessId); 
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
 //		restaurant = selectAllTable(businessId, restaurant);
+		System.out.println("SearchServiceImpl.selcRes - restaurant : " + restaurant);
 		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
 		List<Review> reviewList = selectReviewByBusinesId(businessId);
 		//TEST
@@ -332,6 +334,7 @@ public class SearchServiceImpl implements SearchService{
 		System.out.println("SearchServiceImpl.selCntChckRes - memberId : " +memberId+", businessId : "+businessId);
 		int resCheckResult = dao.selectCountCheckRervation(checkRes);
 		System.out.println("COUNT 체크 결과 : " +resCheckResult);
+		System.out.println(restaurant);
 		restaurant.setReservationCheck(resCheckResult);
 		return restaurant;
 	}

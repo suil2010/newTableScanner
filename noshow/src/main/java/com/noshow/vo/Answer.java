@@ -10,8 +10,6 @@ public class Answer implements Serializable{
 	private int questionNum;
 	private String businessId;
 	
-	private Question question;
-	
 	public Answer() {}
 
 	public Answer(String answerText, int questionNum, String businessId) {
@@ -21,15 +19,13 @@ public class Answer implements Serializable{
 		this.businessId = businessId;
 	}
 
-	public Answer(int answerNum, String answerDate, String answerText, int questionNum, String businessId,
-			Question question) {
+	public Answer(int answerNum, String answerDate, String answerText, int questionNum, String businessId) {
 		super();
 		this.answerNum = answerNum;
 		this.answerDate = answerDate;
 		this.answerText = answerText;
 		this.questionNum = questionNum;
 		this.businessId = businessId;
-		this.question = question;
 	}
 
 	public int getAnswerNum() {
@@ -72,18 +68,10 @@ public class Answer implements Serializable{
 		this.businessId = businessId;
 	}
 
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
 	@Override
 	public String toString() {
 		return "Answer [answerNum=" + answerNum + ", answerDate=" + answerDate + ", answerText=" + answerText
-				+ ", questionNum=" + questionNum + ", businessId=" + businessId + ", question=" + question + "]";
+				+ ", questionNum=" + questionNum + ", businessId=" + businessId + "]";
 	}
 
 	@Override
@@ -94,7 +82,6 @@ public class Answer implements Serializable{
 		result = prime * result + answerNum;
 		result = prime * result + ((answerText == null) ? 0 : answerText.hashCode());
 		result = prime * result + ((businessId == null) ? 0 : businessId.hashCode());
-		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + questionNum;
 		return result;
 	}
@@ -125,14 +112,9 @@ public class Answer implements Serializable{
 				return false;
 		} else if (!businessId.equals(other.businessId))
 			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
 		if (questionNum != other.questionNum)
 			return false;
 		return true;
 	}
-
+	
 }

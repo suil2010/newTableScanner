@@ -16,11 +16,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.noshow.dao.BookmarkDAO;
+import com.noshow.dao.QuestionDAO;
 import com.noshow.dao.ReviewDAO;
 import com.noshow.dao.SearchDAO;
 import com.noshow.service.SearchService;
 import com.noshow.vo.Bookmark;
 import com.noshow.vo.Menu;
+import com.noshow.vo.Question;
 import com.noshow.vo.Restaurant;
 import com.noshow.vo.Review;
 import com.noshow.vo.Table;
@@ -38,6 +40,10 @@ public class SearchServiceImpl implements SearchService{
 	/* 2017.12.11 - 현준 _ 리뷰리스트 위해 추가 */
 	@Resource
 	private ReviewDAO reviewDao;
+	
+	/* 2017.12.12 - 현준 _ 문의글 리스트 추가 */
+	@Resource
+	private QuestionDAO questionDao;
 	
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String memberId, String businessId) {
@@ -61,9 +67,9 @@ public class SearchServiceImpl implements SearchService{
 	public Restaurant selectRestaurantByBusinessIdResInfo(String resDate, String resTime, String memberId, String businessId) {
 		System.out.println(businessId); 
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
-//		restaurant = selectAllTable(businessId, restaurant);
-		System.out.println("SearchServiceImpl.selcRes - restaurant : " + restaurant);
+		System.out.println("SearchServiceImpl.selcRes - restaurant : " + restaurant); //TEST
 		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
+		restaurant = selectQuestionByBusinessId(restaurant);
 		List<Review> reviewList = selectReviewByBusinesId(businessId);
 		//TEST
 		for(Review review : reviewList) {
@@ -74,13 +80,17 @@ public class SearchServiceImpl implements SearchService{
 		List<Table> tableList = selectUsableTable(resDate, resTime, businessId);
 		restaurant.setUsableTable(tableList);
 		restaurantList.add(restaurant);
-//		restaurantList = setFieldMethod(restaurantList);
 		restaurantList = checkBookmark(memberId, restaurantList);
 		restaurantList = timeFormatting(restaurantList);
+		//TEST
 		for(Restaurant r : restaurantList) {
-			for(Menu m : r.getMenuList()) {
-				System.out.println("SearchServiceImpl-restaurant.menu : "+ m);
-
+			if (r.getMenuList() == null) {
+				System.out.println("해당 식당에 등록된 menu가 없습니다.");
+				return r;
+			} else {
+				for(Menu m : r.getMenuList()) {
+					System.out.println("SearchServiceImpl-restaurant.menu : "+ m);
+				}
 			}
 			return r;
 		}
@@ -196,72 +206,6 @@ public class SearchServiceImpl implements SearchService{
 
 	}
 
-	
-/*	// 검색 결과 - 음식점리스트에 int로 들어오는 Field 값을 변환 
-	public List<Restaurant> setFieldMethod(List<Restaurant> restaurantList) {
-		for(Restaurant res : restaurantList) {
-			switch (res.getRtField()) {
-			case "1":
-				res.setRtField("한식");
-				break;
-			case "2":
-				res.setRtField("중식");
-				break;
-			case "3":
-				res.setRtField("일식");
-				break;
-			case "4":
-				res.setRtField("분식");
-				break;
-			case "5":
-				res.setRtField("치킨");
-				break;
-			case "6":
-				res.setRtField("피자");
-				break;
-			case "7":
-				res.setRtField("족발");
-				break;
-			default:
-				return restaurantList;
-			}
-			
-		} return restaurantList;
-		
-	}*/
-
-/*	// 검색 결과 - 음식점리스트에 int로 들어오는 holiday 값을 변환 
-	public List<Restaurant> setHoliDayMethod(List<Restaurant> restaurantList) {
-		for(Restaurant restaurant : restaurantList) {
-			switch (restaurant.getRtHoliday()) {
-			case "1":
-				restaurant.setRtHoliday("일");
-				break;
-			case "2":
-				restaurant.setRtHoliday("월");
-				break;
-			case "3":
-				restaurant.setRtHoliday("화");
-				break;			
-				case "4":
-				restaurant.setRtHoliday("수");
-				break;			
-			case "5":
-				restaurant.setRtHoliday("목");
-				break;			
-			case "6":
-				restaurant.setRtHoliday("금");
-				break;
-			case "7":
-				restaurant.setRtHoliday("토");
-				break;
-			default:
-				break;
-			}
-		} return restaurantList;
-	}*/
-	
-	
 	// 음식점 Open, Close 시간만 던져주기위한 메소드 분리 
 	public List<Restaurant> timeFormatting(List<Restaurant> restaurantList) {
 		SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -343,4 +287,12 @@ public class SearchServiceImpl implements SearchService{
 		return reviewDao.selectReviewByBusinessId(businessId);
 	}
 	
+	private Restaurant selectQuestionByBusinessId(Restaurant restaurant) {
+		List<Question> questionList = questionDao.selectQuestionByBusinessId(restaurant.getBusinessId());
+		System.out.println("SearchServiceImpl.selectQuestion - before restaurant : " + restaurant); // TEST
+		restaurant.setQuestionList(questionList);
+		System.out.println("SearchServiceImpl.selectQuestion - after restaurant : " + restaurant); // TEST
+
+		return restaurant;
+	}
 }

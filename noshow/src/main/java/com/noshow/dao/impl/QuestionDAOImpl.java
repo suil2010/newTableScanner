@@ -42,7 +42,12 @@ public class QuestionDAOImpl implements QuestionDAO{
 
 	@Override
 	public List<Question> selectQuestionByBusinessId(String businessId) {
-		return session.selectList(makeSqlId("selectQuestionByBusinessId"), businessId);
+		System.out.println("QuestionDAOImpl - businessId : " + businessId);
+		List<Question> questionList = session.selectList(makeSqlId("selectQuestionByBusinessId"), businessId);
+		for(Question q : questionList) {
+			System.out.println("QuestionDAOImpl - question : " + q);
+		}
+		return questionList;
 	}
 
 	@Override

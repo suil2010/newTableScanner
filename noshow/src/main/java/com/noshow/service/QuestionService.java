@@ -2,7 +2,6 @@ package com.noshow.service;
 
 import java.util.List;
 
-import com.noshow.vo.Answer;
 import com.noshow.vo.Question;
 
 public interface QuestionService {
@@ -17,5 +16,6 @@ public interface QuestionService {
 	
 	List<Question> selectQuestionByBusinessId(String businessId);
 	
-	Answer selectAnswerByQuestionNum(int questionNum);
+/*	List<Question> selectAnswerByQuestionNum(List<Question> questionList);*/
+
 }

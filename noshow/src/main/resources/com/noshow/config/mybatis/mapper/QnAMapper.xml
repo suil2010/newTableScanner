@@ -28,7 +28,6 @@
 		<result column="ANSWER_DATE" property="answerDate"/>
 		<result column="ANSWER_TEXT" property="answerText"/>
 		<result column="QUESTION_NUM" property="questionNum"/>
-		<collection property="question" resultMap="question-resultmap"/>
 	</resultMap>
 	
 	<resultMap type="Member" id="member-resultmap">
@@ -107,7 +106,7 @@
    <select id="selectQuestionByBusinessId" parameterType="string" resultMap="question-resultmap">
 	SELECT	<include refid="question-column"/>
 	FROM	question
-	WHERE	business_id = #{value}   
+	WHERE	business_id = #{value}  
    </select>
    
    

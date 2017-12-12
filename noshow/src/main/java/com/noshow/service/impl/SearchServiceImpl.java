@@ -339,6 +339,5 @@ public class SearchServiceImpl implements SearchService{
 	private List<Review> selectReviewByBusinesId(String businessId) {
 		return reviewDao.selectReviewByBusinessId(businessId);
 	}
-
 	
 }

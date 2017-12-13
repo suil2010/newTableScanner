@@ -13,23 +13,27 @@ thead>tr>th {
 	<table class="table" style="width: 100%;">
 		<thead>
 			<tr>
-				<th style="width: 10%;">번호</th>
+				<th style="width: 10%;">글번호</th>
 				<th style="width: 45%;">제목</th>
 				<th style="width: 20%;">작성자</th>
 				<th style="width: 15%;">작성일</th>
 				<th style="width: 10%;">조회수</th>
 			</tr>
-			<c:forEach var="row" items="${list }">
+			<c:forEach var="row" items="${requestScope.list}">
 				<tr>
 					<td>${row.boardNum }</td>
-					<td><a href="${initParam.rootPath }/common/board_view.do?board=${row.boardTitle }">${row.boardTitle }</a></td>
-					<td>${row.boardWriter }</td>
-					<td><fmt:formatDate value="${row.boardTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td>${row.boardViews }</td>
+					<td><a href="${initParam.rootPath }/readBoardByNum.do?boardNum=${row.boardNum}"> ${row.boardSubject }</a></td>
+					<td>${row.memberId }</td>
+					<td style="text-align: center;"><fmt:formatDate value="${row.boardTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td style="text-align: center;">${row.boardViews }</td>
 				</tr>
 			</c:forEach>
 	</table>
-	<a href="${initParam.rootPath}/board_write.do">
-		<button type="button" id="btnWrite" class="btn btn-default">글쓰기</button>
-	</a>
+	<sec:authorize access="isAuthenticated()">
+		<a href="${initParam.rootPath}/board_write.do">
+			<button type="button" id="btnWrite" class="btn btn-default">글쓰기</button>
+		</a>
+	</sec:authorize>	
+
+	<sec:csrfInput />
 </div>

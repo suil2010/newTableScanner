@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.BoardService;
@@ -18,41 +16,49 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-	//게시글 목록
-	@RequestMapping("/boardList")
-	public ModelAndView boardList(@RequestParam Board board) {
-		List<Board> list = service.allList(board);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board_list.tiles");
-		mav.addObject("list", list);
-		return mav;
+	
+	@RequestMapping("/board_list")
+	public ModelAndView boardList() {
+		List<Board> list = service.boardList();
+		return new ModelAndView("common/board_list.tiles","list",list);
 	}
 	
 	//게시글 등록처리
 	@RequestMapping("/insertBoard")
-	public String insertBoard(@ModelAttribute Board board)throws Exception {
-		service.insertBoard(board);
-		return "board_view";
+	public ModelAndView insertBoard(Board board){
+		service.addBoard(board);
+		return new ModelAndView("redirect:/readBoardByNum.do", "boardNum", board.getBoardNum());
 	}
 	
-	/*//게시글 상세내용 조회, 조회수 count처리
-	@RequestMapping("/viewBoard")
-	public String viewBoard(@RequestParam Board boardViews, HttpSession session) throws Exception {
-		service.getCountViews(boardViews);
-		return "";
+	//게시글 상세페이지
+	@RequestMapping("/readBoardByNum")
+	public ModelAndView readBoardByBoardNum(int boardNum) {
+		service.increaseBoardViews(boardNum);
+		Board board = service.boardListByNum(boardNum);
+		return new ModelAndView("common/board_read.tiles", "board", board);
+	}
+	
+	//게시글 수정 폼
+	@RequestMapping("/updateBoard_form")
+	public ModelAndView updateBoardForm(int boardNum) {
+		Board board = service.boardListByNum(boardNum);
+		return new ModelAndView("common/updateBoard_form.tiles", "board", board);
 	}
 	
 	//게시글 수정
 	@RequestMapping("/updateBoard")
-	public String update(@ModelAttribute Board memberId) throws Exception{
-		service.updateBoard(memberId);
-		return "";
+	public ModelAndView updateBoard(Board board) {
+		service.updateBoard(board);
+		return new ModelAndView("redirect:/readBoardByNum.do", "boardNum", board.getBoardNum());
 	}
 	
-	//게시글 삭제
-	@RequestMapping("/deleteBoard")
-	public String delete(@ModelAttribute Board memberId) throws Exception{
-		service.deleteBoard(memberId);
-		return "";
-	}*/
+	//글 삭제처리
+	@RequestMapping("/deleteBoardByNum")
+	public ModelAndView deleteBoardByBoardNum(int boardNum) {
+		service.deleteBoard(boardNum);
+		return new ModelAndView("redirect:/board_list.do");
+	}
+	
+	
+
 }

@@ -139,7 +139,6 @@
 			></span></li>
 			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="#">공지사항</a></li>
 				<li class="li">회원관리</li>
 				<li><a href="${initParam.rootPath }/find_authority_admin.do">admin 회원 보기</a></li>
 				<li><a href="${initParam.rootPath }/find_authority_member.do">member 회원 보기</a></li>
@@ -154,9 +153,13 @@
 				<li><a href="#">추천랭킹</a></li>
 			</sec:authorize>
 
+			<!-- 회원 -->
+			<sec:authorize access="isAuthenticated()">
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
+			</sec:authorize>
+			
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
-				<li><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li><a href="#">추천랭킹</a></li>
 				<li><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기</a></li>
 			</sec:authorize>
@@ -175,7 +178,6 @@
 
 				<li><a href="#">리뷰</a></li>
 				<li><a href="#">문의</a></li>
-				<li><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
 
 		</ul>
@@ -226,7 +228,6 @@
 
 			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="col-sm-2"><a href="#">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">회원관리</a>
 					<ul class="submenu" style="list-style: none;">
 						<li><a href="${initParam.rootPath}/find_authority_admin.do">admin 회원 보기</a></li>
@@ -242,10 +243,14 @@
 				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
 			</sec:authorize>
-
+	
+			<!-- 회원 -->
+			<sec:authorize access="isAuthenticated()">
+				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
+			</sec:authorize>
+			
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
-				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 				<li class="col-sm-2"><a href="#">추천랭킹</a></li>
 				<li class="col-sm-2"><a href="${initParam.rootPath }/myBookmarkList.do">즐겨찾기</a></li>
 			</sec:authorize>
@@ -265,7 +270,6 @@
 					</ul></li>
 				<li class="col-sm-2"><a href="#">리뷰</a></li>
 				<li class="col-sm-2"><a href="#">문의</a></li>
-				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
 		</ul>
 	</div>

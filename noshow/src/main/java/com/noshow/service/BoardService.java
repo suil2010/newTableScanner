@@ -3,7 +3,6 @@ package com.noshow.service;
 import java.util.List;
 
 import com.noshow.vo.Board;
-import com.noshow.vo.Commen;
 
 public interface BoardService {
 	
@@ -12,70 +11,34 @@ public interface BoardService {
 	 * @param board
 	 * @return
 	 */
-	int insertBoard(Board board);
+	int addBoard(Board board);
 	
 	/**
 	 * 게시판 글 수정
 	 * @param memberId
 	 * @return
 	 */
-	int updateBoard(Board memberId);
+	void updateBoard(Board board);
 	
 	/**
-	 * memberId를 받아 글 삭제
-	 * @param memeberId
+	 * boardNum를 받아 글 삭제
+	 * @param boardNum
 	 * @return
 	 */
-	int deleteBoard(Board memeberId);
+	void deleteBoard(int boardNum);
 	
 	/**
-	 * memberId로 게시판 글 조회
-	 * @param memberId
+	 * 게시판 전체 조회
 	 * @return
 	 */
-	List<Board> selectBoardByMemberId(String memberId);
+	List<Board> boardList();
 	
 	/**
-	 * 제목으로 게시판 글 조회
-	 * @param boardTitle
+	 * 글번호로 글 정보 조회
+	 * @param boardNum
 	 * @return
 	 */
-	List<Board> selectBoardByBoardTitle(String boardTitle);
+	Board boardListByNum(int boardNum);
 	
-	/**
-	 * 게시판 리스트
-	 * @param paramMap
-	 * @return
-	 */
-	List<Board> allList(Board board);
-	
-	/**
-	 * 글 내용
-	 * @param paramMap
-	 * @return
-	 */
-	Board getCountViews(Board boardViews);
-	
-	/**
-	 * 조회수count
-	 * @param paramMap
-	 * @return
-	 */
-	int getBoardCount();
-	
-	/**
-	 * 댓글
-	 * @param paramMap
-	 * @return
-	 */
-	int boardCommen(Commen commen);
-	
-	/**
-	 * 
-	 * @param paramMap
-	 * @return
-	 */
-	List<Commen> getCommenList(Commen commen);
-
-
+	void increaseBoardViews(int boardNum);
 }

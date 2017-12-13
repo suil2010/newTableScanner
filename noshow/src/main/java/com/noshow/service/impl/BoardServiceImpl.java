@@ -16,8 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao dao;
 
 	@Override
-	public void addBoard(Board board) {
-		dao.insertBoard(board);
+	public int addBoard(Board board) {
+		return dao.insertBoard(board);
 	}
 
 	@Override
@@ -26,13 +26,18 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void deleteBoard(Board boardNum) {
+	public void deleteBoard(int boardNum) {
 		dao.deleteBoard(boardNum);
 	}
 
 	@Override
 	public List<Board> boardList() {
 		return dao.boardList();
+	}
+
+	@Override
+	public Board boardListByNum(int boardNum) {
+		return dao.selectBoardByNum(boardNum);
 	}
 
 

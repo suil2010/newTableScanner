@@ -1,11 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>작성글 수정</title>
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script>
 function move(url) {
@@ -18,13 +11,8 @@ function boardUpdateCheck() {
 }
 </script>
 
-<style>
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
-body {
-	font-family: 'Nanum Gothic', sans-serif;
-}
 </style>
-<body>
+
 
 	<table summary="글수정 전체 테이블">
 		<form name="BoardUpdateForm" method="post" action="" onsubmit="return boardUpdateCheck();" >
@@ -57,5 +45,3 @@ body {
 	</form> 
 </table>
 
-</body>
-</html>

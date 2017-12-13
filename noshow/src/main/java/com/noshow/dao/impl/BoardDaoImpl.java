@@ -30,13 +30,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int deleteBoard(Board boardNum) {
+	public int deleteBoard(int boardNum) {
 		return session.delete(makeSqlId("deleteBoard"), boardNum);
 	}
 
 	@Override
 	public List<Board> boardList() {
 		return session.selectList(makeSqlId("boardList"));
+	}
+
+	@Override
+	public Board selectBoardByNum(int boardNum) {
+		return session.selectOne(makeSqlId("selectBoardByNum"), boardNum);
 	}
 
 

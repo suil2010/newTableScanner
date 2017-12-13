@@ -11,7 +11,7 @@ public interface BoardService {
 	 * @param board
 	 * @return
 	 */
-	void addBoard(Board board);
+	int addBoard(Board board);
 	
 	/**
 	 * 게시판 글 수정
@@ -25,7 +25,9 @@ public interface BoardService {
 	 * @param boardNum
 	 * @return
 	 */
-	void deleteBoard(Board boardNum);
+	void deleteBoard(int boardNum);
 
 	List<Board> boardList();
+	
+	Board boardListByNum(int boardNum);
 }

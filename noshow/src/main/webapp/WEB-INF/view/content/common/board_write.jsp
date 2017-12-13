@@ -36,7 +36,7 @@
 	<form name="form" method="post" action="${initParam.rootPath }/insertBoard.do">
 
 		<div>
-			작성자 : <input type="text" name="memberId" id="memberId" value="<sec:authentication property='principal.memberId' />" class="form-control">
+			작성자 : <input type="text" name="memberId" id="memberId" value="<sec:authentication property='principal.memberId' />" class="form-control" readonly="readonly">
 		</div> 
 		<div>
 			제목 <input type="text" name="boardSubject" id="boardSubject" size="80" class="form-control" placeholder="제목을 입력해주세요">

@@ -26,8 +26,11 @@
 	
 	<!-- 글 등록 -->
 	<insert id="insertBoard" parameterType="Board">
+		<selectKey keyProperty="boardNum" resultType="_int" order="BEFORE">
+			select board_num_seq.nextval from dual
+		</selectKey>
 		insert into board(board_num, board_subject, board_text, board_time, member_id)
-		values(board_num_seq.NEXTVAL, #{boardSubject}, #{boardText}, sysdate, #{memberId})
+		values(#{boardNum}, #{boardSubject}, #{boardText}, sysdate, #{memberId})
 	</insert>
 
 
@@ -55,5 +58,9 @@
 		where board_num = #{boardNum}
 	</delete> 
 
+	<select id="selectBoardByNum" parameterType="int" resultMap="board-resultmap">
+		<include refid="board-select-sql"/>
+		where board_num = #{boardNum}
+	</select>
 	
 </mapper>

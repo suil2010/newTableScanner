@@ -25,7 +25,7 @@ public interface BoardDao {
 	 * @param memberId
 	 * @return
 	 */
-	int deleteBoard(Board memberId);
+	int deleteBoard(int boardNum);
 	
 	/**
 	 * 글 전체 조회
@@ -33,6 +33,12 @@ public interface BoardDao {
 	 * @return
 	 */
 	List<Board>boardList();
+	
+	/**
+	 * 글 번호로 글 상세 조회
+	 * @return
+	 */
+	Board selectBoardByNum(int boardNum);
 	
 	
 /*	//memberId로 게시글 조회

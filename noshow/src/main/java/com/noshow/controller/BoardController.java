@@ -20,17 +20,20 @@ public class BoardController {
 	@RequestMapping("/board_list")
 	public ModelAndView boardList() {
 		List<Board> list = service.boardList();
-		System.out.println(list);
 		return new ModelAndView("common/board_list.tiles","list",list);
 	}
 	
 	//게시글 등록처리
 	@RequestMapping("/insertBoard")
 	public ModelAndView insertBoard(Board board){
-		System.out.println(board);
 		service.addBoard(board);
-		System.out.println(board.getBoardSubject());
-		return new ModelAndView();
+		return new ModelAndView("redirect:/readBoardByNum.do", "boardNum", board.getBoardNum());
+	}
+	
+	@RequestMapping("/readBoardByNum")
+	public ModelAndView readBoardByBoardNum(int boardNum) {
+		Board board = service.boardListByNum(boardNum);
+		return new ModelAndView("common/board_read.tiles", "board", board);
 	}
 
 }

@@ -3,17 +3,39 @@ package com.noshow.dao;
 import java.util.List;
 
 import com.noshow.vo.Board;
-import com.noshow.vo.Commen;
 
 public interface BoardDao {
 	
+	/**
+	 * 글 작성하기
+	 * @param board
+	 * @return
+	 */
 	int insertBoard(Board board);
 	
+	/**
+	 * 글 수정하기
+	 * @param board
+	 * @return
+	 */
 	int updateBoard(Board board);
 	
+	/**
+	 * 글 삭제하기
+	 * @param memberId
+	 * @return
+	 */
 	int deleteBoard(Board memberId);
 	
-	//memberId로 게시글 조회
+	/**
+	 * 글 전체 조회
+	 * @param board
+	 * @return
+	 */
+	List<Board>boardList();
+	
+	
+/*	//memberId로 게시글 조회
 	List<Board>selectBoardByMemberId(String memberId);
 	
 	//제목으로 게시글 조회
@@ -33,5 +55,5 @@ public interface BoardDao {
 	
 	//전체댓글조회?
 	List<Commen> getCommenList(Commen commen);
-	
+	*/
 }

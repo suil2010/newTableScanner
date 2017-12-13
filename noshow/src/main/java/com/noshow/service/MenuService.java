@@ -8,11 +8,13 @@ public interface MenuService {
 
 	void addMenu(Menu menu);
 	
+	void deleteMenu(int menuNum);
+	
+	void updateMenu(Menu menu);
+	
 	Menu getMenuByMenuNum(int menuNum);
 	
 	List<Menu> getMenuBybusinessId(String businessId);
 	
-	void deleteMenu(int menuNum);
-	
-	void updateMenu(Menu menu);
+
 }

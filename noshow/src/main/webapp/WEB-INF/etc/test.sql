@@ -69,6 +69,7 @@ AND	  RESTAURANT.rt_address like '%서울%'
 select to_char(RT_OPEN,'hh24:mi')
 from restaurant;
 
+select * from BOARD;
 
 select * from TABLE_
 

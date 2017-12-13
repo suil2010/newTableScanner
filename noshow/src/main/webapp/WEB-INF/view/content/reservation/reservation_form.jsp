@@ -126,70 +126,6 @@
 		});
 	}
 
-	/* function registReview() {
-		alert("dddd");
-		$("#reviewForm").ajaxForm({
-			"dataType":"json", 
-			"success":function(res){
-				alert(res);
-				var reviewList = eval('('+res+')')
-				alert("리뷰 등록 성공!!");
-				var txt = "리뷰 재 조회~";
-				$.each(reviewList, function() {
-					txt += "<div class='col-md-6' style='margin-top: 10px;'>"
-							+"<div style='margin-right: 10px; background: #fff; width: 100%; height: 100%; padding: 10px;' class='col-md-12'>"
-							+"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성자 : "+ this.memberId + "</span>"
-							+"<img src='${initParam.rootPath }/reviewPicture/"+this.reviewImg+"' width='100px' height='100' class='col-sm-3'>" 
-							+"<span class='label col-sm-9' style='color: #000; font-size: 18px;'>평점 : "+ this.reviewGrade +"</span>" 
-							+"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>내용 : "+ this.reviewText +"</span>"
-							+"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "+ this.reviewTime +"</span>"
-							+"</div></div>";
-				});
-				$("#reviewListDiv").html(txt);
-			},
-			"error":function(){
-				alert("error");
-			}
-		});
-	} */
-
-	/* 	function registReview() {
-	 alert("리뷰 등록!!!");
-	 var form = $("#reviewForm")[0];
-	 var formData = new FormData(form);
-	 //formData.append("reviewImage", $("#reviewPicture")[0].files[0]);
-	 $.ajax({
-	 "url":"/noshow/registReview.do",
-	 "type":"post",
-	 "data":formData,
-	 "contentType":false,
-	
-	 "processDate":false,
-	 "dataType":"json",
-	 "success":function(reviewList){
-	 alert("리뷰 등록 성공~~~");
-	 var txt = "리뷰 재 조회~";
-	 $.each(reviewList, function() {
-	 txt += "<div class='col-md-6' style='margin-top: 10px;'>"
-	 +"<div style='margin-right: 10px; background: #fff; width: 100%; height: 100%; padding: 10px;' class='col-md-12'>"
-	 +"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성자 : "+ this.memberId + "</span>"
-	 +"<img src='${initParam.rootPath }/reviewPicture/"+this.reviewImg+"' width='100px' height='100' class='col-sm-3'>" 
-	 +"<span class='label col-sm-9' style='color: #000; font-size: 18px;'>평점 : "+ this.reviewGrade +"</span>" 
-	 +"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>내용 : "+ this.reviewText +"</span>"
-	 +"<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "+ this.reviewTime +"</span>"
-	 +"</div></div>";
-	 });
-	 $("#reviewListDiv").html(txt);
-	 },
-	 "error": function(request, status, error) {
-	 alert("code:" + request.status + "\n" + "message:"
-	 + request.responseText + "\n" + "error:"
-	 + error);
-	 }
-	
-	 });
-	 } */
-
 	function changeResPeople() {
 		alert("인원 변경되었다!!");
 		$.ajax({
@@ -212,9 +148,7 @@
 		});
 	}
 
-	$(document)
-		.ready(
-			function() {
+	$(document).ready(function() {
 				$("#input-id").rating();
 				$("#input-id").rating({
 					min : 1,
@@ -224,53 +158,47 @@
 				});
 
 				$("#resDate").on("change", chaneResInfo);
-				/* $("#resStartTime").on("Select", chaneResInfo); */
 				$("#orderDiv").on("click", "#bookmarkBtn", addBookmark);
 				$("#orderDiv").on("click", "#deleteBookmarkBtn", deleteBookmark);
 				$("#resPeople").on("change", changeResPeople);
 
-				$("#reviewBtn")
-					.on(
-						"click",
-						function() {
-							alert("click????");
-							var option = {
-								url : "${initParam.rootPath}/registReview.do",
-								enctype : "multipart/form-data",
-								dataType : "json",
-								success : function(reviewList) {
-									$
-										.each(
-											reviewList,
-											function() {
-												var txt = "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
-													+ "<img src='${initParam.rootPath }/reviewPicture/"
-													+ this.reviewImg
-													+ "' class='col-md-3' style='height: 100%;'>"
-													+ "<div style='float: right;' class='col-md-9'>"
-													+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성자 : "
-													+ this.memberId
-													+ "</span>"
-													+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>평점 : "
-													+ this.reviewGrade
-													+ "</span>"
-													+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>내용 : "
-													+ this.reviewText
-													+ "</span>"
-													+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "
-													+ this.reviewTime + "</span>" + "</div></div>";
+				/* 현준_ 리뷰 작성 - 목록 업데이트 ajax처리 함수 */
+				$("#reviewBtn").on("click",function() {
+					alert("click????");
+					var option = {
+						url : "${initParam.rootPath}/registReview.do",
+						enctype : "multipart/form-data",
+						dataType : "json",
+						success : function(reviewList) {
+							$.each(reviewList,function() {
+								var txt = "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
+									+ "<img src='${initParam.rootPath }/reviewPicture/"
+									+ this.reviewImg
+									+ "' class='col-md-3' style='height: 100%;'>"
+									+ "<div style='float: right;' class='col-md-9'>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성자 : "
+									+ this.memberId
+									+ "</span>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>평점 : "
+									+ this.reviewGrade
+									+ "</span>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>내용 : "
+									+ this.reviewText
+									+ "</span>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "
+									+ this.reviewTime + "</span>" + "</div></div>";
 
-												$("#reviewListDiv").append(txt);
-											});
-								},
-								"error" : function() {
-									alert("error");
-								}
-							};
-							$("#reviewForm").ajaxForm(option);
-							$("#reviewForm").submit();
-							$("#reviewForm")[0].reset(); //ajax 처리 후 리뷰작성 폼 초기화
-						});
+								$("#reviewListDiv").append(txt);
+							});
+						},
+						"error" : function() {
+							alert("error");
+						}
+					};
+					$("#reviewForm").ajaxForm(option);
+					$("#reviewForm").submit();
+					$("#reviewForm")[0].reset(); //ajax 처리 후 리뷰작성 폼 초기화
+				});
 
 				$("#resStartTime").timepicker({
 					timeFormat : 'HH:mm',
@@ -282,6 +210,38 @@
 					dropdown : true,
 					scrollbar : true,
 					change : chaneResInfo
+				});
+				
+				/* 2017.12.12 현준 문의글 등록 & 문의글목록 업데이트 ajax 처리 함수 */
+				$("#questionBtn").on("click",function() {
+					alert("click????");
+					var option = {
+						url : "${initParam.rootPath}/registQuestion.do",
+						dataType : "json",
+						success : function(questionList) {
+							alert("문의 등록 성공!!");
+							$.each(questionList,function() {
+								var txt = "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
+									+ "<div style='float: right;' class='col-md-9'>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>문의글번호 : "
+									+ this.questionNum + " | 작성자 : " + this.memberId
+									+ "</span>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>문의글 : "
+									+ this.questionText
+									+ "</span>"
+									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "
+									+ this.questionTime + "</span>" + "</div></div>";
+
+								$("#questionListDiv").append(txt);
+							});
+						},
+						"error" : function(request, status, error) {
+							alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+						}
+					};
+					$("#questionFrom").ajaxForm(option);
+					$("#questionFrom").submit();
+					$("#questionFrom")[0].reset(); //ajax 처리 후 리뷰작성 폼 초기화
 				});
 			})
 
@@ -424,21 +384,55 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
+						<sec:csrfInput />
 					</div>
 
 				</div>
 
 				<!-- 문의 패널 -->
 				<div role="tabpanel" class="tab-pane" id="question" style="padding: 10px;">
-					<form action="#" method="post">
+					<form action="${initParam.rootPath}/registQuestion.do" method="post" id="questionFrom">
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="3" style="resize: none;" name="text"></textarea>
+							<textarea class="form-control" rows="3" style="resize: none;" name="questionText" id="questionText" required></textarea>
+							<input type="hidden" name="businessId" value="${restaurant.businessId }" />
+							<input type="hidden" name="memberId" value="<sec:authentication property='principal.memberId'/>">
 						</div>
 						<div class="col-sm-2">
-							<button style="width: 100%; height: 74px;" class="btn btn-default">문의작성</button>
+							<input type="button" id="questionBtn" value="문의작성" class="btn btn-info">
 						</div>
+						<sec:csrfInput />
 					</form>
+						<div class="col-sm-10" id="questionListDiv">
+						<c:choose>
+							<c:when test="${empty requestScope.restaurant.questionList  }">
+								<div class="col-md-6" style="margin-top: 10px;">해당 음식점에 등록된 문의가 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${requestScope.restaurant.questionList}" var="question">
+									<div class="col-md-12 box1" style="background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;">
+										<div style="float: right;" class="col-md-9">
+											<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 문의글번호 : ${question.questionNum} | 작성자 : ${question.memberId}</span> 
+											<span class="label col-sm-9" style="color: #000; font-size: 18px;"> 문의글 : ${question.questionText}</span> 
+											<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 등록 일시 : ${question.questionTime}</span>
+										</div>
+										<sec:authentication property='principal.memberId' var="currentMemberId"/>
+										<c:if test="${question.memberId == currentMemberId }">
+											<button type="button" class="btn btn-basic btn-xs">수정</button>
+											<button type="button" class="btn btn-basic btn-xs">삭제</button>
+										</c:if>
+										<c:if test="${currentMemberId == question.businessId }">
+											<button type="button" class="btn btn-basic btn-xs">답변 등록</button>										
+										</c:if>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>	
+						<sec:csrfInput />
+									
+					</div>
 				</div>
+				
+
 
 				<!-- 테이블정보 패널 -->
 				<div role="tabpanel" class="tab-pane" id="table">
@@ -541,7 +535,7 @@
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
-
+						<sec:csrfInput />
 					</div>
 					<div class="form-group" id="totalPriceDiv">
 						총 예약 금액 : <span style="color: red; float: center; font-size: 30px"><b> <fmt:formatNumber

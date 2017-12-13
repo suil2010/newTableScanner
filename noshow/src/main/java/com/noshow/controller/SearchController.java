@@ -115,7 +115,7 @@ public class SearchController {
 //	 2017.12.09 02:38 정리 완료 
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
-	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId , HttpServletResponse response) throws IOException {
+	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId) throws IOException {
 		System.out.println("SearchController-------------------------");
 		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}

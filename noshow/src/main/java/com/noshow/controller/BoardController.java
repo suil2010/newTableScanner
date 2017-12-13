@@ -3,12 +3,16 @@ package com.noshow.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.noshow.service.BoardService;
 import com.noshow.vo.Board;
+import com.noshow.vo.Commen;
+import com.noshow.vo.Member;
 
 @Controller
 public class BoardController {
@@ -59,6 +63,22 @@ public class BoardController {
 		return new ModelAndView("redirect:/board_list.do");
 	}
 	
+	// 댓글 조회
+	@RequestMapping("/commen_list")
+	@ResponseBody
+	public List<Commen> commenList(Commen commen) {
+		List<Commen> list = service.selectCommenByBoardNum(commen.getBoardNum());
+		System.out.println(list);
+		return list;
+	}
 	
+	//댓글 추가
+	@RequestMapping("/insertCommen")
+	@ResponseBody
+	public String insertCommen(Commen commen){
+		commen.setWriterId(((Member)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberId());
+		service.insertCommen(commen);
+		return "djdks";
+	}
 
 }

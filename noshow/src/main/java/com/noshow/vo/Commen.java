@@ -3,16 +3,26 @@ package com.noshow.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Commen implements Serializable{
 	private int commenNum; /*댓글일련번호*/
-	private Board boardNum; /*글번호*/
+	private int boardNum; /*글번호*/
 	private String writerId; /*작성자 아이디*/
 	private String commenText; /*댓글내용*/
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date commenWritingTime; /*작성시간*/
 	
 	public Commen() {}
 
-	public Commen(int commenNum, Board boardNum, String writerId, String commenText, Date commenWritingTime) {
+	
+	public Commen(String commenText) {
+		this.commenText = commenText;
+	}
+
+
+	public Commen(int commenNum, int boardNum, String writerId, String commenText, Date commenWritingTime) {
 		this.commenNum = commenNum;
 		this.boardNum = boardNum;
 		this.writerId = writerId;
@@ -28,11 +38,11 @@ public class Commen implements Serializable{
 		this.commenNum = commenNum;
 	}
 
-	public Board getBoardNum() {
+	public int getBoardNum() {
 		return boardNum;
 	}
 
-	public void setBoardNum(Board boardNum) {
+	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
 
@@ -70,7 +80,7 @@ public class Commen implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((boardNum == null) ? 0 : boardNum.hashCode());
+		result = prime * result + boardNum;
 		result = prime * result + commenNum;
 		result = prime * result + ((commenText == null) ? 0 : commenText.hashCode());
 		result = prime * result + ((commenWritingTime == null) ? 0 : commenWritingTime.hashCode());
@@ -87,10 +97,7 @@ public class Commen implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Commen other = (Commen) obj;
-		if (boardNum == null) {
-			if (other.boardNum != null)
-				return false;
-		} else if (!boardNum.equals(other.boardNum))
+		if (boardNum != other.boardNum)
 			return false;
 		if (commenNum != other.commenNum)
 			return false;
@@ -111,7 +118,7 @@ public class Commen implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	
 
 }

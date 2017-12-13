@@ -68,9 +68,23 @@ AND	  RESTAURANT.rt_address like '%서울%'
 	  
 select to_char(RT_OPEN,'hh24:mi')
 from restaurant;
-
 select * from BOARD order by board_time desc;
 
 select * from TABLE_
 
+select * from COMMEN;
 
+/* 댓글 */
+CREATE TABLE COMMEN (
+   COMMEN_NUM NUMBER NOT NULL, /* 댓글일련번호 */
+   COMMEN_ID VARCHAR2(16), /* 작성자아이디 */
+   COMMEN_TEXT VARCHAR2(100), /* 댓글내용 */
+   COMMEN_TIME DATE DEFAULT sysdate, /* 작성시간 */
+   BOARD_NUM NUMBER, /* 글번호 */
+   CONSTRAINT memo_mseq_pk PRIMARY KEY (COMMEN_NUM)
+); 
+
+insert into COMMEN values(commen_num_seq.nextval,'dlwltn','태경이를 때립시다',sysdate,11);
+delete from commen;
+insert into Commen(COMMEN_NUM, COMMEN_ID, COMMEN_TEXT, COMMEN_TIME, BOARD_NUM)
+values(10, '21312', '45345', sysdate, '11')

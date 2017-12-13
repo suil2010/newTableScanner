@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.commenMapper">
+
+	<!-- 기본 sql -->
+	<sql id ="commen-column-sql">
+		COMMEN_NUM, COMMEN_ID, COMMEN_TEXT, COMMEN_TIME, BOARD_NUM
+	</sql>
+
+	<!--  사용자 조회 기본 sql -->
+	<sql id="commen-select-sql">
+		select <include refid="commen-column-sql"/>
+		FROM COMMEN
+	</sql>
+
+	<!-- resultMap 등록 -->
+	<resultMap type="Commen" id="commen-resultmap">
+		<id column="COMMEN_NUM" property="commenNum"/>
+		<result column="COMMEN_ID" property="writerId"/>
+		<result column="COMMEN_TEXT" property="commenText"/>
+		<result column="COMMEN_TIME" property="commenWritingTime"/>
+		<result column="BOARD_NUM" property="boardNum"/>							
+	</resultMap>
+
+	<!-- 댓글 등록 -->
+	<insert id="insertCommen" parameterType="Commen">
+		<selectKey keyProperty="commenNum" resultType="_int" order="BEFORE">
+			select commen_num_seq.nextval from dual
+		</selectKey>
+		insert into Commen(COMMEN_NUM, COMMEN_ID, COMMEN_TEXT, COMMEN_TIME, BOARD_NUM)
+		values(#{commenNum}, #{writerId}, #{commenText}, sysdate, #{boardNum})
+	</insert>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectCommenByBoardNum" parameterType="int" resultMap="commen-resultmap">
+	 	<include refid="commen-select-sql"/> 
+	 	where BOARD_NUM = #{boardNum} order by COMMEN_TIME desc
+	</select>
+</mapper>

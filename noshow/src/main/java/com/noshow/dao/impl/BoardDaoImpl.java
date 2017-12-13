@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.noshow.dao.BoardDao;
 import com.noshow.vo.Board;
+import com.noshow.vo.Commen;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -17,6 +18,10 @@ public class BoardDaoImpl implements BoardDao{
 	
 	private String makeSqlId(String id) {
 		return "com.noshow.config.mybatis.mapper.boardMapper." + id;
+	}
+	
+	private String CommenmakeSqlId(String id) {
+		return "com.noshow.config.mybatis.mapper.commenMapper." + id;
 	}
 
 	@Override
@@ -52,6 +57,16 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public int increaseBoardViews(int boardNum) {
 		return session.update(makeSqlId("increaseBoardViews"), boardNum);
+	}
+
+	@Override
+	public int insertCommen(Commen commen) {
+		return session.insert(CommenmakeSqlId("insertCommen"), commen);
+	}
+
+	@Override
+	public List<Commen> selectCommenByBoardNum(int boardNum) {
+		return session.selectList(CommenmakeSqlId("selectCommenByBoardNum"), boardNum);
 	}
 
 

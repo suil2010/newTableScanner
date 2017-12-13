@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.noshow.dao.BoardDao;
 import com.noshow.service.BoardService;
 import com.noshow.vo.Board;
+import com.noshow.vo.Commen;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -45,7 +46,15 @@ public class BoardServiceImpl implements BoardService {
 		dao.increaseBoardViews(boardNum);
 	}
 
+	@Override
+	public void insertCommen(Commen commen) {
+		dao.insertCommen(commen);
+	}
 
+	@Override
+	public List<Commen> selectCommenByBoardNum(int boardNum) {
+		return dao.selectCommenByBoardNum(boardNum);
+	}
 
 
 	

@@ -3,6 +3,7 @@ package com.noshow.service;
 import java.util.List;
 
 import com.noshow.vo.Board;
+import com.noshow.vo.Commen;
 
 public interface BoardService {
 	
@@ -40,5 +41,22 @@ public interface BoardService {
 	 */
 	Board boardListByNum(int boardNum);
 	
+	/**
+	 * 조회수 증가
+	 * @param boardNum
+	 */
 	void increaseBoardViews(int boardNum);
+	
+	/**
+	 * 댓글 추가
+	 * @param commen
+	 */
+	void insertCommen(Commen commen);
+	
+	/**
+	 * 댓글 조회
+	 * @param boardNum
+	 * @return
+	 */
+	List<Commen> selectCommenByBoardNum(int boardNum);
 }

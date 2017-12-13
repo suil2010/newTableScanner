@@ -26,7 +26,6 @@
 	});
 </script>
 
-
 <div class="container">
 
 	<button id="divnamebtn" class="btn btn-default">메뉴추가하기</button>

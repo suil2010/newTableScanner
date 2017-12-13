@@ -22,11 +22,9 @@
 			작성 시간 : <fmt:formatDate value="${requestScope.board.boardTime}" pattern="yyyy-MM-dd hh:mm"/> 
 		</div>
 		
-<sec:authorize access="isAuthenticated()">
-	<c:set var="Id">
-  		<sec:authentication property="principal.memberId" />
-	</c:set>
-	
+	<sec:authorize access="isAuthenticated()">
+  	<sec:authentication property="principal.memberId" var="Id"/>
+  	
     <c:if test='${requestScope.board.memberId == Id}'>
     	<form action="${initParam.rootPath }/updateBoard_form.do" method="post">
     		<input type="hidden" value="${requestScope.board.boardNum}" name="boardNum"> 

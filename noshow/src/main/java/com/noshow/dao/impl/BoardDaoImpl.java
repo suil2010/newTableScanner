@@ -44,6 +44,16 @@ public class BoardDaoImpl implements BoardDao{
 		return session.selectOne(makeSqlId("selectBoardByNum"), boardNum);
 	}
 
+	@Override
+	public int updateBoardByNum(Board board) {
+		return session.update(makeSqlId("updateBoard"), board);
+	}
+
+	@Override
+	public int increaseBoardViews(int boardNum) {
+		return session.update(makeSqlId("increaseBoardViews"), boardNum);
+	}
+
 
 
 }

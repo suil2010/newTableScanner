@@ -65,6 +65,7 @@ public class MemberController {
 		if(url == null) url = "mypage/member_info.tiles";
 		return url;
 	}
+	
 	/**
 	 * 2017.
 	 * @param member
@@ -75,14 +76,6 @@ public class MemberController {
 		service.addMember(member, "ROLE_MEMBER");
 		return new ModelAndView("/index.tiles", "memberId", member.getMemberId());
 	}
-	
-//
-//	@RequestMapping("/join_success")
-//	public ModelAndView joinSuccess(String memberId) {
-//		Member member = service.getUserByMemberId(memberId);
-//		return new ModelAndView("/index.do", "member", member);
-//	}
-	
 
 	@RequestMapping("/update_Member")
 	public String updateMember(@ModelAttribute Member member, @RequestParam String oldMemberPassword, HttpServletRequest request, ModelMap model) throws IllegalStateException, IOException {

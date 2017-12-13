@@ -19,17 +19,35 @@
 			내용 : ${requestScope.board.boardText}
 		</div>
 		<div>
-			작성 시간 : <fmt:formatDate value="${requestScope.board.boardTime}" pattern="yyyy-MM-dd"/> 
+			작성 시간 : <fmt:formatDate value="${requestScope.board.boardTime}" pattern="yyyy-MM-dd hh:mm"/> 
 		</div>
-
+		
+<sec:authorize access="isAuthenticated()">
 	<c:set var="Id">
   		<sec:authentication property="principal.memberId" />
 	</c:set>
+	
     <c:if test='${requestScope.board.memberId == Id}'>
-        <button type="button" id="btnUpdete">수정</button>
-        <button type="button" id="btnDelete">삭제</button>
+    	<form action="${initParam.rootPath }/updateBoard_form.do" method="post">
+    		<input type="hidden" value="${requestScope.board.boardNum}" name="boardNum"> 
+    		<button type="submit" id="btnUpdete">수정</button>
+    		<sec:csrfInput />
+    	</form>
+    	<form action="${initParam.rootPath }/deleteBoardByNum.do" method="post">
+    	    <input type="hidden" value="${requestScope.board.boardNum}" name="boardNum" > 
+       		<button type="submit" id="btnDelete">삭제</button>
+       		<sec:csrfInput />
+    	</form>
     </c:if>		
-		
-		<sec:csrfInput />
+
+    <c:if test="${Id == 'admin'}">
+    	<form action="${initParam.rootPath }/deleteBoardByNum.do" method="post">
+    	    <input type="hidden" value="${requestScope.board.boardNum}" name="boardNum"> 
+       		<button type="submit" id="btnDelete">삭제</button>
+       		<sec:csrfInput />
+    	</form>
+    </c:if>		
+</sec:authorize>    
+	<sec:csrfInput />
 	
 </div>

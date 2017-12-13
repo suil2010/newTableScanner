@@ -3,6 +3,7 @@ package com.noshow.dao;
 import java.util.List;
 
 import com.noshow.vo.Board;
+import com.noshow.vo.Member;
 
 public interface BoardDao {
 	
@@ -39,6 +40,10 @@ public interface BoardDao {
 	 * @return
 	 */
 	Board selectBoardByNum(int boardNum);
+	
+	int updateBoardByNum(Board board);
+	
+	int increaseBoardViews(int boardNum);
 	
 	
 /*	//memberId로 게시글 조회

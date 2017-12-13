@@ -34,5 +34,6 @@ thead>tr>th {
 			<button type="button" id="btnWrite" class="btn btn-default">글쓰기</button>
 		</a>
 	</sec:authorize>	
-			<sec:csrfInput />
+
+	<sec:csrfInput />
 </div>

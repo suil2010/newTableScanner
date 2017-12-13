@@ -40,6 +40,11 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectBoardByNum(boardNum);
 	}
 
+	@Override
+	public void increaseBoardViews(int boardNum) {
+		dao.increaseBoardViews(boardNum);
+	}
+
 
 
 

@@ -26,8 +26,19 @@ public interface BoardService {
 	 * @return
 	 */
 	void deleteBoard(int boardNum);
-
+	
+	/**
+	 * 게시판 전체 조회
+	 * @return
+	 */
 	List<Board> boardList();
 	
+	/**
+	 * 글번호로 글 정보 조회
+	 * @param boardNum
+	 * @return
+	 */
 	Board boardListByNum(int boardNum);
+	
+	void increaseBoardViews(int boardNum);
 }

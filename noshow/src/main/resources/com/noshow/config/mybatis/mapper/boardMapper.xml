@@ -39,25 +39,34 @@
 		update board
 		<set>
 			<if test="boardSubject != null"> board_subject = #{boardSubject},</if>
-			<if test="board_text != null"> board_text = #{boardText},</if>
-			<if test="board_views != null"> board_views = #{boardViews},</if>
-			<if test="board_time != null"> board_time = sysdate,</if>
-			<if test="member_id != null"> member_id = memberId</if>			
+			<if test="boardText != null"> board_text = #{boardText},</if>
+			<if test="boardViews != null"> board_views = #{boardViews},</if>
+			<if test="boardTime != null"> board_time = sysdate,</if>
+			<if test="memberId != null"> member_id = #{memberId}</if>			
 		</set>
 		where board_num = #{boardNum}
 	</update>
-	
-	<!-- 전체 조회 -->
-	<select id="boardList" resultMap="board-resultmap">
-		<include refid="board-select-sql"/>
-	</select>
 	
 	<!-- 글 삭제 -->
 	<delete id="deleteBoard" parameterType="int">
 		delete from board
 		where board_num = #{boardNum}
 	</delete> 
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseBoardViews" parameterType="int"> 
+        UPDATE board 
+        SET board_views = board_views + 1 
+        WHERE board_num = #{boardNum}
+    </update>
+    
+	<!-- 전체 조회 -->
+	<select id="boardList" resultMap="board-resultmap">
+		<include refid="board-select-sql"/> 
+		 order by board_time desc
+	</select>
 
+	<!-- 글번호로 글 정보 조회 -->
 	<select id="selectBoardByNum" parameterType="int" resultMap="board-resultmap">
 		<include refid="board-select-sql"/>
 		where board_num = #{boardNum}

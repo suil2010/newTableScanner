@@ -13,7 +13,7 @@
 	style="background: #fff; min-height: 600px; margin-bottom: 10px; padding-top: 20px;">
 	<c:choose>
 		<c:when test="${empty requestScope.reviewList  }">
-			<div class="col-md-6" style="margin-top: 10px;">해당 음식점에 등록된 리뷰가
+			<div class="col-md-6" style="margin-top: 10px;">회원님께서 작성한 리뷰가
 				없습니다.</div>
 		</c:when>
 		<c:otherwise>

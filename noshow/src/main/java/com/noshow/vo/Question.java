@@ -9,8 +9,6 @@ public class Question implements Serializable{
 	private String questionTime;
 	private String businessId;
 	
-	private Member member;
-	private Restaurant restaurant;
 	private Answer answer;
 	
 	public Question() {}
@@ -27,17 +25,15 @@ public class Question implements Serializable{
 		this.questionTime = questionTime;
 		this.businessId = businessId;
 	}
-
+	
 	public Question(int questionNum, String memberId, String questionText, String questionTime, String businessId,
-			Member member, Restaurant restaurant, Answer answer) {
+			Answer answer) {
 		super();
 		this.questionNum = questionNum;
 		this.memberId = memberId;
 		this.questionText = questionText;
 		this.questionTime = questionTime;
 		this.businessId = businessId;
-		this.member = member;
-		this.restaurant = restaurant;
 		this.answer = answer;
 	}
 	public int getQuestionNum() {
@@ -70,18 +66,6 @@ public class Question implements Serializable{
 	public void setBusinessId(String businessId) {
 		this.businessId = businessId;
 	}
-	public Member getMember() {
-		return member;
-	}
-	public void setMember(Member member) {
-		this.member = member;
-	}
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
 	public Answer getAnswer() {
 		return answer;
 	}
@@ -91,8 +75,7 @@ public class Question implements Serializable{
 	@Override
 	public String toString() {
 		return "Question [questionNum=" + questionNum + ", memberId=" + memberId + ", questionText=" + questionText
-				+ ", questionTime=" + questionTime + ", businessId=" + businessId + ", member=" + member
-				+ ", restaurant=" + restaurant + ", answer=" + answer + "]";
+				+ ", questionTime=" + questionTime + ", businessId=" + businessId + ", answer=" + answer + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -100,12 +83,10 @@ public class Question implements Serializable{
 		int result = 1;
 		result = prime * result + ((answer == null) ? 0 : answer.hashCode());
 		result = prime * result + ((businessId == null) ? 0 : businessId.hashCode());
-		result = prime * result + ((member == null) ? 0 : member.hashCode());
 		result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
 		result = prime * result + questionNum;
 		result = prime * result + ((questionText == null) ? 0 : questionText.hashCode());
 		result = prime * result + ((questionTime == null) ? 0 : questionTime.hashCode());
-		result = prime * result + ((restaurant == null) ? 0 : restaurant.hashCode());
 		return result;
 	}
 	@Override
@@ -127,11 +108,6 @@ public class Question implements Serializable{
 				return false;
 		} else if (!businessId.equals(other.businessId))
 			return false;
-		if (member == null) {
-			if (other.member != null)
-				return false;
-		} else if (!member.equals(other.member))
-			return false;
 		if (memberId == null) {
 			if (other.memberId != null)
 				return false;
@@ -148,11 +124,6 @@ public class Question implements Serializable{
 			if (other.questionTime != null)
 				return false;
 		} else if (!questionTime.equals(other.questionTime))
-			return false;
-		if (restaurant == null) {
-			if (other.restaurant != null)
-				return false;
-		} else if (!restaurant.equals(other.restaurant))
 			return false;
 		return true;
 	}

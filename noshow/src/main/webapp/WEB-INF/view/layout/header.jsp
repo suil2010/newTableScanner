@@ -177,12 +177,10 @@
 				<li><a href="${initParam.rootPath }/ownerRestaurantInfo.do">예약등록</a></li>
 
 				<li><a href="#">리뷰</a></li>
-				<li><a href="#">문의</a></li>
+				<li><a href="${initParam.rootPath }/ownerMyQuestion.do">문의</a></li>
 			</sec:authorize>
 
 		</ul>
-
-
 
 		<!-- 개발자  -->
 		<sec:authorize access="hasRole('ROLE_ADMIN')">

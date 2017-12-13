@@ -1,13 +1,12 @@
-package com.noshow.dao;
+package com.noshow.service;
 
 import com.noshow.vo.Answer;
 
-public interface AnswerDAO {
+public interface AnswerService {
 
 	int insertAnswer(Answer answer);
 	
 	int updateAnswer(Answer answer);
 	
-	int deleteAnswer(int answerNum);
-	
+	int deleteAnswer(int answer_num);
 }

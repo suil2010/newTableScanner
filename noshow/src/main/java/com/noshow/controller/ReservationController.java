@@ -90,6 +90,13 @@ public class ReservationController {
 		return new ModelAndView("tabmenu/mypage/mypage_reservation.tiles", "reservationList", reservationList);
 	}
 	
+	@RequestMapping("/cancelReservation")
+	@Transactional
+	public ModelAndView cancelReservation(int resNum) {
+		service.deleteReservation(resNum);
+		return new ModelAndView("redirect:/myReservation.do");
+	}
+	
 //	 결제 
 	@RequestMapping("/payment")
 	public ModelAndView payment(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {

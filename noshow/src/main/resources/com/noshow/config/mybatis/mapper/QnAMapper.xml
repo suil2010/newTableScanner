@@ -10,6 +10,11 @@
 		ANSWER_NUM, ANSWER_DATE, ANSWER_TEXT, QUESTION_NUM, BUSINESS_ID
 	</sql>
 	
+	<sql id="question-join-answer-column">
+		q.question_num, q.member_id, q.question_text, q.question_time, q.business_id,
+		a.answer_num, a.answer_date, a.answer_text
+	</sql>
+	
 	<!-- QUESTION ResultMap -->
 	<resultMap type="question" id="question-resultmap">
 		<id column="QUESTION_NUM" property="questionNum"/>
@@ -17,8 +22,6 @@
 		<result column="QUESTION_TEXT" property="questionText"/>
 		<result column="QUESTION_TIME" property="questionTime"/>
 		<result column="BUSINESS_ID" property="businessId"/>
-		<collection property="member" resultMap="member-resultmap"/>
-		<collection property="restaurant" resultMap="restaurant-resultmap"/>
 		<collection property="answer" resultMap="answer-resultmap"/>
 	</resultMap>
 	
@@ -30,16 +33,7 @@
 		<result column="QUESTION_NUM" property="questionNum"/>
 	</resultMap>
 	
-	<resultMap type="Member" id="member-resultmap">
-		<id column="member_id" property="memberId"/>
-		<result column="member_password" property="memberPassword"/>
-		<result column="member_name" property="memberName"/>
-		<result column="member_gender" property="memberGender"/>
-		<result column="member_tel" property="memberTel"/>
-		<result column="member_birthday" property="memberBirthday"/>
-		<result column="member_email" property="memberEmail"/>
-	</resultMap>
-	
+
 	<resultMap type="Restaurant" id="restaurant-resultmap">
 	      <id column="BUSINESS_ID" property="businessId" />
 	      <result column="RT_NUM" property="rtNum" />
@@ -101,6 +95,7 @@
    	SELECT	<include refid="question-column"/>
    	FROM	question
    	WHERE	member_id = #{value}
+   	ORDER BY question_num DESC
    </select>
    
    <select id="selectQuestionByBusinessId" parameterType="string" resultMap="question-resultmap">

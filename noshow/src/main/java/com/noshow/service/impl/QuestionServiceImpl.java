@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.noshow.dao.QuestionDAO;
 import com.noshow.service.QuestionService;
+import com.noshow.vo.Answer;
 import com.noshow.vo.Question;
 
 @Service
@@ -33,17 +34,31 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public List<Question> selectQuestionByMemberId(String memberId) {
-		return dao.selectQuestionByMemberId(memberId);
+		List<Question> questionList = dao.selectQuestionByMemberId(memberId);
+		questionList = selectAnswerByQuestionNum(questionList);
+		return questionList;
 	}
 
 	@Override
 	public List<Question> selectQuestionByBusinessId(String businessId) {
-		return dao.selectQuestionByBusinessId(businessId);
+		List<Question> questionList = dao.selectQuestionByBusinessId(businessId);
+		questionList = selectAnswerByQuestionNum(questionList);
+		return questionList;
 	}
 
 	@Override
 	public Question selectQuestionByQuestionNum(int questionNum) {
 		return dao.selectQuestionByQuestionNum(questionNum);
+	}
+	
+	private List<Question> selectAnswerByQuestionNum(List<Question> questionList) {
+		for(Question q : questionList) {
+			System.out.println("QuestionServiceImpl.selectAnswerByQuestionNum - question : " + q);
+			Answer answer = dao.selectAnswerByQuestionNum(q.getQuestionNum());
+			System.out.println("############## Answer : " + answer);
+			q.setAnswer(answer);
+		}
+		return questionList;
 	}
 
 }

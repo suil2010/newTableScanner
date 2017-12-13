@@ -48,10 +48,12 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public Restaurant selectRestaurantByBusinessId(String memberId, String businessId) {
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
-//		restaurant = selectAllTable(businessId, restaurant);
+		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
+		restaurant = selectQuestionByBusinessId(restaurant);
+		List<Review> reviewList = selectReviewByBusinesId(businessId);
+		restaurant.setReviewList(reviewList);
 		List<Restaurant> restaurantList = new ArrayList<>();
 		restaurantList.add(restaurant);
-//		restaurantList = setFieldMethod(restaurantList);
 		restaurantList = checkBookmark(memberId, restaurantList);
 		restaurantList = timeFormatting(restaurantList);
 		for(Restaurant r : restaurantList) {
@@ -71,10 +73,6 @@ public class SearchServiceImpl implements SearchService{
 		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
 		restaurant = selectQuestionByBusinessId(restaurant);
 		List<Review> reviewList = selectReviewByBusinesId(businessId);
-		//TEST
-		for(Review review : reviewList) {
-			System.out.println("SearchServiceImpl-reviewList -> review : " +review);
-		}
 		restaurant.setReviewList(reviewList);
 		List<Restaurant> restaurantList = new ArrayList<>();
 		List<Table> tableList = selectUsableTable(resDate, resTime, businessId);
@@ -82,18 +80,6 @@ public class SearchServiceImpl implements SearchService{
 		restaurantList.add(restaurant);
 		restaurantList = checkBookmark(memberId, restaurantList);
 		restaurantList = timeFormatting(restaurantList);
-		//TEST
-		for(Restaurant r : restaurantList) {
-			if (r.getMenuList() == null) {
-				System.out.println("해당 식당에 등록된 menu가 없습니다.");
-				return r;
-			} else {
-				for(Menu m : r.getMenuList()) {
-					System.out.println("SearchServiceImpl-restaurant.menu : "+ m);
-				}
-			}
-			return r;
-		}
 		return restaurant;
 	}
 
@@ -103,10 +89,10 @@ public class SearchServiceImpl implements SearchService{
 	
 			String rtHoliday = dayFormatting(resDate);
 			
-			System.out.println("selectBySearch-rtHoliday : "+rtHoliday);
-			System.out.println("selectBySearch-resDate : "+resDate);
-			System.out.println("selectBySearch-resTime : "+resTime);
-			System.out.println("selectBySearch-resPeople : "+resPeople);
+//			System.out.println("selectBySearch-rtHoliday : "+rtHoliday);
+//			System.out.println("selectBySearch-resDate : "+resDate);
+//			System.out.println("selectBySearch-resTime : "+resTime);
+//			System.out.println("selectBySearch-resPeople : "+resPeople);
 
 			Map<String, Object> searchInfo = new HashMap<>();
 			searchInfo.put("resPlace", resPlace);
@@ -114,18 +100,10 @@ public class SearchServiceImpl implements SearchService{
 			searchInfo.put("resTime", resTime);
 			searchInfo.put("resPeople", resPeople);
 			List<Restaurant> restaurantList = dao.selectRestaurantBySearch(searchInfo);
-//			restaurantList = setFieldMethod(restaurantList);
-//			restaurantList = setHoliDayMethod(restaurantList);
 			restaurantList = timeFormatting(restaurantList);
 			return checkBookmark(memberId, restaurantList);
 	}
 
-
-/*	@Override
-	public int selectRestaurantByRtName(String rtName) {
-		return dao.selectRestaurantByRtName(rtName);
-	}*/
-	
 	// 현준_이름검색 
 	@Override
 	public List<Restaurant> selectRestaurantByNameSearch(String memberId, String resPlace, String resName) {
@@ -213,7 +191,6 @@ public class SearchServiceImpl implements SearchService{
 		Date resOpen_Date, resClose_Date;
 		try {
 			for(Restaurant res : restaurantList) {
-				//Test
 				resOpen_Date = beforeFormat.parse(res.getRtOpen());
 				resClose_Date = beforeFormat.parse(res.getRtClose());
 				res.setRtOpen(afterFormat.format(resOpen_Date));

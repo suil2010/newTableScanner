@@ -24,8 +24,8 @@ thead>tr>th {
 					<td>${row.boardNum }</td>
 					<td><a href="${initParam.rootPath }/readBoardByNum.do?boardNum=${row.boardNum}"> ${row.boardSubject }</a></td>
 					<td>${row.memberId }</td>
-					<td><fmt:formatDate value="${row.boardTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-					<td>${row.boardViews }</td>
+					<td style="text-align: center;"><fmt:formatDate value="${row.boardTime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td style="text-align: center;">${row.boardViews }</td>
 				</tr>
 			</c:forEach>
 	</table>

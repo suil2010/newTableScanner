@@ -46,7 +46,7 @@
 			<textarea name="boardText" id="boardText" rows="16" cols="80" class="form-control" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
 		</div>
 		
-		<button type="submit" id="submit" class="btn btn-default" style="float: right;">등록</button>
+		<button type="submit" id="submit" class="btn btn-default" style="float: right; margin-top: 20px;">등록</button>
 		<sec:csrfInput />
 	</form>
 	

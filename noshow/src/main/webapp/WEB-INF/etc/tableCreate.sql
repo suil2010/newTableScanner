@@ -457,6 +457,7 @@ insert into TERM VALUES('4','4시간');
       drop sequence board_num_seq;
       drop sequence question_num_seq;
       drop sequence answer_num_seq;
+      drop sequence commen_num_seq;
       
       create sequence table_list_seq;
       create sequence res_num_seq;
@@ -467,6 +468,7 @@ insert into TERM VALUES('4','4시간');
       create sequence board_num_seq;
       create sequence question_num_seq;
       create sequence answer_num_seq;
+      create sequence commen_num_seq;
 
       
 /* 관리자 계정 만들기 admin 으로 회원 가입후 아래 insert 실행!!*/

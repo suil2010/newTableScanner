@@ -40,19 +40,28 @@
 
 
 	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.memberId" var="Id" />
+  	<sec:authentication property="principal.memberId" var="Id"/>
+  	
+    <c:if test='${requestScope.board.memberId == Id}'>
+    	<form action="${initParam.rootPath }/updateBoard_form.do" method="post">
+    		<input type="hidden" value="${requestScope.board.boardNum}" name="boardNum"> 
+    		<button type="submit" id="btnUpdete">수정</button>
+    		<sec:csrfInput />
+    	</form>
+    	<form action="${initParam.rootPath }/deleteBoardByNum.do" method="post">
+    	    <input type="hidden" value="${requestScope.board.boardNum}" name="boardNum" > 
+       		<button type="submit" id="btnDelete">삭제</button>
+       		<sec:csrfInput />
+    	</form>
+    </c:if>		
 
-		<c:if test='${requestScope.board.memberId == Id}'>
-			<form action="${initParam.rootPath }/updateBoard_form.do" method="post">
-				<input type="hidden" value="${requestScope.board.boardNum}" name="boardNum">
-				<button type="submit" id="btnUpdete">수정</button>
-				<sec:csrfInput />
-			</form>
-			<form action="${initParam.rootPath }/deleteBoardByNum.do" method="post">
-				<input type="hidden" value="${requestScope.board.boardNum}" name="boardNum">
-				<button type="submit" id="btnDelete">삭제</button>
-				<sec:csrfInput />
-			</form>
-		</c:if>
-	</sec:authorize>
+    <c:if test="${Id == 'admin'}">
+    	<form action="${initParam.rootPath }/deleteBoardByNum.do" method="post">
+    	    <input type="hidden" value="${requestScope.board.boardNum}" name="boardNum"> 
+       		<button type="submit" id="btnDelete">삭제</button>
+       		<sec:csrfInput />
+    	</form>
+    </c:if>		
+</sec:authorize>    
+	<sec:csrfInput />
 </div>

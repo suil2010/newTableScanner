@@ -454,13 +454,9 @@ insert into TERM VALUES('4','4시간');
       drop sequence bookmark_num_seq;
       drop sequence review_num_seq;
       drop sequence menu_num_seq;
-<<<<<<< HEAD
       drop sequence board_num_seq;
-=======
       drop sequence question_num_seq;
       drop sequence answer_num_seq;
-      
->>>>>>> branch 'master' of https://github.com/yoondongung/newTableScanner.git
       
       create sequence table_list_seq;
       create sequence res_num_seq;
@@ -468,12 +464,9 @@ insert into TERM VALUES('4','4시간');
       create sequence bookmark_num_seq;
       create sequence review_num_seq;
       create sequence menu_num_seq;
-<<<<<<< HEAD
       create sequence board_num_seq;
-=======
       create sequence question_num_seq;
       create sequence answer_num_seq;
->>>>>>> branch 'master' of https://github.com/yoondongung/newTableScanner.git
 
       
 /* 관리자 계정 만들기 admin 으로 회원 가입후 아래 insert 실행!!*/

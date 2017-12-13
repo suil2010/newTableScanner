@@ -3,25 +3,25 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function() {
-		
+
 		//date
 		var options = {
-				now: "12:00", //hh:mm 24 hour format only, defaults to current time 
-				twentyFour: true, //Display 24 hour format, defaults to false 
-				upArrow: 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
-				downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
-				close: 'wickedpicker__close', //The close class selector to use, for custom CSS 
-				hoverState: 'hover-state', //The hover state class to use, for custom CSS 
-				title: 'TabelScanner', //The Wickedpicker's title, 
-				showSeconds: false, //Whether or not to show seconds, 
-				secondsInterval: 1, //Change interval for seconds, defaults to 1  , 
-				minutesInterval: 1, //Change interval for minutes, defaults to 1 
-				beforeShow: null, //A function to be called before the Wickedpicker is shown 
-				show: null, //A function to be called when the Wickedpicker is shown 
-				clearable: false, //Make the picker's input clearable (has clickable "x")  
-			}; 
+			now : "12:00", //hh:mm 24 hour format only, defaults to current time 
+			twentyFour : true, //Display 24 hour format, defaults to false 
+			upArrow : 'wickedpicker__controls__control-up', //The up arrow class selector to use, for custom CSS 
+			downArrow : 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS 
+			close : 'wickedpicker__close', //The close class selector to use, for custom CSS 
+			hoverState : 'hover-state', //The hover state class to use, for custom CSS 
+			title : 'TabelScanner', //The Wickedpicker's title, 
+			showSeconds : false, //Whether or not to show seconds, 
+			secondsInterval : 1, //Change interval for seconds, defaults to 1  , 
+			minutesInterval : 1, //Change interval for minutes, defaults to 1 
+			beforeShow : null, //A function to be called before the Wickedpicker is shown 
+			show : null, //A function to be called when the Wickedpicker is shown 
+			clearable : false, //Make the picker's input clearable (has clickable "x")  
+		};
 		$('.timepicker').wickedpicker(options);
-		
+
 		// map
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -53,7 +53,7 @@
 					// 인포윈도우로 장소에 대한 설명을 표시합니다
 
 					var infowindow = new daum.maps.InfoWindow({
-						content : '<div style="width:150px;text-align:center;padding:6px 0;">' + address + '</div>'
+						content : '_$tag_____________________________________________________' + address + '_$tag_'
 					});
 					infowindow.open(map, marker);
 
@@ -95,10 +95,10 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessField">업종 :</label>
 			<div class="col-sm-9">
-				<select name="rtField" required>
-						<option value="-1"> 업종을 선택하세요. </option>
-					<c:forEach items="${requestScope.map.field }" var="field">	
-						<option value="${field.fieldName}"> ${field.fieldVal }</option>
+				<select name="rtField" required class="form-control">
+					<option value="-1">업종을 선택하세요.</option>
+					<c:forEach items="${requestScope.map.field }" var="field">
+						<option value="${field.fieldName}">${field.fieldVal }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -107,10 +107,10 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="businessHoliday">휴무일 : </label>
 			<div class="col-sm-9">
-				<select name="rtHoliday" required> 
-						<option value="-1"> 휴무일을 선택하세요. </option>
-					<c:forEach items="${requestScope.map.holiday }" var="holiday">	
-						<option value="${holiday.holidayName}"> ${holiday.holidayVal }</option>
+				<select name="rtHoliday" required class="form-control">
+					<option value="-1">휴무일을 선택하세요.</option>
+					<c:forEach items="${requestScope.map.holiday }" var="holiday">
+						<option value="${holiday.holidayName}">${holiday.holidayVal }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -133,10 +133,10 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtTerm">테이블 이용시간 : </label>
 			<div class="col-sm-9">
-				<select name="rtTerm" id="rtTerm" required>
-						<option value="-1"> 이용시간을 선택하세요. </option>
-					<c:forEach items="${requestScope.map.term}" var="term">	
-						<option value="${term.termName}"> ${term.termVal }</option>
+				<select name="rtTerm" id="rtTerm" required class="form-control">
+					<option value="-1">이용시간을 선택하세요.</option>
+					<c:forEach items="${requestScope.map.term}" var="term">
+						<option value="${term.termName}">${term.termVal }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -152,14 +152,14 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtCapacity">수용가능 인원 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtCapacity" placeholder="수용가능한 인원을 입력하세요" id="rtCapacity" required>
+				<input type="number" name="rtCapacity" placeholder="수용가능한 인원을 입력하세요" id="rtCapacity" required class="form-control">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-3 control-label" for="rtDeposit">1인당 예약금 : </label>
 			<div class="col-sm-9">
-				<input type="number" name="rtDeposit" placeholder="1인당 예약금을 입력하세요" id="rtDeposit" required>
+				<input type="number" name="rtDeposit" placeholder="1인당 예약금을 입력하세요" id="rtDeposit" required class="form-control">
 			</div>
 		</div>
 
@@ -174,8 +174,8 @@
 		<div id="map" class="col-sm-12" style="height: 400px;"></div>
 
 		<div class="form-group">
-			<div class="col-sm-12">
-				<input type="submit" value="등록" class="ownersubmit">
+			<div class="col-sm-12" style="margin-top: 20px;">
+				<input type="submit" value="등록" class="ownersubmit btn btn-default">
 			</div>
 		</div>
 

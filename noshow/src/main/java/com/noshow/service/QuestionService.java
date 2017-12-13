@@ -16,6 +16,8 @@ public interface QuestionService {
 	
 	List<Question> selectQuestionByBusinessId(String businessId);
 	
+	Question selectQuestionByQuestionNum(int questionNum);
+	
 /*	List<Question> selectAnswerByQuestionNum(List<Question> questionList);*/
 
 }

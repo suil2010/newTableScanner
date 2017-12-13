@@ -41,4 +41,9 @@ public class QuestionServiceImpl implements QuestionService{
 		return dao.selectQuestionByBusinessId(businessId);
 	}
 
+	@Override
+	public Question selectQuestionByQuestionNum(int questionNum) {
+		return dao.selectQuestionByQuestionNum(questionNum);
+	}
+
 }

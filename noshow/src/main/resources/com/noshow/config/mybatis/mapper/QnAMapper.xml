@@ -86,9 +86,9 @@
    
    <update id="updqteQuestion" parameterType="question">
    	UPDATE	question
-   	SET		question_text = #{questionText}
-   	WHERE	member_id = #{memberId}
-   	AND		question_num = #{questionNum}
+   	SET		question_text = #{questionText},
+   			question_time = SYSDATE
+   	WHERE	question_num = #{questionNum}
    </update>
    
    <delete id="deleteQuestion" parameterType="_int">
@@ -106,7 +106,14 @@
    <select id="selectQuestionByBusinessId" parameterType="string" resultMap="question-resultmap">
 	SELECT	<include refid="question-column"/>
 	FROM	question
-	WHERE	business_id = #{value}  
+	WHERE	business_id = #{value}
+	ORDER BY  question_num DESC
+   </select>
+   
+   <select id="selectQuestionByQuestionNum" parameterType="_int" resultMap="question-resultmap">
+   	SELECT 	<include refid="question-column"/>
+   	FROM	question
+   	WHERE	question_num = #{value}
    </select>
    
    
@@ -127,7 +134,6 @@
    <update id="updqteAnswer" parameterType="answer">
    	UPDATE	answer
    	SET		answertext = #{answerText}
-   	WHERE	business_id = #{businessId}
    	AND		answer_num = #{answerNum}
    </update>
    

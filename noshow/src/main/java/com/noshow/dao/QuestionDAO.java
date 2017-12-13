@@ -17,6 +17,8 @@ public interface QuestionDAO {
 	
 	List<Question> selectQuestionByBusinessId(String businessId);
 	
+	Question selectQuestionByQuestionNum(int questionNum);
+	
 	/**
 	 * 문의번호로 답변 조회해오기
 	 * @param questioNum

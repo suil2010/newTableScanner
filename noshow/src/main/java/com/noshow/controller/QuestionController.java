@@ -72,4 +72,36 @@ public class QuestionController {
 		}
 		return new ModelAndView("tabmenu/mypage/mypage_question.tiles", "questionList", questionList);
 	}
+	
+	/* 수정된 내용으로 문의글을 update 하는 Controller */
+	@RequestMapping("/updateQuestion")
+	@ResponseBody
+	public List<Question> updateQuestion(Question question) {
+		System.out.println("QuestionController.updateQuestion - question : " + question);
+		int result = service.updateQuestion(question);
+		if (result == 0) {
+			System.out.println("QuestionController - 문의글 update 실패!!");
+			return null;
+		} else {
+			System.out.println("QuestionController - 문의글 update 성공 : "+ result);
+			List<Question> questionList = service.selectQuestionByBusinessId(question.getBusinessId());
+			return questionList;
+		}
+	}
+	
+	@RequestMapping("/deleteQuestion")
+	@ResponseBody
+	public List<Question> deleteQuestion(int questionNum, String businessId) {
+		System.out.println("QuestionController.deleteQuestion - question : " + questionNum);
+		System.out.println("businessId : " +businessId);
+		int result = service.deleteQuestion(questionNum);
+		if (result == 0) {
+			System.out.println("QuestionController - 문의글 삭제 실패!!");
+			return null;
+		} else {
+			System.out.println("QuestionController - 문의글 삭제 성공!!");
+			List<Question> questionList = service.selectQuestionByBusinessId(businessId);
+			return questionList;
+		}
+	}
 }

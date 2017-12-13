@@ -35,8 +35,7 @@
 			$("#resStartTime").focus();
 			return false;
 		}
-		$
-			.ajax({
+		$.ajax({
 				"url" : "/noshow/reSearchTable.do",
 				"type" : "get",
 				"data" : {
@@ -56,10 +55,7 @@
 				}, //end of beforeSend
 				"success" : function(tableList) {
 					var txt = "<br><h3>예약 가능한 테이블</h3><br>";
-					$
-						.each(
-							tableList,
-							function() {
+					$.each(tableList,function() {
 								txt += "<label>테이블 번호 :"
 									+ this.tableNum
 									+ ", 최대 인원 : "
@@ -147,7 +143,61 @@
 
 		});
 	}
+	
+	function changeQuestion() {
+		$(".updateQuestionFormDiv").hide();
+		$(".questionViewDiv").show();
+		alert("이프전");
+		if($(this).text()=='수정')
+			alert("뭐웡ㅇ어어앙");
+			$(this).parent().hide().next().show();
+	}
+	
+	function registQuestion() {
+		alert("click????");
+		var option = {
+			url : "${initParam.rootPath}/registQuestion.do",
+			dataType : "json",
+			success : function(questionList) {
+				var mem = $(".memberIdText").text();
+				alert("문의 등록 성공!!");
+				var txt = "<sec:authentication property='principal.memberId' var='currentMemberId'/>";
+				$.each(questionList,function() {
+					txt += "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
+					  	+ "<div style='display:block' class='col-md-9 questionViewDiv'>";
+					if (this.memberId == mem) {
+						txt += " <button type='button' class='btn btn-basic btn-xs changeQBtn'>수정</button>"
+							+  "<a href='javascript:deleteQuestionByNum(${question.questionNum},'${question.businessId}');' class='btn btn-basic btn-xs' role='button'>삭제</a>";
+					}
+					txt += "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 문의글번호 : "+this.questionNum + " | 작성자 : "+ this.memberId +"</span> "
+						+ " <span class='label col-sm-9' style='color:#000;font-size: 18px;'> 문의글 : " + this.questionText + "</span> "
+						+ "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 등록 일시 : " + this.questionTime + "</span>"
+						+ "</div>"
+						+ "<div class='col-sm-10 updateQuestionFormDiv' style='display:none'>"
+						+ " <button type='button' class='btn btn-basic btn-xs cancelQBtn'>취소</button>"
+						+ " <form action='${initParam.rootPath}/registQuestion.do' method='post' class='questionUpdateFrom'>"
+						+ " <textarea class='form-control' rows='3' style='resize: none;' name='questionText' id='questionText' required>"
+						+ this.questionText + "</textarea>"
+						+ " <input type='hidden' name='businessId' value='" + this.businessId + "'>"
+						+ " <input type='hidden' name='memberId' value='${currentMemberId }'>"
+						+ " <input type='hidden' name='questionNum' value='"+ this.questionNum + "'>"
+						+ " <div class='col-sm-2'>"
+						+ " <input type='button'  value='문의수정 등록' class='btn btn-info updateRegistQBtn'></div>"
+						+ '<sec:csrfInput /></form></div></div>';
 
+					$("#questionListDiv").html(txt);
+				});
+			},
+			"error" : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+			}
+		};
+		$("#questionFrom").ajaxForm(option);
+		$("#questionFrom").submit();
+		$("#questionFrom")[0].reset(); //ajax 처리 후 리뷰작성 폼 초기화
+	
+	}
+	
 	$(document).ready(function() {
 				$("#input-id").rating();
 				$("#input-id").rating({
@@ -156,11 +206,16 @@
 					step : 0.5,
 					glyphicon : true
 				});
-
+				
 				$("#resDate").on("change", chaneResInfo);
 				$("#orderDiv").on("click", "#bookmarkBtn", addBookmark);
 				$("#orderDiv").on("click", "#deleteBookmarkBtn", deleteBookmark);
 				$("#resPeople").on("change", changeResPeople);
+				$("#question").on("click", ".changeQBtn", changeQuestion);
+				$("#question").on("click", ".cancelQBtn", changeQuestion);
+				$("#question").on("click", ".cancelDeleteQBtn", changeQuestion);
+				$("#question").on("click", "#questionBtn", registQuestion);
+				
 
 				/* 현준_ 리뷰 작성 - 목록 업데이트 ajax처리 함수 */
 				$("#reviewBtn").on("click",function() {
@@ -213,37 +268,108 @@
 				});
 				
 				/* 2017.12.12 현준 문의글 등록 & 문의글목록 업데이트 ajax 처리 함수 */
-				$("#questionBtn").on("click",function() {
-					alert("click????");
+
+				
+				/* 2017.12.13 현준 문의글 수정 & 문의글목록 업데이트 ajax 처리 함수 */
+				 $("#question").on("click", ".updateRegistQBtn",function() {
+					/* confirm("정말 수정하시겠습니까?"); */
 					var option = {
-						url : "${initParam.rootPath}/registQuestion.do",
+						url : "${initParam.rootPath}/updateQuestion.do",
 						dataType : "json",
 						success : function(questionList) {
-							alert("문의 등록 성공!!");
+							var mem = $(".memberIdText").text();
+							/* alert("문의 수정 성공!!"); */
+							var txt = "<sec:authentication property='principal.memberId' var='currentMemberId'/>";
 							$.each(questionList,function() {
-								var txt = "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
-									+ "<div style='float: right;' class='col-md-9'>"
-									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>문의글번호 : "
-									+ this.questionNum + " | 작성자 : " + this.memberId
-									+ "</span>"
-									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>문의글 : "
-									+ this.questionText
-									+ "</span>"
-									+ "<span class='label col-sm-9' style='color: #000; font-size: 14px;'>작성 시간 : "
-									+ this.questionTime + "</span>" + "</div></div>";
+								txt += "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
+								  	+ "<div style='display:block' class='col-md-9 questionViewDiv'>";
+								if (this.memberId == mem) {
+									txt += " <button type='button' class='btn btn-basic btn-xs changeQBtn'>수정</button>"
+										+  "<a href='javascript:deleteQuestionByNum(${question.questionNum},'${question.businessId}');' class='btn btn-basic btn-xs' role='button'>삭제</a>";
+								}
+								txt += "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 문의글번호 : "+this.questionNum + " | 작성자 : "+ this.memberId +"</span> "
+									+ " <span class='label col-sm-9' style='color:#000;font-size: 18px;'> 문의글 : " + this.questionText + "</span> "
+									+ "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 등록 일시 : " + this.questionTime + "</span>"
+									+ "</div>"
+									+ "<div class='col-sm-10 updateQuestionFormDiv' style='display:none'>"
+									+ " <button type='button' class='btn btn-basic btn-xs cancelQBtn'>취소</button>"
+									+ " <form action='${initParam.rootPath}/registQuestion.do' method='post' class='questionUpdateFrom'>"
+									+ " <textarea class='form-control' rows='3' style='resize: none;' name='questionText' id='questionText' required>"
+									+ this.questionText + "</textarea>"
+									+ " <input type='hidden' name='businessId' value='" + this.businessId + "'>"
+									+ " <input type='hidden' name='memberId' value='${currentMemberId }'>"
+									+ " <input type='hidden' name='questionNum' value='"+ this.questionNum + "'>"
+									+ " <div class='col-sm-2'>"
+									+ " <input type='button'  value='문의수정 등록' class='btn btn-info updateRegistQBtn'></div>"
+									+ '<sec:csrfInput /></form></div></div>';
 
-								$("#questionListDiv").append(txt);
+								$("#questionListDiv").html(txt);
 							});
 						},
 						"error" : function(request, status, error) {
 							alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-						}
+						},
+						"complete":function() {
+							$(".updateQuestionFormDiv").hide();
+							$(".questionViewDiv").show();
+						} 
 					};
-					$("#questionFrom").ajaxForm(option);
-					$("#questionFrom").submit();
-					$("#questionFrom")[0].reset(); //ajax 처리 후 리뷰작성 폼 초기화
-				});
-			})
+					$(".questionUpdateFrom").ajaxForm(option);
+					$(".questionUpdateFrom").submit();
+				 	/* $(".questionUpdateFrom")[0].reset(); */ //ajax 처리 후 리뷰작성 폼 초기화 
+				}); 
+				
+				 
+			});
+	
+	/* 2017.12.13 현준 _ 문의글 삭제 */
+	function deleteQuestionByNum(questionNum, businessId) {
+		if (confirm("정말 삭제하시겠습니까?")) {
+			var option = {
+					url : "${initParam.rootPath}/deleteQuestion.do",
+					data: {"questionNum":questionNum,"businessId":businessId},
+					dataType : "json",
+					success : function(questionList) {
+						var mem = $(".memberIdText").text();
+						/* alert("문의 삭제 성공!!"); */
+						var txt = "<sec:authentication property='principal.memberId' var='currentMemberId'/>";
+						$.each(questionList,function() {
+							txt += "<div class='col-md-12 box1' style='background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;'>"
+							  	+ "<div style='display:block' class='col-md-9 questionViewDiv'>";
+							if (this.memberId == mem) {
+								txt += " <button type='button' class='btn btn-basic btn-xs changeQBtn'>수정</button>"
+									+  "<a href='javascript:deleteQuestionByNum(${question.questionNum},'${question.businessId}');' class='btn btn-basic btn-xs' role='button'>삭제</a>";
+							}
+							txt += "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 문의글번호 : "+this.questionNum + " | 작성자 : "+ this.memberId +"</span> "
+								+ " <span class='label col-sm-9' style='color:#000;font-size: 18px;'> 문의글 : " + this.questionText + "</span> "
+								+ "<span class='label col-sm-9' style='color:#000;font-size: 14px;'> 등록 일시 : " + this.questionTime + "</span>"
+								+ "</div>"
+								+ "<div class='col-sm-10 updateQuestionFormDiv' style='display:none'>"
+								+ " <button type='button' class='btn btn-basic btn-xs cancelQBtn'>취소</button>"
+								+ " <form action='${initParam.rootPath}/registQuestion.do' method='post' class='questionUpdateFrom'>"
+								+ " <textarea class='form-control' rows='3' style='resize: none;' name='questionText' id='questionText' required>"
+								+ this.questionText + "</textarea>"
+								+ " <input type='hidden' name='businessId' value='" + this.businessId + "'>"
+								+ " <input type='hidden' name='memberId' value='${currentMemberId }'>"
+								+ " <input type='hidden' name='questionNum' value='"+ this.questionNum + "'>"
+								+ " <div class='col-sm-2'>"
+								+ " <input type='button'  value='문의수정 등록' class='btn btn-info updateRegistQBtn'></div>"
+								+ '<sec:csrfInput /></form></div></div>';
+
+							$("#questionListDiv").html(txt);
+						});
+					},
+					"error" : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+					}
+				};
+			$.ajax(option);
+			 	/* $(".questionUpdateFrom")[0].reset(); */ //ajax 처리 후 리뷰작성 폼 초기화 
+		} else {
+			return;
+		}
+		
+	}	
 
 	// formCheck() - 결제 , 테이블선택 유무를 체크
 	function formCheck() {
@@ -391,6 +517,7 @@
 
 				<!-- 문의 패널 -->
 				<div role="tabpanel" class="tab-pane" id="question" style="padding: 10px;">
+					<div class="memberIdText" style="display:none;"><sec:authentication property='principal.memberId'/></div>
 					<form action="${initParam.rootPath}/registQuestion.do" method="post" id="questionFrom">
 						<div class="col-sm-10">
 							<textarea class="form-control" rows="3" style="resize: none;" name="questionText" id="questionText" required></textarea>
@@ -402,29 +529,59 @@
 						</div>
 						<sec:csrfInput />
 					</form>
+						<sec:authentication property='principal.memberId' var="currentMemberId"/>
 						<div class="col-sm-10" id="questionListDiv">
 						<c:choose>
 							<c:when test="${empty requestScope.restaurant.questionList  }">
 								<div class="col-md-6" style="margin-top: 10px;">해당 음식점에 등록된 문의가 없습니다.</div>
 							</c:when>
-							<c:otherwise>
-								<c:forEach items="${requestScope.restaurant.questionList}" var="question">
+							<c:otherwise>								
+							<div>
+								<c:forEach items="${requestScope.restaurant.questionList}" var="question" varStatus="cnt">
 									<div class="col-md-12 box1" style="background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;">
-										<div style="float: right;" class="col-md-9">
-											<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 문의글번호 : ${question.questionNum} | 작성자 : ${question.memberId}</span> 
-											<span class="label col-sm-9" style="color: #000; font-size: 18px;"> 문의글 : ${question.questionText}</span> 
-											<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 등록 일시 : ${question.questionTime}</span>
+										
+										<div style="display:block" class="col-md-9 questionViewDiv">
+											<c:if test="${question.memberId == currentMemberId }">
+												<button type="button" class="btn btn-basic btn-xs changeQBtn">수정</button>
+												<a href="javascript:deleteQuestionByNum(${question.questionNum},'${question.businessId}');" class="btn btn-basic btn-xs" role="button">삭제</a>
+											</c:if>
+											<span class="label col-md-9" style="color:#000;font-size: 14px;"> 문의글번호 : ${question.questionNum} | 작성자 : ${question.memberId}</span> 
+											<span class="label col-md-9" style="color:#000;font-size: 18px;"> 문의글 : ${question.questionText}</span> 
+											<span class="label col-md-9" style="color:#000;font-size: 14px;"> 등록 일시 : ${question.questionTime}</span>
 										</div>
-										<sec:authentication property='principal.memberId' var="currentMemberId"/>
-										<c:if test="${question.memberId == currentMemberId }">
-											<button type="button" class="btn btn-basic btn-xs">수정</button>
-											<button type="button" class="btn btn-basic btn-xs">삭제</button>
-										</c:if>
+										<!-- 문의글 수정 -->
+										<div class="col-sm-10 updateQuestionFormDiv" style="display:none">
+											<button type="button" class="btn btn-basic btn-xs cancelQBtn">취소</button>
+											<form action="${initParam.rootPath}/registQuestion.do" method="post" class="questionUpdateFrom">
+												<textarea class="form-control" rows="3" style="resize: none;" name="questionText" id="questionText" required>${question.questionText}</textarea>
+												<input type="hidden" name="businessId" value="${restaurant.businessId }" />
+												<input type="hidden" name="memberId" value="${currentMemberId }">
+												<input type="hidden" name="questionNum" value="${question.questionNum}">
+												<div class="col-sm-2">
+													<input type="button"  value="문의수정 등록" class="btn btn-info updateRegistQBtn">
+												</div>
+												<sec:csrfInput />
+											</form>
+										</div>
+										<!-- 문의글 삭제 -->
+										<%-- <div  class="col-sm-10 deleteQuestionDiv" style="display:none">
+											<form action="${initParam.rootPath}/deleteQuestion.do" method="post" class="deleteQuestionForm" onsubmit>
+												<textarea class="form-control" rows="3" style="resize: none;" name="questionText" id="questionText" readonly>${question.questionText}</textarea>
+												<input type="hidden" name="businessId" value="${restaurant.businessId }" />
+												<input type="hidden" name="memberId" value="${currentMemberId }">
+												<input type="hidden" name="questionNum" value="${question.questionNum}">											</form>
+												<div class="col-sm-2">
+													<input type="button" value="삭제" class="btn btn-info deleteQBtn">
+							
+													<button type="button" class="btn btn-basic btn-xs cancelDeleteQBtn">취소</button>
+												</div>										
+										</div> --%>
 										<c:if test="${currentMemberId == question.businessId }">
 											<button type="button" class="btn btn-basic btn-xs">답변 등록</button>										
 										</c:if>
 									</div>
 								</c:forEach>
+							</div>
 							</c:otherwise>
 						</c:choose>	
 						<sec:csrfInput />

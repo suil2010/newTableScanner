@@ -55,4 +55,9 @@ public class QuestionDAOImpl implements QuestionDAO{
 		return session.selectOne(makeSqlId("selectAnswerByQuestionNum"), questionNum);
 	}
 
+	@Override
+	public Question selectQuestionByQuestionNum(int questionNum) {
+		return session.selectOne(makeSqlId("selectQuestionByQuestionNum"), questionNum);
+	}
+
 }

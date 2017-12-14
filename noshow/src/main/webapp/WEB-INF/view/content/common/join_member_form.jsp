@@ -1,7 +1,60 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
+
 <script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$("#duplicatedCheckBtn").on("click",function(){
+		
+		var memberId = $("#memberId").val();
+		
+		$.ajax({
+			"url":"${initParam.rootPath }/idDuplicatedCheck.do",
+			"type":"get",
+			"data":{
+				"memberId":$('#memberId').val(),
+				"${_csrf.parameterName}":"${_csrf.token}"		
+			},
+			"dataType":"text",
+			"success":function(message){
+				if(message=='0'){
+					var check = confirm("아이디를 사용하시겠습니까?");
+						if(check == true){
+							$("#memberId").addClass("disable");
+							$("#idCheck").val("true");
+							document.getElementById("memberId").readOnly=true;
+						}else{
+							document.getElementById("memberId").value='';
+							$("#idCheck").val("false");
+						}
+				} else if(message=='1'){
+					alert('이미 사용중인 id 입니다.');
+					document.getElementById("memberId").value='';
+					$("#idCheck").val("false");
+				} else if(message=='2'){
+					alert("아이디를 입력해주세요.");
+					$("#idCheck").val("false");
+				}
+			},
+			"error":function(a,b,c){
+				alert(a);
+				alert(b);
+				alert(c);
+			}
+		});
+	});
+	
+	$("#joinBtn").on("click",function(){
+		if($("#idCheck").val()=='false'){
+			alert("ID 중복체크를 해주세요");
+		} else {
+			$(this).parent().submit();
+		}
+	});
+});
+
 function idCheck(){
 	var str = $("#memberId").val();
 	
@@ -78,14 +131,16 @@ function checkemail(){
 }
 
 </script>
-
+<input type="hidden" value="false" id="idCheck">
 <div class="container" style="max-width: 800px;">
 	<h1>회원가입</h1>
 	<form class="form-horizontal" method="post" action="${initParam.rootPath}/join_member.do">
 		<sec:csrfInput />
 		<div class="form-group">
 			<label for="memberId">ID</label>
-			<input type="text" class="form-control" placeholder="ID" name="memberId" onblur=idCheck(); id="memberId">
+			<input type="text" class="form-control" placeholder="ID" name="memberId" onblur=idCheck(); id="memberId" required="required">
+			<br>
+			<button type="button" id="duplicatedCheckBtn" class="btn-default">id 중복체크</button>
 		</div>
 
 		<div class="form-group">
@@ -124,7 +179,7 @@ function checkemail(){
 		</div>
 
 		<div class="form-group">
-			<button type="submit" class="btn btn-default">회원가입</button>
+			<button id="joinBtn" type="button" class="btn btn-default">회원가입</button>
 		</div>
 	</form>
 

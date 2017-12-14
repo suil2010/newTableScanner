@@ -89,4 +89,10 @@ public interface MemberDao {
 		 */
 		List<Member> selectWithdrawMember();
 		
+		/**
+		 * id 중복 체크
+		 * @return
+		 */
+		int slelctDuplicateMemberId(String memberId);
+		
 }

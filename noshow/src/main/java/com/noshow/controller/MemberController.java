@@ -66,6 +66,25 @@ public class MemberController {
 		return url;
 	}
 	
+/**
+ * id 중복 체크
+ * @param memberId
+ * @return
+ */
+	@RequestMapping("/idDuplicatedCheck")
+	public @ResponseBody String DuplicatedCheck(String memberId) {
+		if(memberId.isEmpty()) {
+			return "2";
+		}else {
+			if(service.slelctDuplicateMemberId(memberId) == 0) {
+				return "0";
+			} else {
+				return "1";
+			}
+		}
+	}
+	
+	
 	/**
 	 * 2017.
 	 * @param member

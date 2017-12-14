@@ -125,4 +125,11 @@
 		where drop_Check = '1'
 	</select>
 	
+	<!-- id 중복 체크 -->
+	<select id="slelctDuplicateMemberId" parameterType="String" resultType="int">
+		select count(*)
+		from member
+		where member_id = #{memberId}
+	</select>
+	
 </mapper>

@@ -83,6 +83,11 @@ public class MemberDaoImpl implements MemberDao {
 	public List<Member> selectWithdrawMember() {
 		return session.selectList(makeSqlId("selectWithdrawMember"));
 	}
+
+	@Override
+	public int slelctDuplicateMemberId(String memberId) {
+		return session.selectOne(makeSqlId("slelctDuplicateMemberId"), memberId);
+	}
 	
 	
 	

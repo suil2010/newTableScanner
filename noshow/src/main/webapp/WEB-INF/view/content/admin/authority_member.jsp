@@ -15,7 +15,7 @@
 </script>
 <div class="container">
 	<h2>가입된 정보</h2>
-	<div class="col-sm-10" style="background: #fff; min-height: 600px; margin-bottom: 10px; padding-top: 20px;">
+	<div class="col-sm-12" style="background: #fff; min-height: 600px; margin-bottom: 10px; padding-top: 20px;">
 		<table class="table table-hover">
 			<thead>
 				<tr>

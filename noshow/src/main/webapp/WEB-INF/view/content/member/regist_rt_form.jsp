@@ -53,7 +53,7 @@
 					// 인포윈도우로 장소에 대한 설명을 표시합니다
 
 					var infowindow = new daum.maps.InfoWindow({
-						content : '_$tag_____________________________________________________' + address + '_$tag_'
+						content : '<div style="width:150px;text-align:center;padding:6px 0;">' + address + '</div>'
 					});
 					infowindow.open(map, marker);
 

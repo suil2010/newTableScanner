@@ -1,9 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
-	$(document).ready(
-		function() {
-
+	$(document).ready(function() {
 			$('#myTab a').click(function(e) {
 				e.preventDefault()
 				$(this).tab('show');
@@ -14,17 +12,14 @@
 					"background" : "#008ca8"
 				});
 			});
-
 			$('.timepicker').timepicker({
 				timeFormat : 'HH:mm',
 				interval : 30,
-				/* 				defaultTime : '12', */
 				startTime : '07:00',
 				dynamic : false,
 				dropdown : true,
 				scrollbar : true
 			});
-
 			$(function() {
 				$("#datepicker").datepicker({
 					constrainInput : true,
@@ -36,14 +31,10 @@
 					showCurrentAtPos : 0,
 					minDate : new Date(),
 					maxDate : "+3m"
-
 				});
 			});
-			//test 
-			$(".gpsbtn").on(
-				"click",
-				function() {
-
+			
+			$(".gpsbtn").on("click",function() {
 					//좌표생성 
 					$(function() {
 						if (navigator.geolocation) { // GPS를 지원하면
@@ -151,7 +142,7 @@
 
 	<div class="row"
 		style="height: 400px; background-size: cover; background-image: url('${initParam.rootPath }/resource/img/main.jpg'); background-color: rgba(0,0,0,0.3); padding:0;"
-	>
+	> 
 		<div class="background" style="width: 100%; height: 400px; background: rgba(0, 0, 0, 0.5); position: absolute;">
 			<div class="container" style="height: 25%;">
 				<ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -236,7 +227,7 @@
 			</div>
 		</div>
 	</div>
-	<style>
+<style>
 .content>.col-sm-4>.contents {
 	height: 260px;
 }

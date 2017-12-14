@@ -5,13 +5,16 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.noshow.util.DateJsonSerializer;
+
 public class Commen implements Serializable{
 	private int commenNum; /*댓글일련번호*/
 	private int boardNum; /*글번호*/
 	private String writerId; /*작성자 아이디*/
 	private String commenText; /*댓글내용*/
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonSerialize(using=DateJsonSerializer.class)
 	private Date commenWritingTime; /*작성시간*/
 	
 	public Commen() {}

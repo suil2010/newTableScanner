@@ -8,5 +8,5 @@ public interface AnswerService {
 	
 	int updateAnswer(Answer answer);
 	
-	int deleteAnswer(int answer_num);
+	int deleteAnswer(int answerNum);
 }

@@ -19,7 +19,6 @@ public class AnswerController {
 	@RequestMapping("/registAnswer")
 	@Transactional
 	public ModelAndView registAnswer(@ModelAttribute Answer answer) {
-		System.out.println("AnswerController.registAnswer - answer : " +answer);
 		service.insertAnswer(answer);
 		return new ModelAndView("redirect:/ownerMyQuestion.do");
 	}
@@ -27,7 +26,6 @@ public class AnswerController {
 	@RequestMapping("/updateAnswer")
 	@Transactional
 	public ModelAndView updateAnswer(@ModelAttribute Answer answer) {
-		System.out.println("AnswerController.updateAnswer - answer : "+ answer);
 		service.updateAnswer(answer);
 		return new ModelAndView("redirect:/ownerMyQuestion.do");
 	}
@@ -35,7 +33,6 @@ public class AnswerController {
 	@RequestMapping("/deleteAnswer")
 	@Transactional
 	public ModelAndView deleteAnswer(int answerNum) {
-		System.out.println("AnswerController.deleteAnswer - answerNum : " + answerNum);
 		service.deleteAnswer(answerNum);
 		return new ModelAndView("redirect:/ownerMyQuestion.do");
 	}

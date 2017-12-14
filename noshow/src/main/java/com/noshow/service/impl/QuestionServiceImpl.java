@@ -53,9 +53,7 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	private List<Question> selectAnswerByQuestionNum(List<Question> questionList) {
 		for(Question q : questionList) {
-			System.out.println("QuestionServiceImpl.selectAnswerByQuestionNum - question : " + q);
 			Answer answer = dao.selectAnswerByQuestionNum(q.getQuestionNum());
-			System.out.println("############## Answer : " + answer);
 			q.setAnswer(answer);
 		}
 		return questionList;

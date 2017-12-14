@@ -41,7 +41,6 @@ public class BookmarkServiceImpl implements BookmarkService{
 
 	@Override
 	public int selectCheckBookmark(String memberId, String businessId) {
-		System.out.println("bookmarkServiceImpl - memberId : "+memberId+", businessId : "+businessId);
 		Bookmark bookmark = new Bookmark(memberId, businessId);
 		return dao.selectCheckBookmark(bookmark);
 	}
@@ -61,7 +60,6 @@ public class BookmarkServiceImpl implements BookmarkService{
 			}
 			return bookmarkList;
 		} catch (ParseException e) {
-			System.out.println("OwnerMemberServiceImpl.timeFormatting - 데이터 변환 실패ㅠㅠ");
 			e.printStackTrace();
 		}
 		return bookmarkList;

@@ -116,7 +116,7 @@
    <insert id="insertAnswer" parameterType="answer">
    	INSERT	INTO	ANSWER	VALUES
    	(	answer_num_seq.NEXTVAL,
-   	 	SYSDATE
+   	 	SYSDATE,
    	 	#{answerText},
    	 	#{questionNum},
    	 	#{businessId}
@@ -128,8 +128,9 @@
    
    <update id="updqteAnswer" parameterType="answer">
    	UPDATE	answer
-   	SET		answertext = #{answerText}
-   	AND		answer_num = #{answerNum}
+   	SET		answer_text = #{answerText},
+   			answer_date = SYSDATE
+   	WHERE	answer_num = #{answerNum}
    </update>
    
    <delete id="deleteAnswer" parameterType="_int">

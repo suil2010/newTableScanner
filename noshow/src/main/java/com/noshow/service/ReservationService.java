@@ -37,4 +37,5 @@ public interface ReservationService {
 	
 	Reservation selectReservationByResNum(int resNum);
 
+	List<Reservation> selectJoinReservationByBusinessId(String businessId);
 }

@@ -92,15 +92,29 @@ public class ReservationController {
 	
 	@RequestMapping("/cancelReservation")
 	@Transactional
-	public ModelAndView cancelReservation(int resNum) {
+	public ModelAndView cancelReservation(int resNum, ModelMap model) {
+		String memberAuth = "member";
 		service.deleteReservation(resNum);
+		Collection authorizes = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for(Object auth : authorizes) {
+			SimpleGrantedAuthority authority = (SimpleGrantedAuthority)auth;
+			if(authority.getAuthority().equals("ROLE_MEMBER")) {
+				model.addAttribute("tabMenu", "true"); 
+				break;
+			} else if (authority.getAuthority().equals("ROLE_OWNER")) {
+				memberAuth = "owner";
+				break;
+			}
+		}
+		if (memberAuth.equals("owner")) {
+			return new ModelAndView("redirect:/ownerMyReservation.do");
+		} 
 		return new ModelAndView("redirect:/myReservation.do");
 	}
 	
 //	 결제 
 	@RequestMapping("/payment")
 	public ModelAndView payment(String resDate, int resPeople, String resStartTime, String resPayStatement, String businessId, @RequestParam List<Integer> tableList) {
-		System.out.println("payment호출");
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 
@@ -121,11 +135,23 @@ public class ReservationController {
 	@RequestMapping(value="/totalResPrice",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String totalResPrice(int resPeople, String businessId) {
-		System.out.println("ReservationController.reCalculateResPrice - resPeople : "+resPeople+", businessId : " + businessId );
 		int totalPrice = service.calTotalPrice(businessId, resPeople);
-		System.out.println("Total Reservation Price : "+totalPrice);
 		
 		return new DecimalFormat("#,### 원").format(totalPrice);
+	}
+	
+	/* 2017.12.15 - 현준_사업주 예약조회 */
+	@RequestMapping("/ownerMyReservation")
+	public ModelAndView ownerMyReservation() {
+		// 현재 사용자(사업주) 정보를 받아와서 member 객체 생성
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		String businessId = member.getMemberId();
+		List<Reservation> reservationList = service.selectJoinReservationByBusinessId(businessId);
+		
+		return new ModelAndView("owner/reservation_info.tiles","reservationList", reservationList);
+
 	}
 	
 }

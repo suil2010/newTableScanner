@@ -39,8 +39,6 @@ public class ReviewController {
 	@RequestMapping("/registReview")
 	@ResponseBody
 	public List<Review> registerReview(String reviewText, @RequestBody @RequestParam MultipartFile reviewPicture, String reviewGrade, String businessId , HttpServletRequest request, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		System.out.println("ReviewController.registerReview - 멤버아이디도 넘어오는가? : "+ (String)request.getAttribute("memberId"));
-		System.out.println("ReviewController.registerReview - 사업주아이디? : "+businessId);
 
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
@@ -60,12 +58,8 @@ public class ReviewController {
 		}
 		int result = service.addReview(review);
 		if (result == 0) {
-			System.out.println("ReviewController - 리뷰 등록 실패!!");
-//			return new ModelAndView("/researchReview.do", "review", review);
 			return null;
 		} else {
-			System.out.println("ReviewController - 리뷰 등록 성공!!- review : "+review);
-//			redirectAttributes.addAttribute("review", review);
 			List<Review> reviewList = service.selectReviewByBusinessId(businessId);
 			return reviewList;
 		}
@@ -79,7 +73,6 @@ public class ReviewController {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
 		Member member = (Member)authentication.getPrincipal();
-		
 		String memberId = member.getMemberId();
 		List<Review> reviewList = service.selectReviewByMemberId(memberId);
 		Collection authorizes = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
@@ -93,16 +86,16 @@ public class ReviewController {
 		return new ModelAndView("tabmenu/mypage/mypage_review.tiles", "reviewList", reviewList);
 	}
 	
-/*	 2017.12.11 - 현준 _리뷰등록 후 재 조회 컨트롤러 
-	@RequestMapping("/researchReview")
-	@ResponseBody
-	public List<Review> researchReview(Review review) {
-//		Review review = (Review) request.getAttribute("review");
-		System.out.println("ReviewController.researchReview-review : "+ review);
-		String businessId = review.getBusinessId();
-		System.out.println("ReviewController.researchReview - businessId : "+businessId);
+	/* 2017.12.15 현준_사업주 리뷰조회 */
+	@RequestMapping("/ownerMyReview")
+	public ModelAndView ownerMyReview() {
+		// 현재 사용자 정보를 받아와서 member 객체 생성
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		Member member = (Member)authentication.getPrincipal();
+		String businessId = member.getMemberId();
 		List<Review> reviewList = service.selectReviewByBusinessId(businessId);
-		
-		return reviewList;
-	}*/
+		return new ModelAndView("owner/owner_review.tiles", "reviewList", reviewList);
+	}
+	
 }

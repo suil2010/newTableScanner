@@ -22,12 +22,9 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public int addReview(Review review) {
-		System.out.println("ReviewServiceImpl.addReview - review : " + review);
 		int resNum = selectMaxResNum(review.getMemberId(), review.getBusinessId());
 		review.setResNum(resNum);
-		System.out.println("ReviewServiceImpl.addReview - resNum : " + resNum);
 		int result = dao.insertReview(review);
-		System.out.println("ReviewServiceImpl.addReview - insertResult : "+result);
 		return result;
 	}
 

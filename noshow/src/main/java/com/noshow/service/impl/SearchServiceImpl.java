@@ -20,6 +20,7 @@ import com.noshow.dao.QuestionDAO;
 import com.noshow.dao.ReviewDAO;
 import com.noshow.dao.SearchDAO;
 import com.noshow.service.SearchService;
+import com.noshow.vo.Answer;
 import com.noshow.vo.Bookmark;
 import com.noshow.vo.Menu;
 import com.noshow.vo.Question;
@@ -67,9 +68,7 @@ public class SearchServiceImpl implements SearchService{
 	/* 예약조건에서 나온 식당 리스트에서 식당을 선택했을 때 식당 정보 조회 */
 	@Override
 	public Restaurant selectRestaurantByBusinessIdResInfo(String resDate, String resTime, String memberId, String businessId) {
-		System.out.println(businessId); 
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
-		System.out.println("SearchServiceImpl.selcRes - restaurant : " + restaurant); //TEST
 		restaurant = selectCountCheckRervation(memberId, businessId, restaurant);
 		restaurant = selectQuestionByBusinessId(restaurant);
 		List<Review> reviewList = selectReviewByBusinesId(businessId);
@@ -88,11 +87,6 @@ public class SearchServiceImpl implements SearchService{
 	public List<Restaurant> selectRestaurantBySearch(String memberId, String resPlace, String resDate, String resTime, int resPeople) {
 	
 			String rtHoliday = dayFormatting(resDate);
-			
-//			System.out.println("selectBySearch-rtHoliday : "+rtHoliday);
-//			System.out.println("selectBySearch-resDate : "+resDate);
-//			System.out.println("selectBySearch-resTime : "+resTime);
-//			System.out.println("selectBySearch-resPeople : "+resPeople);
 
 			Map<String, Object> searchInfo = new HashMap<>();
 			searchInfo.put("resPlace", resPlace);
@@ -211,7 +205,6 @@ public class SearchServiceImpl implements SearchService{
 	 */
 	private String calStartTime(String resDate, String resStartTime) {
 		resStartTime = resDate + " " +resStartTime + ":00";
-		System.out.println("SearchServiceImpl.calStartTime - resStartTime : " + resStartTime);
 		return resStartTime;
 	}
 	
@@ -230,15 +223,12 @@ public class SearchServiceImpl implements SearchService{
 		Date formatDate;
 		Restaurant restaurant = dao.selectRestaurantByBusinessId(businessId);
 		int rt_term = Integer.parseInt(restaurant.getTerm().getTermName());
-		System.out.println("SearchServiceImpl.calResEndTime - businessId : "+businessId +"term : "+rt_term+" 시간");
-		System.out.println("SearchServiceImpl-resStartTime : "+resStartTime);
 		try {
 			formatDate = dateForm.parse(resStartTime);
 			Calendar cal = new GregorianCalendar(Locale.KOREA);
 			cal.setTime(formatDate);
 			cal.add(Calendar.HOUR, rt_term);
 			String resEndTime = dateForm.format(cal.getTime());
-			System.out.println("변환 후 예약 종료 시간 : "+resEndTime);
 			return resEndTime;
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -252,10 +242,7 @@ public class SearchServiceImpl implements SearchService{
 		Map<String, String> checkRes = new HashMap<>();
 		checkRes.put("memberId", memberId);
 		checkRes.put("businessId", businessId);
-		System.out.println("SearchServiceImpl.selCntChckRes - memberId : " +memberId+", businessId : "+businessId);
 		int resCheckResult = dao.selectCountCheckRervation(checkRes);
-		System.out.println("COUNT 체크 결과 : " +resCheckResult);
-		System.out.println(restaurant);
 		restaurant.setReservationCheck(resCheckResult);
 		return restaurant;
 	}
@@ -266,9 +253,11 @@ public class SearchServiceImpl implements SearchService{
 	
 	private Restaurant selectQuestionByBusinessId(Restaurant restaurant) {
 		List<Question> questionList = questionDao.selectQuestionByBusinessId(restaurant.getBusinessId());
-		System.out.println("SearchServiceImpl.selectQuestion - before restaurant : " + restaurant); // TEST
+		for(Question q : questionList) {
+			Answer answer = questionDao.selectAnswerByQuestionNum(q.getQuestionNum());
+			q.setAnswer(answer);
+		}
 		restaurant.setQuestionList(questionList);
-		System.out.println("SearchServiceImpl.selectQuestion - after restaurant : " + restaurant); // TEST
 
 		return restaurant;
 	}

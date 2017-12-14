@@ -16,20 +16,17 @@ public class AnswerServiceImpl implements AnswerService{
 	
 	@Override
 	public int insertAnswer(Answer answer) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.insertAnswer(answer);
 	}
 
 	@Override
 	public int updateAnswer(Answer answer) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.updateAnswer(answer);
 	}
 
 	@Override
-	public int deleteAnswer(int answer_num) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteAnswer(int answerNum) {
+		return dao.deleteAnswer(answerNum);
 	}
 
 	

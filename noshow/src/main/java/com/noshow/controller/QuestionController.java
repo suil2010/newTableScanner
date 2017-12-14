@@ -31,7 +31,6 @@ public class QuestionController {
 	@RequestMapping("/registQuestion")
 	@Transactional
 	public ModelAndView registQuestion(@ModelAttribute Question question) {
-//		System.out.println("QuestionController.registQuestion - question : " + question);
 		String businessId = question.getBusinessId();
 		service.insertQusetion(question);
 		return new ModelAndView("redirect:/reSearchQuestion.do", "businessId", businessId);
@@ -62,7 +61,6 @@ public class QuestionController {
 	@RequestMapping("/updateQuestion")
 	@Transactional
 	public ModelAndView updateQuestion(Question question) {
-		System.out.println("QuestionController.updateQuestion - question : " + question);
 		service.updateQuestion(question);
 		return new ModelAndView("redirect:/reSearchQuestion.do", "businessId", question.getBusinessId());
 	}
@@ -70,8 +68,6 @@ public class QuestionController {
 	@RequestMapping("/deleteQuestion")
 	@Transactional
 	public ModelAndView deleteQuestion(int questionNum, String businessId) {
-		System.out.println("QuestionController.deleteQuestion - question : " + questionNum);
-		System.out.println("businessId : " +businessId);
 		service.deleteQuestion(questionNum);
 		return new ModelAndView("redirect:/reSearchQuestion.do", "businessId", businessId);
 
@@ -81,7 +77,6 @@ public class QuestionController {
 	@RequestMapping("/reSearchQuestion")
 	@ResponseBody
 	public List<Question> reSearchQuestion(String businessId) {
-		System.out.println("QuestionContoller.reSearchQuestion - businessId : " + businessId);
 		List<Question> questionList = service.selectQuestionByBusinessId(businessId);
 		return questionList;
 	}
@@ -99,7 +94,6 @@ public class QuestionController {
 	@RequestMapping("/deleteMyQuestion")
 	@Transactional
 	public ModelAndView deleteMyQuestion(int questionNum) {
-		System.out.println("QuestionController.deleteMyQuestion - questionNum : " +questionNum);
 		service.deleteQuestion(questionNum);
 		return new ModelAndView("redirect:/myQuestion.do");
 	}
@@ -107,7 +101,6 @@ public class QuestionController {
 	@RequestMapping("/updateMyQuestion")
 	@Transactional
 	public ModelAndView updateMyQuestion(Question question) {
-		System.out.println("QuestionController.updateMyQuestion - question : " + question);
 		service.updateQuestion(question);
 		return new ModelAndView("redirect:/myQuestion.do");
 	}

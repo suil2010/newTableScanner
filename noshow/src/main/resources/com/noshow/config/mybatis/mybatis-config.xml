@@ -24,6 +24,7 @@
 		<mapper resource="com/noshow/config/mybatis/mapper/tableMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/QnAMapper.xml"/>
 		<mapper resource="com/noshow/config/mybatis/mapper/commenMapper.xml"/>
+		<mapper resource="com/noshow/config/mybatis/mapper/rankingMapper.xml"/>
 	</mappers>
 	
 </configuration>

@@ -292,7 +292,9 @@ ALTER TABLE ORDER_TABLE
       )
       REFERENCES RESERVATION (
          RES_NUM
-      );
+       
+      )
+      ON DELETE CASCADE;
 
 /* 예약 */
 ALTER TABLE RESERVATION
@@ -421,6 +423,8 @@ ALTER TABLE ANSWER
       )
       REFERENCES QUESTION (
          QUESTION_NUM
+      )
+      ON DELETE CASCADE;
       );
       
 /* code 테이블 기본 값 - 무조건 같이 실행!!!!!*/  

@@ -50,7 +50,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" + cur
 						<c:choose>
 							<c:when test="${reservation.resStartTime >= sysDate }">
 							<!-- action="${initParam.rootPath}/cancelReservation.do" -->
-								<form action="#" method="post">
+								<form action="${initParam.rootPath}/cancelReservation.do" method="post">
 									<input type="submit" value="예약취소" onclick="return confirm('정말 예약을 취소하시겠습니까?')">
 									<input type="hidden" name="resNum" value="${reservation.resNum }">
 									<sec:csrfInput />

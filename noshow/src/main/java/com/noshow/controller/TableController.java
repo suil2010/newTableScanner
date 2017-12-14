@@ -41,7 +41,6 @@ public class TableController {
 				String yLocation = tableXY[i + 1];
 				int people = Integer.parseInt(tableXY[i + 2]);
 				Table table = new Table(3, n, people, xLocation, yLocation, id);
-				System.out.println(table); 
 				service.insertTable(table);
 				n++;
 			}
@@ -59,7 +58,6 @@ public class TableController {
 		Member member = (Member) authentication.getPrincipal();
 		String businessId = member.getMemberId();
 		List<Table> tableList = service.selectTable(businessId);
-		System.out.println(tableList);
 		return new ModelAndView("owner/ownerTable.tiles", "Table", tableList);
 	}
 }

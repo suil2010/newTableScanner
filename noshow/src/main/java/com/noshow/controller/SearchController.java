@@ -28,6 +28,7 @@ public class SearchController {
 	private SearchService service;
 	
 //	 2017.12.09 현준_OwnerMemberController에서 분리 
+	/* 검색 후 식당리스트에서 식당을 고르면 식당 상세로 넘어가는 Controller */
 	@RequestMapping("/restaurantList")
 	public ModelAndView restaurantList(String businessId, int resPeople, String resDate, String resTime) {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -46,7 +47,6 @@ public class SearchController {
 		mav.addObject("resPeople", resPeople);
 		mav.addObject("restaurant", restaurant);
 		mav.addObject("businessId", businessId);
-		System.out.println(restaurant); 
 		return mav;
 	}
 	
@@ -59,6 +59,7 @@ public class SearchController {
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member) authentication.getPrincipal();
 		String memberId = member.getMemberId();
+		System.out.println("SearchController.restaurantListByName - memberId : " + memberId);
 		
 		Restaurant restaurant = service.selectRestaurantByBusinessId(memberId, businessId);
 		ModelAndView mav = new ModelAndView();
@@ -67,6 +68,13 @@ public class SearchController {
 		
 		return mav;
 	}
+	
+/*	@RequestMapping("/nonMemberToRestaurant")
+	public ModelAndView nonMemberToRestaurant(String businessId) {
+		System.out.println("SearchController.nonMember - businessId : " + businessId);
+		Restaurant restaurant = service.selectRestaurantByBusinessId(null, businessId);
+		return new ModelAndView("reservation/reservation_form.tiles", "restaurant", restaurant);
+	}*/
 	
 	// 예약정보를 받아서 처리하는 controller 
 	@RequestMapping("/searchRestaurant")
@@ -116,7 +124,6 @@ public class SearchController {
 	@RequestMapping("/reSearchTable")
 	@ResponseBody
 	public List<Table> reSearchTable(String resDate, String resStartTime, String businessId) throws IOException {
-		System.out.println("SearchController-------------------------");
 		return service.selectUsableTable(resDate, resStartTime, businessId);
 	}
 	

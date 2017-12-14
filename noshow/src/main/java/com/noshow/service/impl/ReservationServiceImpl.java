@@ -114,8 +114,6 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		SimpleDateFormat dateForm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date formatDate;
-		//Restaurant restaurant = restaurantDao.selectRestaurantByBusinessId(businessId);
-		//int rt_term = restaurant.getRtTerm();
 
 		try {
 			formatDate = dateForm.parse(resStartTime);
@@ -185,6 +183,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation selectReservationByResNum(int resNum) {
 		return dao.selectReservationByResNum(resNum);
+	}
+
+	@Override
+	public List<Reservation> selectJoinReservationByBusinessId(String businessId) {
+		return dao.selectJoinReservationByBusinessId(businessId);
 	}
 
 }

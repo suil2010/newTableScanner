@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noshow.config.mybatis.mapper.rankingMapper">
+	
+	<resultMap type="Ranking" id="countRanking-resultmap">
+		<result column="COUNT(RES_NUM)" property="countRes"/>
+		<result column="BUSINESS_ID" property="businessId"/>
+	</resultMap>
+	
+	<resultMap type="Ranking" id="avgGradeRanking-resultmap">
+		<result column="ROUND(AVG(REVIEW_GRADE),1)" property="avgGrade"/>
+		<result column="BUSINESS_ID" property="businessId"/>
+	</resultMap>
+	
+	<select id="rankByCountRes" resultMap="countRanking-resultmap">
+		SELECT 		COUNT(res_num), business_id
+		FROM		reservation
+		GROUP BY	business_id
+		ORDER BY	COUNT(res_num) DESC
+	</select>
+	
+	<select id="rankByAvgGrade" resultMap="avgGradeRanking-resultmap">
+		SELECT		ROUND(AVG(review_grade),1), business_id
+		FROM		review
+		GROUP BY	business_id
+		ORDER BY	AVG(review_grade) DESC
+	</select>
+</mapper>

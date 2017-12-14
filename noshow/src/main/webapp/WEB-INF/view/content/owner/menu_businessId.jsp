@@ -29,18 +29,42 @@
 <div class="container">
 
 	<button id="divnamebtn" class="btn btn-default">메뉴추가하기</button>
-	<div id="divname" hidden="">
-		<h6>메뉴추가</h6>
+	<div id="divname" hidden="" style="max-width: 800px; padding-top: 10px;">
 		<form method="post" action="${initParam.rootPath}/join_menu.do" enctype="multipart/form-data">
-			<input type="hidden" name="menuNum" value="1" /> <input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요"> <input type="text"
-				name="menuComment" placeholder="메뉴에 대한 설명을 적으세요"
-			> <input type="number" name="menuPrice" placeholder="메뉴 가격을 입력하세요."> <input type="file" name="menuImage" placeholder="메뉴 사진 이름">
 			<input type="hidden" name="businessId" value="<sec:authentication property='principal.memberId'/>">
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="menuName" style="height: 34px; margin: 0; text-align: center; line-height: 34px;">메뉴 이름</label>
+				<div class="col-sm-8">
+					<input type="text" name="menuName" id="menuName" placeholder="메뉴 이름을 입력하세요." class="form-control" autofocus required >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="menuComment" style="height: 34px; margin: 0; text-align: center; line-height: 34px;">메뉴 설명</label>
+				<div class="col-sm-8">
+					<input type="text" name="menuComment" id="menuComment" placeholder="메뉴에 대한 설명을 적으세요." class="form-control" autofocus required >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="menuPrice" style="height: 34px; margin: 0; text-align: center; line-height: 34px;">메뉴 가격</label>
+				<div class="col-sm-8">
+					<input type="number" name="menuPrice" id="menuPrice" placeholder="메뉴 가격을 입력하세요." class="form-control" autofocus required >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="menuImage" style="height: 34px; margin: 0; text-align: center; line-height: 34px;">메뉴 사진</label>
+				<div class="col-sm-8">
+					<input type="file" name="menuImage" id="menuImage" class="form-control" style="background-color:transparent;" autofocus required >
+				</div>
+			</div>			
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8" style="margin-top: 10px;">
+					<button type="submit" id="menuadd" name="menuadd" class="btn btn-default">메뉴 추가</button>
+				</div>
+			</div> 
 			<sec:csrfInput />
-			<button type="submit" id="menuadd" class="btn btn-default">메뉴 추가</button>
 		</form>
-
 	</div>
+	
 	<style>
 		.label {
 		text-align: left;

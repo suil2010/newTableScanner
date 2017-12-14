@@ -58,12 +58,24 @@
 
 	<div class="row row1">
 		<div class="form-group">
-			<input type="text" name="memberName" id="memberName" placeholder="이름을 입력해주세요." class="form-control" autofocus required >
+			<label class="col-sm-2 control-label" for="memberName" style="height: 34px; margin: 0; text-align: center; line-height: 34px;">Name</label>
+			<div class="col-sm-10">
+				<input type="text" name="memberName" id="memberName" placeholder="이름을 입력해주세요." class="form-control" autofocus required >
+			</div>
 		</div>
+		
 		<div class="form-group">
-			<input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="이메일을 입력해주세요." required >
+			<label class="col-sm-2 control-label" for="memberEmail" style="height: 34px; text-align: center; line-height: 34px;">Email</label>
+			<div class="col-sm-10">
+				<input type="text" name="memberEmail" id="memberEmail" class="form-control" placeholder="이메일을 입력해주세요." required >
+			</div>
 		</div>
-		<button id="checkBtn" name="checkBtn" class="btn btn-default">확인</button>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
+				<button id="checkBtn" name="checkBtn" class="btn btn-default">아이디 찾기</button>
+			</div>
+		</div> 
 	</div>
 
 	<div class="row row2" style="border: 1px solid #000; min-height: 300px; max-width: 500px; margin: 0 auto; display: none; padding: 30px;">

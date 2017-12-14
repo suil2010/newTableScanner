@@ -7,14 +7,14 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberId">ID</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="ID" name="memberId" id="memberId">
+				<input type="text" class="form-control" placeholder="ID" name="memberId" id="memberId" required>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberPassword">Password</label>
 			<div class="col-sm-10">
-				<input type="password" class="form-control" placeholder="Password" name="memberPassword" id="memberPassword">
+				<input type="password" class="form-control" placeholder="Password" name="memberPassword" id="memberPassword" required>
 			</div>
 		</div>
 

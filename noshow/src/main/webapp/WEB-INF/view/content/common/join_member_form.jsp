@@ -85,41 +85,41 @@ function checkemail(){
 		<sec:csrfInput />
 		<div class="form-group">
 			<label for="memberId">ID</label>
-			<input type="text" class="form-control" placeholder="ID" name="memberId" onblur=idCheck(); id="memberId">
+			<input type="text" class="form-control" placeholder="ID" name="memberId" onblur=idCheck(); id="memberId" required >
 		</div>
 
 		<div class="form-group">
 			<label for="memberPassword">Password</label>
-			<input type="text" class="form-control" placeholder="Password" name="memberPassword" onblur=PasswordCheck(); id="memberPassword">
+			<input type="text" class="form-control" placeholder="Password" name="memberPassword" onblur=PasswordCheck(); id="memberPassword" required >
 		</div>
 
 		<div class="form-group">
 			<label for="memberName">Name</label>
-			<input type="text" class="form-control" placeholder="Name" name="memberName" onblur=nameCheck(); id="memberName">
+			<input type="text" class="form-control" placeholder="Name" name="memberName" onblur=nameCheck(); id="memberName" required >
 		</div>
 
 		<div class="form-group">
 			<label for="memberBirthday">Birthday</label>
-			<input type="date" class="form-control" placeholder="Birthday" name="memberBirthday" id="memberBirthday">
+			<input type="date" class="form-control" placeholder="Birthday" name="memberBirthday" id="memberBirthday" required >
 		</div>
 
 		<div class="form-group">
 			<label for="memberTel">Tel</label>
-			<input type="text" class="form-control" placeholder="Tel" name="memberTel" onblur=telCheck(); id="memberTel">
+			<input type="text" class="form-control" placeholder="Tel" name="memberTel" onblur=telCheck(); id="memberTel" required >
 		</div>
 
 		<div class="form-group">
 			<label for="memberEmail">Email</label>
-			<input type="text" class="form-control" placeholder="Email" name="memberEmail" onblur=checkemail(); id="memberEmail">
+			<input type="text" class="form-control" placeholder="Email" name="memberEmail" onblur=checkemail(); id="memberEmail" required >
 		</div>
 
 		<div class="form-group">
 			<label>Gender</label> 
 			<label> 
-				<input type="radio" name="memberGender" value="male">남자
+				<input type="radio" name="memberGender" value="male" required >남자
 			</label> 
 			<label>
-				<input type="radio" name="memberGender" value="female">여자
+				<input type="radio" name="memberGender" value="female" required >여자
 			</label>
 		</div>
 

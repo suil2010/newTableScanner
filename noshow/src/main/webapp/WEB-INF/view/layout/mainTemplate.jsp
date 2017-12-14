@@ -32,9 +32,11 @@ html, body {
 	height: 100%;
 	margin: 0;
 }
-
 .table>thead>tr>th{ 
 	text-align: center;
+}
+.table > tbody > tr > td{
+	text-align: center;  
 }
 </style>
 </head>

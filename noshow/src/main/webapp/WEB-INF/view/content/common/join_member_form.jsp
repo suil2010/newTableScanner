@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="${initParam.rootPath }/resource/jquery/jquery-3.2.1.min.js"></script>
-
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -50,7 +49,7 @@ $(document).ready(function(){
 		if($("#idCheck").val()=='false'){
 			alert("ID 중복체크를 해주세요");
 		} else {
-			$(this).parent().submit();
+			document.join.submit();
 		}
 	});
 });
@@ -134,7 +133,7 @@ function checkemail(){
 <input type="hidden" value="false" id="idCheck">
 <div class="container" style="max-width: 800px;">
 	<h1>회원가입</h1>
-	<form class="form-horizontal" method="post" action="${initParam.rootPath}/join_member.do">
+	<form class="form-horizontal" method="post" action="${initParam.rootPath}/join_member.do" name="join">
 		<sec:csrfInput />
 		<div class="form-group">
 			<label for="memberId">ID</label>

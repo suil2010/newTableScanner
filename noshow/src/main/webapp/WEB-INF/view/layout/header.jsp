@@ -3,19 +3,15 @@
 
 <script type="text/javascript">
 	$(function() {
-		/* header menu */
+		/* 1200px 이상일경우 header menu */
 		$(".mainmenu > li").on("mouseover", function() {
 			$(this).children(".submenu").stop().slideDown();
 		});
 		$(".mainmenu > li").on("mouseleave", function() {
 			$(this).children(".submenu").stop().slideUp();
 		});
-
-		/* header member 로그아웃 */
-		$(".logout").on("click", function() {
-			$("#logoutForm").submit();
-		});
-
+		
+		/* 1200px 미만일경우 header menu */
 		$(".open").on("click", function() {
 			$(".menu2").css({
 				"display" : "block"
@@ -26,6 +22,13 @@
 				"display" : "none"
 			});
 		});
+
+		/* header member 로그아웃 */
+		$(".logout").on("click", function() {
+			$("#logoutForm").submit();
+		});
+
+	
 
 	});
 </script>
@@ -166,7 +169,6 @@
 
 			<!-- 사업자회원 -->
 			<sec:authorize access="hasRole('ROLE_OWNER')">
-
 				<li class="li">음식점관리</li>
 				<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 				<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>

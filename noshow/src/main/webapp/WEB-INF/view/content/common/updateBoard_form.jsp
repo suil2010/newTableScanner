@@ -3,36 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-	$(document).ready(function() {
-
-		$("#submit").click(function() {
-			if (confirm("수정하시겠습니까?")) {
-				document.form.submit();
+$(document).ready(function() {
+	$("#submit").on("click", function() {
+		if (confirm("등록하시겠습니까?")) {
+			if ($("#boardSubject").val() == "") {
+				alert("제목을 입력해주세요.");
+				return false;
+			} else {
+				if ($("#boardText").val() == "") {
+					alert("내용을 입력해주세요.");
+					return false;
+				} else {
+					return true;
+				}
 			}
-			var title = $("#boardSubject").val();
-			var content = $("#boardText").val();
-			var writer = $("#writer").val();
-
-			if (title == "") {
-				alert("제목을 입력하세요");
-				document.form.title.focus();
-				return;
-			}
-			if (content == "") {
-				alert("내용을 입력하세요");
-				document.form.content.focus();
-				return;
-			}
-
-			// 입력한 데이터를 서버로 전송
-			document.form.submit();
-		});
+		}
 	});
+});
 </script>
 <div class="container" style="width: 800px;">
 	<h2>게시글 수정하기</h2>
 	
-	<form name="form" method="post" action="${initParam.rootPath }/updateBoard.do">
+	<form name="form" method="post" action="${initParam.rootPath }/updateBoard.do" class="form">
 
 		<div>
 			게시글번호 : <input type="text" name="boardNum" id="boardNum" value="${requestScope.board.boardNum}" class="form-control" readonly="readonly">
@@ -48,7 +40,7 @@
 			<textarea name="boardText" id="boardText" rows="16" cols="80" class="form-control" style="resize: none;">${requestScope.board.boardText}</textarea>
 		</div>
 		
-		<button type="submit" id="submit" class="btn btn-default" style="float: right;">수정</button>
+		<button type="submit" id="submit" class="btn btn-default" style="float: right; margin-top: 10px;">수정</button>
 		<sec:csrfInput />
 	</form>
 	

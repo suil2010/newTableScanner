@@ -3,19 +3,15 @@
 
 <script type="text/javascript">
 	$(function() {
-		/* header menu */
+		/* 1200px 이상일경우 header menu */
 		$(".mainmenu > li").on("mouseover", function() {
 			$(this).children(".submenu").stop().slideDown();
 		});
 		$(".mainmenu > li").on("mouseleave", function() {
 			$(this).children(".submenu").stop().slideUp();
 		});
-
-		/* header member 로그아웃 */
-		$(".logout").on("click", function() { 
-			$("#logoutForm").submit();
-		});
-
+		
+		/* 1200px 미만일경우 header menu */
 		$(".open").on("click", function() {
 			$(".menu2").css({
 				"display" : "block"
@@ -26,6 +22,13 @@
 				"display" : "none"
 			});
 		});
+
+		/* header member 로그아웃 */
+		$(".logout").on("click", function() {
+			$("#logoutForm").submit();
+		});
+
+	
 
 	});
 </script>
@@ -119,6 +122,7 @@
 	background: rgba(0, 0, 0, 1) !important;
 }
 </style>
+
 <!-- 1200px 미만 display -->
 <form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
 	<sec:csrfInput />
@@ -133,10 +137,9 @@
 	</button>
 	<div class="menu2" style="height: 100%; width: 250px; right: 0; position: absolute; z-index: 100; display: none;">
 		<ul>
-
-			<li class="close" style="height: 50px; background: black !important;"><span class="glyphicon glyphicon-remove"
-				style="color: #fff; font-size: 30px; margin-top: 5px;"
-			></span></li>
+			<li class="close" style="height: 50px; background: black !important;">
+				<span class="glyphicon glyphicon-remove" style="color: #fff; font-size: 30px; margin-top: 5px;"></span>
+			</li>
 			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="li">회원관리</li>
@@ -161,7 +164,7 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
-			
+
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<li><a href="${initParam.rootPath }/rankByCountRes.do">추천랭킹</a>
@@ -174,7 +177,6 @@
 
 			<!-- 사업자회원 -->
 			<sec:authorize access="hasRole('ROLE_OWNER')">
-
 				<li class="li">음식점관리</li>
 				<li><a href="${initParam.rootPath}/find_rt_byid.do">음식점 정보수정</a></li>
 				<li><a href="${initParam.rootPath }/selectTable.do">테이블 수정</a></li>
@@ -212,17 +214,9 @@
 			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
-
-
-
-
-
-
-
-
 	</div>
-
 </header>
+
 
 <!-- 1200px 이상 display -->
 <header class="navbar-static-top header1" style="height: 60px;">
@@ -254,12 +248,12 @@
 					</ul>
 				</li>
 			</sec:authorize>
-	
+
 			<!-- 회원 -->
 			<sec:authorize access="isAuthenticated()">
 				<li class="col-sm-2"><a href="${initParam.rootPath }/board_list.do">공지사항</a></li>
 			</sec:authorize>
-			
+
 			<!-- 일반회원 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<li class="col-sm-2"><a href="${initParam.rootPath }/rankByCountRes.do">추천랭킹</a>

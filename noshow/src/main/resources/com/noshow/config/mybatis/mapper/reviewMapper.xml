@@ -103,15 +103,15 @@
 		UPDATE	review
 		SET		review_text = #{reviewText},
 				review_grade = #{reviewGrade},
-				review_img = #{reviewImageName},
+				reveiw_img = #{reviewImageName},
 				review_time = SYSDATE,
-		WHERE	review_num = #{reviewNum}
+		WHERE	reveiw_num = #{reviewNum}
 	</update>
 	
 	<delete id="deleteReviewByReviewNum" parameterType="_int">
 		DELETE
 		FROM	review
-		WHERE	review_num = #{value}
+		WHERE	reveiw_num = #{value}
 	</delete>
 	
 	<select id="selectReviewByMemberId" parameterType="string" resultMap="review-join-resultmap">
@@ -119,6 +119,7 @@
 		<include refid="review-column-sql"/>
 		FROM	review
 		WHERE	member_id = #{value}
+		ORDER BY reveiw_num DESC
 	</select>
 	
 	<select id="selectReviewByBusinessId" parameterType="string" resultMap="review-join-resultmap">
@@ -126,20 +127,17 @@
 		<include refid="review-column-sql"/>
 		FROM	review
 		WHERE	business_id = #{businessId}
-	</select>
-	
-	<select id="selectReviewForRank" resultMap="reviewRank">
-		SELECT	AVG(review_grade), business_id 
-		FROM	review
-		GROUP BY	business_id
-		ORDER BY	AVG(review_grade) DESC
+		ORDER BY reveiw_num DESC
 	</select>
 	
 	<select id="selectMaxResNum" parameterType="map" resultType="_int">
+	<![CDATA[
 		SELECT	MAX(res_num)
 		FROM	reservation
 		WHERE	member_id = #{memberId}
 		AND		business_id = #{businessId}
+		AND		res_Start_time <= SYSDATE
+	]]>
 	</select>
 	
 </mapper>

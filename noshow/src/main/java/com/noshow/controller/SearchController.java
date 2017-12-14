@@ -59,7 +59,6 @@ public class SearchController {
 		// 현재 사용자 정보를 받아와서 member 객체 생성
 		Member member = (Member) authentication.getPrincipal();
 		String memberId = member.getMemberId();
-		System.out.println("SearchController.restaurantListByName - memberId : " + memberId);
 		
 		Restaurant restaurant = service.selectRestaurantByBusinessId(memberId, businessId);
 		ModelAndView mav = new ModelAndView();

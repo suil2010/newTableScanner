@@ -159,4 +159,9 @@ public class MemberServiceImpl implements MemberService {
 		Authoritydao.updateAuthorityAdmin(memberId);
 		return dao.selectMemberAuthorityAdmin();
 	}
+
+	@Override
+	public int slelctDuplicateMemberId(String memberId) {
+		return dao.slelctDuplicateMemberId(memberId);
+	}
 }

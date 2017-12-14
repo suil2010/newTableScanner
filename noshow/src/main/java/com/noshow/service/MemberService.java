@@ -82,5 +82,11 @@ public interface MemberService {
 	 */
 	List<Member> MemberAuthorityUpdateAdmin(String memberId);
 	
+	/**
+	 * id 중복 체크
+	 * @param memberId
+	 * @return
+	 */
+	int slelctDuplicateMemberId(String memberId);
 
 }

@@ -88,3 +88,7 @@ insert into COMMEN values(commen_num_seq.nextval,'dlwltn','태경이를 때립�
 delete from commen;
 insert into Commen(COMMEN_NUM, COMMEN_ID, COMMEN_TEXT, COMMEN_TIME, BOARD_NUM)
 values(10, '21312', '45345', sysdate, '11')
+
+		select count(*)
+		from member
+		where member_id = 'dbsehddnd';

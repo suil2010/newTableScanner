@@ -162,10 +162,13 @@
 	
 	<!-- 리뷰 작성 권한 걸르기 위한 TEST 쿼리 -->
 	<select id="selectCountCheckRervation" parameterType="map" resultType="_int">
+	<![CDATA[
 		SELECT 	COUNT(*)
 		FROM	reservation
 		WHERE	business_id = #{businessId}
 		AND		member_id = #{memberId}
+		AND		res_Start_time <= SYSDATE
+	]]>
 	</select>
 	
 </mapper>

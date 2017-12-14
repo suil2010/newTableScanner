@@ -701,10 +701,10 @@
 						<label for="date">예약 희망 날짜</label>
 						<c:choose>
 							<c:when test="${requestScope.resDate == null }">
-								<input type="date" class="form-control" id="resDate" name="resDate" min="${current }" max="2019-12-31" placeholder="예약희망 날짜를 입력하세용" required>
+								<input type="date" class="form-control" id="resDate" name="resDate" <%-- min="${current }" --%> max="2019-12-31" placeholder="예약희망 날짜를 입력하세용" required>
 							</c:when>
 							<c:otherwise>
-								<input type="date" value="${requestScope.resDate }" id="resDate" class="form-control" name="resDate" min="${current }" max="2019-12-31"
+								<input type="date" value="${requestScope.resDate }" id="resDate" class="form-control" name="resDate" <%-- min="${current }" --%> max="2019-12-31"
 									placeholder="예약희망 날짜를 입력하세용" required
 								>
 							</c:otherwise>

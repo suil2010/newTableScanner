@@ -19,6 +19,8 @@ thead>tr>th {
 				<th style="width: 15%;">작성일</th>
 				<th style="width: 10%;">조회수</th>
 			</tr>
+		</thead>
+		<tbody>
 			<c:forEach var="row" items="${requestScope.list}">
 				<tr>
 					<td>${row.boardNum }</td>
@@ -28,12 +30,14 @@ thead>tr>th {
 					<td style="text-align: center;">${row.boardViews }</td>
 				</tr>
 			</c:forEach>
+		</tbody>
+
 	</table>
 	<sec:authorize access="isAuthenticated()">
 		<a href="${initParam.rootPath}/board_write.do">
 			<button type="button" id="btnWrite" class="btn btn-default">글쓰기</button>
 		</a>
-	</sec:authorize>	
+	</sec:authorize>
 
 	<sec:csrfInput />
 </div>

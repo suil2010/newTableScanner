@@ -119,6 +119,7 @@
 	background: rgba(0, 0, 0, 1) !important;
 }
 </style>
+
 <!-- 1200px 미만 display -->
 <form id="logoutForm" action="${initParam.rootPath }/logout.do" method="post" style="display: none">
 	<sec:csrfInput />
@@ -133,10 +134,9 @@
 	</button>
 	<div class="menu2" style="height: 100%; width: 250px; right: 0; position: absolute; z-index: 100; display: none;">
 		<ul>
-
-			<li class="close" style="height: 50px; background: black !important;"><span class="glyphicon glyphicon-remove"
-				style="color: #fff; font-size: 30px; margin-top: 5px;"
-			></span></li>
+			<li class="close" style="height: 50px; background: black !important;">
+				<span class="glyphicon glyphicon-remove" style="color: #fff; font-size: 30px; margin-top: 5px;"></span>
+			</li>
 			<!-- 개발자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li class="li">회원관리</li>
@@ -204,17 +204,9 @@
 			<a href="#" class="logout"><button class="btn btn-default">로그아웃</button></a>
 			<a href="${initParam.rootPath }/mypage/member_info.do"><button class="btn btn-default">마이페이지</button></a>
 		</sec:authorize>
-
-
-
-
-
-
-
-
 	</div>
-
 </header>
+
 
 <!-- 1200px 이상 display -->
 <header class="navbar-static-top header1" style="height: 60px;">

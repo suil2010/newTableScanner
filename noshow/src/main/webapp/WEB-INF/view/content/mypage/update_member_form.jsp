@@ -45,14 +45,14 @@ background: #FAFAFA;
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="oldMemberPassword">기존 비밀번호</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="oldPassword" name="oldMemberPassword" id="oldMemberPassword" required="required">
+				<input type="password" class="form-control" placeholder="oldPassword" name="oldMemberPassword" id="oldMemberPassword" required="required">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="memberPassword">새로운 비밀번호</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" placeholder="newPassword" name="memberPassword" id="memberPassword" required="required">
+				<input type="password" class="form-control" placeholder="newPassword" name="memberPassword" id="memberPassword" required="required">
 			</div>
 		</div>
 

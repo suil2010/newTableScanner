@@ -158,7 +158,7 @@ $(document).ready(function(){
 
 		<div class="form-group">
 			<label for="memberPassword">Password</label> 
-			<input type="text" class="form-control" placeholder="Password" name="memberPassword" onblur=PasswordCheck(); id="memberPassword" required>
+			<input type="password" class="form-control" placeholder="Password" name="memberPassword" onblur=PasswordCheck(); id="memberPassword" required>
 		</div>
 
 		<div class="form-group">

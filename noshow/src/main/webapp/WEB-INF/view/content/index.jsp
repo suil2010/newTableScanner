@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 	$(document).ready(function() {
 			$('#myTab a').click(function(e) {
@@ -154,9 +155,9 @@
 
 					<!-- 조건 검색바 -->
 					<div role="tabpanel" class="tab-pane active" id="S1" style="height: 100%; width: 100%; float: left;">
+						
 						<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurant.do"
-							style="width: 100%; height: 100%; float: left; padding: 0;"
-						>
+							style="width: 100%; height: 100%; float: left; padding: 0;">
 							<div class="form-group col-sm-12 nav">
 
 								<button type="button" class="gpsbtn btn" style="background: #fff; margin-left: 30px;">
@@ -175,9 +176,17 @@
 								<div class="input-group col-md-2 col-xs-12">
 									<input type="number" class="form-control" placeholder="인원" name="resPeople" min="1" required>
 								</div>
+								<sec:authorize access="isAuthenticated()">
 								<button type="submit" class="btn" style="border: 1px solid #000; background: #fff;">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
+								</sec:authorize>
+								<sec:authorize access="!isAuthenticated()">
+								<a href="${initParam.rootPath}/login_form.do" class="btn" role="button" style="border: 1px solid #000; background: #fff;">
+								<span class="glyphicon glyphicon-search"></span>
+								</a>
+								</sec:authorize>
+								
 
 							</div>
 							<sec:csrfInput />
@@ -187,7 +196,6 @@
 
 					<!-- 이름으로 검색바 -->
 					<div role="tabpanel" class="tab-pane" id="S2">
-
 						<form class="navbar-form" role="search" method="post" action="${initParam.rootPath}/searchRestaurantByName.do">
 							<div class="form-group col-sm-12 text-center">
 								<div class="input-group col-sm-1 col-xs-1">
@@ -201,11 +209,17 @@
 								<div class="input-group col-sm-4 col-xs-12">
 									<input type="text" class="form-control " placeholder="이름" name="resName">
 								</div>
-
 								<div class="input-group col-sm-1">
-									<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
-										<span class="glyphicon glyphicon-search"></span>
-									</button>
+									<sec:authorize access="isAuthenticated()">
+										<button type="submit" class="btn" style="border: 1px solid #000; background: #fff; float: left;">
+											<span class="glyphicon glyphicon-search"></span>
+										</button>
+									</sec:authorize>
+									<sec:authorize access="!isAuthenticated()">
+										<a href="${initParam.rootPath}/login_form.do" class="btn" role="button" style="border: 1px solid #000; background: #fff;">
+											<span class="glyphicon glyphicon-search"></span>
+										</a>
+									</sec:authorize>
 								</div>
 							</div>
 							<sec:csrfInput />

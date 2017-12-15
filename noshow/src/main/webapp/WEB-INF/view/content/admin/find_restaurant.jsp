@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="container">
-	<h2>가입된 정보</h2>
+	<h2> 음식점 현황</h2>
 	<div class="col-sm-12" style="background: #fff; min-height: 600px; margin-bottom: 10px; padding-top: 20px;">
 		<table class="table table-hover">
 			<thead>

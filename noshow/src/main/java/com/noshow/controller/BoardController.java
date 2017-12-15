@@ -68,7 +68,6 @@ public class BoardController {
 	@ResponseBody
 	public List<Commen> commenList(Commen commen) {
 		List<Commen> list = service.selectCommenByBoardNum(commen.getBoardNum());
-		System.out.println(list);
 		return list;
 	}
 	

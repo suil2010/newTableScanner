@@ -27,7 +27,7 @@
 		<id column="review_num" property="reviewNum"/>
 		<result column="review_text" property="reviewText"/>
 		<result column="review_time" property="reviewTime"/>
-		<result column="review_img" property="reviewImg"/>
+		<result column="reveiw_img" property="reviewImg"/>
 		<result column="review_grade" property="reviewGrade"/>
 		<result column="member_id" property="memberId"/>
 		<result column="business_id" property="businessId"/>

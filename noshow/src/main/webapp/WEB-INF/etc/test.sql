@@ -12,7 +12,7 @@ UPDATE member set member_name = "dkssudgktpdy" WHERE member_id = '201234026';
 
 
 		select res_date , sum(res_people) from RESERVATION where business_id = 'test-1' group by res_date
-
+delete from restaurant where business_id = 'noddle';
 
 select * from reservation;
 select * from restaurant
@@ -92,3 +92,23 @@ values(10, '21312', '45345', sysdate, '11')
 		select count(*)
 		from member
 		where member_id = 'dbsehddnd';
+		
+		
+		
+
+		
+		
+insert into MEMBER values('guswnss','phj','박현준','남','01052441251',sysdate,'djddd@naver.com',1 );
+insert into MEMBER values('tjdghks','phj','김성환','남','01052152122',sysdate,'djssd@naver.com',1 );
+insert into MEMBER values('dbfl12','phj','이유리','남','033451215',sysdate,'djadsqed@naver.com',1 );
+insert into MEMBER values('tncks','phj','정수찬','남','235166622',sysdate,'djdadsads@naver.com',1 );
+insert into MEMBER values('wltn5215','phj','이지수','남','781513222',sysdate,'dq222jd@naver.com',1 );
+insert into MEMBER values('ghrbapdlxm','phj','김호규','남','0102512222',sysdate,'2131djd@naver.com',1 );
+insert into MEMBER values('rbtjrdldia','phj','윤규석','남','1235121322',sysdate,'djqe6634d@naver.com',1 );
+insert into MEMBER values('xodmslsp','phj','최태은','남','0102315232',sysdate,'djd1321@naver.com',1 );
+
+
+
+
+
+

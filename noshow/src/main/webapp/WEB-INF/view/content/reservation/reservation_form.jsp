@@ -51,8 +51,9 @@
 									+ this.tableNum
 									+ ", 최대 인원 : "
 									+ this.tablePeople
-									+ "<input type='checkbox' name='tableList' value='" + this.tableSeq
-							+ "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>";
+									+ "<input type='checkbox' name='tableList' value=" + this.tableSeq
+									+ " class='tableChk'><span style='display: none'> "+this.tablePeople+"</span>"
+							+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>";
 							});
 					$("#selectTableDiv").html(txt);
 				}, //end of success
@@ -454,7 +455,7 @@
 		$(".tableChk:checked").each(function(){
 			checkedPNum += window.parseInt($(this).next().text());
 		});
-
+		/* alert(wantedPeople+"-"+checkedPNum); */
 		var payment = $('input:radio[name="resPayStatement"]:checked').val();
 		var tableCheck = $('input:checkbox[name="tableList"]:checked').val();
 		if (payment == null) {
@@ -538,9 +539,9 @@
 					<!-- 2017.12.11 현준 추가 -->
 					<div class="row">
 						<c:forEach items="${requestScope.restaurant.menuList}" var="item">
-							<div class="col-md-3" style="margin-top: 10px;">
+							<div class="col-md-6" style="margin-top: 10px;">
 								<div style="margin-right: 10px; background: #fff; width: 100%; height: 100%; padding: 10px;" class="col-md-12">
-									<img src="${initParam.rootPath }/menuPicture/${item.menuPicture}" class="col-sm-12" style="width: 100%; height: 110px;">
+									<img src="${initParam.rootPath }/menuPicture/${item.menuPicture}" class="col-sm-12" style="width: 100%; height: 170px;">
 									<div class="col-sm-12" style="margin-top: 10px;">
 										<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 이름 : ${item.menuName}</span> <span class="label col-sm-9"
 											style="color: #000; font-size: 14px;"
@@ -582,7 +583,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach items="${requestScope.restaurant.reviewList}" var="review">
-									<div class="col-md-12 box1" style="background: #fff; min-height: 100px; padding: 10px; margin-top: 10px;">
+									<div class="col-md-12 box1" style="background: #fff; height: 100px; padding: 10px; margin-top: 10px;">
 										<img src="${initParam.rootPath }/reviewPicture/${review.reviewImg}" class="col-md-3" style="height: 100%;">
 										<div style="float: right;" class="col-md-9">
 											<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 작성자 : ${review.memberId}</span> <span class="label col-sm-9"

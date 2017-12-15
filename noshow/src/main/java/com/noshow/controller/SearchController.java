@@ -68,13 +68,7 @@ public class SearchController {
 		return mav;
 	}
 	
-/*	@RequestMapping("/nonMemberToRestaurant")
-	public ModelAndView nonMemberToRestaurant(String businessId) {
-		System.out.println("SearchController.nonMember - businessId : " + businessId);
-		Restaurant restaurant = service.selectRestaurantByBusinessId(null, businessId);
-		return new ModelAndView("reservation/reservation_form.tiles", "restaurant", restaurant);
-	}*/
-	
+
 	// 예약정보를 받아서 처리하는 controller 
 	@RequestMapping("/searchRestaurant")
 	public ModelAndView searchRestaurant(String resPlace, String resDate, String resTime, Integer resPeople, HttpSession session) {

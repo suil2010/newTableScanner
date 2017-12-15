@@ -449,6 +449,12 @@
 
 	// formCheck() - 결제 , 테이블선택 유무를 체크
 	function formCheck() {
+		var wantedPeople = window.parseInt($("#resPeople").val());
+		var checkedPNum=0;
+		$(".tableChk:checked").each(function(){
+			checkedPNum += window.parseInt($(this).next().text());
+		});
+
 		var payment = $('input:radio[name="resPayStatement"]:checked').val();
 		var tableCheck = $('input:checkbox[name="tableList"]:checked').val();
 		if (payment == null) {
@@ -459,10 +465,13 @@
 				alert("예약하실 테이블을 선택하세요.");
 				return false;
 			} else {
+				if (checkedPNum < wantedPeople || checkedPNum > wantedPeople+2) {
+					alert('테이블은 인원수에 맞게 선택해주세요.');
+					return false;
+				}
 				return true;
 			}
 		}
-
 	}
 </script>
 
@@ -761,10 +770,10 @@
 									<c:if test="${cnt.index % 2 == 0 }">
 										<br>
 									</c:if>
-									<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } <input type="checkbox" name="tableList"
-										value="${tables.tableSeq }"
-									>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label>테이블 번호 : ${tables.tableNum }, 최대인원 : ${tables.tablePeople } 
+									<input type="checkbox" name="tableList" value="${tables.tableSeq }" class="tableChk"><span style="display: none">${tables.tablePeople }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</label>
+									
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>

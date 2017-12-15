@@ -95,7 +95,7 @@
 	}
 </script>
 
-<div class="container" style="max-width: 800px;">
+<div class="container" style="max-width: 800px; padding-top: 20px;">
 
 	<form name="resForm" action="${initParam.rootPath}/ownerAddReservation.do" onsubmit="return formCheck()" method="post">
 

@@ -52,8 +52,8 @@
 </script>
 
 <sec:authentication property='principal.memberId' var="currentBusinessId"/>
-<div class="container" id="ownerQuestionDiv">
-	<div class="col-sm-10" id="questionListDiv"
+<div class="container" id="ownerQuestionDiv" style="max-width: 900px;">
+	<div class="col-sm-12" id="questionListDiv"
 		style="background: #fff; min-height: 600px; margin-bottom: 10px; padding-top: 20px;">
 		<c:choose>
 			<c:when test="${empty requestScope.questionList  }">
@@ -70,16 +70,16 @@
 						<div class="answerBtnClassiDiv" style="float:left;display:block"> 
 							<c:choose>
 								<c:when test="${question.answer.answerText == null}">
-									<button type="button" class="btn btn-primary btn-xs answerBeforeBtn">답변달기</button>
-								</c:when>	
+									<button type="button" class="btn btn-primary answerBeforeBtn">답변달기</button>
+								</c:when>	 
 								<c:otherwise>
-									<button type="button" class="btn btn-basic btn-xs answerViewBtn">답변보기</button>							
+									<button type="button" class="btn btn-basic answerViewBtn">답변보기</button>							
 								</c:otherwise>				
 							</c:choose>					
 						</div>
 						<!-- 답글 등록 div -->
 						<div class="col-md-12 registAnswerFormDiv" style="display:none">
-							<button type="button" class="btn btn-basic btn-xs cancelAnswerBtn">취소</button>
+							<button type="button" class="btn btn-basic cancelAnswerBtn">취소</button>
 							<form action="${initParam.rootPath}/registAnswer.do" method="post" class="registAnswerFrom">
 								<textarea class="form-control" rows="3" style="resize: none;" name="answerText" id="answerText" required></textarea>
 								<input type="hidden" name="businessId" value="${currentBusinessId }" />

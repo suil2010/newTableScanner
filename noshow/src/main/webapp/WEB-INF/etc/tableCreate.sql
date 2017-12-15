@@ -425,7 +425,7 @@ ALTER TABLE ANSWER
          QUESTION_NUM
       )
       ON DELETE CASCADE;
-      );
+      
       
 /* code 테이블 기본 값 - 무조건 같이 실행!!!!!*/  
 insert into HOLIDAY VALUES('not holiday','휴일없음');

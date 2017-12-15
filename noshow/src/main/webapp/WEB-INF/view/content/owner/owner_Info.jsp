@@ -15,7 +15,7 @@
 	text-align: center;
 }
 </style>
-<div class="container" style="max-width: 900px; padding-top: 40px;">
+<div class="container" style="max-width: 900px; padding-top: 40px; min-height: 800px;">
 	<div class="form-group">
 		<label class="col-sm-3">사업자번호 :</label> <label class="col-sm-9">${requestScope.rt.rtNum }</label>
 	</div>
@@ -41,11 +41,6 @@
 		<label class="col-sm-3">테이블 이용시간 : </label> <label class="col-sm-9">${requestScope.rt.term.termVal } </label>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3">매장사진 :</label> <label class="col-sm-9"> <img src="${initParam.rootPath }/rtPicture/${requestScope.rt.rtPicture}"
-			width="350px"
-		></label>
-	</div>
-	<div class="form-group">
 		<label class="col-sm-3">음식점 위치 : </label> <label class="col-sm-9"> ${requestScope.rt.rtAddress } </label>
 	</div>
 	<div class="form-group">
@@ -53,6 +48,12 @@
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3">1인당 취소금액 :</label> <label class="col-sm-9"> ${requestScope.rt.rtDeposit } </label>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3">매장사진 :</label>  
+			<div class="col-sm-9">
+			<img src="${initParam.rootPath }/rtPicture/${requestScope.rt.rtPicture}"class="col-sm-6" style="float: none;"> 
+		</div>
 	</div>
 	<div class="row" style="float: right;">
 		<a href="${initParam.rootPath }/find_rt_update.do"><button class="btn btn-default">수정하기</button></a>

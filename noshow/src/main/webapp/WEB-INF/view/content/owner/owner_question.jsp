@@ -67,13 +67,13 @@
 							<span class="label col-sm-9" style="color: #000; font-size: 18px;"> 문의글 : ${question.questionText}</span> 
 							<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 등록 일시 : ${question.questionTime}</span>
 						</div>
-						<div class="answerBtnClassiDiv" style="float:left;display:block"> 
+						<div class="answerBtnClassiDiv" style="float:left;">  	
 							<c:choose>
 								<c:when test="${question.answer.answerText == null}">
 									<button type="button" class="btn btn-primary answerBeforeBtn">답변달기</button>
 								</c:when>	 
 								<c:otherwise>
-									<button type="button" class="btn btn-basic answerViewBtn">답변보기</button>							
+									<button type="button" class="btn btn-default answerViewBtn">답변보기</button>							
 								</c:otherwise>				
 							</c:choose>					
 						</div>
@@ -89,23 +89,29 @@
 							</form>						
 						</div>
 						<!-- 답글 보기 div -->
-						<div class="col-md-12 answerViewFormDiv" style="display:none">
-						<hr>
-							<button type="button" class="btn btn-basic btn-xs closeAnswerBtn">답글접기</button>
-								<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 답글 번호 : ${question.answer.answerNum} | 작성자 : ${question.memberId}</span> 
-								<span class="label col-sm-9" style="color: #000; font-size: 18px;"> 답글 내용 : ${question.answer.answerText}</span> 
-								<span class="label col-sm-9" style="color: #000; font-size: 14px;"> 등록 일시 : ${question.answer.answerDate}</span>
-								<button type="button" class="btn btn-basic btn-xs updateAnswerBtn">수정</button>
-								<form action="${initParam.rootPath }/deleteAnswer.do" method="post">
-									<input type="hidden" value="${question.answer.answerNum}" name="answerNum">
-									<input type="submit" class="btn btn-basic btn-xs" value="삭제" onclick="return confirm('정말 답글을 삭제하시겠습니까?')">
-									<sec:csrfInput />
-								</form>
-							<hr>
+						<div class="col-md-12 answerViewFormDiv" style="display:none; margin-top: 10px; border-top: 1px solid #E0e0e0; padding-top: 20px;">   	
+							<div class="row">		
+							<div class="col-sm-9"> 
+								<span class="label col-sm-12" style="color: #000; font-size: 14px;"> 답글 번호 : ${question.answer.answerNum} | 작성자 : ${question.memberId}</span> 
+								<span class="label col-sm-12" style="color: #000; font-size: 18px;"> 답글 내용 : ${question.answer.answerText}</span> 
+								<span class="label col-sm-12" style="color: #000; font-size: 14px;"> 등록 일시 : ${question.answer.answerDate}</span>
+							</div> 	
+								<div class="col-sm-3">
+									<button type="button" class="btn btn-default closeAnswerBtn" style="margin-bottom: 5px;">답글접기</button>
+									<form action="${initParam.rootPath }/deleteAnswer.do" method="post">
+										<input type="hidden" value="${question.answer.answerNum}" name="answerNum">
+										<input type="submit" class="btn btn-default" value="삭제" onclick="return confirm('정말 답글을 삭제하시겠습니까?')">
+										<button type="button" class="btn btn-default updateAnswerBtn">수정</button>
+										<sec:csrfInput /> 
+									</form>
+								</div>
+							</div>  
 						</div>
+						
+						
 						<!-- 답글 수정 div -->
 						<div class="col-sm-10 updateAnswerFormDiv" style="display:none">
-							<button type="button" class="btn btn-basic btn-xs updateCancelBtn">취소</button>
+							<button type="button" class="btn btn-default updateCancelBtn">취소</button>     
 							<form action="${initParam.rootPath}/updateAnswer.do" method="post" class="questionUpdateFrom">
 								<textarea class="form-control" rows="3" style="resize: none;" name="answerText" id="answerText" required>${question.answer.answerText}</textarea>
 								<input type="hidden" name="businessId" value="${currentBusinessId}" />
